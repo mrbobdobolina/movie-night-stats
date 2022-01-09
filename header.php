@@ -115,6 +115,243 @@ $numbers = $numberTypes[rand(0,3)];
 				font-weight:bold;
 				margin-top: 20px;
 			}
+			
+			.timeline {
+			    border-left: 3px solid #727cf5;
+			    border-bottom-right-radius: 4px;
+			    border-top-right-radius: 4px;
+			    background: rgba(114, 124, 245, 0.09);
+			    margin: 0 auto;
+			    letter-spacing: 0.2px;
+			    position: relative;
+			    line-height: 1.4em;
+			    font-size: 1.03em;
+			    padding: 50px;
+			    list-style: none;
+			    text-align: left;
+			    max-width: 40%;
+			}
+
+			@media (max-width: 767px) {
+			    .timeline {
+			        max-width: 98%;
+			        padding: 25px;
+			    }
+			}
+
+			.timeline h1 {
+			    font-weight: 300;
+			    font-size: 1.4em;
+			}
+
+			.timeline h2,
+			.timeline h3 {
+			    font-weight: 600;
+			    font-size: 1rem;
+			    margin-bottom: 10px;
+			}
+
+			.timeline .event {
+			    border-bottom: 1px dashed #e8ebf1;
+			    padding-bottom: 25px;
+			    margin-bottom: 25px;
+			    position: relative;
+			}
+
+			@media (max-width: 767px) {
+			    .timeline .event {
+			        padding-top: 30px;
+			    }
+			}
+
+			.timeline .event:last-of-type {
+			    padding-bottom: 0;
+			    margin-bottom: 0;
+			    border: none;
+			}
+
+			.timeline .event:before,
+			.timeline .event:after {
+			    position: absolute;
+			    display: block;
+			    top: 0;
+			}
+
+			.timeline .event:before {
+			    left: -207px;
+			    content: attr(data-date);
+			    text-align: right;
+			    font-weight: 100;
+			    font-size: 0.9em;
+			    min-width: 120px;
+			}
+
+			@media (max-width: 767px) {
+			    .timeline .event:before {
+			        left: 0px;
+			        text-align: left;
+			    }
+			}
+
+			.timeline .event:after {
+			    -webkit-box-shadow: 0 0 0 3px #727cf5;
+			    box-shadow: 0 0 0 3px #727cf5;
+			    left: -55.8px;
+			    background: #fff;
+			    border-radius: 50%;
+			    height: 9px;
+			    width: 9px;
+			    content: "";
+			    top: 5px;
+			}
+
+			@media (max-width: 767px) {
+			    .timeline .event:after {
+			        left: -31.8px;
+			    }
+			}
+
+			.rtl .timeline {
+			    border-left: 0;
+			    text-align: right;
+			    border-bottom-right-radius: 0;
+			    border-top-right-radius: 0;
+			    border-bottom-left-radius: 4px;
+			    border-top-left-radius: 4px;
+			    border-right: 3px solid #727cf5;
+			}
+
+			.rtl .timeline .event::before {
+			    left: 0;
+			    right: -170px;
+			}
+
+			.rtl .timeline .event::after {
+			    left: 0;
+			    right: -55.8px;
+			}
+			
+			.mt-70 {
+			    margin-top: 70px
+			}
+
+			.mb-70 {
+			    margin-bottom: 70px
+			}
+
+			.card {
+			    box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+			    border-width: 0;
+			    transition: all .2s
+			}
+
+			.card {
+			    position: relative;
+			    display: flex;
+			    flex-direction: column;
+			    min-width: 0;
+			    word-wrap: break-word;
+			    background-color: #fff;
+			    background-clip: border-box;
+			    border: 1px solid rgba(26, 54, 126, 0.125);
+			    border-radius: .25rem
+			}
+
+			.card-body {
+			    flex: 1 1 auto;
+			    padding: 1.25rem
+			}
+
+			.vertical-timeline {
+			    width: 100%;
+			    position: relative;
+			    padding: 1.5rem 0 1rem
+			}
+
+			.vertical-timeline::before {
+			    content: '';
+			    position: absolute;
+			    top: 0;
+			    left: 67px;
+			    height: 100%;
+			    width: 4px;
+			    background: #e9ecef;
+			    border-radius: .25rem
+			}
+
+			.vertical-timeline-element {
+			    position: relative;
+			    margin: 0 0 1rem
+			}
+
+			.vertical-timeline--animate .vertical-timeline-element-icon.bounce-in {
+			    visibility: visible;
+			    animation: cd-bounce-1 .8s
+			}
+
+			.vertical-timeline-element-icon {
+			    position: absolute;
+			    top: 0;
+			    left: 60px
+			}
+
+			.vertical-timeline-element-icon .badge-dot-xl {
+			    box-shadow: 0 0 0 5px #fff
+			}
+
+			.badge-dot-xl {
+			    width: 18px;
+			    height: 18px;
+			    position: relative
+			}
+
+			.badge:empty {
+			    display: none
+			}
+
+			.badge-dot-xl::before {
+			    content: '';
+			    width: 10px;
+			    height: 10px;
+			    border-radius: .25rem;
+			    position: absolute;
+			    left: 50%;
+			    top: 50%;
+			    margin: -5px 0 0 -5px;
+			    background: #fff
+			}
+
+			.vertical-timeline-element-content {
+			    position: relative;
+			    margin-left: 90px;
+			    font-size: .8rem
+			}
+
+			.vertical-timeline-element-content .timeline-title {
+			    font-size: .8rem;
+			    text-transform: uppercase;
+			    margin: 0 0 .5rem;
+			    padding: 2px 0 0;
+			    font-weight: bold
+			}
+
+			.vertical-timeline-element-content .vertical-timeline-element-date {
+			    display: block;
+			    position: absolute;
+			    left: -90px;
+			    top: 0;
+			    padding-right: 10px;
+			    text-align: right;
+			    color: #adb5bd;
+			    font-size: .7619rem;
+			    white-space: nowrap
+			}
+
+			.vertical-timeline-element-content:after {
+			    content: "";
+			    display: table;
+			    clear: both
+			}
     </style>
 <script src="https://cdn.jsdelivr.net/combine/npm/chart.js@3.3.2,npm/chart.js@3.5.0"></script>
     
