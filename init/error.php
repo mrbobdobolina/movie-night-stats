@@ -55,6 +55,14 @@ switch($_GET['e']){
 		$text2 .= 'then click <a href="../">here</a> to continue.';
 		break;
 
+	case 'mysql-2002':
+		$text1 = 'DB Error: Can\'t connect to server';
+
+		$text2 = 'Check the database address in settings.config and make sure the MySQL server is running ';
+		$text2 .= 'then click <a href="../">here</a> to continue.';
+		break;
+
+
 	default:
 		$text1 = 'Error displaying the error';
 		$text2 = 'The Error responible has been sacked.';
