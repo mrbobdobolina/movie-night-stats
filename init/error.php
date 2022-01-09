@@ -8,8 +8,7 @@
   <title>Movie Night Stats</title>
 
   <!-- Bootstrap core CSS -->
-	<link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet" >
-	<script src="https://kit.fontawesome.com/2b50968540.js" crossorigin="anonymous"></script>
+	<link href="../assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
 
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">

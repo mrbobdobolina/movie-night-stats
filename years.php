@@ -1,11 +1,17 @@
-<?php require_once("header.php"); ?>
+<?php
+
+require_once('common.php');
+
+template('header');
+
+?>
 
 
   <div class="album py-5 bg-light">
     <div class="container">
 			<p class="display-6 text-center mb-5">Our long and storied history.</p>
 			<p class="text-center mb-5"></p>
-			<?php 
+			<?php
 			$yearly_events = Array();
 			$yearly_time = Array();
 			$yearly_attendance = Array();
@@ -27,22 +33,22 @@
 		  <table id="column-years" class="charts-css column show-labels show-data">
 				<thead>
 					<tr>
-						<th scope="col">Years</th> 
+						<th scope="col">Years</th>
 						<th scope="col">Movies</th>
 					</tr>
-				</thead> 
-					<tbody style="height: 250px;">			
+				</thead>
+					<tbody style="height: 250px;">
 						<?php foreach($yearly_events as $key => $value):?>
 						<tr>
 							<th scope="row"><?php echo $key; ?> </th>
 							<td style="--size:<?php echo round($value/$max_events,2); ?>;"><span class="data"><?php echo $value; ?></span></td>
-						</tr> 
+						</tr>
 					<?php endforeach;?>
 					</tbody>
 		  </table>
 		</div></div>
 	</div>
-			
+
 				<div class="col">
 			<div class="card ">
 				<div class="card-body">
@@ -50,20 +56,20 @@
 		  <table id="column-years" class="charts-css column show-labels show-data">
 				<thead>
 					<tr>
-						<th scope="col">Years</th> 
+						<th scope="col">Years</th>
 						<th scope="col">Minutes</th>
 					</tr>
-				</thead> 
-					<tbody style="height: 250px;">			
+				</thead>
+					<tbody style="height: 250px;">
 						<?php foreach($yearly_time as $key => $value):?>
 						<tr>
 							<th scope="row"><?php echo $key; ?> </th>
 							<td style="--size:<?php echo round($value/$max_time,2); ?>;"><span class="data"><?php echo $value; ?></span></td>
-						</tr> 
+						</tr>
 					<?php endforeach;?>
 					</tbody>
 		  </table>
-		</div>	
+		</div>
 	</div>
 	</div>
 
@@ -74,24 +80,24 @@
 						  <table id="column-years" class="charts-css column show-labels show-data">
 								<thead>
 									<tr>
-										<th scope="col">Years</th> 
+										<th scope="col">Years</th>
 										<th scope="col">Minutes</th>
 									</tr>
-								</thead> 
-									<tbody style="height: 250px;">			
+								</thead>
+									<tbody style="height: 250px;">
 										<?php foreach($yearly_attendance as $key => $value):?>
 										<tr>
 											<th scope="row"><?php echo $key; ?> </th>
 											<td style="--size:<?php echo round($value/$max_attendance,2); ?>;"><span class="data"><?php echo $value; ?></span></td>
-										</tr> 
+										</tr>
 									<?php endforeach;?>
 								</tbody>
 							</table>
 						</div>
 						<div>
 				</div>
-				
-				
+
+
 			</div>
 
 
@@ -103,11 +109,11 @@
 		<div class="card p-2 mt-5 mb-3">
 		<p class="display-6 text-center mt-5 mb-2"> <?php echo $ii; ?> Stats</p>
 
-		
+
 		<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3 justify-content-center">
 
 			<div class="col align-self-center">
-				<?php $biggest_winner = biggest_winner($ii); 
+				<?php $biggest_winner = biggest_winner($ii);
 				$winners = count($biggest_winner['top_winners']);
 				if($winners > 1){
 					//more than one person one! It's a tie!
@@ -115,8 +121,8 @@
 					foreach($biggest_winner['top_winners'] as $person){
 						$people[] = getMoviegoerById($person);
 					}
-					
-					$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest_winner['count']." wins!";		
+
+					$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest_winner['count']." wins!";
 					$color = getMoviegoerColorById($biggest_winner['top_winners'][0]);
 				} elseif($winners == 1) {
 					$message = getMoviegoerById($biggest_winner['top_winners'][0]) ." with ". $biggest_winner['count']." wins!";
@@ -134,9 +140,9 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="col align-self-center">
-				<?php $biggest_spinner = biggest_spinner($ii); 
+				<?php $biggest_spinner = biggest_spinner($ii);
 				$winners = count($biggest_spinner['top_spinner']);
 				if($winners > 1){
 					//more than one person one! It's a tie!
@@ -144,7 +150,7 @@
 					foreach($biggest_spinner['top_spinner'] as $person){
 						$people[] = getMoviegoerById($person);
 					}
-					
+
 					$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest_spinner['count']." spins!";
 					$color = getMoviegoerColorById($biggest_spinner['top_spinner'][0]);
 				} elseif($winners == 1) {
@@ -163,9 +169,9 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="col align-self-center">
-				<?php $biggest = highest_attendance($ii); 
+				<?php $biggest = highest_attendance($ii);
 				$winners = count($biggest['top']);
 				if($winners > 1){
 					//more than one person one! It's a tie!
@@ -173,7 +179,7 @@
 					foreach($biggest['top'] as $person){
 						$people[] = getMoviegoerById($person);
 					}
-					$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." events!";		
+					$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." events!";
 					$color = getMoviegoerColorById($biggest['top'][0]);
 				} elseif($winners == 1) {
 					$message = getMoviegoerById($biggest['top'][0]) ." with ". $biggest['count']." events!";
@@ -191,11 +197,11 @@
 					</div>
 				</div>
 			</div>
-			
-			
-			
+
+
+
 			<div class="col align-self-center">
-				<?php $biggest = biggest_blank($ii, 'selection_method'); 
+				<?php $biggest = biggest_blank($ii, 'selection_method');
 				$winners = count($biggest['top']);
 				if($winners > 1){
 					//more than one person one! It's a tie!
@@ -203,7 +209,7 @@
 					foreach($biggest['top'] as $person){
 						$people[] = $person;
 					}
-					
+
 					$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." events!";
 				} elseif($winners == 1) {
 					$message = $biggest['top'][0] ." with ". $biggest['count']." events!";
@@ -219,9 +225,9 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="col align-self-center">
-				<?php $biggest = biggest_blank($ii, 'winning_wedge', TRUE); 
+				<?php $biggest = biggest_blank($ii, 'winning_wedge', TRUE);
 				$winners = count($biggest['top']);
 				if($winners > 1){
 					//more than one person one! It's a tie!
@@ -244,10 +250,10 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="col align-self-center">
-				
-				<?php $biggest = biggest_blank($ii, 'format'); 
+
+				<?php $biggest = biggest_blank($ii, 'format');
 				$winners = count($biggest['top']);
 				if($winners > 1){
 					//more than one person one! It's a tie!
@@ -273,9 +279,9 @@
 					</div>
 				</div>
 			</div>
-			
-			<div class="col align-self-center">		
-				<?php $biggest = most_requested_film($ii); 
+
+			<div class="col align-self-center">
+				<?php $biggest = most_requested_film($ii);
 				$winners = count($biggest['top']);
 				if($winners > 1){
 					//more than one person one! It's a tie!
@@ -283,7 +289,7 @@
 					foreach($biggest['top'] as $person){
 						$people[] = getMovieById($person);
 					}
-					$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." requests!";		
+					$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." requests!";
 				} elseif($winners == 1) {
 					$message = getMovieById($biggest['top'][0]) ." with ". $biggest['count']." requests!";
 				} else {
@@ -298,9 +304,9 @@
 					</div>
 				</div>
 			</div>
-			
-			<div class="col align-self-center">		
-				<?php $won_films = find_best_or_worst_watched_film_with_year_option($best_or_worst = "best", $year = $ii); 
+
+			<div class="col align-self-center">
+				<?php $won_films = find_best_or_worst_watched_film_with_year_option($best_or_worst = "best", $year = $ii);
 				unset($winners);
 				$top_rating = $won_films[0]['avg_rating'];
 				foreach($won_films as $aFilm ){
@@ -311,7 +317,7 @@
 					}
 				}
 				?>
-				
+
 				<?php
 				unset($names);
 				$names = Array();
@@ -324,8 +330,8 @@
 				if($count_winners > 1){
 					//more than one person one! It's a tie!
 					$people = Array();
-					
-					$message = "It's a ".$count_winners."-way tie between ".implode(' and ', $names)." with ". round($top_rating,2)."% average rating!";		
+
+					$message = "It's a ".$count_winners."-way tie between ".implode(' and ', $names)." with ". round($top_rating,2)."% average rating!";
 				} elseif($count_winners == 1) {
 					$message = $winners[0]['name'] ." with ". round($top_rating,1)."% average rating!";
 				} else {
@@ -340,10 +346,10 @@
 					</div>
 				</div>
 			</div>
-			
-			
-			<div class="col align-self-center">		
-				<?php $won_films = find_best_or_worst_watched_film_with_year_option($best_or_worst = "worst", $year = $ii); 
+
+
+			<div class="col align-self-center">
+				<?php $won_films = find_best_or_worst_watched_film_with_year_option($best_or_worst = "worst", $year = $ii);
 				unset($winners);
 				$top_rating = $won_films[0]['avg_rating'];
 				foreach($won_films as $aFilm ){
@@ -354,7 +360,7 @@
 					}
 				}
 				?>
-				
+
 				<?php
 				unset($names);
 				$names = Array();
@@ -366,8 +372,8 @@
 				$count_winners = count($names);
 				if($count_winners > 1){
 					//more than one person one! It's a tie!
-					$people = Array();	
-					$message = "It's a ".$count_winners."-way tie between ".implode(' and ', $names)." with ". round($top_rating,2)."% average rating!";		
+					$people = Array();
+					$message = "It's a ".$count_winners."-way tie between ".implode(' and ', $names)." with ". round($top_rating,2)."% average rating!";
 				} elseif($count_winners == 1) {
 					$message = $winners[0]['name'] ." with ". round($top_rating,1)."% average rating!";
 				} else {
@@ -382,29 +388,29 @@
 					</div>
 				</div>
 			</div>
-			
 
-			
-			
-			<?php 			
+
+
+
+			<?php
 			unset($format_m);
 			unset($count_m);
 			unset($color_m);
-			
+
 			$colors = get_service_color();
-				
-				
-				
-				$minutes_watched = count_minutes_per_service($ii); 
+
+
+
+				$minutes_watched = count_minutes_per_service($ii);
 				//print_r($minutes_watched);
 				foreach($minutes_watched as $item){
 					$format_m[] = $item['format'];
 					$count_m[] = $item['SUM(`runtime`)'];
-				
+
 					$color_m[] = $colors[$item['format']];
-				
+
 				}
-				
+
 				?>
 					<canvas id="myTimeChart<?php echo $ii;?>" width="400" height="150" style="position:relative; !important"></canvas>
 
@@ -431,24 +437,12 @@
 				    }
 				});
 				</script>
-			
+
 		</div>
 	</div>
 			<?php endfor;?>
-		
-		
+
+
 </main>
 
-<footer class="text-muted py-5">
-  <div class="container">
-				Version <?php echoVersionNumber(); ?> <a href="changelog.php">Changelog</a>
-   </div>
-</footer>
-
-    <script src="bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-		
-
-
-      
-  </body>
-</html>
+<?php template('footer');?>

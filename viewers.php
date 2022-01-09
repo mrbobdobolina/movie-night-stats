@@ -1,13 +1,19 @@
-<?php require_once("header.php"); ?>
+<?php
+
+require_once('common.php');
+
+template('header');
+
+?>
 
   <div class="album py-5 bg-light">
     <div class="container">
 			<p class="display-6 text-center ">The People</p>
 			<p class="lead text-center ">(They used to be your friends, but then you made them watch<span class="bg-dark text-white"><strong> [REDACTED] </strong></span>.)</p>
 			<br />
-			
+
 			<?php $streakers = get_streakers(); ?>
-			
+
 			<div class="row justify-content-around">
 					<div class="alert text-center col-5 text-white" role="alert" style="background-color:#<?php echo getMoviegoerColorById($streakers['current']['viewer']);?>;">
 						<?php echo "<strong>Current Winning Streak: </strong>" . getMoviegoerById($streakers['current']['viewer']) .  " with "  . $streakers['current']['count']; " wins! "; ?>
@@ -16,10 +22,10 @@
 						<?php echo "<strong>Longest Winning Streak: </strong>" . getMoviegoerById($streakers['longest']['viewer']) .  " with "  . $streakers['longest']['count']; " wins! "; ?>
 					</div>
 				</div>
-				
+
 				<div class="row mt-3">
 				<?php $time_watched = viewer_watchtime();?>
-				
+
 				<table id="movies" class="table table-striped">
 				  <thead>
 				    <tr>
@@ -27,7 +33,7 @@
 				      <th>Atnd</th>
 							<th class="text-end">
 								<div data-bs-toggle="tooltip" data-bs-animation='false' data-bs-placement="right" title="The number of events a viewer has been to.">%</div>
-							</th>  
+							</th>
 				      <th class="text-end">
 								<div data-bs-toggle="tooltip" data-bs-animation='false' data-bs-placement="right" title="The number of unique movies a user has put on the wheel.">
 									<i class="fas fa-fingerprint"></i> <i class="fas fa-film"></i>
@@ -52,7 +58,7 @@
 									<i class="fas fa-trophy"></i> %
 								</div>
 							</th>
-									
+
 							<th>
 								<div data-bs-toggle="tooltip" data-bs-animation='false' data-bs-placement="right" title=" The percentage of attended movie nights that a viewers movie has won.">
 									<i class="fas fa-trophy" ></i>/Atnd
@@ -89,15 +95,15 @@
 									<i class="fas fa-star-half-alt"></i>%
 								</div>
 							</th>
-							
+
 
 				    </tr>
 				  </thead>
 				  <tbody>
-						<?php $viewer = getListOfViewers('attendance'); 
+						<?php $viewer = getListOfViewers('attendance');
 						$total_events = countWeeks();?>
-						<?php foreach($viewer as $person): ?>		
-							
+						<?php foreach($viewer as $person): ?>
+
 							<tr style="background-color:<?php echo HTMLToRGB($person['color']);?>;">
 					    	<td style="background-color:#<?php echo $person['color'];?>;" class="bold text-white"><?php echo $person['name'];?></td>
 								<?php $attend = countAttendanceReal($person['id']);?>
@@ -108,11 +114,11 @@
 								?>
 								<td class="text-end"><?php echo $myUnique; ?></td>
 								<td class="text-end"><?php echo $myTotal; ?></td>
-								<td class="text-end"><?php 
+								<td class="text-end"><?php
 									if($myTotal == 0){ $myTotal = 1;}
 									echo round(($myUnique/$myTotal)*100,2);?>%</td>
 								<?php $wins = winningPickStats($person['id']);?>
-						
+
 								<td class="text-end"><?php echo $wins; ?></td>
 								<td class="text-end"><?php echo round(($wins/$total_events)*100,2);?>%</td>
 								<td class="text-end"><?php echo round(($wins/$attend)*100,2);?>%</td>
@@ -130,10 +136,10 @@
 					    </tr>
 						<?php endforeach; ?>
 				  </tbody>
-				</table>			
-				
+				</table>
+
 			</div>
-			
+
 			<div class="accordion mt-1" id="accordionExample">
 			  <div class="accordion-item">
 			    <h2 class="accordion-header" id="headingOne">
@@ -165,12 +171,12 @@
 			    </div>
 			  </div>
 			</div>
-			
 
-			
-			
+
+
+
 			<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3 mt-5">
-				<?php foreach($viewer as $person): ?>	
+				<?php foreach($viewer as $person): ?>
 					<div class="col-3 mb-4">
 	          <div class="card">
 					 <div class="card-header bold text-white" style="background-color:#<?php echo $person['color'];?>;" >
@@ -194,59 +200,59 @@
 											  <table id="column-<?php echo $person['id'];?>" class="charts-css column show-labels show-data-on-hover">
 													<thead>
 														<tr>
-															<th scope="col">Number</th> 
+															<th scope="col">Number</th>
 															<th scope="col">Wins</th>
 														</tr>
-													</thead> 
-														<tbody style="height: 120px;">			
+													</thead>
+														<tbody style="height: 120px;">
 															<?php foreach($numbers as $key => $value):?>
 															<tr>
-																<th scope="row"> <?php echo $key; ?> </th> 
+																<th scope="row"> <?php echo $key; ?> </th>
 																<td style="--size:<?php echo round($value/$max,2); ?>;"><span class="data"><?php echo $value; ?></span></td>
-															</tr> 
+															</tr>
 														<?php endforeach;?>
 														</tbody>
 											  </table>
 											</div>
-								
+
 									<li><strong>Spun People: </strong></li>
 										<?php //echo implode(", ", getSpunViewers($person['id'])); ?>
-										
-										<?php $numbers = getSpunViewers_v2($person['id']); 
-										
+
+										<?php $numbers = getSpunViewers_v2($person['id']);
+
 										if(!empty($numbers)){
 											$max = max($numbers);
 											if($max == 0){$max=1;}
 										} else {
 											$max = 1;
 										}?>
-										
+
 										<div class="chart">
 										  <table id="column-<?php echo $person['id'];?>" class="charts-css bar show-labels show-data">
 												<thead>
 													<tr>
-														<th scope="col">Number</th> 
+														<th scope="col">Number</th>
 														<th scope="col">Wins</th>
 													</tr>
-												</thead> 
-													<tbody>			
+												</thead>
+													<tbody>
 														<?php foreach($numbers as $key => $value):?>
 														<tr>
-															<th scope="row"> <?php echo $key; ?> </th> 
+															<th scope="row"> <?php echo $key; ?> </th>
 															<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<? echo getMoviegoerColorByName($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
-														</tr> 
+														</tr>
 													<?php endforeach;?>
 													</tbody>
 										  </table>
 										</div>
-										
-										
+
+
 
 								</ul>
-								
-								
-								
-								<?php $stats = count_viewer_services($person['id']); 
+
+
+
+								<?php $stats = count_viewer_services($person['id']);
 
 								$format = Array();
 								$count = Array();
@@ -257,7 +263,7 @@
 									$color[] = get_service_color($key);
 								}
 								?>
-									
+
 									<?php if(!empty($format)):?>
 									<strong>Winning Services: </strong>
 									<canvas id="myChart<?php echo$person['id'];?>" width="250" height="250" style="position:relative; !important"></canvas>
@@ -289,52 +295,43 @@
 											}
 									});
 									</script>
-								
+
 								<?php endif; ?>
 								<a href="viewer.php?viewer=<?php echo $person['id']; ?>">More Details</a>
 	            </div>
 	          </div>
 	        </div>
 				<?php endforeach;?>
-									
-				
-				
+
+
+
 			</div>
     </div>
   </div>
 
 </main>
-
-<footer class="text-muted py-5">
-  <div class="container">
-								Version <?php echoVersionNumber(); ?> <a href="changelog.php">Changelog</a>
-   </div>
-</footer>
-
 <script>
-	$(document).ready(function() {
-	    $('#movies').DataTable(
-	    	{
-					"searching":false,
-					"paging": false,
-					 "lengthChange": false,
-					"order": [[ 1, "desc" ]],
-					"columnDefs": [
-					    { "orderSequence": [ "desc", "asc", "asc" ], "targets": [ 11 ] },
-					  ]
-	    	}
-	    );
-	} );
+$(document).ready(function() {
+	$('#movies').DataTable(
+		{
+			"searching":false,
+			"paging": false,
+			"lengthChange": false,
+			"order": [[ 1, "desc" ]],
+			"columnDefs": [
+				{ "orderSequence": [ "desc", "asc", "asc" ], "targets": [ 11 ] },
+			]
+		}
+	);
+} );
 
-	</script>
-    <script src="bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-		<script>
-			var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-			var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-			  return new bootstrap.Tooltip(tooltipTriggerEl)
-			})
-			</script>
+</script>
+<script src="bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<script>
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script>
 
-      
-  </body>
-</html>
+<?php template('footer');?>

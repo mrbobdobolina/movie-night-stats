@@ -71,6 +71,11 @@ if(array_key_exists('db_error', $db_test)){
 }
 
 
+// Includes a file from the template directory
+function template($part){
+	require_once(ROOT.'template/'.$part.'.php');
+}
+
 
 /**
 * Returns multidimensional array of all information in week table

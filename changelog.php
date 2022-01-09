@@ -1,4 +1,10 @@
-<?php require_once("header.php"); ?>
+<?php
+
+require_once('common.php');
+
+template('header');
+
+?>
 
 <?php
 //Array('date' => "", 'version' => '', 'details' => Array("")),
@@ -50,32 +56,19 @@ Array('date' => "March 27, 2021", 'version' => '2.1.2', 'details' => Array("Adde
 														 <?php foreach($single['details'] as $detail):?>
                              	<p><?php echo $detail;?></p>
 													 	 <?php endforeach;?>
-                         
+
 											 <?php endforeach;?>
-                        
+
                      </ul>
                  </div>
              </div>
          </div>
 
-				
+
       </div>
     </div>
   </div>
 
 </main>
 
-<footer class="text-muted py-5">
-  <div class="container">
-								Version <?php echoVersionNumber(); ?> <a href="changelog.php">Changelog</a>
-   </div>
-</footer>
-
-
-    <script src="bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-		
-
-
-      
-  </body>
-</html>
+<?php template('footer');?>

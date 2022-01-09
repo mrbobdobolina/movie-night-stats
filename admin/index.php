@@ -1,6 +1,6 @@
 <?php
 
-require_once("../common.php"); 
+require_once("../common.php");
 
 $db = new \PDO('mysql:dbname='.DB_NAME.';host=localhost;charset=utf8mb4', DB_USER, DB_PASS);
 
@@ -46,10 +46,10 @@ else {
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <title>Movie Night Stats</title>
 
-    
 
-    <!-- Bootstrap core CSS -->
-<link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet" >
+
+		<!-- Bootstrap -->
+		<link href="<?php echo WEB_ROOT; ?>assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
 
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="../images/favicon_32.png" sizes="180x180">
@@ -86,7 +86,7 @@ else {
 				width:60%;
 			  white-space: nowrap;
 			  overflow: hidden;
-			  text-overflow: ellipsis;		
+			  text-overflow: ellipsis;
 			}
 			.viewer-name{
 				width:30%;
@@ -101,16 +101,16 @@ else {
 				max-width:800px;
 				display:inline-block;
 			}
-			
+
 			table { width:250px;table-layout:fixed; }
 			table tr { height:1em;  }
-			td { overflow:hidden;white-space:nowrap;  } 
+			td { overflow:hidden;white-space:nowrap;  }
     </style>
 
-    
+
   </head>
   <body>
-    
+
 <header>
 
   <div class="navbar navbar-dark bg-red shadow-sm">
@@ -129,7 +129,7 @@ else {
 <?php if($show == 1): ?>
 	<main>
 	  <div class="album py-5 bg-light">
-	    <div class="container">			
+	    <div class="container">
 				<p class="display-6 text-center mb-5">Welcome back, Keeper of Records.</p>
 	      <div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
 					<p>How may we be of service?</p>
@@ -148,7 +148,7 @@ else {
 <?php else: ?>
 	<main>
 	  <div class="album py-5 bg-light">
-	    <div class="container">			
+	    <div class="container">
 				<p class="display-6 text-center mb-5">You should probably login or whatever.</p>
 	      <div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
 					<form action="index.php" method="post">
@@ -180,6 +180,6 @@ else {
 
     <script src="../bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-      
+
   </body>
 </html>

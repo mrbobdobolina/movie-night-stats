@@ -1,8 +1,14 @@
-<?php require_once("header.php"); ?>
-	
+<?php
+
+require_once('common.php');
+
+template('header');
+
+?>
+
 	<?php
 	if(isset($_GET['viewer'])){
-		$viewer = $_GET['viewer']; 
+		$viewer = $_GET['viewer'];
 	} else {
 		header('Location: viewers.php');
 		exit;
@@ -16,7 +22,7 @@
 			<p class="lead text-center ">For your convenience.</p>
 			<br />
 
-			
+
 			<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-10 g-3 mt-5">
 
 					<div class="col-12 mb-4">
@@ -26,12 +32,12 @@
 					   </div>
 	            <div class="card-body">
 								<ul>
-						    	
+
 									<?php $attend = countAttendance($viewer);
-									
+
 									$total_events = countWeeks();?>
 						     	<li><strong>Attendance:</strong> <?php echo $attend;?></li>
-								
+
 									<?php $myUnique = calculateMyUniquePicks($viewer);;
 									$myTotal = countMyTotalPics($viewer);?>
 									<li><strong>Unique Picks:</strong> <?php echo $myUnique; ?></li>
@@ -39,7 +45,7 @@
 									<?php if($myTotal == 0){$myTotal = 1;}?>
 									<li><strong>Percent Unique:</strong> <?php echo round(($myUnique/$myTotal)*100,2);?>%</li>
 									<?php $wins = winningPickStats($viewer);?>
-						
+
 									<li><strong>Wins:</strong> <?php echo $wins; ?></li>
 									<li><strong>Win Percentage:</strong> <?php echo round(($wins/$total_events)*100,2);?>%</li>
 									<li><strong>Win % for Attendance:</strong> <?php echo round(($wins/$attend)*100,2);?>%</li>
@@ -72,56 +78,56 @@
 									  <table id="column-<?php echo $viewer;?>" class="charts-css column show-labels show-data-on-hover">
 											<thead>
 												<tr>
-													<th scope="col">Number</th> 
+													<th scope="col">Number</th>
 													<th scope="col">Wins</th>
 												</tr>
-											</thead> 
-												<tbody style="height: 120px;">			
+											</thead>
+												<tbody style="height: 120px;">
 													<?php foreach($numbers as $key => $value):?>
 													<tr>
-														<th scope="row"> <?php echo $key; ?> </th> 
+														<th scope="row"> <?php echo $key; ?> </th>
 														<td style="--size:<?php echo round($value/$max,1); ?>;"><span class="data"><?php echo $value; ?></span></td>
-													</tr> 
+													</tr>
 												<?php endforeach;?>
 												</tbody>
 									  </table>
 									</div>
-								
+
 									<li><strong>Spun People: </strong>
-										
+
 										<?php //echo implode(", ", getSpunViewers($viewer)); ?>
 									</li>
-									
-									<?php $numbers = getSpunViewers_v2($viewer); 
-									
+
+									<?php $numbers = getSpunViewers_v2($viewer);
+
 									if(!empty($numbers)){
 										$max = max($numbers);
 										if($max == 0){$max=1;}
 									} else {
 										$max = 1;
 									}?>
-									
+
 									<div class="chart">
 									  <table id="column-<?php echo $viewer;?>" class="charts-css bar show-labels show-data-on-hover">
 											<thead>
 												<tr>
-													<th scope="col">Number</th> 
+													<th scope="col">Number</th>
 													<th scope="col">Wins</th>
 												</tr>
-											</thead> 
-												<tbody>			
+											</thead>
+												<tbody>
 													<?php foreach($numbers as $key => $value):?>
 													<tr>
-														<th scope="row"> <?php echo $key; ?> </th> 
+														<th scope="row"> <?php echo $key; ?> </th>
 														<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<? echo getMoviegoerColorByName($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
-													</tr> 
+													</tr>
 												<?php endforeach;?>
 												</tbody>
 									  </table>
 									</div>
-									
+
 									<!--<li><strong>Spun Colors: </strong>
-										<?php 
+										<?php
 										$colors = getSpunColors($viewer);
 										foreach($colors as $color):?>
 										<i class="fas fa-square" style="color:<?php echo $color;?>;"></i>
@@ -129,8 +135,8 @@
 										</li>--!-->
 
 								</ul>
-								
-								<?php $stats = count_viewer_services($viewer); 
+
+								<?php $stats = count_viewer_services($viewer);
 
 								$format = Array();
 								$count = Array();
@@ -141,7 +147,7 @@
 									$color[] = get_service_color($key);
 								}
 								?>
-									
+
 									<?php if(!empty($format)):?>
 									<strong>Winning Services: </strong>
 									<canvas id="myChart<?php echo $viewer;?>" width="250" height="250" style="position:relative; !important"></canvas>
@@ -173,20 +179,20 @@
 											}
 									});
 									</script>
-								
+
 								<?php endif; ?>
 	            </div>
 	          </div>
 	        </div>
-					
-					
+
+
 					<div class="col-12 mb-4">
 	          <div class="card">
 					 <div class="card-header bold text-white" style="background-color:#<?php echo getMoviegoerColorById($viewer);?>;" >
 					     <h3>Films</h3>
 					   </div>
 	            <div class="card-body">
-								<?php $watchedFilmList = listWatchedMovies(); 
+								<?php $watchedFilmList = listWatchedMovies();
 								$allUsersPicks = listMyTotalPicksReal($viewer);
 								$allUserPicks2 = Array();
 								foreach($allUsersPicks as $aPick){
@@ -208,33 +214,26 @@
 	            </div>
 	          </div>
 	        </div>
-									
-				
+
+
 			</div>
     </div>
   </div>
 
 </main>
 
-<footer class="text-muted py-5">
-  <div class="container">
-						Version <?php echoVersionNumber(); ?> <a href="changelog.php">Changelog</a>
-   </div>
-</footer>
-
 <script>
-	$(document).ready(function() {
-	    $('#movies').DataTable(
-	    	{
-					"pageLength": 100,
-					 "lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
-					"order": [[ 1, "desc" ]]
-	    	}
-	    );
-	} );
-	</script>
-    <script src="bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+$(document).ready(function() {
+	$('#movies').DataTable(
+		{
+			"pageLength": 100,
+			"lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
+			"order": [[ 1, "desc" ]]
+		}
+	);
+} );
+</script>
+<script src="bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-      
-  </body>
-</html>
+
+<?php template('footer');?>

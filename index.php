@@ -1,4 +1,10 @@
-<?php require_once("header.php"); ?>
+<?php
+
+require_once('common.php');
+
+template('header');
+
+?>
 
 
   <div class="album py-5 bg-light">
@@ -13,29 +19,29 @@
 				<button id="btn-collapse-all" class="btn btn-outline-primary mb-3" onclick="$('.collapse').collapse('hide'); $('#btn-expand-all').show(); $('#btn-collapse-all').hide();" style="display:none">
 				Collapse ALL
 				</button>
-			
+
 			<?php //print_r(getMyMovieYears(9));?>
 
       <div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
-				
+
 
 				<?php foreach($events as $event):?>
 	        <div class="col">
-						<?php //print_r($event); 
+						<?php //print_r($event);
 						$eventDate = new DateTime($event['date']);
 						$winning_wedge = $event['winning_wedge'];
 						$winning_moviegoer = $event['moviegoer_'.$winning_wedge];
-						
+
 						?>
 	          <div class="card">
 							<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
 								<h3>Event <?php echo displayNumbers($count_events--, $numbers);?>
-								
+
 								</h3>
 									<small><em><?php echo $eventDate->format('l, F j, Y'); ?></em></small>
 							  </div>
 	            <div class="card-body">
-							
+
 								<table class="table homepage">
 								  <tbody>
 										<?php
@@ -62,7 +68,7 @@
 										<?php endfor;?>
 								  </tbody>
 								</table>
-							
+
 								<p class="text-center">
 
 								  <a data-bs-toggle="collapse" href="#collapseExample_<?php echo $count_events; ?>" aria-expanded="false" aria-controls="collapseExample_<?php echo $count_events; ?>">
@@ -70,7 +76,7 @@
 								  </a>
 								</p>
 								<div class="collapse" id="collapseExample_<?php echo $count_events; ?>">
-									
+
 								  <div class="card card-body">
 										<?php
 										$movie_years = array_filter($movie_years);
@@ -108,4 +114,4 @@
 
 </main>
 
-<?php include('footer.php');?>
+<?php template('footer');?>
