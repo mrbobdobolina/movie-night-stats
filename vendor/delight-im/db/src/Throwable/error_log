@@ -1,0 +1,1 @@
+[18-Jul-2021 20:55:52 America/Chicago] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in /home1/apathday/movienightstats.com/vendor/delight-im/db/src/Throwable/EmptyValueListError.php on line 9

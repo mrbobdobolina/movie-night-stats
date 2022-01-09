@@ -1,0 +1,40 @@
+{
+    "name": "sanmai/japanese-numerals",
+    "type": "library",
+    "description": "Library to convert Japanese numeral to their Western variants (AKA Hindu-Arabic numerals)",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ΩF:∅ Open Source Working Group (OFTN Inc.)",
+            "homepage": "https://github.com/oftn-oswg/common/blob/master/LICENSE.md"
+        },
+        {
+            "name": "Navarr Barnier",
+            "homepage": "https://github.com/oftn-oswg/common/blob/master/number/japanese.php"
+        },
+        {
+            "name": "Alexey Kopytko",
+            "email": "alexey@kopytko.com",
+            "homepage": "https://www.alexeykopytko.com/"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "ext-bcmath" : "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2",
+        "php-coveralls/php-coveralls": "^2",
+        "sanmai/phpunit-legacy-adapter":"^6 || ^8"
+    },
+    "autoload": {
+        "psr-4": {
+            "JapaneseNumerals\\": "src/JapaneseNumerals"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JapaneseNumerals\\": "tests/JapaneseNumerals"
+        }
+    }
+}

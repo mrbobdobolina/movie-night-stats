@@ -1,0 +1,8 @@
+
+.DS_Store
+admin/.htaccess
+settings.config
+roll/.htaccess
+roll/error_log
+spin/.htaccess
+admin/error_log
