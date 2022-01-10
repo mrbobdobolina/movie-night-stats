@@ -7,7 +7,7 @@ $auth = new \Delight\Auth\Auth($db);
 
 if (!$auth->isLoggedIn()) {
 	header(sprintf("Location: %s", "../"));
-	  exit(); 
+	  exit();
 }
 
 ?>
@@ -20,10 +20,10 @@ if (!$auth->isLoggedIn()) {
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <title>Movie Night Stats</title>
 
-    
 
-    <!-- Bootstrap core CSS -->
-<link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet" >
+
+		<!-- Bootstrap -->
+		<link href="<?php echo WEB_ROOT; ?>assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
 
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="../images/favicon_32.png" sizes="180x180">
@@ -60,7 +60,7 @@ if (!$auth->isLoggedIn()) {
 				width:60%;
 			  white-space: nowrap;
 			  overflow: hidden;
-			  text-overflow: ellipsis;		
+			  text-overflow: ellipsis;
 			}
 			.viewer-name{
 				width:30%;
@@ -75,16 +75,16 @@ if (!$auth->isLoggedIn()) {
 				max-width:800px;
 				display:inline-block;
 			}
-			
+
 			table { width:250px;table-layout:fixed; }
 			table tr { height:1em;  }
-			td { overflow:hidden;white-space:nowrap;  } 
+			td { overflow:hidden;white-space:nowrap;  }
     </style>
 
-    
+
   </head>
   <body>
-    
+
 <header>
 
   <div class="navbar navbar-dark bg-red shadow-sm">
@@ -102,9 +102,9 @@ if (!$auth->isLoggedIn()) {
 
 	<main>
 	  <div class="album py-5 bg-light">
-	    <div class="container">			
+	    <div class="container">
 				<p class="display-6 text-center mb-5">Random Assignments.</p>
-				<?php if(isset($_POST)){ 
+				<?php if(isset($_POST)){
 					foreach($_POST['attendees'] as $person){
 						$people[] = getMoviegoerById($person);
 					}
@@ -112,43 +112,43 @@ if (!$auth->isLoggedIn()) {
 				}?>
 	      <div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
 						<form action="add-list.php" method="post">
-						<?php	
+						<?php
 						$viewers = getListOfViewers();
 						foreach($viewers as $key => $value):?>
 					 <div class="custom-control custom-checkbox custom-control-inline">
-					        <input name="attendees[]" id="attendees_<?php echo $value['id']; ?>" type="checkbox" class="custom-control-input" value="<?php echo $value['id']; ?>"> 
+					        <input name="attendees[]" id="attendees_<?php echo $value['id']; ?>" type="checkbox" class="custom-control-input" value="<?php echo $value['id']; ?>">
 					        <label for="attendees_<?php echo $value['id']; ?>" class="custom-control-label"><?php echo $value['name']; ?></label>
 					      </div>
-							
+
 					<?php endforeach;?>
 					<input type="submit" value="Submit">
 					</form>
 
 					<div class="card-body">
-						<?php //$people = Array("Philip", "TV", "Holly"); 
-						shuffle($people); 			
-						$count = count($people); 
+						<?php //$people = Array("Philip", "TV", "Holly");
+						shuffle($people);
+						$count = count($people);
 						$ii = 0;
 						$list = Array();
-						
+
 						$date = new DateTime('NOW');
-						
+
 						echo $date->format('F j, Y') . " Movie List<br />";?>
-						
+
 						<?php for($i = 0; $i <= 11; $i++){
-							
+
 							$list[$i+1] = $people[$ii];
-							
+
 							//echo $i+1 .".  ". "(".$people[$ii].")<br />";
-							
+
 							$ii++;
-							
+
 							if($ii >= $count){
 								$ii = 0;
 							}
-							
+
 						}
-						
+
 						if(random_int(1,3) == 1){
 							shuffle($list);
 							foreach($list as $key => $value){
@@ -159,15 +159,15 @@ if (!$auth->isLoggedIn()) {
 								echo $key . ". " . "(".$value.") <br />";
 							}
 						}
-						
-						
-						
+
+
+
 						?>
 					</div>
 
-					
+
 					</div>
-	      
+
 	    </div>
 	  </div>
 	</main>
@@ -184,6 +184,6 @@ if (!$auth->isLoggedIn()) {
 
     <script src="../bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-      
+
   </body>
 </html>

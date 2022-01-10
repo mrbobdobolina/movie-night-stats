@@ -1,6 +1,9 @@
-<?php require_once("header.php"); ?>
-
 <?php
+
+require_once('common.php');
+
+template('header');
+
 //Array('date' => "", 'version' => '', 'details' => Array("")),
 $changes = Array(
 Array('date' => "January 8, 2022", 'version' => 'Version 3.1.4', 'details' => Array("Fixed a lot of bugs behind the scenes.","Changed formatting on changelog.")),
@@ -35,47 +38,34 @@ Array('date' => "March 27, 2021", 'version' => '2.1.2', 'details' => Array("Adde
 );
 ?>
 
-  <div class="album py-5 bg-light">
-    <div class="container">
-			<p class="display-6 text-center mb-5">Changelog</p>
+<div class="album py-5 bg-light">
+	<div class="container">
+		<p class="display-6 text-center mb-5">Changelog</p>
 
-      <div class="row ">
-			  <div class="card">
-             <div class="card-body">
-                 <div id="content">
-                     <ul class="timeline">
-											 <?php foreach($changes as $single):?>
-                         <li class="event" data-date="<?php echo $single['date'];?>">
-                             <h3><?php echo $single['version'];?></h3>
-														 <?php foreach($single['details'] as $detail):?>
-                             	<p><?php echo $detail;?></p>
-													 	 <?php endforeach;?>
-                         
-											 <?php endforeach;?>
-                        
-                     </ul>
-                 </div>
-             </div>
-         </div>
+		<div class="row ">
+			<div class="card">
+				 <div class="card-body">
+					 <div id="content">
+						 <ul class="timeline">
+							 <?php foreach($changes as $single):?>
+								 <li class="event" data-date="<?php echo $single['date'];?>">
+									<h3><?php echo $single['version'];?></h3>
+									<?php
+										foreach($single['details'] as $detail){
+											echo '<p>'.$detail.'</p>';
+										}
+									?>
 
-				
-      </div>
-    </div>
-  </div>
+							 <?php endforeach;?>
 
-</main>
-
-<footer class="text-muted py-5">
-  <div class="container">
-								Version <?php echoVersionNumber(); ?> <a href="changelog.php">Changelog</a>
-   </div>
-</footer>
+						 </ul>
+					 </div>
+				 </div>
+			 </div>
 
 
-    <script src="bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-		
+		</div>
+	</div>
+</div>
 
-
-      
-  </body>
-</html>
+<?php template('footer');?>

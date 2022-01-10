@@ -7,7 +7,7 @@ $auth = new \Delight\Auth\Auth($db);
 
 if (!$auth->isLoggedIn()) {
 	header(sprintf("Location: %s", "../"));
-	  exit(); 
+	  exit();
 }
 
 ?>
@@ -20,10 +20,10 @@ if (!$auth->isLoggedIn()) {
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <title>Movie Night Stats</title>
 
-    
 
-    <!-- Bootstrap core CSS -->
-<link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet" >
+
+		<!-- Bootstrap -->
+		<link href="<?php echo WEB_ROOT; ?>assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
 
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="../images/favicon_32.png" sizes="180x180">
@@ -60,7 +60,7 @@ if (!$auth->isLoggedIn()) {
 				width:60%;
 			  white-space: nowrap;
 			  overflow: hidden;
-			  text-overflow: ellipsis;		
+			  text-overflow: ellipsis;
 			}
 			.viewer-name{
 				width:30%;
@@ -75,21 +75,21 @@ if (!$auth->isLoggedIn()) {
 				max-width:800px;
 				display:inline-block;
 			}
-			
+
 			table { width:250px;table-layout:fixed; }
 			table tr { height:1em;  }
-			td { overflow:hidden;white-space:nowrap;  } 
+			td { overflow:hidden;white-space:nowrap;  }
     </style>
 
-    
+
   </head>
   <body>
-    
+
 <header>
 
 
 
-		
+
 
 
   <div class="navbar navbar-dark bg-red shadow-sm">
@@ -107,89 +107,89 @@ if (!$auth->isLoggedIn()) {
 
 	<main>
 	  <div class="album py-5 bg-light">
-	    <div class="container">			
+	    <div class="container">
 				<p class="display-6 text-center mb-5">Add a Spinner.</p>
 	      <div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
-					
+
 					<div class="card-body">
 						<p>Really?</p>
 					</div>
 					<div class="card-body">
 						<form action="as.php" method="post">
 						  <div class="form-group row">
-						    <label for="name" class="col-4 col-form-label">Spinner Name</label> 
+						    <label for="name" class="col-4 col-form-label">Spinner Name</label>
 						    <div class="col-8">
 						      <input id="name" name="name" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 1" class="col-4 col-form-label">Color 1</label> 
+						    <label for="color 1" class="col-4 col-form-label">Color 1</label>
 						    <div class="col-8">
 						      <input id="color_1" name="color_1" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 2" class="col-4 col-form-label">Color 2</label> 
+						    <label for="color 2" class="col-4 col-form-label">Color 2</label>
 						    <div class="col-8">
 						      <input id="color_2" name="color_2" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 3" class="col-4 col-form-label">Color 3</label> 
+						    <label for="color 3" class="col-4 col-form-label">Color 3</label>
 						    <div class="col-8">
 						      <input id="color_3" name="color_3" type="text" class="form-control">
 						    </div>
-						  </div> 
+						  </div>
 						  <div class="form-group row">
-						    <label for="color " class="col-4 col-form-label">Color 4</label> 
+						    <label for="color " class="col-4 col-form-label">Color 4</label>
 						    <div class="col-8">
 						      <input id="color_4" name="color_4" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 1" class="col-4 col-form-label">Color 5</label> 
+						    <label for="color 1" class="col-4 col-form-label">Color 5</label>
 						    <div class="col-8">
 						      <input id="color_5" name="color_5" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 1" class="col-4 col-form-label">Color 6</label> 
+						    <label for="color 1" class="col-4 col-form-label">Color 6</label>
 						    <div class="col-8">
 						      <input id="color_6" name="color_6" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 1" class="col-4 col-form-label">Color 7</label> 
+						    <label for="color 1" class="col-4 col-form-label">Color 7</label>
 						    <div class="col-8">
 						      <input id="color_7" name="color_7" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 1" class="col-4 col-form-label">Color 8</label> 
+						    <label for="color 1" class="col-4 col-form-label">Color 8</label>
 						    <div class="col-8">
 						      <input id="color_8" name="color_8" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 1" class="col-4 col-form-label">Color 9</label> 
+						    <label for="color 1" class="col-4 col-form-label">Color 9</label>
 						    <div class="col-8">
 						      <input id="color_9" name="color_9" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 1" class="col-4 col-form-label">Color 10</label> 
+						    <label for="color 1" class="col-4 col-form-label">Color 10</label>
 						    <div class="col-8">
 						      <input id="color_10" name="color_10" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 1" class="col-4 col-form-label">Color 11</label> 
+						    <label for="color 1" class="col-4 col-form-label">Color 11</label>
 						    <div class="col-8">
 						      <input id="color_11" name="color_11" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color 1" class="col-4 col-form-label">Color 12</label> 
+						    <label for="color 1" class="col-4 col-form-label">Color 12</label>
 						    <div class="col-8">
 						      <input id="color_12" name="color_12" type="text" class="form-control">
 						    </div>
@@ -209,9 +209,9 @@ if (!$auth->isLoggedIn()) {
 											<?php endforeach;?>
 										</ul>
 					</div>
-					
+
 					</div>
-	      
+
 	    </div>
 	  </div>
 	</main>
@@ -228,6 +228,6 @@ if (!$auth->isLoggedIn()) {
 
     <script src="../bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-      
+
   </body>
 </html>

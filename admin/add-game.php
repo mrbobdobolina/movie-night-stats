@@ -1,5 +1,5 @@
 <?php require_once("../common.php"); ?>
-<?php 
+<?php
 
 $db = new \PDO('mysql:dbname='.DB_NAME.';host=localhost;charset=utf8mb4', DB_USER, DB_PASS);
 
@@ -7,7 +7,7 @@ $auth = new \Delight\Auth\Auth($db);
 
 if (!$auth->isLoggedIn()) {
 	header(sprintf("Location: %s", "../"));
-	  exit(); 
+	  exit();
 }
 
 ?>
@@ -20,10 +20,10 @@ if (!$auth->isLoggedIn()) {
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <title>Movie Night Stats</title>
 
-    
 
-    <!-- Bootstrap core CSS -->
-<link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet" >
+
+		<!-- Bootstrap -->
+		<link href="<?php echo WEB_ROOT; ?>assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
 
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="../images/favicon_32.png" sizes="180x180">
@@ -60,7 +60,7 @@ if (!$auth->isLoggedIn()) {
 				width:60%;
 			  white-space: nowrap;
 			  overflow: hidden;
-			  text-overflow: ellipsis;		
+			  text-overflow: ellipsis;
 			}
 			.viewer-name{
 				width:30%;
@@ -75,15 +75,15 @@ if (!$auth->isLoggedIn()) {
 				max-width:800px;
 				display:inline-block;
 			}
-			
+
 			table { width:250px;table-layout:fixed; }
 			table tr { height:1em;  }
-			td { overflow:hidden;white-space:nowrap;  } 
+			td { overflow:hidden;white-space:nowrap;  }
     </style>
 
 
 <?php
-	
+
 $movies = getMovieList();
 
 $movieSelect = "<option disabled selected></option>";
@@ -110,10 +110,10 @@ foreach($selectors as $aTool){
 }
 
 ?>
-    
+
   </head>
   <body>
-    
+
 <header>
 
   <div class="navbar navbar-dark bg-red shadow-sm">
@@ -131,11 +131,11 @@ foreach($selectors as $aTool){
 
 	<main>
 	  <div class="album py-5 bg-light">
-	    <div class="container">	
+	    <div class="container">
 				<h2>Add a Game</h2>
-				
+
 				<form class="form" action="ag.php" method="post">
-				
+
 				<div class="form-group row">
 					<label for="date" class="col-sm-1 col-form-label">Date:</label>
 					<div class="col-sm-3">
@@ -170,83 +170,83 @@ foreach($selectors as $aTool){
 					</tbody>
 				</table>
 			</div>
-				
+
 				<div class="form-row col-4 mt-3">
 					<label for="spinner">Spinner: </label>
 					<select class="form-select" name="spinner" id="spinner">
 					  <?php echo $viewerSelect; ?>
 					</select>
 				</div>
-				
+
 				<div class="form-row col-4 mt-3">
 					<label for="winning_wedge">Winning Number: </label>
 					<select class="form-select" name="winning_wedge" id="winning_wedge">
-						<?php	
+						<?php
 						for($i = 1; $i < 13; $i++){
 							echo "<option value='".$i."'>".$i."</option>";
 						}?>
 					</select>
 				</div>
-				
+
 				<div class="form-group row  mt-3">
 					<label for="date" class="col-sm-1 col-form-label">Format: </label>
 					<div class="col-sm-3">
 						<input class="form-control" type="text" name="format" id="format">
 					</div>
 				</div>
-				
+
 				<div class="form-group row  mt-3">
 					<label for="date" class="col-sm-1 col-form-label">Error Spin(s): </label>
 					<div class="col-sm-3">
 						<input class="form-control" type="text" name="errors" id="errors">
 					</div>
 				</div>
-				
+
 				<div class="form-row col-4 mt-3">
 					<label for="spinner">Selection Method: </label>
 					<select class="form-select" name="selection_method" id="selection_method">
 					  <?php echo $selectorsSelect; ?>
 					</select>
 				</div>
-				
+
 				<div class="form-row col-4 mt-3">
 					<label for="spinner">Scribe: </label>
 					<select class="form-select" name="scribe" id="scribe">
 					  <?php echo $viewerSelect; ?>
 					</select>
 				</div>
-				
+
 				<div class="form-group row  mt-3">
 					<label for="date" class="col-sm-1 col-form-label">Theme: </label>
 					<div class="col-sm-3">
 						<input class="form-control" type="text" name="theme" id="theme">
 					</div>
 				</div>
-				
+
 				<div class="form-group row  mt-3">
 					<label for="date" class="col-sm-1 col-form-label">Runtime: </label>
 					<div class="col-sm-3">
 						<input class="form-control" type="text" name="runtime" id="runtime">
 					</div>
 				</div>
-				
+
 			 <div class="form-group row  mt-3">
-			    <label class="col-2">Attendees: </label> 
+			    <label class="col-2">Attendees: </label>
 			    <div class="col-8">
-								<?php	
+								<?php
 								foreach($viewers as $key => $value):?>
 							 <div class="custom-control custom-checkbox custom-control-inline">
-							        <input name="attendees[]" id="attendees_<?php echo $value['id']; ?>" type="checkbox" class="custom-control-input" value="<?php echo $value['id']; ?>"> 
+							        <input name="attendees[]" id="attendees_<?php echo $value['id']; ?>" type="checkbox" class="custom-control-input" value="<?php echo $value['id']; ?>">
 							        <label for="attendees_<?php echo $value['id']; ?>" class="custom-control-label"><?php echo $value['name']; ?></label>
 							      </div>
 							<?php endforeach;?>
 						</div>
 						</div>
 
-				
+
 				<input class="btn btn-primary" type="submit" value="Submit">
-				
-				
+
+
 			</form>
 	    </div>
 	  </div>
@@ -264,6 +264,6 @@ foreach($selectors as $aTool){
 
     <script src="../bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-      
+
   </body>
 </html>
