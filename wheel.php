@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
 require_once('common.php');
 
@@ -159,7 +162,7 @@ template('header');
 										<?php foreach($numbers as $key => $wedge): ?>
 											<tr>
 												<th scope="row text-end"> <?php echo $key; ?></th>
-												<td style="--size:<?php echo round(($wedge/$max),2); ?>; --color:<? echo $wheel_color[$a_tool][$key]; ?>"><span class="data" style="padding-right:3px;"><?php echo $wedge; ?> </span></td>
+												<td style="--size:<?php echo round(($wedge/$max),2); ?>; --color:<?php echo $wheel_color[$a_tool][$key]; ?>"><span class="data" style="padding-right:3px;"><?php echo $wedge; ?> </span></td>
 											</tr>
 										<?php endforeach;?>
 									</tbody>
