@@ -29,7 +29,7 @@ date_default_timezone_set('America/Chicago');
 
 $numberTypes = Array("arabic", "roman", "japanese", "arabic", "roman");
 
-$db = FALSE;
+$db = new mysqli(DB_ADDR, DB_USER, DB_PASS, DB_NAME);
 function db($query = NULL){
 	static $db;
 
@@ -68,9 +68,8 @@ function db_esc($text){
 }
 
 // Check if DB successfully connects
-$db_test = db();
-if(array_key_exists('db_error', $db_test)){
-	header('Location: '.WEB_ROOT.'init/error.php?e=mysql-'.$db_test['db_error']);
+if($db->connect_errno){
+	header('Location: '.WEB_ROOT.'init/error.php?e=mysql-'.$db->connect_errno);
 	die();
 }
 
