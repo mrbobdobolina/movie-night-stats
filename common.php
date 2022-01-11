@@ -9,7 +9,7 @@ if(!defined('ROOT')){
 	define('ROOT', dirname( __FILE__ ) . '/');
 }
 if(!defined('WEB_ROOT')){
-	define('WEB_ROOT', '/');
+	define('WEB_ROOT', './');
 }
 
 
