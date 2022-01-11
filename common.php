@@ -1,9 +1,9 @@
 <?php
 require __DIR__.'/vendor/autoload.php';
 
-// ini_set('display_errors', '1');
-// ini_set('display_startup_errors', '1');
-// error_reporting(E_ALL);
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
 if(!defined('ROOT')){
 	define('ROOT', dirname( __FILE__ ) . '/');
@@ -464,7 +464,11 @@ function yearly_viewer_attendance($year){
 		//print_r($value);
 		$new = explode(',',$value['attendees']);
 		foreach($new as $v2){
-			$full_list[trim($v2)]++;
+			if(isset($full_list[trim($v2)])){
+				$full_list[trim($v2)]++;
+			} else {
+				$full_list[trim($v2)] = 1;
+			}
 		}
 	}
 
@@ -488,7 +492,12 @@ function most_requested_film($year){
 	$movieList = Array();
 	foreach($array as $list){
 		foreach($list as $movie){
-			$movieList[$movie]++;
+			if(isset($movieList[$movie])){
+				$movieList[$movie]++;
+			} else {
+				$movieList[$movie] = 1;
+			}
+			
 		}
 	}
 	unset($movieList[0]);
@@ -543,11 +552,13 @@ function didIWin($filmID){
 
 	if($data){
 		$count = count($data);
+		$return_this = $data[0]['date'];
 	} else {
 		$count = "";
+		$return_this = NULL;
 	}
 
-	return Array("count" => $count, "first_win"=> $data[0]['date']);
+	return Array("count" => $count, "first_win"=> $return_this);
 
 }
 
@@ -566,7 +577,11 @@ function getPickers_v3($filmID){
 	foreach($data_pickers as $week){
 		for($i = 1; $i <= 12; $i++){
 			if($week["wheel_$i"] == $filmID){
-				$movie_pickers[$week["moviegoer_$i"]]++;
+				if(isset($movie_pickers[$week["moviegoer_$i"]])){
+					$movie_pickers[$week["moviegoer_$i"]]++;
+				} else {
+					$movie_pickers[$week["moviegoer_$i"]] = 1;
+				}
 			}
 		}
 	}
@@ -1389,7 +1404,12 @@ function viewer_watchtime($year = null){
 	foreach($result as $week){
 		$attendees = explode(",",$week['attendees']);
 		foreach($attendees as $viewer){
-			$viewer_times[trim($viewer)] += $week['runtime'];
+			if(isset($viewer_times[trim($viewer)])){
+				$viewer_times[trim($viewer)] += $week['runtime'];
+			} else {
+				$viewer_times[trim($viewer)] = $week['runtime'];
+			}
+			
 		}
 	}
 

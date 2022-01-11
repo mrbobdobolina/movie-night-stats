@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 
 require_once('common.php');
 
@@ -19,7 +16,7 @@ template('header');
 
 				<?php
 					$service_data = get_selector_stats();
-
+					
 					$format = Array();
 					$count = Array();
 
@@ -37,10 +34,10 @@ template('header');
 					var myChart = new Chart(ctx, {
 						type: 'bar',
 						data: {
-							labels: ['<?php echo implode($format, "','"); ?>'],
+							labels: ['<?php echo implode("','", $format); ?>'],
 							datasets: [{
 								label: '# of Events',
-								data: [<?php echo implode($count, ','); ?>],
+								data: [<?php echo implode(',', $count ); ?>],
 								backgroundColor: [
 									'rgba(216,66,45,1)'
 								]
