@@ -35,10 +35,10 @@ template('header');
 				var myChart = new Chart(ctx, {
 				    type: 'bar',
 				    data: {
-				        labels: ['<?php echo implode($format, "','"); ?>'],
+				        labels: ['<?php echo implode("','", $format); ?>'],
 				        datasets: [{
 				            label: '# of Events',
-				            data: [<?php echo implode($count, ','); ?>],
+				            data: [<?php echo implode(',', $count); ?>],
 				            backgroundColor: [
 				                'rgba(216,66,45,1)'
 				            ]

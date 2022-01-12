@@ -463,12 +463,12 @@ template('header');
 					var myChart = new Chart(ctx, {
 						type: 'bar',
 						data: {
-							labels: ['<?php echo implode($format_m, "','"); ?>'],
+							labels: ['<?php echo implode("','", $format_m); ?>'],
 							datasets: [{
 								label: 'Minutes Watched on Each Service',
-								data: [<?php echo implode($count_m, ','); ?>],
+								data: [<?php echo implode(',', $count_m); ?>],
 								backgroundColor: [
-									'<?php echo implode($color_m, "','"); ?>'
+									'<?php echo implode("','", $color_m); ?>'
 								]
 							}]
 						},
