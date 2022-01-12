@@ -290,10 +290,10 @@ template('header');
 								var myChart = new Chart(ctx, {
 									type: 'doughnut',
 									data: {
-										labels: ['<?php echo implode($format, "','"); ?>'],
+										labels: ['<?php echo implode("','", $format); ?>'],
 											datasets: [{
-												data: [<?php echo implode($count, ','); ?>],
-												backgroundColor: ['<?php echo implode($color,	"','"); ?>'],
+												data: [<?php echo implode(',', $count); ?>],
+												backgroundColor: ['<?php echo implode("','", $color); ?>'],
 												hoverOffset: 10
 											}]
 									},
