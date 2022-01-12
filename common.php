@@ -1,15 +1,12 @@
 <?php
 require __DIR__.'/vendor/autoload.php';
 
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
+// ini_set('display_errors', '1');
+// ini_set('display_startup_errors', '1');
+// error_reporting(E_ALL);
 
 if(!defined('ROOT')){
 	define('ROOT', dirname( __FILE__ ) . '/');
-}
-if(!defined('WEB_ROOT')){
-	define('WEB_ROOT', './');
 }
 
 
@@ -24,8 +21,6 @@ else {
 	die();
 }
 
-
-date_default_timezone_set('America/Chicago');
 
 $numberTypes = Array("arabic", "roman", "japanese", "arabic", "roman");
 
@@ -497,7 +492,7 @@ function most_requested_film($year){
 			} else {
 				$movieList[$movie] = 1;
 			}
-			
+
 		}
 	}
 	unset($movieList[0]);
@@ -1409,7 +1404,7 @@ function viewer_watchtime($year = null){
 			} else {
 				$viewer_times[trim($viewer)] = $week['runtime'];
 			}
-			
+
 		}
 	}
 
@@ -1419,39 +1414,45 @@ function viewer_watchtime($year = null){
 
 function add_page_load(){
 
-	// Only connect to the database once.
-	if(!isset($db)){
-		$db = new mysqli(AT_DB_ADDR, AT_DB_USER, AT_DB_PASS, AT_DB_NAME);
-		if($db === FALSE){return $db->connect_error();}
-	}
-
-	$today = new DateTime(date("Y-m-d"));
-	$stringDate = $today->format("Y-m-d");
-
-	$query = "INSERT INTO `movie` (`date`, `count`) VALUES ('$stringDate', 1) ON DUPLICATE KEY UPDATE count=count+1";
-
-	// Execute a query if provided
-	if(!empty($query)){
-		$result = $db->query($query);
-		// Stop if the DB errors
-		if(!$result){
-			return FALSE;
-			// return $result->error;
+	if(AT_DB_ENABLED){
+		// Only connect to the database once.
+		if(!isset($db)){
+			$db = new mysqli(AT_DB_ADDR, AT_DB_USER, AT_DB_PASS, AT_DB_NAME);
+			if($db === FALSE){return $db->connect_error();}
 		}
-		// Format returned rows into an array
-		elseif(stripos($query, 'SELECT') !== FALSE) {
-			$return = Array();
-			while($row = $result->fetch_assoc()){
-				$return[] = $row;
+
+		$today = new DateTime(date("Y-m-d"));
+		$stringDate = $today->format("Y-m-d");
+
+		$query = "INSERT INTO `movie` (`date`, `count`) VALUES ('$stringDate', 1) ON DUPLICATE KEY UPDATE count=count+1";
+
+		// Execute a query if provided
+		if(!empty($query)){
+			$result = $db->query($query);
+			// Stop if the DB errors
+			if(!$result){
+				return FALSE;
+				// return $result->error;
 			}
-			return (sizeof($return)) ? $return : FALSE;
+			// Format returned rows into an array
+			elseif(stripos($query, 'SELECT') !== FALSE) {
+				$return = Array();
+				while($row = $result->fetch_assoc()){
+					$return[] = $row;
+				}
+				return (sizeof($return)) ? $return : FALSE;
+			}
+			else {
+				return $result;
+			}
 		}
-		else {
-			return $result;
-		}
+		// If all else fails, return the database resource
+		return $db;
+
 	}
-	// If all else fails, return the database resource
-	return $db;
+
+	return FALSE;
+
 }
 
 function echoVersionNumber(){
