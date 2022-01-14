@@ -240,8 +240,9 @@ function get_service_color($service_name = NULL){
 		"Steam" => "rgba(27,40,56,1)",
 		"Apple TV+" => "rgba(11,11,12,1)",
 		"Comedy Central" => "rgba(253,198,0,1)",
-		"Showtime" => "rgba(177,0,0,1)");
-
+		"Showtime" => "rgba(177,0,0,1)",
+		"Tubi" => "rgb(255,80,26,1)");
+	
 	if($service_name == NULL){
 		return $colors;
 	}
@@ -251,7 +252,7 @@ function get_service_color($service_name = NULL){
 
 
 function echoVersionNumber(){
-	echo "3.1.4";
+	echo "3.1.5";
 	return;
 }
 ?>
