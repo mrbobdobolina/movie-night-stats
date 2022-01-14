@@ -279,7 +279,7 @@ template('header');
 							foreach($stats as $key => $value){
 								$format[] = $key;
 								$count[] = $value;
-								$color[] = get_service_color($key);
+								$color[] = get_service_color_v3($key);
 							}
 
 							if(!empty($format)): ?>

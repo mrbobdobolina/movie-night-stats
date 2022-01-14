@@ -292,11 +292,11 @@ template('header');
 								$people[] = $person;
 							}
 							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." events!";
-							$color = get_service_color($biggest['top'][0]);
+							$color = get_service_color_v3($biggest['top'][0]);
 						}
 						elseif($winners == 1) {
 							$message = $biggest['top'][0] ." with ". $biggest['count']." events!";
-							$color = get_service_color($biggest['top'][0]);
+							$color = get_service_color_v3($biggest['top'][0]);
 						}
 						else {
 							$message = "(no events yet)";
@@ -443,7 +443,7 @@ template('header');
 					unset($count_m);
 					unset($color_m);
 
-					$colors = get_service_color();
+					$colors = get_service_color_v3();
 
 					$minutes_watched = count_minutes_per_service($ii);
 					//print_r($minutes_watched);

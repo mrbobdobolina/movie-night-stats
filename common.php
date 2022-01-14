@@ -222,6 +222,8 @@ function get_viewers_years_single($id){
 	return $viewerYears;
 }
 
+
+//Legacy Function... I think we can delete this? But I'm leaving it here for now.
 function get_service_color($service_name = NULL){
 	$colors = Array("Disney+" => "rgba(44,43,191,1)",
 		"Netflix" => "rgba(229,9,20,1)",
@@ -242,14 +244,35 @@ function get_service_color($service_name = NULL){
 		"Comedy Central" => "rgba(253,198,0,1)",
 		"Showtime" => "rgba(177,0,0,1)",
 		"Tubi" => "rgb(255,80,26,1)");
-	
+
 	if($service_name == NULL){
 		return $colors;
 	}
 		return $colors[$service_name];
 }
 
-
+/**
+* Returns either list of services with colors or just the color of a given service
+* @param optional $service_name = NULL
+* @return array of services
+* OR
+* @param optional $service_name = string
+* @return string with rgba color
+*/
+function get_service_color_v3($service_name = NULL){
+	if($service_name == NULL){
+		$sql = "SELECT `name`, `rgba` FROM `services`";
+		$result = db($sql);
+		foreach($result as $service){
+			$colors[$service['name']] = $service['rgba'];
+		}
+		return $colors;
+	} else {
+		$sql = "SELECT `rgba` FROM `services` WHERE `name` = '$service_name'";
+		$colors = db($sql);
+		return $colors[0]['rgba'];
+	}
+}
 
 function echoVersionNumber(){
 	echo "3.1.5";

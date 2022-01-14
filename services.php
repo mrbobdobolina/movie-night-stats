@@ -18,7 +18,7 @@ template('header');
 		$format = Array();
 		$count = Array();
 
-		$colors = get_service_color();
+		$colors = get_service_color_v3();
 
 		foreach($service_data as $item){
 			$format[] = $item['format'];
