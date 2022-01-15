@@ -275,7 +275,7 @@ function get_service_color_v3($service_name = NULL){
 }
 
 function echoVersionNumber(){
-	echo "3.1.5";
+	echo "3.2.0";
 	return;
 }
 ?>

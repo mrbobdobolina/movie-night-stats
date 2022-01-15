@@ -4,8 +4,8 @@
 		Version <?php echoVersionNumber(); ?> <a href="changelog.php">Changelog</a>
 		<small>
 			<?php
-				$endtime = microtime(true);
-				printf("Page loaded in %f seconds", $endtime - $starttime );
+				//$endtime = microtime(true);
+				//printf("Page loaded in %f seconds", $endtime - $starttime );
 			?>
 		</small>
   </div>
