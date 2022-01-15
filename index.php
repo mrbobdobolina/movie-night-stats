@@ -22,6 +22,8 @@ $numbers = $numberTypes[rand(0,3)];
 			Collapse ALL
 		</button>
 
+		<a href="event_table.php" class="btn btn-outline-dark mb-3 mx-2">Table View</a>
+
 		<?php //print_r(getMyMovieYears(9));?>
 
 		<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
