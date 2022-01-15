@@ -64,7 +64,7 @@ else {
 									$vy_count = 1;
 								}
 
-								echo 'Tends to pick movies that were released around'.round(array_sum($vy)/$vy_count);
+								echo 'Tends to pick movies that were released around '.round(array_sum($vy)/$vy_count);
 
 								?>
 							</li>
@@ -137,7 +137,7 @@ else {
 											<?php foreach($numbers as $key => $value):?>
 												<tr>
 													<th scope="row"> <?php echo $key; ?> </th>
-													<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<? echo getMoviegoerColorByName($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
+													<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<?php echo getMoviegoerColorByName($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
 												</tr>
 											<?php endforeach;?>
 										</tbody>
@@ -150,7 +150,7 @@ else {
 									foreach($colors as $color):?>
 									<i class="fas fa-square" style="color:<?php echo $color;?>;"></i>
 								<?php endforeach;?>
-							</li>--!-->
+							</li>!-->
 
 						</ul>
 
@@ -208,7 +208,7 @@ else {
 				<div class="col-12 mb-4">
 					<div class="card">
 						<div class="card-header bold text-white" style="background-color:#<?php echo getMoviegoerColorById($viewer);?>;" >
-							<h3>Films</h3>
+							<h3>Unwatched Picks</h3>
 						</div>
 						<div class="card-body">
 							<?php
@@ -224,18 +224,25 @@ else {
 							arsort($allUserPicks3);
 
 							?>
-							<ul>
-								<h3>Unwatched Picks</h3>
-								<?php
 
+
+								<table id="movies" class="table table-striped">
+									<thead>
+										<tr>
+											<td><strong>Movie Title</strong></td>
+											<td><strong>Times on Wheel</strong></td>
+										</tr>
+									</thead>
+								<?php
 								foreach($allUserPicks3 as $key => $value){
 									if(!in_array($key, $watchedFilmList)){
-									 	echo '<li>'.getMovieById($key).'<em>('.$value.')</em></li>';
+									 	echo '<tr><td>'.getMovieById($key).'</td> <td>'.$value.'</td></tr>';
 									}
 								}
 
 								?>
-							</ul>
+							</table>
+
 						</div>
 					</div>
 				</div>
