@@ -194,7 +194,7 @@ template('header');
 				<div class="col-3 mb-4">
 					<div class="card">
 						<div class="card-header bold text-white" style="background-color:#<?php echo $person['color'];?>;" >
-							<h3><?php echo $person['name']; ?></h3>
+							<h3><strong><?php echo $person['name']; ?></strong></h3>
 						</div>
 						<div class="card-body">
 							<ul>
