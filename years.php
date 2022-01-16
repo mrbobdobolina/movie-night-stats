@@ -246,7 +246,7 @@ template('header');
 						<div class="card " style="height:175px;">
 							<div class="card-body">
 								<p class="bold">Top Selection Method:</p>
-								<p class="display-6 text-center" id="selction_<?php echo $ii; ?>">
+								<p class="text-center" id="selction_<?php echo $ii; ?>">
 									<?php echo $message;?>
 								</p>
 							</div>
