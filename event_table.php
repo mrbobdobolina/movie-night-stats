@@ -43,7 +43,7 @@ $numbers = $numberTypes[rand(0,3)];
 					?>
 					<tr class="text-white" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
 						<td><?php echo $count_events--;?></td>
-						<td><?php echo $eventDate->format('l, F j, Y'); ?></td>
+						<td><?php echo $eventDate->format('l, M j, Y'); ?></td>
 						<td><?php echo $event['winning_wedge'];?></td>
 						<td><?php echo getMovieById($event['winning_film']);?></td>
 						<td><?php echo getMoviegoerById($event['winning_moviegoer']);?></td>
