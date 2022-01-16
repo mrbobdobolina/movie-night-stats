@@ -317,3 +317,7 @@ ul h5{
 		display: table;
 		clear: both
 }
+
+#preload { 
+	display: none;
+}

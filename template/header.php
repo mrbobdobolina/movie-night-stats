@@ -1,6 +1,4 @@
 <?php
-
-$starttime = microtime(true);
 require_once("common.php");
 add_page_load();
 

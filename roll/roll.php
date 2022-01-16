@@ -1,38 +1,7 @@
 <?php
 
-$db = FALSE;
-function db($query = NULL){
-	static $db;
+require_once("../common.php");
 
-	// Only connect to the database once.
-	if(!isset($db)){
-		$db = new mysqli(DB_ADDR, DB_USER, DB_PASS, DB_NAME);
-		if($db === FALSE){return $db->connect_error();}
-	}
-
-	// Execute a query if provided
-	if(!empty($query)){
-		$result = $db->query($query);
-		// Stop if the DB errors
-		if(!$result){
-			return FALSE;
-			// return $result->error;
-		}
-		// Format returned rows into an array
-		elseif(stripos($query, 'SELECT ') !== FALSE) {
-			$return = Array();
-			while($row = $result->fetch_assoc()){
-				$return[] = $row;
-			}
-			return (sizeof($return)) ? $return : FALSE;
-		}
-		else {
-			return $result;
-		}
-	}
-	// If all else fails, return the database resource
-	return $db;
-}
 
  $url = 'http://roll.diceapi.com/json/d12';
  $dice = json_decode(file_get_contents($url), true);
