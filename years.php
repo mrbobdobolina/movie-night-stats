@@ -28,8 +28,9 @@ template('header');
 		$max_attendance = max($yearly_attendance);
 
 		?>
-		<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
 
+		<!-- top row of charts -->
+		<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
 			<div class="col">
 				<div class="card ">
 					<div class="card-body">
@@ -101,21 +102,16 @@ template('header');
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 
 
 		<?php for($ii = $current_year; $ii >= 2019; $ii--):?>
 			<div class="card p-2 mt-5 mb-3">
 				<p class="display-6 text-center mt-5 mb-2"> <?php echo $ii; ?> Stats</p>
-
-
 				<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3 justify-content-center">
 
 					<div class="col align-self-center">
 						<?php
-
 						$biggest_winner = biggest_winner($ii);
 						$winners = count($biggest_winner['top_winners']);
 						if($winners > 1){
@@ -124,7 +120,6 @@ template('header');
 							foreach($biggest_winner['top_winners'] as $person){
 								$people[] = getMoviegoerById($person);
 							}
-
 							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest_winner['count']." wins!";
 							$color = getMoviegoerColorById($biggest_winner['top_winners'][0]);
 						}
@@ -136,21 +131,26 @@ template('header');
 							$message = "(no wins yet)";
 							$color = "999999";
 						}
-
 						?>
-						<div class="card " style="background-color:#<?php echo $color; ?>;">
+						<!-- card with information -->
+						<div class="card " style="background-color:#<?php echo $color; ?>; height:175px;">
 							<div class="card-body text-white">
 								<p class="bold">Most Wins:</p>
-								<p class="display-6 text-center message">
-									<?php echo $message;?>
-								</p>
+								<div>
+									<p class="text-center message" id="wins_<?php echo $ii; ?>">
+										<?php echo $message;?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
+					<script>
+					    fitty('#wins_<?php echo $ii; ?>');
+					</script>
+
 
 					<div class="col align-self-center">
 						<?php
-
 						$biggest_spinner = biggest_spinner($ii);
 						$winners = count($biggest_spinner['top_spinner']);
 						if($winners > 1){
@@ -159,7 +159,6 @@ template('header');
 							foreach($biggest_spinner['top_spinner'] as $person){
 								$people[] = getMoviegoerById($person);
 							}
-
 							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest_spinner['count']." spins!";
 							$color = getMoviegoerColorById($biggest_spinner['top_spinner'][0]);
 						}
@@ -171,21 +170,25 @@ template('header');
 							$message = "(no spins yet)";
 							$color = "999999";
 						}
-
 						?>
-						<div class="card " style="background-color:#<?php echo $color; ?>;">
+						<div class="card " style="background-color:#<?php echo $color; ?>; height:175px;">
 							<div class="card-body text-white">
 								<p class="bold">Most Spins:</p>
-								<p class="display-6 text-center">
-									<?php echo $message;?>
-								</p>
+								<div>
+									<p class="text-center" id="spins_<?php echo $ii; ?>">
+										<?php echo $message;?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
+					<script>
+					    fitty('#spins_<?php echo $ii; ?>');
+					</script>
+
 
 					<div class="col align-self-center">
 						<?php
-
 						$biggest = highest_attendance($ii);
 						$winners = count($biggest['top']);
 						if($winners > 1){
@@ -205,21 +208,24 @@ template('header');
 							$message = "(no events yet)";
 							$color = "999999";
 						}
-
 						?>
-						<div class="card " style="background-color:#<?php echo $color; ?>;">
-							<div class="card-body text-white">
+						<div class="card " style="background-color:#<?php echo $color; ?>; height:175px;">
+							<div class="card-body text-white ">
 								<p class="bold">Top Attendance:</p>
-								<p class="display-6 text-center">
-									<?php echo $message;?>
-								</p>
+								<div>
+									<p class="text-center" id="attend_<?php echo $ii; ?>">
+										<?php echo $message;?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
+					<script>
+					    fitty('#attend_<?php echo $ii; ?>');
+					</script>
 
 					<div class="col align-self-center">
 						<?php
-
 						$biggest = biggest_blank($ii, 'selection_method');
 						$winners = count($biggest['top']);
 						if($winners > 1){
@@ -228,7 +234,6 @@ template('header');
 							foreach($biggest['top'] as $person){
 								$people[] = $person;
 							}
-
 							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." events!";
 						}
 						elseif($winners == 1) {
@@ -237,21 +242,22 @@ template('header');
 						else {
 							$message = "(no events yet)";
 						}
-
 						?>
-						<div class="card ">
+						<div class="card " style="height:175px;">
 							<div class="card-body">
 								<p class="bold">Top Selection Method:</p>
-								<p class="display-6 text-center">
+								<p class="display-6 text-center" id="selction_<?php echo $ii; ?>">
 									<?php echo $message;?>
 								</p>
 							</div>
 						</div>
 					</div>
+					<script>
+					    fitty('#selection_<?php echo $ii; ?>');
+					</script>
 
 					<div class="col align-self-center">
 						<?php
-
 						$biggest = biggest_blank($ii, 'winning_wedge', TRUE);
 						$winners = count($biggest['top']);
 						if($winners > 1){
@@ -268,21 +274,24 @@ template('header');
 						else {
 							$message = "(no events yet)";
 						}
-
 						?>
-						<div class="card align-self-center">
+						<div class="card align-self-center" style="height:175px;">
 							<div class="card-body">
 								<p class="bold">Most Spun Number:</p>
-								<p class="display-6 text-center">
-									<?php echo $message;?>
-								</p>
+								<div>
+									<p class="text-center" id="number_<?php echo $ii; ?>">
+										<?php echo $message;?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
+					<script>
+					    fitty('#number_<?php echo $ii; ?>');
+					</script>
 
 					<div class="col align-self-center">
 						<?php
-
 						$biggest = biggest_blank($ii, 'format');
 						$winners = count($biggest['top']);
 						if($winners > 1){
@@ -302,21 +311,24 @@ template('header');
 							$message = "(no events yet)";
 							$color = "999999";
 						}
-
 						?>
-						<div class="card " style="background-color:<?php echo $color; ?>;">
+						<div class="card " style="background-color:<?php echo $color; ?>; height:175px;">
 							<div class="card-body text-white">
 								<p class="bold">Top Service:</p>
-								<p class="display-6 text-center">
-									<?php echo $message;?>
-								</p>
+								<div>
+									<p class="text-center" id="service_<?php echo $ii; ?>">
+										<?php echo $message;?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
+					<script>
+					    fitty('#service_<?php echo $ii; ?>');
+					</script>
 
 					<div class="col align-self-center">
 						<?php
-
 						$biggest = most_requested_film($ii);
 						$winners = count($biggest['top']);
 						if($winners > 1){
@@ -331,21 +343,24 @@ template('header');
 						} else {
 							$message = "(no requests yet)";
 						}
-
 						?>
-						<div class="card align-self-center">
+						<div class="card align-self-center" style="height:175px;">
 							<div class="card-body" >
 								<p class="bold">Most Requested Films:</p>
-								<p class="display-6 text-center" >
-									<?php echo $message;?>
-								</p>
+								<div>
+									<p class="text-center" id="requested_<?php echo $ii; ?>">
+										<?php echo $message;?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
+					<script>
+					    fitty('#requested_<?php echo $ii; ?>');
+					</script>
 
 					<div class="col align-self-center">
 						<?php
-
 						$won_films = find_best_or_worst_watched_film_with_year_option($best_or_worst = "best", $year = $ii);
 						unset($winners);
 						$top_rating = $won_films[0]['avg_rating'];
@@ -380,15 +395,20 @@ template('header');
 						}
 
 						?>
-						<div class="card align-self-center">
+						<div class="card align-self-center" style="height:175px;">
 							<div class="card-body" >
 								<p class="bold">Highest Rated Watched Film:</p>
-								<p class="display-6 text-center" >
-									<?php echo $message;?>
-								</p>
+								<div>
+									<p class="text-center" id="ratehi_<?php echo $ii; ?>">
+										<?php echo $message;?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
+					<script>
+					    fitty('#ratehi_<?php echo $ii; ?>');
+					</script>
 
 
 					<div class="col align-self-center">
@@ -427,15 +447,20 @@ template('header');
 						}
 
 						?>
-						<div class="card align-self-center">
+						<div class="card align-self-center" style="height:175px;">
 							<div class="card-body" >
 								<p class="bold">Worst Rated Watched Film:</p>
-								<p class="display-6 text-center" >
-									<?php echo $message;?>
-								</p>
+								<div>
+									<p class="text-center" id="ratelo_<?php echo $ii; ?>">
+										<?php echo $message;?>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
+					<script>
+					    fitty('#ratelo_<?php echo $ii; ?>');
+					</script>
 
 					<?php
 
@@ -489,6 +514,7 @@ template('header');
 
 	</div>
 </div>
+
 
 
 <?php template('footer');?>

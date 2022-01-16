@@ -26,6 +26,8 @@ add_page_load();
 	<link rel="stylesheet" type="text/css" href="<?php echo WEB_ROOT; ?>assets/datatables/v1.10.23/datatables.min.css"/>
 	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>assets/datatables/v1.10.23/datatables.min.js"></script>
 
+	<!-- Fitty -->
+	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>assets/fitty/fitty.min.js"></script>
 
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/2b50968540.js" crossorigin="anonymous"></script>
