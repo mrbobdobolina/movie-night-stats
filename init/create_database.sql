@@ -6,7 +6,7 @@
 # https://github.com/Sequel-Ace/Sequel-Ace
 #
 # Host: 192.254.231.77 (MySQL 5.6.41-84.1)
-# Database: apathday_movie_night_stats
+# Database: movie_night_stats
 # Generation Time: 2022-01-09 03:57:23 +0000
 # ************************************************************
 
@@ -55,6 +55,47 @@ CREATE TABLE `films` (
   `last_instance` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+# Dump of table services
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `services`;
+
+CREATE TABLE `services` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` text COLLATE utf8_unicode_ci,
+  `rgba` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `services` WRITE;
+/*!40000 ALTER TABLE `services` DISABLE KEYS */;
+
+INSERT INTO `services` (`id`, `name`, `rgba`)
+VALUES
+	(1,'Disney+','rgba(44,43,191,1)'),
+	(2,'Netflix','rgba(229,9,20,1)'),
+	(3,'Hulu','rgba(28,231,131,1)'),
+	(4,'Digital File','rgba(237,182,23,1)'),
+	(5,'DVD','rgba(166,170,155,1)'),
+	(6,'Prime','rgba(0,168,255,1)'),
+	(7,'HBO Max','rgba(91,28,230,1)'),
+	(8,'iTunes Rental','rgba(136,136,136,1)'),
+	(9,'Starz','rgba(0,0,0,1)'),
+	(10,'HBO Now','rgba(0,0,0,1)'),
+	(11,'Redbox','rgba(227,32,69,1)'),
+	(12,'YouTube Movies','rgba(255,0,0,1)'),
+	(13,'Bluray','rgba(0,144,206,1)'),
+	(14,'Streaming','rgba(99,44,140,1)'),
+	(15,'Steam','rgba(27,40,56,1)'),
+	(16,'Apple TV+','rgba(11,11,12,1)'),
+	(17,'Comedy Central','rgba(253,198,0,1)'),
+	(18,'Showtime','rgba(177,0,0,1)'),
+	(19,'Tubi','rgb(255,80,26,1)');
+
+/*!40000 ALTER TABLE `services` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table spinners

@@ -1,79 +1,102 @@
-<?php require_once("header.php"); ?>
+<?php
 
+require_once('common.php');
 
-  <div class="album py-5 bg-light">
-    <div class="container">
-			<p class="display-6 text-center">Attendance, Selection, Winners: visualized.</p>
+template('header');
 
-<table class="table table-sm">
-	<thead>
-		<tr>
-			<th class="text-center">#</th>
-			<th class="col-2">Date</th>
+$events = getListOfEvents("DESC");
+$count_events = count($events);
+$ten_percent = round(($count_events * .1), 0);
 
-		<?php $viewers = getListOfViewers('attendance', 'DESC'); ?>
-		
-		<?php foreach($viewers as $viewer):?>
-			<th class="text-center"><?php echo $viewer['name']; ?></th>
-		<?php endforeach;?>
-	</tr>
-	</thead>
-	<tbody>
+$sql = "SELECT `id`, `name`, `color` FROM `viewers` WHERE `attendance` >= $ten_percent ORDER BY `attendance` DESC";
+$top_viewers = db($sql);
+
+//print_r($top_viewers);
+
+?>
+<div class="album py-5 bg-light">
+	<div class="container">
+		<p class="display-6 text-center">Attendance, Selection, Winners: visualized.</p>
+
+		<table class="table table-sm">
+			<thead>
+				<tr>
+					<th class="text-center">#</th>
+					<th class="col-2">Date</th>
+					<?php
+						$viewers = $top_viewers;
+						foreach($viewers as $viewer){
+							echo '<th class="text-center">'.$viewer['name'].'</th>';
+						}
+					?>
+					<th>with</th>
+				</tr>
+			</thead>
+			<tbody>
 				<?php foreach($events as $event):?>
-	       <tr>
-					 <td class="text-center"><?php echo $count_events--;?></td>
-					 <td><?php
-						 $theDate = new DateTime($event['date']);
-						 
-						  echo $theDate->format('F j, Y'); ?>
+					<tr>
+						<td class="text-center"><?php echo $count_events--;?></td>
+						<td>
+							<?php
+								$theDate = new DateTime($event['date']);
+								echo $theDate->format('F j, Y');
+							?>
 						</td>
-
-						 <?php $present = explode(",",$event['attendees']);?>
-			 		<?php foreach($viewers as $viewer):?>
-
-								<?php if(in_array($viewer['id'], $present)):?>
+						<?php
+							$present = explode(",",$event['attendees']);
+					 		foreach($top_viewers as $viewer){
+								if(in_array($viewer['id'], $present)): ?>
+									<?php $key = array_search($viewer['id'], $present);
+									unset($present[$key]);
+									?>
 									<td style="background-color:#<?php echo $viewer['color'];?>; color:#fff;" class="text-center">
-										<?php 
-										$html = '';
-										if($viewer['id'] == $event['spinner']){
-											$html = '<i class="fas fa-sync-alt"></i>';
-										}
-										if($viewer['id'] == $event['winning_moviegoer']){
-											if($html == ''){
-												$html .= '<i class="far fa-trophy-alt"></i>';
-											} else {
-												$html .= '&nbsp;<i class="far fa-trophy-alt"></i>';
+										<?php
+											$html = '';
+											if($viewer['id'] == $event['spinner']){
+												$html = '<i class="fas fa-sync-alt"></i>';
 											}
-										} ?>
-										<?php echo $html;?>		
+											if($viewer['id'] == $event['winning_moviegoer']){
+												if($html == ''){
+													$html .= '<i class="far fa-trophy-alt"></i>';
+												} else {
+													$html .= '&nbsp;<i class="far fa-trophy-alt"></i>';
+												}
+											}
+											echo $html;
+										?>
 									</td>
-										<?php else:?>
-											<td></td>
-								<?php endif;?>
-						
-			 		<?php endforeach;?> 
-				 </tr> 
-				<?php endforeach;?>
+								<?php else:?>
+									<td></td>
+								<?php endif;}
+						?>
+						<td style="padding:0px"><?php //print_r($present);
+						if($present != NULL){
+							$dividor = round(100/count($present),0);
+							$html2 = '<div class="row m-0">';
+							foreach($present as $person){
+								$html2 .= '<span style="background-color:#'.getMoviegoerColorById($person).'; color:#fff; margin:0px; padding:4px; display:block; width:'.$dividor.'%;" class="text-center">'.getMoviegoerById($person);
+								if($person == $event['spinner']){
+									$html2 .= '&nbsp;<i class="fas fa-sync-alt"></i>';
+								}
+								if($person == $event['winning_moviegoer']){
+										$html2 .= '&nbsp;<i class="far fa-trophy-alt"></i>';
+								}
+								$html2 .= '</span> ';
+							}
+							$html2 .= "</div>";
+							echo $html2;
+
+						}
+
+						?></td>
+
+						<?php endforeach;?>
+
+					</tr>
 			</tbody>
-</table>
+		</table>
 
+	</div>
+</div>
 
-    </div>
-  </div>
-
-</main>
-
-<footer class="text-muted py-5">
-  <div class="container">
-				Version <?php echoVersionNumber(); ?> <a href="changelog.php">Changelog</a>
-   </div>
-</footer>
-
-
-    <script src="bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-		
-
-
-      
-  </body>
-</html>
+<?php template('footer');?>

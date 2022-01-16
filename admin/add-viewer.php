@@ -7,7 +7,7 @@ $auth = new \Delight\Auth\Auth($db);
 
 if (!$auth->isLoggedIn()) {
 	header(sprintf("Location: %s", "../"));
-	  exit(); 
+	  exit();
 }
 
 ?>
@@ -20,10 +20,10 @@ if (!$auth->isLoggedIn()) {
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <title>Movie Night Stats</title>
 
-    
 
-    <!-- Bootstrap core CSS -->
-<link href="../bootstrap5/css/bootstrap.min.css" rel="stylesheet" >
+
+		<!-- Bootstrap -->
+		<link href="<?php echo WEB_ROOT; ?>assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
 
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="../images/favicon_32.png" sizes="180x180">
@@ -60,7 +60,7 @@ if (!$auth->isLoggedIn()) {
 				width:60%;
 			  white-space: nowrap;
 			  overflow: hidden;
-			  text-overflow: ellipsis;		
+			  text-overflow: ellipsis;
 			}
 			.viewer-name{
 				width:30%;
@@ -75,16 +75,16 @@ if (!$auth->isLoggedIn()) {
 				max-width:800px;
 				display:inline-block;
 			}
-			
+
 			table { width:250px;table-layout:fixed; }
 			table tr { height:1em;  }
-			td { overflow:hidden;white-space:nowrap;  } 
+			td { overflow:hidden;white-space:nowrap;  }
     </style>
 
-    
+
   </head>
   <body>
-    
+
 <header>
 
   <div class="navbar navbar-dark bg-red shadow-sm">
@@ -102,27 +102,27 @@ if (!$auth->isLoggedIn()) {
 
 	<main>
 	  <div class="album py-5 bg-light">
-	    <div class="container">			
+	    <div class="container">
 				<p class="display-6 text-center mb-5">Add a viewer.</p>
 	      <div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
-					
+
 					<div class="card-body">
 						<p>Congrats on your new friend, I guess.</p>
 					</div>
 					<div class="card-body">
 						<form action="av.php" method="post">
 						  <div class="form-group row">
-						    <label for="name" class="col-4 col-form-label">Viewer Name</label> 
+						    <label for="name" class="col-4 col-form-label">Viewer Name</label>
 						    <div class="col-8">
 						      <input id="name" name="name" type="text" class="form-control">
 						    </div>
 						  </div>
 						  <div class="form-group row">
-						    <label for="color" class="col-4 col-form-label">Color</label> 
+						    <label for="color" class="col-4 col-form-label">Color</label>
 						    <div class="col-8">
 						      <input id="color" name="color" type="text" class="form-control">
 						    </div>
-						  </div> 
+						  </div>
 						  <div class="form-group row">
 						    <div class="offset-4 col-8">
 						      <button name="submit" type="submit" class="btn btn-primary">Submit</button>
@@ -138,9 +138,9 @@ if (!$auth->isLoggedIn()) {
 											<?php endforeach;?>
 										</ul>
 					</div>
-					
+
 					</div>
-	      
+
 	    </div>
 	  </div>
 	</main>
@@ -157,6 +157,6 @@ if (!$auth->isLoggedIn()) {
 
     <script src="../bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-      
+
   </body>
 </html>
