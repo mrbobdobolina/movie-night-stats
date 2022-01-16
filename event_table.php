@@ -22,14 +22,14 @@ $numbers = $numberTypes[rand(0,3)];
 			<table id="events" class="table table-hover">
 				<thead>
 					<tr>
-						<td>#</td>
-						<td>Date</td>
-						<td>Wedge</td>
-						<td>Winning Film</td>
-						<td>Picker</td>
-						<td>Spinner</td>
-						<td>Tool</td>
-						<td>Format</td>
+						<th>#</th>
+						<th>Date</th>
+						<th>Wedge</th>
+						<th>Winning Film</th>
+						<th>Picker</th>
+						<th>Spinner</th>
+						<th>Tool</th>
+						<th>Format</th>
 					</tr>
 				</thead>
 
