@@ -11,13 +11,13 @@ $ten_percent = round(($count_events * .1), 0);
 $sql = "SELECT `id`, `name`, `color` FROM `viewers` WHERE `attendance` >= $ten_percent ORDER BY `attendance` DESC";
 $top_viewers = db($sql);
 
-//print_r($top_viewers);
-
 ?>
 <div class="album py-5 bg-light">
 	<div class="container">
 		<p class="display-6 text-center">Attendance, Selection, Winners: visualized.</p>
-
+		<p class="text-center mb-5">
+			<i class="fas fa-sync-alt px-1"></i> indicates spinner, <i class="far fa-trophy-alt px-1"></i> indicates winner.
+		</p>
 		<table class="table table-sm">
 			<thead>
 				<tr>
