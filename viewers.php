@@ -258,7 +258,7 @@ template('header');
 											<?php foreach($numbers as $key => $value):?>
 												<tr>
 													<th scope="row"> <?php echo $key; ?> </th>
-													<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<? echo getMoviegoerColorByName($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
+													<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<?php echo getMoviegoerColorByName($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
 												</tr>
 											<?php endforeach;?>
 										</tbody>

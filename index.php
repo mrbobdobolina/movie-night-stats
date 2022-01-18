@@ -12,8 +12,8 @@ $numbers = $numberTypes[rand(0,3)];
 <div class="album py-5 bg-light">
 	<div class="container">
 		<?php $minutes = calculateTotalWatchtime(); ?>
-		<p class="display-6 text-center">Over <?php echo number_format($minutes); ?> minutes of "entertainment".</p>
-		<p class="text-center mb-5">(That's <?php echo round(($minutes/60), 2);?> hours. Or <?php echo round(($minutes/60)/24, 2);?> days.)</p>
+		<p class="display-6 text-center">"I'm not a nerd, you're a nerd."</p>
+		<p class="text-center mb-5">Over <?php echo number_format($minutes); ?> minutes of "entertainment." (Or <?php echo round(($minutes/60), 2);?> hours.) (Or <?php echo round(($minutes/60)/24, 2);?> days.)</p>
 
 		<button id="btn-expand-all" class="btn btn-outline-primary mb-3" onclick="$('.collapse').collapse('show'); $('#btn-expand-all').hide(); $('#btn-collapse-all').show();">
 			Expand ALL
@@ -22,7 +22,7 @@ $numbers = $numberTypes[rand(0,3)];
 			Collapse ALL
 		</button>
 
-		<?php //print_r(getMyMovieYears(9));?>
+		<a href="event_table.php" class="btn btn-outline-dark mb-3 mx-2">Table View</a>
 
 		<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
 
