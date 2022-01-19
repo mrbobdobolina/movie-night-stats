@@ -1,3 +1,5 @@
+			</div>
+		</div>
 	</main>
 
 	<footer class="text-muted py-5">
