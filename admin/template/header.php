@@ -72,10 +72,7 @@
 			max-width:800px;
 			display:inline-block;
 		}
-
-		table { width:250px;table-layout:fixed; }
-		table tr { height:1em;  }
-		td { overflow:hidden;white-space:nowrap;  }
+		table thead {white-space: nowrap;}
   </style>
 
 

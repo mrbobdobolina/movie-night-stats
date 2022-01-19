@@ -6,51 +6,110 @@ include('inc/credentials.php');
 
 restrict_page_to_admin();
 
+if(!empty($_POST)){
+	if(!empty($_POST['name']) && !empty($_POST['color'])){
+		$query = sprintf(
+			"INSERT INTO `viewers` SET `name`='%s', `color`='%s'",
+			db_esc($_POST['name']),
+			db_esc($_POST['color'])
+		);
+
+		db($query);
+
+		$alert = [
+			'color' => 'success',
+			'msg' => 'Success! Added new viewer!'
+		];
+	}
+	else if(empty($_POST['name']) && empty($_POST['color'])){
+		$alert = [
+			'color' => 'danger',
+			'msg' => 'Error! Please enter a name and color.'
+		];
+	}
+	else if(empty($_POST['name'])) {
+		$alert = [
+			'color' => 'danger',
+			'msg' => 'Error! Please enter a name.'
+		];
+	}
+	else if(empty($_POST['color'])) {
+		$alert = [
+			'color' => 'danger',
+			'msg' => 'Error! Please enter a color.'
+		];
+	}
+
+}
+
 include('template/header.php');
 
 ?>
-<div class="album py-5 bg-light">
-  <div class="container">
-		<p class="display-6 text-center mb-5">Add a viewer.</p>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
+<h1 class="display-6 text-center">Add a viewer</h1>
+<div class="text-center mb-5">Congrats on your new friend, I guess.</div>
 
+<?php
+
+if(!empty($alert)){
+	echo '<div class="alert alert-'.$alert['color'].' alert-dismissible fade show" role="alert">';
+	echo $alert['msg'];
+	echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+	echo '</div>';
+}
+
+?>
+
+<div class="row justify-content-center">
+	<div class="col-12 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+
+		<div class="card mb-3">
 			<div class="card-body">
-				<p>Congrats on your new friend, I guess.</p>
-			</div>
-			<div class="card-body">
-				<form action="av.php" method="post">
-				  <div class="form-group row">
-				    <label for="name" class="col-4 col-form-label">Viewer Name</label>
-				    <div class="col-8">
-				      <input id="name" name="name" type="text" class="form-control">
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <label for="color" class="col-4 col-form-label">Color</label>
-				    <div class="col-8">
-				      <input id="color" name="color" type="text" class="form-control">
-				    </div>
-				  </div>
-				  <div class="form-group row">
-				    <div class="offset-4 col-8">
-				      <button name="submit" type="submit" class="btn btn-primary">Submit</button>
-				    </div>
-				  </div>
+				<form action="#" method="POST">
+					<div class="row mb-3">
+						<label for="name" class="col-4 col-form-label">Viewer Name</label>
+						<div class="col-8">
+							<input id="name" name="name" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="row mb-3">
+						<label for="color" class="col-4 col-form-label">Color</label>
+						<div class="col-8">
+							<input id="color" name="color" type="text" class="form-control">
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="offset-4 col-8">
+							<button name="submit" type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
 				</form>
 			</div>
+		</div>
+
+	</div>
+	<div class="col-12 col-md-4 col-xl-3">
+
+		<div class="card mb-3">
+			<div class="card-header">
+				Existing Viewers
+			</div>
 			<div class="card-body">
-				<?php $viewers = getListOfViewers();?>
-									<ul>
-									<?php foreach($viewers as $person):?>
-										<li><?php echo $person['name'];?></li>
-									<?php endforeach;?>
-								</ul>
-			</div>
+				<ul>
+					<?php
 
-			</div>
+					$viewers = getListOfViewers();
+					foreach($viewers as $person){
+						echo '<li>'.$person['name'].'</li>';
+					}
 
-  </div>
+					?>
+				</ul>
+			</div>
+		</div>
+
+	</div>
 </div>
+
 
 <?php
 
