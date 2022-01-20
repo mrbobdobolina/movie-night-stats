@@ -18,7 +18,7 @@ if(!empty($_POST)){
 			"INSERT INTO `spinners` SET `name`='%s',".
 			"`wedge_1`='%s',`wedge_2`='%s',`wedge_3`='%s',`wedge_4`='%s',".
 			"`wedge_5`='%s',`wedge_6`='%s',`wedge_7`='%s',`wedge_8`='%s',".
-			"`wedge_9`='%s',`wedge_10`='%s',`wedge_11`='%s',`wedge_12`='%s',",
+			"`wedge_9`='%s',`wedge_10`='%s',`wedge_11`='%s',`wedge_12`='%s', `uses`='0'",
 
 			db_esc($_POST['name'] ?? ''),
 
@@ -38,6 +38,8 @@ if(!empty($_POST)){
 			db_esc($_POST['color_11'] ?? ''),
 			db_esc($_POST['color_12'] ?? '')
 		);
+
+		db($query);
 
 		$alert = [
 			'color' => 'success',
