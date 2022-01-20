@@ -24,7 +24,7 @@ function db($query = NULL){
 			while($row = $result->fetch_assoc()){
 				$return[] = $row;
 			}
-			return (sizeof($return)) ? $return : FALSE;
+			return (sizeof($return)) ? $return : [];
 		}
 		else {
 			return $result;

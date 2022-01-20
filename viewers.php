@@ -140,13 +140,13 @@ template('header');
 							</td>
 							<td class="text-end"><?php echo $wins; ?></td>
 							<td class="text-end"><?php echo round(($wins/$total_events)*100,2);?>%</td>
-							<td class="text-end"><?php echo round(($wins/$attend)*100,2);?>%</td>
+							<td class="text-end"><?php echo ($attend == 0) ? 0 : round(($wins/$attend)*100,2);?>%</td>
 							<td class="text-end"><?php echo find_my_longest_streak($person['id']); ?></td>
 							<td class="text-end"><?php echo get_dry_spell($person['id']); ?></td>
 							<td class="text-end"><?php echo last_spin_date($person['id']); ?></td>
 							<td class="text-end"><?php echo $spins['total'];?></td>
 							<td class="text-end"><?php echo $picks['total'];?></td>
-							<td class="text-end"><?php echo $time_watched[$person['id']];?></td>
+							<td class="text-end"><?php echo $time_watched[$person['id']] ?? 0;?></td>
 							<td class="text-end"><?php echo get_viewer_ratings_real($person['id']);?>%</td>
 
 						</tr>
