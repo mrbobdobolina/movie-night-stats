@@ -1,11 +1,14 @@
 <?php
 
 function is_logged_in(){
-	return TRUE;
+	return !empty($_COOKIE['password']);
 }
 
 function is_admin(){
-	return TRUE;
+	if(is_logged_in()){
+		return password_verify(ADMIN_PASSWORD, $_COOKIE['password']);
+	}
+	return FALSE;
 }
 
 function restrict_page_to_admin(){
