@@ -1,189 +1,272 @@
-<?php require_once("../common.php"); ?>
 <?php
 
-$db = new \PDO('mysql:dbname='.DB_NAME.';host=localhost;charset=utf8mb4', DB_USER, DB_PASS);
+require_once("../common.php");
 
-$auth = new \Delight\Auth\Auth($db);
+include('inc/credentials.php');
 
-if (!$auth->isLoggedIn()) {
-	header(sprintf("Location: %s", "../"));
-	  exit();
-}
+restrict_page_to_admin();
+
+include('template/header.php');
 
 ?>
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <title>Movie Night Stats</title>
+<h1 class="display-6 text-center">Scribe's List</h1>
+<div class="text-center mb-5">Because you were too lazy to write it out.</div>
+
+<div class="row">
+	<div class="col-12 col-sm-4 col-lg-2 mb-3">
+		<div class="card">
+			<div class="card-header">Attendees</div>
+			<div class="card-body">
+				<?php
+
+				foreach(getListOfViewers() as $viewer){
+					echo '<div class="form-check">';
+
+					echo '<input id="attendees['.$viewer['id'].']" type="checkbox" class="check-attendee form-check-input" value="'.$viewer['name'].'"> ';
+					echo '<label for="attendees['.$viewer['id'].']" class="form-check-label">'.$viewer['name'].'</label>';
+
+					echo '</div>';
+				}
+
+				?>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-sm-8 col-lg mb-3">
+		<div class="card">
+			<div class="card-header">Films</div>
+			<div class="card-body">
+				<?php
+
+				for($i = 0; $i < 12; $i++){
+					echo '<div class="row">';
+					echo '	<div class="col-12 mb-1">';
+					echo '		<div class="input-group">';
 
 
-
-		<!-- Bootstrap -->
-		<link href="<?php echo WEB_ROOT; ?>assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
-
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="../images/favicon_32.png" sizes="180x180">
-<link rel="icon" href="../images/favicon_32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="../images/favicon_32.png" sizes="16x16" type="image/png">
-<link rel="icon" href="../images/favicon_32.png">
+					echo '<div class="input-group-text justify-content-center" style="width:3em;">'.($i+1).'</div>';
+					echo '<input class="input-film form-control form-control-sm">';
 
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+					echo '		</div>';
+					echo '	</div>';
+					echo '</div>';
+				}
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-			.bg-red{
-				background-color:#EA2F1C;
-			}
-			.navbar{
-				text-weight:bold;
-				text-shadow: 0px 2px black;
-			}
-			a {
-				text-decoration: none;
-			}
-			.movie-title{
-				width:60%;
-			  white-space: nowrap;
-			  overflow: hidden;
-			  text-overflow: ellipsis;
-			}
-			.viewer-name{
-				width:30%;
-			}
-			.number{
-				width:10%;
-			}
-			.bold{
-				font-weight: bold;
-			}
-			.header-image{
-				max-width:800px;
-				display:inline-block;
-			}
-
-			table { width:250px;table-layout:fixed; }
-			table tr { height:1em;  }
-			td { overflow:hidden;white-space:nowrap;  }
-    </style>
-
-
-  </head>
-  <body>
-
-<header>
-
-  <div class="navbar navbar-dark bg-red shadow-sm">
-
-			<div class="container d-flex justify-content-between">
-				<a href="add-list.php" class="nav-link text-white fw-bold">Random Assignments</a>
-				<a href="add-viewer.php" class="nav-link text-white fw-bold">Add Viewer</a>
-				<a href="add-movie.php" class="nav-link text-white fw-bold">Add Movie</a>
-				<a href="add-game.php" class="nav-link text-white fw-bold">Add Game</a>
-				<a href="add-spinner.php" class="nav-link text-white fw-bold">Add Spinner</a>
-				<a href="log-out.php" class="nav-link text-white fw-bold">Log Out</a>
-    </div>
-  </div>
-</header>
-
-	<main>
-	  <div class="album py-5 bg-light">
-	    <div class="container">
-				<p class="display-6 text-center mb-5">Random Assignments.</p>
-				<?php if(isset($_POST)){
-					foreach($_POST['attendees'] as $person){
-						$people[] = getMoviegoerById($person);
-					}
-					//print_r($people);
-				}?>
-	      <div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
-						<form action="add-list.php" method="post">
-						<?php
-						$viewers = getListOfViewers();
-						foreach($viewers as $key => $value):?>
-					 <div class="custom-control custom-checkbox custom-control-inline">
-					        <input name="attendees[]" id="attendees_<?php echo $value['id']; ?>" type="checkbox" class="custom-control-input" value="<?php echo $value['id']; ?>">
-					        <label for="attendees_<?php echo $value['id']; ?>" class="custom-control-label"><?php echo $value['name']; ?></label>
-					      </div>
-
-					<?php endforeach;?>
-					<input type="submit" value="Submit">
-					</form>
-
-					<div class="card-body">
-						<?php //$people = Array("Philip", "TV", "Holly");
-						shuffle($people);
-						$count = count($people);
-						$ii = 0;
-						$list = Array();
-
-						$date = new DateTime('NOW');
-
-						echo $date->format('F j, Y') . " Movie List<br />";?>
-
-						<?php for($i = 0; $i <= 11; $i++){
-
-							$list[$i+1] = $people[$ii];
-
-							//echo $i+1 .".  ". "(".$people[$ii].")<br />";
-
-							$ii++;
-
-							if($ii >= $count){
-								$ii = 0;
-							}
-
-						}
-
-						if(random_int(1,3) == 1){
-							shuffle($list);
-							foreach($list as $key => $value){
-								echo $key+1 . ". " . "(".$value.") <br />";
-							}
-						} else {
-							foreach($list as $key => $value){
-								echo $key . ". " . "(".$value.") <br />";
-							}
-						}
-
-
-
-						?>
+				?>
+			</div>
+		</div>
+	</div>
+	<div class="col mb-3 col-lg">
+		<div class="card">
+			<div class="card-header">Export</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col mb-3">
+						<textarea id="scribe-export" class="form-control" rows="13" readonly></textarea>
 					</div>
-
-
+				</div>
+				<div class="row justify-content-end">
+					<div class="col-4">
+						<button class="btn btn-primary form-control" onclick="copy_export_to_clipboard()">Copy</button>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-	    </div>
-	  </div>
-	</main>
+<script>
+
+// Set all the Attendee checkboxs to trigger some code when clicked
+$('.check-attendee').on("click", function(){
+	regenerate_attendee_list();
+})
+
+// Set the film boxes to trigger when key pressed
+$('.input-film').on('change', regenerate_export_text);
+$('.input-film').on('keypress', regenerate_export_text);
+$('.input-film').on('keydown', regenerate_export_text);
+$('.input-film').on('keyup', regenerate_export_text);
+
+// Stores the possible patterns for attendees based on number of attendees
+var $att_patterns = {
+	0: [
+		[0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0]
+	],
+	1: [
+		[1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1,	1]
+	],
+	2: [
+		[1,	2,	1,	2,	1,	2,	1,	2,	1,	2,	1,	2],
+		[1,	1,	2,	2,	1,	1,	2,	2,	1,	1,	2,	2],
+		[1,	1,	1,	2,	2,	2,	1,	1,	1,	2,	2,	2],
+		[1,	1,	1,	1,	1,	1,	2,	2,	2,	2,	2,	2]
+	],
+	3: [
+		[1,	2,	3,	1,	2,	3,	1,	2,	3,	1,	2,	3],
+		[1,	1,	2,	2,	3,	3,	1,	1,	2,	2,	3,	3],
+		[1,	1,	1,	1,	2,	2,	2,	2,	3,	3,	3,	3]
+	],
+	4: [
+		[1,	2,	3,	4,	1,	2,	3,	4,	1,	2,	3,	4],
+		[1,	1,	1,	2,	2,	2,	3,	3,	3,	4,	4,	4]
+	],
+	5: [
+		[1,	2,	3,	4,	5,	1,	2,	3,	4,	5,	1,	2],
+		[1,	1,	2,	2,	3,	3,	4,	4,	5,	5,	1,	2]
+	],
+	6: [
+		[1,	2,	3,	4,	5,	6,	1,	2,	3,	4,	5,	6],
+		[1,	1,	2,	2,	3,	3,	4,	4,	5,	5,	6,	6]
+	],
+	7: [
+		[1,	2,	3,	4,	5,	6,	7,	1,	2,	3,	4,	5]
+	],
+	8: [
+		[1,	2,	3,	4,	5,	6,	7,	8,	1,	2,	3,	4]
+	],
+	9: [
+		[1,	2,	3,	4,	5,	6,	7,	8,	9,	1,	2,	3]
+	],
+	10: [
+		[1,	2,	3,	4,	5,	6,	7,	8,	9, 10,	1,	2]
+	],
+	11: [
+		[1,	2,	3,	4,	5,	6,	7,	8,	9, 10, 11,	1]
+	],
+	12: [
+		[1,	2,	3,	4,	5,	6,	7,	8,	9, 10, 11, 12]
+	]
+}
+
+/**
+ * Gets all the attendees that are marked as present.
+ *
+ * @return [object] Present Attendees
+ */
+function get_present_attendees(){
+	$attendees = [];
+	$('.check-attendee').each(($i, $check) => {
+		if($($check).prop('checked')){
+			$attendees.push($($check).val());
+		}
+	})
+	return $attendees;
+}
 
 
-<footer class="text-muted py-5">
-  <div class="container">
-    <p class="float-end mb-1">
-      <a href="#">Back to top</a>
-    </p>
-   </div>
-</footer>
+/**
+ * Generate a random integer between two other integers.
+ *
+ * @param	[int] $min	 The smallest random number allowed.
+ * @param	[int] $max	 The largest random number allowed.
+ * @return [int]				The random number.
+ */
+function rand_between($min, $max){
+	return Math.floor(Math.random() * ($max - $min + 1) + $min);
+}
+
+// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffleArray(array) {
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
+	}
+}
+
+/**
+ * Randomizes the attendees and organizes them by pattern.
+ *
+ * @return [undefined]
+ */
+var $attendee_list = [];
+function regenerate_attendee_list(){
+	// Get, count, and randomize the present attendees
+	var $att_present = get_present_attendees();
+	var $att_present_no = $att_present.length;
+	shuffleArray($att_present);
+
+	// Limit attendees to the first 12 randomly chosen
+	if($att_present_no > 12){$att_present_no = 12;}
+
+	// Pick a pattern
+	var $patterns = $att_patterns[$att_present_no];
+	var $pattern = $patterns[rand_between(1, $patterns.length) - 1]
+
+	// Reset Master Attendee List
+	$attendee_list = [];
+
+	// Assign Names based on the pattern
+	for (var $i = 0; $i < 12; $i++){
+		if($pattern[$i] == 0){ // Zero is a blank name
+			$attendee_list.push('');
+		}
+		else {
+			// Subtract 1 from pattern to fix off by one error caused by ease of readability.
+			$attendee_list.push($att_present[$pattern[$i] - 1]);
+		}
+	}
+
+	// Update the List
+	regenerate_export_text();
+}
+
+/**
+ * Gets the value of the input for a given movie number.
+ *
+ * @param	[int] $number	Film ID (1-12).
+ * @return [str]					The current inputted text.
+ */
+function get_film_by_number($number){
+	var $film = $('.input-film').eq($number - 1).val();
+
+	return ($film.length == 0) ? '' : $film + ' ';
+}
+
+/**
+ * Generates the text needed for the Scribe List Export feature.
+ *
+ * @return [string] Text Export.
+ */
+function generate_scribe_export(){
+	var $export = '';
+
+	$export += (new Date()).toLocaleString('defaut', { month: 'long', day: 'numeric', year: 'numeric'}) + ' Movie List:\n';
+
+	for(var $i = 0; $i < 12; $i++){
+		$export += ($i+1)+'. '+get_film_by_number($i + 1)+'('+$attendee_list[$i]+')\n';
+	}
+
+	return $export
+}
+
+/**
+ * Puts the generated scribe text in the textarea.
+ *
+ * @return [undefined]
+ */
+function regenerate_export_text(){
+	$('#scribe-export').val(generate_scribe_export());
+}
+
+function copy_export_to_clipboard(){
+	$('#scribe-export').focus();
+	$('#scribe-export').select();
+	document.execCommand('copy');
+}
+
+// Runs on page load
+$(function(){
+	regenerate_attendee_list();
+	regenerate_export_text();
+});
 
 
-    <script src="../bootstrap5/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</script>
 
+<?php
 
-  </body>
-</html>
+include('template/footer.php')
+
+?>
