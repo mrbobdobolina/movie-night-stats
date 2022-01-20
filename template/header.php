@@ -14,18 +14,18 @@ add_page_load();
 
 
 	<!-- jQuery -->
-	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>assets/jquery/v3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/jquery/v3.3.1/jquery.min.js"></script>
 
 	<!-- Bootstrap -->
-	<link href="<?php echo WEB_ROOT; ?>assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
-	<script src="<?php echo WEB_ROOT; ?>assets/bootstrap/v5.0.0-beta2/js/bootstrap.bundle.min.js"></script>
+	<link href="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
+	<script src="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.0.0-beta2/js/bootstrap.bundle.min.js"></script>
 
 	<!-- DataTables -->
-	<link rel="stylesheet" type="text/css" href="<?php echo WEB_ROOT; ?>assets/datatables/v1.10.23/datatables.min.css"/>
-	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>assets/datatables/v1.10.23/datatables.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="<?php echo WEB_ROOT; ?>/assets/datatables/v1.10.23/datatables.min.css"/>
+	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/datatables/v1.10.23/datatables.min.js"></script>
 
 	<!-- Fitty -->
-	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>assets/fitty/fitty.min.js"></script>
+	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/fitty/fitty.min.js"></script>
 
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/2b50968540.js" crossorigin="anonymous"></script>
@@ -46,7 +46,7 @@ add_page_load();
 	<link rel="icon" href="images/favicon_32.png">
 
 	<!-- Movie Night Stats -->
-	<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>assets/movie-night-stats/main.css">
+	<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/movie-night-stats/main.css">
 
 </head>
 <body>
@@ -72,7 +72,7 @@ add_page_load();
 
 	if($count_events % 100 == 0 || $count_events % 50 == 0 || $fireworks_random == 1 || $lastWinner == 8):
 	?>
-		<script src="<?php echo WEB_ROOT; ?>assets/fireworks/v1.0.0/fireworks.js"></script>
+		<script src="<?php echo WEB_ROOT; ?>/assets/fireworks/v1.0.0/fireworks.js"></script>
 		<script>
 		const container = document.querySelector('.container')
 
