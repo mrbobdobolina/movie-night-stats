@@ -80,16 +80,11 @@
 <body>
 
 	<header>
-	  <div class="navbar navbar-dark bg-red shadow-sm">
-			<div class="container d-flex justify-content-between">
-				<a href="add-list.php" class="nav-link text-white fw-bold">Scribe's List</a>
-				<a href="add-viewer.php" class="nav-link text-white fw-bold">Add Viewer</a>
-				<a href="add-movie.php" class="nav-link text-white fw-bold">Add Movie</a>
-				<a href="add-game.php" class="nav-link text-white fw-bold">Add Game</a>
-				<a href="add-spinner.php" class="nav-link text-white fw-bold">Add Spinner</a>
-				<a href="log-out.php" class="nav-link text-white fw-bold">Log Out</a>
-	    </div>
-	  </div>
+	  <?php
+
+		include('navigation.php');
+
+		?>
 	</header>
 
 	<main>
