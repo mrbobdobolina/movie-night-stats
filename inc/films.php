@@ -209,5 +209,11 @@ function getMovieRatingReal($id){
 	return round($result[0]['avg_rating'], 1)."%";
 }
 
+function getMovieMPAA($id){
+	$sql = "SELECT `MPAA` FROM `films` WHERE `id` = $id";
+	$data = db($sql)[0]['MPAA'];
+
+	return $data;
+}
 
 ?>
