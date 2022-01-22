@@ -1,9 +1,9 @@
 <?php
 require __DIR__.'/vendor/autoload.php';
 
-// ini_set('display_errors', '1');
-// ini_set('display_startup_errors', '1');
-// error_reporting(E_ALL);
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
 if(!defined('ROOT')){
 	define('ROOT', dirname( __FILE__ ) . '/');
@@ -275,7 +275,7 @@ function get_service_color_v3($service_name = NULL){
 }
 
 function echoVersionNumber(){
-	echo "3.3.0";
+	echo "3.4.0";
 	return;
 }
 ?>

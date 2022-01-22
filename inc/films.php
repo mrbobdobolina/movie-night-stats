@@ -164,7 +164,7 @@ function countAttendanceReal($id){
 	}
 
 	$values = array_count_values($allAttendence);
-	return $values[$id];
+	return $values[$id] ?? 0;
 
 }
 

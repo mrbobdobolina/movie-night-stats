@@ -1,17 +1,10 @@
-<?php require_once("../common.php"); ?>
 <?php
 
-$db = new \PDO('mysql:dbname='.DB_NAME.';host=localhost;charset=utf8mb4', DB_USER, DB_PASS);
+require_once("../common.php");
 
-$auth = new \Delight\Auth\Auth($db);
+include('inc/credentials.php');
 
-try {
-    $auth->logOut();
-}
-catch (\Delight\Auth\NotLoggedInException $e) {
-    die('Not logged in');
-}
+setcookie('password', '', time() - 60 * 60 * 24 * 365);
 
-header(sprintf("Location: %s", "../"));
-  exit(); 
+header('Location: '.WEB_ROOT.'/admin/');
 ?>

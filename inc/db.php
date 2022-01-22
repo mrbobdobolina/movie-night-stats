@@ -24,7 +24,7 @@ function db($query = NULL){
 			while($row = $result->fetch_assoc()){
 				$return[] = $row;
 			}
-			return (sizeof($return)) ? $return : FALSE;
+			return (sizeof($return)) ? $return : [];
 		}
 		else {
 			return $result;
@@ -40,7 +40,7 @@ function db_esc($text){
 
 // Check if DB successfully connects
 if($db->connect_errno){
-	header('Location: '.WEB_ROOT.'init/error.php?e=mysql-'.$db->connect_errno);
+	header('Location: '.WEB_ROOT.'/init/error.php?e=mysql-'.$db->connect_errno);
 	die();
 }
 
