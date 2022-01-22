@@ -46,8 +46,6 @@ function getMyMovieYears($id){
 		$sql = "SELECT `year` FROM `films` WHERE `id` = '$aFilmID'";
 		$result = db($sql);
 
-		//print_r($result);
-
 		$yearList[] = $result[0]['year'];
 	}
 
@@ -180,7 +178,6 @@ function listMyTotalPicksReal($id){
 	foreach($weeks as $aWeek){
 			$allMyPicks = array_merge($allMyPicks, myMoviePicksForWeekID($aWeek['id'], $id));
 	}
-	//print_r($allMyPicks);
 	return $allMyPicks;
 }
 
@@ -202,9 +199,6 @@ function myMoviePicksForWeekID($id, $viewerID){
 function getMovieRatingReal($id){
 	$sql = "SELECT (COALESCE(`tomatometer`,0)+COALESCE(`rt_audience`,0)+COALESCE(`imdb`,0)) / ( COUNT(`tomatometer`) + COUNT(`rt_audience`) + COUNT(`imdb`) ) AS `avg_rating` , `films`.`name` FROM  `films` WHERE  `id` = '$id'";
 	$result = db($sql);
-
-	//print_r($sql);
-	//print_r($result);
 
 	return round($result[0]['avg_rating'], 1)."%";
 }
