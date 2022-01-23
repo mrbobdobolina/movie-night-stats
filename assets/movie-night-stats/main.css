@@ -318,6 +318,10 @@ ul h5{
 		clear: both
 }
 
-#preload { 
+#preload {
 	display: none;
+}
+
+.poster{
+	width: 100%;
 }
