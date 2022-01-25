@@ -24,7 +24,7 @@ $numbers = $numberTypes[rand(0,3)];
 
 		<a href="event_table.php" class="btn btn-outline-dark mb-3 mx-2">Table View</a>
 
-		<div class="row g-3">
+		<div class="row g-3 justify-content-center mb-3">
 			<?php foreach($events as $event): ?>
 				<?php
 				$eventDate = new DateTime($event['date']);
@@ -38,14 +38,18 @@ $numbers = $numberTypes[rand(0,3)];
 					//echo "<img src=".$movie_info['Poster']." />";
 					?>
 
-					<div class="card col-lg-12 p-0" >
+					<div class="card col-lg-8 p-0" >
 						<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
 							<h3>Event <?php echo displayNumbers($count_events--, $numbers);?></h3>
 							<small><em><?php echo $eventDate->format('l, F j, Y'); ?></em></small>
 						</div>
 					  <div class="row g-0">
-
-					    <div class="col-md-4">
+							<div class="col-md-6">
+								<div class="card-body">
+									<img src="<?php echo $movie_info['Poster']; ?>" class="img-fluid poster" alt="winning movie poster">
+								</div>
+							</div>
+					    <div class="col-md-6">
 					      <div class="card-body">
 									<table class="table homepage">
 										<tbody>
@@ -74,45 +78,52 @@ $numbers = $numberTypes[rand(0,3)];
 										</tbody>
 									</table>
 								</div>
-								</div>
-								<div class="col-md-4">
-									<div class="card-body">
-						      	<img src="<?php echo $movie_info['Poster']; ?>" class="img-fluid poster" alt="winning movie poster">
-									</div>
-						    </div>
+							</div>
 
-									<div class="col-md-4">
-										<div class="card-body">
-											<h3>More Details:</h3>
-											<?php
-											$movie_years = array_filter($movie_years);
-											$attendees = explode(",", $event['attendees']);
-											$viewers = Array();
-											foreach($attendees as $person){
-												$viewers[] = getMoviegoerById($person);
-											}
-											?>
-											<ul>
-												<li><strong>Attendees:</strong> <?php echo implode(", ", $viewers);?>
-												<li><strong>Scribe:</strong> <?php echo getViewerName($event['scribe']); ?></li>
-												<li><strong>Spinner:</strong> <?php echo getViewerName($event['spinner']); ?></li>
-												<li><strong>Bad Spin #s:</strong> <?php echo $event['error_spin']; ?></li>
-												<li><strong>Theme/Comment:</strong> <?php echo $event['theme']; ?></li>
-												<li><strong>Movie Format:</strong> <?php echo $event['format']; ?></li>
-												<li><strong>Selection Tool:</strong> <?php echo $event['selection_method']; ?></li>
-												<li><strong>Runtime:</strong> <?php echo $event['runtime']; ?> minutes</li>
-												<li><strong>MPAA:</strong> <?php echo getMovieMPAA($event['winning_film']); ?></li>
-												<li><strong>Collective Movie Score:</strong> <?php echo get_freshness($movie_freshness); ?>%</li>
-												<li><strong>Winning Movie Score:</strong> <?php echo getMovieRating($event['winning_film']); ?></li>
-												<li><strong>Average Movie Year:</strong> <?php echo round(array_sum($movie_years)/count($movie_years)); ?></li>
-												<li><strong>Winning Movie Year:</strong> <?php echo get_movie_year($event['winning_film']);?></li>
-											</ul>
-										</div>
+								<p class="text-center">
+									<a data-bs-toggle="collapse" href="#collapseExample_<?php echo $count_events; ?>" aria-expanded="false" aria-controls="collapseExample_<?php echo $count_events; ?>">
+										More Details...
+									</a>
+								</p>
+
+								<div class="collapse" id="collapseExample_<?php echo $count_events; ?>">
+									<div class="row justify-content-center">
+									<div class="card col-6 m-3 p-3">
+									<div class="card-body ">
+										<?php
+										$movie_years = array_filter($movie_years);
+										$attendees = explode(",", $event['attendees']);
+										$viewers = Array();
+										foreach($attendees as $person){
+											$viewers[] = getMoviegoerById($person);
+										}
+										?>
+										<ul>
+											<li><strong>Attendees:</strong> <?php echo implode(", ", $viewers);?>
+											<li><strong>Scribe:</strong> <?php echo getViewerName($event['scribe']); ?></li>
+											<li><strong>Spinner:</strong> <?php echo getViewerName($event['spinner']); ?></li>
+											<li><strong>Bad Spin #s:</strong> <?php echo $event['error_spin']; ?></li>
+											<li><strong>Theme/Comment:</strong> <?php echo $event['theme']; ?></li>
+											<li><strong>Movie Format:</strong> <?php echo $event['format']; ?></li>
+											<li><strong>Selection Tool:</strong> <?php echo $event['selection_method']; ?></li>
+											<li><strong>Runtime:</strong> <?php echo $event['runtime']; ?> minutes</li>
+											<li><strong>MPAA:</strong> <?php echo getMovieMPAA($event['winning_film']); ?></li>
+											<li><strong>Collective Movie Score:</strong> <?php echo get_freshness($movie_freshness); ?>%</li>
+											<li><strong>Winning Movie Score:</strong> <?php echo getMovieRating($event['winning_film']); ?></li>
+											<li><strong>Average Movie Year:</strong> <?php echo round(array_sum($movie_years)/count($movie_years)); ?></li>
+											<li><strong>Winning Movie Year:</strong> <?php echo get_movie_year($event['winning_film']);?></li>
+										</ul>
 									</div>
+								</div>
+
+							</div>
+
+
+
 					      </div>
 					    </div>
-
-
+						</div>
+						<div class="row g-3">
 				<?php else:?>
 
 				<div class="col col-lg-4 col-md-6, col-sm-12 col-xs-12">
