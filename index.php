@@ -44,12 +44,12 @@ $numbers = $numberTypes[rand(0,3)];
 							<small><em><?php echo $eventDate->format('l, F j, Y'); ?></em></small>
 						</div>
 					  <div class="row g-0">
-							<div class="col-md-6">
+							<div class="col-md-5">
 								<div class="card-body">
 									<img src="<?php echo $movie_info['Poster']; ?>" class="img-fluid poster" alt="winning movie poster">
 								</div>
 							</div>
-					    <div class="col-md-6">
+					    <div class="col-md-7">
 					      <div class="card-body">
 									<table class="table homepage">
 										<tbody>
