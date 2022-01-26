@@ -30,12 +30,14 @@ $numbers = $numberTypes[rand(0,3)];
 				$eventDate = new DateTime($event['date']);
 				$winning_wedge = $event['winning_wedge'];
 				$winning_moviegoer = $event['moviegoer_'.$winning_wedge];
+
+				//Search OMDB to see if a film poster exists
+				$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",getMovieById($event['winning_film']))."&apikey=cad1c81e";
+				$movie_info = json_decode(file_get_contents($movie_info_url), true);
 				?>
-				<?php if(count($events) == $count_events):
-					$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",getMovieById($event['winning_film']))."&apikey=cad1c81e";
-					$movie_info = json_decode(file_get_contents($movie_info_url), true);
+				<?php if(count($events) == $count_events && $movie_info['Response'] == "True"):
+					//if this is the latest film AND a movie poster exists, show the hero segment. Otherwise, just show a grid.
 					//print_r($movie_info);
-					//echo "<img src=".$movie_info['Poster']." />";
 					?>
 
 					<div class="card col-lg-8 p-0" >
@@ -45,7 +47,7 @@ $numbers = $numberTypes[rand(0,3)];
 						</div>
 					  <div class="row g-0">
 							<div class="col-md-5">
-								<div class="card-body">
+								<div class="card-body text-center justify-content-center">
 									<img src="<?php echo $movie_info['Poster']; ?>" class="img-fluid poster" alt="winning movie poster">
 								</div>
 							</div>
