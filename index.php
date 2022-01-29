@@ -40,6 +40,8 @@ $numbers = $numberTypes[rand(0,3)];
 					//print_r($movie_info);
 					?>
 
+					
+
 					<div class="card col-lg-8 p-0" >
 						<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
 							<h3>Event <?php echo displayNumbers($count_events--, $numbers);?></h3>
