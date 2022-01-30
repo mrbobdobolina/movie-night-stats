@@ -9,9 +9,13 @@ function getListOfViewers($sortBy = 'id', $direction = "DESC"){
 
 function getMoviegoerById($id){
 	$sql = "SELECT `name` FROM `viewers` WHERE `id` = $id";
-	$data = db($sql)[0]['name'];
+	$data = db($sql);
 
-	return $data;
+	if($data){
+		return $data[0]['name'];
+	}
+
+	return null;
 }
 
 function getMoviegoerColorById($id){
