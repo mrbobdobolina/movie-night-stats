@@ -35,7 +35,7 @@ $numbers = $numberTypes[rand(0,3)];
 				$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",getMovieById($event['winning_film']))."&apikey=cad1c81e";
 				$movie_info = json_decode(file_get_contents($movie_info_url), true);
 				?>
-					<div class="col col-lg-4 col-md-6 col-sm-12 col-xs-12">
+					<div class="col col-lg-3 col-md-6 col-sm-12 col-xs-12">
 					<div class="card" >
 						<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
 							<h3>Event <?php echo displayNumbers($count_events--, $numbers);?></h3>
