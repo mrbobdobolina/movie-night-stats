@@ -47,17 +47,17 @@ add_page_load();
 
 	<!-- Movie Night Stats -->
 	<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/movie-night-stats/main.css">
-
 </head>
 <body>
 	<?php
 	$now = new DateTime();
-	if(($now >= new DateTime('December 21') || $now <= new DateTime('March 20')) && rand(1,100) < 75):
+	if(($now >= new DateTime('December 21') || $now <= new DateTime('March 20')) && rand(1,100) < 70):
 	?>
-		<script src="https://unpkg.com/magic-snowflakes/dist/snowflakes.min.js"></script>
+		<script src="assets/seasonal/snow/snowflakes.min.js"></script>
 		<script>
 			var sf = new Snowflakes();
 		</script>
+
 	<?php endif;?>
 
 <?php template('nav'); ?>
