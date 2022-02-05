@@ -46,8 +46,6 @@ function getMyMovieYears($id){
 		$sql = "SELECT `year` FROM `films` WHERE `id` = '$aFilmID'";
 		$result = db($sql);
 
-		//print_r($result);
-
 		$yearList[] = $result[0]['year'];
 	}
 
@@ -180,7 +178,6 @@ function listMyTotalPicksReal($id){
 	foreach($weeks as $aWeek){
 			$allMyPicks = array_merge($allMyPicks, myMoviePicksForWeekID($aWeek['id'], $id));
 	}
-	//print_r($allMyPicks);
 	return $allMyPicks;
 }
 
@@ -203,11 +200,48 @@ function getMovieRatingReal($id){
 	$sql = "SELECT (COALESCE(`tomatometer`,0)+COALESCE(`rt_audience`,0)+COALESCE(`imdb`,0)) / ( COUNT(`tomatometer`) + COUNT(`rt_audience`) + COUNT(`imdb`) ) AS `avg_rating` , `films`.`name` FROM  `films` WHERE  `id` = '$id'";
 	$result = db($sql);
 
-	//print_r($sql);
-	//print_r($result);
-
 	return round($result[0]['avg_rating'], 1)."%";
 }
 
+function getMovieMPAA($id){
+	$sql = "SELECT `MPAA` FROM `films` WHERE `id` = $id";
+	$data = db($sql)[0]['MPAA'];
+
+	return $data;
+}
+
+function get_movie_poster($film_id){
+	$sql = "SELECT `poster_url` FROM `films` WHERE `id` = $film_id";
+
+	$result = db($sql);
+
+	if($result[0]['poster_url']!= ""){
+		return $result[0]['poster_url'];
+	}
+
+	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",getMovieById($film_id))."&y=".get_movie_year($film_id)."&apikey=cad1c81e";
+	$movie_info = json_decode(file_get_contents($movie_info_url), true);
+
+	if($movie_info['Response'] == "True"){
+		$poster_url = $movie_info['Poster'];
+		$imdb_id = $movie_info['imdbID'];
+
+		$sql = "UPDATE `films` SET `poster_url` = '$poster_url', `imdb_id` = '$imdb_id' WHERE `id` = $film_id";
+		db($sql);
+
+		return $poster_url;
+	} else {
+		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",getMovieById($film_id));
+	}
+
+}
+
+function get_imdb_id($film_id){
+	$sql = "SELECT `imdb_id` FROM `films` WHERE `id` = $film_id";
+
+	$result = db($sql);
+
+	return $result[0]['imdb_id'];
+}
 
 ?>

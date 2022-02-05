@@ -20,11 +20,16 @@ else {
 	die();
 }
 
-
 $numberTypes = Array("arabic", "roman", "japanese", "arabic", "roman");
 
 
 include(ROOT.'inc/db.php');
+
+//check DB Version
+if(read_db_version() != this_db_version()){
+	header('Location: ./init/error.php?e=oldDB');
+	die();
+}
 
 // Includes a file from the template directory
 function template($part){
@@ -274,8 +279,21 @@ function get_service_color_v3($service_name = NULL){
 	}
 }
 
+//reads the db version listed in the DB
+function read_db_version(){
+	$sql = "SELECT * FROM `options` WHERE `name` = 'db_version'";
+	$result = db($sql);
+	return $result[0]['value'];
+}
+
+//the db version used by the site right now
+function this_db_version(){
+	return "3.2";
+}
+
 function echoVersionNumber(){
-	echo "3.4.0";
+	echo "3.5.0";
 	return;
 }
+
 ?>

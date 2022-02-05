@@ -26,7 +26,7 @@ $numbers = $numberTypes[rand(0,3)];
 						<th>Date</th>
 						<th>Wedge</th>
 						<th>Winning Film</th>
-						<th>Picker</th>
+						<th>Winner</th>
 						<th>Spinner</th>
 						<th>Tool</th>
 						<th>Format</th>

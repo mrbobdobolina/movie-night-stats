@@ -61,6 +61,13 @@ switch($_GET['e']){
 		$text2 .= 'then click <a href="../">here</a> to continue.';
 		break;
 
+  case 'oldDB':
+    $text1 = 'DB Error: Database Version Mismatch';
+
+    $text2 = 'Database versions do not match. Please ensure you are using the latest DB version. ';
+    $text2 .= 'then click <a href="../">here</a> to continue.';
+    break;
+
 
 	default:
 		$text1 = 'Error displaying the error';
