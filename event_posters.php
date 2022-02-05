@@ -12,7 +12,8 @@ $numbers = $numberTypes[rand(0,3)];
 <div class="album py-5 bg-light">
 	<div class="container">
 		<?php $minutes = calculateTotalWatchtime(); ?>
-		<p class="display-6 text-center">Running out of wall space.</p>
+		<p class="display-6 text-center">Running out of wall space</p>
+		<p class="text-center mb-5"><em>...and also printer ink.</em></p>
 
 
 		<a href="./" class="btn btn-sm btn-outline-dark mb-3">Normal View</a>
