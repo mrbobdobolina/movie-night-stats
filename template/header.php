@@ -51,7 +51,7 @@ add_page_load();
 <body>
 	<?php
 	$now = new DateTime();
-	if(($now >= new DateTime('December 21') || $now <= new DateTime('March 20')) && rand(1,100) < 70):
+	if(($now >= new DateTime('December 21') || $now <= new DateTime('March 20')) && rand(1,100) < 60):
 	?>
 		<script src="assets/seasonal/snow/snowflakes.min.js"></script>
 		<script>

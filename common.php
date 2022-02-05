@@ -292,7 +292,7 @@ function this_db_version(){
 }
 
 function echoVersionNumber(){
-	echo "3.4.0";
+	echo "3.5.0";
 	return;
 }
 
