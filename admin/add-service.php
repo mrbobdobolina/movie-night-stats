@@ -9,7 +9,7 @@ restrict_page_to_admin();
 if(!empty($_POST)){
 	if(!empty($_POST['name']) && !empty($_POST['color'])){
 		$query = sprintf(
-			"INSERT INTO `viewers` SET `name`='%s', `color`='%s'",
+			"INSERT INTO `services` SET `name`='%s', `rgba`='%s'",
 			db_esc($_POST['name']),
 			db_esc($_POST['color'])
 		);
@@ -66,15 +66,15 @@ if(!empty($alert)){
 			<div class="card-body">
 				<form action="#" method="POST">
 					<div class="row mb-3">
-						<label for="name" class="col-4 col-form-label">Viewer Name</label>
+						<label for="name" class="col-4 col-form-label">Service Name</label>
 						<div class="col-8">
 							<input id="name" name="name" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="row mb-3">
-						<label for="color" class="col-4 col-form-label">Color <br ><em>hex no #</em></label>
+						<label for="color" class="col-4 col-form-label">Color <em>(rgba)</em></label>
 						<div class="col-8">
-							<input id="color" name="color" type="text" class="form-control">
+							<input id="color" name="color" type="text" value="rgba(0,0,0,1)" class="form-control">
 						</div>
 					</div>
 					<div class="row mb-3">

@@ -50,11 +50,36 @@ CREATE TABLE `films` (
   `year` int(11) DEFAULT NULL,
   `type` text,
   `runtime` int(11) DEFAULT NULL,
-  `MPAA` int(11) DEFAULT NULL,
+  `MPAA` text,
   `first_instance` date DEFAULT NULL,
   `last_instance` date DEFAULT NULL,
+  `imdb_id` text,
+  `poster_url` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+# Dump of table options
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `options`;
+
+CREATE TABLE `options` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` text COLLATE utf8_unicode_ci,
+  `value` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+LOCK TABLES `options` WRITE;
+/*!40000 ALTER TABLE `options` DISABLE KEYS */;
+
+INSERT INTO `options` (`id`, `name`, `value`)
+VALUES
+	(1,'db_version','3.2');
+
+/*!40000 ALTER TABLE `options` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table services
@@ -92,7 +117,8 @@ VALUES
 	(16,'Apple TV+','rgba(11,11,12,1)'),
 	(17,'Comedy Central','rgba(253,198,0,1)'),
 	(18,'Showtime','rgba(177,0,0,1)'),
-	(19,'Tubi','rgb(255,80,26,1)');
+	(19,'Tubi','rgb(255,80,26,1)'),
+  (20,'Dropout','rgb(254, 234, 59)');
 
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
