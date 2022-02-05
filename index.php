@@ -15,32 +15,29 @@ $numbers = $numberTypes[rand(0,3)];
 		<p class="display-6 text-center">"I'm not a nerd, you're a nerd."</p>
 		<p class="text-center mb-5">Over <?php echo number_format($minutes); ?> minutes of "entertainment." (Or <?php echo round(($minutes/60), 2);?> hours.) (Or <?php echo round(($minutes/60)/24, 2);?> days.)</p>
 
-		<button id="btn-expand-all" class="btn btn-outline-primary mb-3" onclick="$('.collapse').collapse('show'); $('#btn-expand-all').hide(); $('#btn-collapse-all').show();">
-			Expand ALL
-		</button>
-		<button id="btn-collapse-all" class="btn btn-outline-primary mb-3" onclick="$('.collapse').collapse('hide'); $('#btn-expand-all').show(); $('#btn-collapse-all').hide();" style="display:none">
-			Collapse ALL
-		</button>
 
-		<a href="event_table.php" class="btn btn-outline-dark mb-3 mx-2">Table View</a>
 
-		<div class="row g-3 justify-content-center mb-3">
+		<div class="row g-3  mb-3">
 			<?php foreach($events as $event): ?>
 				<?php
 				$eventDate = new DateTime($event['date']);
 				$winning_wedge = $event['winning_wedge'];
 				$winning_moviegoer = $event['moviegoer_'.$winning_wedge];
 
-				//Search OMDB to see if a film poster exists
-				$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",getMovieById($event['winning_film']))."&apikey=cad1c81e";
-				$movie_info = json_decode(file_get_contents($movie_info_url), true);
 				?>
-				<?php if(count($events) == $count_events && $movie_info['Response'] == "True"):
-					//if this is the latest film AND a movie poster exists, show the hero segment. Otherwise, just show a grid.
-					//print_r($movie_info);
+				<?php if(count($events) == $count_events):
 					?>
+					<div class=" col-lg-2">
+						<button id="btn-expand-all" class="btn btn-sm btn-outline-primary mb-3 col-8" onclick="$('.collapse').collapse('show'); $('#btn-expand-all').hide(); $('#btn-collapse-all').show();">
+							Expand ALL
+						</button>
+						<button id="btn-collapse-all" class="btn btn-sm btn-outline-primary mb-3 col-8" onclick="$('.collapse').collapse('hide'); $('#btn-expand-all').show(); $('#btn-collapse-all').hide();" style="display:none">
+							Collapse ALL
+						</button>
 
-					
+						<a href="event_table.php" class="btn btn-sm btn-outline-dark mb-3 col-8">Table View</a>
+					</div>
+
 
 					<div class="card col-lg-8 p-0" >
 						<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
@@ -50,7 +47,7 @@ $numbers = $numberTypes[rand(0,3)];
 					  <div class="row g-0">
 							<div class="col-md-5">
 								<div class="card-body text-center justify-content-center">
-									<img src="<?php echo $movie_info['Poster']; ?>" class="img-fluid poster" alt="winning movie poster">
+									<img src="<?php echo get_movie_poster($event['winning_film']); ?>" class="img-fluid poster" alt="winning movie poster">
 								</div>
 							</div>
 					    <div class="col-md-7">
