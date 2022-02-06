@@ -6,6 +6,7 @@ template('header');
 
 //Array('date' => "", 'version' => '', 'details' => Array("")),
 $changes = Array(
+	Array('date'=>"February 6, 2022", 'version' => 'Version 3.6.0', 'details' => Array("Tweaked some admin code to make adding movies easier","Fixed missing spaces","Updated One Hit Wonder counter to ignore viewer choices","Viewers page should work better on mobile now")),
 	Array('date'=>"February 5, 2022", 'version' => 'Version 3.5.0', 'details' => Array("Added hero section to home page.","Added Poster View", "Changed DB", "Localized snow js", "Decreased chance of flurries", "Minor bug fixes")),
 	Array('date'=>"January 21, 2022", 'version' => 'Version 3.4.0', 'details' => Array("Cleand up Admin backend.", "Admin pages are now Bootstrap 5 compliant.", "Admin list generation is now written in JavaScript.", "Fixed a few divide by zero errors.")),
 	Array('date'=>"January 17, 2022", 'version' => 'Version 3.3.0', 'details' => Array("Added table view for events page.","Fixed some spacing issues on viewers and viewer pages.","Added information about the wheels and dice on Spins page.", "Modified text formatting on years page for more uniform layout.")),
