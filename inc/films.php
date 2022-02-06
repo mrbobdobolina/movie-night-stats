@@ -218,8 +218,8 @@ function get_movie_poster($film_id){
 	if($result[0]['poster_url']!= ""){
 		return $result[0]['poster_url'];
 	}
-
-	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",getMovieById($film_id))."&y=".get_movie_year($film_id)."&apikey=cad1c81e";
+	
+	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",getMovieById($film_id))."&y=".get_movie_year($film_id)."&apikey=".OMDB_API_KEY;
 	$movie_info = json_decode(file_get_contents($movie_info_url), true);
 
 	if($movie_info['Response'] == "True"){

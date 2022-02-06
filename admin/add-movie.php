@@ -54,7 +54,7 @@ if(!empty($_POST)){
 		case 'search':
 			$movie_name = $_POST['sname'];
 
-			$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",$movie_name)."&apikey=cad1c81e";
+			$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",$movie_name)."&apikey=".OMDB_API_KEY;
 			$movie_info = json_decode(file_get_contents($movie_info_url), true);
 
 			break;
@@ -187,7 +187,7 @@ if(!empty($alert)){
 	<div class="col-12 col-md-4">
 		<div class="card mb-3">
 			<div class="card-header">
-				Existing Movies
+				Existing Movies <em>(id)</em>
 			</div>
 			<div class="card-body">
 				<ul>
