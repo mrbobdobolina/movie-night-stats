@@ -12,7 +12,7 @@ template('header');
 
 		<div class="row">
 			<p>
-				<i class="fas fa-star" style="color:#FFFF00;"></i> Indicates movie was picked its first night on the wheel. <span style="background-color:#82D173;">Green row indicates movie won at least once.</span>
+				<i class="fas fa-star p-1" style="color:#FFFF00;background-color:#82D173;"></i> Indicates movie was spun its first night on the wheel. <i class="fas fa-hand-point-down p-1" style="color:#FFFF00;background-color:#82D173;"></i> Indicated movie was picked first night on the wheel. <span style="background-color:#82D173;">Green row indicates movie won at least once.</span>
 			</p>
 
 			<table id="movies" class="table table-striped">
@@ -57,7 +57,17 @@ template('header');
 
 						?>
 
-							<td><?php if($winner['first_win'] == $movie['first_instance']){echo '<i class="fas fa-star" style="color:#FFFF00;"></i>'; $oneHitWonders++; }?></td>
+							<td>
+								<?php
+								if($winner['first_win'] == $movie['first_instance']){
+									if(!was_it_viewer_choice($movie['first_instance'],$movie['id'])){
+										$oneHitWonders++;
+										echo '<i class="fas fa-star" style="color:#FFFF00;"></i>';
+									} else {
+										echo '<i class="fas fa-hand-point-down" style="color:#FFFF00;">';
+									}
+								}?>
+							</td>
 							<td><?php echo $movie['name']; ?> </td>
 							<td class="text-center"><?php echo $movie['year']; //get_movie_year($movie['id']); ?></td>
 							<td class="text-end mpaa"><?php echo $movie['MPAA']; ?></td>
@@ -87,7 +97,13 @@ template('header');
 				</tbody>
 			</table>
 
-			We've had a total of <?php echo $oneHitWonders; ?> "One Hit Wonders".
+			<div class="row justify-content-around">
+				<div class="alert alert-warning text-center col-5">
+					<p>	We've had a total of <?php echo $oneHitWonders; ?> "One Hit Wonders". <br />(Movies picked randomly on their first apperance on the wheel.)</p>
+				</div>
+			</div>
+
+
 
 		</div>
 	</div>
