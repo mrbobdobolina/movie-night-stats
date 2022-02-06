@@ -111,7 +111,7 @@ $movies = getMovieList();
 $movieSelect = "<option disabled selected></option>";
 
 foreach($movies as $aFilm){
-	$movieSelect .= "<option value=\"" . $aFilm["id"] . "\">" . $aFilm["name"] . "</option>";
+	$movieSelect .= "<option value=\"" . $aFilm["id"] . "\">" . $aFilm["name"] . " (".$aFilm["runtime"]." min)</option>";
 }
 
 $viewers = getListOfViewers();
@@ -132,7 +132,7 @@ foreach($selectors as $aTool){
 }
 
 ?>
-<h1 class="display-6 text-center">Add a Game</h1>
+<h1 class="display-6 text-center">Add an Event</h1>
 <div class="text-center mb-5"></div>
 
 <?php

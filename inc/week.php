@@ -280,6 +280,20 @@ function didIWin($filmID){
 
 }
 
+function was_it_viewer_choice($date, $filmID){
+	$sql = "SELECT `selection_method` FROM `week` WHERE `date` = '$date' AND `winning_film` = '$filmID'";
+
+	$data = db($sql);
+
+	if($data != NULL){
+		if($data[0]['selection_method'] == "viewer choice"){
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+}
+
 function winningPickStats($user_id){
 	$wedge_query = 'SELECT `id`,`winning_wedge` FROM `week`';
 	$winning_wedges = db($wedge_query);

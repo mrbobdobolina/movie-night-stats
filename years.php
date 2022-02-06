@@ -268,7 +268,7 @@ template('header');
 							foreach($biggest['top'] as $person){
 								$people[] = $person;
 							}
-							$message = "It's a ".$winners."-way tie between #s".implode(' and ', $people)." with ". $biggest['count']." events!";
+							$message = "It's a ".$winners."-way tie between #s ".implode(' and ', $people)." with ". $biggest['count']." events!";
 						}
 						elseif($winners == 1) {
 							$message = "#".$biggest['top'][0] ." with ". $biggest['count']." events!";
