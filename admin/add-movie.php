@@ -94,7 +94,7 @@ if(!empty($alert)){
 					<div class="row mb-3">
 						<label for="name" class="col-4 col-form-label">Movie Name</label>
 						<div class="col-8">
-							<input id="name" name="name" type="text" value="<?php if(isset($_POST['sname'])){echo $_POST['sname'];}?>" class="form-control">
+							<input id="name" name="name" type="text" value="<?php if(isset($_POST['sname'])){echo $movie_info['Title'];}?>" class="form-control">
 						</div>
 					</div>
 					<div class="row mb-3">
