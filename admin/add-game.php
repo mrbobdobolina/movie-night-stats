@@ -131,6 +131,14 @@ foreach($selectors as $aTool){
 	$selectorsSelect .= "<option value=\"" . $aTool . "\">" . $aTool . "</option>";
 }
 
+$services = getListOfServices();
+
+$servicesSelect = "<option disabled selected></option>";
+
+foreach($services as $aService){
+	$servicesSelect .= "<option value=\"" . $aService['name'] . "\">" . $aService['name'] . "</option>";
+}
+
 ?>
 <h1 class="display-6 text-center">Add an Event</h1>
 <div class="text-center mb-5"></div>
@@ -258,7 +266,7 @@ if(!empty($alert)){
 
 						<div class="col-12 mb-3">
 							<label class="form-label">Format</label>
-							<input class="form-control" type="text" name="format">
+							<select class="form-select" name="format"><?php echo $servicesSelect; ?></select>
 						</div>
 
 						<div class="col-12 mb-3">

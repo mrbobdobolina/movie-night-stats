@@ -45,8 +45,8 @@ if(!empty($_POST)){
 include('template/header.php');
 
 ?>
-<h1 class="display-6 text-center">Add a viewer</h1>
-<div class="text-center mb-5">Congrats on your new friend, I guess.</div>
+<h1 class="display-6 text-center">Add a service</h1>
+<div class="text-center mb-5">I thought you had enough of those...</div>
 
 <?php
 
@@ -91,15 +91,15 @@ if(!empty($alert)){
 
 		<div class="card mb-3">
 			<div class="card-header">
-				Existing Viewers
+				Existing Services
 			</div>
 			<div class="card-body">
 				<ul>
 					<?php
 
-					$viewers = getListOfViewers();
-					foreach($viewers as $person){
-						echo '<li>'.$person['name'].'</li>';
+					$services = getListOfServices();
+					foreach($services as $a_service){
+						echo '<li>'.$a_service['name'].'</li>';
 					}
 
 					?>

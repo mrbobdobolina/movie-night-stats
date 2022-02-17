@@ -279,6 +279,13 @@ function get_service_color_v3($service_name = NULL){
 	}
 }
 
+function getListOfServices($sortBy = 'id', $direction = "DESC"){
+	$sql = "SELECT * FROM `services` ORDER BY `$sortBy` $direction";
+	$data = db($sql);
+
+	return $data;
+}
+
 //reads the db version listed in the DB
 function read_db_version(){
 	$sql = "SELECT * FROM `options` WHERE `name` = 'db_version'";
@@ -292,7 +299,7 @@ function this_db_version(){
 }
 
 function echoVersionNumber(){
-	echo "3.6.0";
+	echo "3.6.1";
 	return;
 }
 
