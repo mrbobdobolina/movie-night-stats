@@ -228,34 +228,6 @@ function get_viewers_years_single($id){
 }
 
 
-//Legacy Function... I think we can delete this? But I'm leaving it here for now.
-function get_service_color($service_name = NULL){
-	$colors = Array("Disney+" => "rgba(44,43,191,1)",
-		"Netflix" => "rgba(229,9,20,1)",
-		"Hulu" => "rgba(28,231,131,1)",
-		"Digital File" => "rgba(237,182,23,1)",
-		"DVD" => "rgba(166,170,155,1)",
-		"Prime" => "rgba(0,168,255,1)",
-		"HBO Max" => "rgba(91,28,230,1)",
-		"iTunes Rental" => "rgba(136,136,136,1)",
-		"Starz" => "rgba(0,0,0,1)",
-		"HBO Now" => "rgba(0,0,0,1)",
-		"Redbox" => "rgba(227,32,69,1)",
-		"YouTube Movies" => "rgba(255,0,0,1)",
-		"Bluray" => "rgba(0,144,206,1)",
-		"Streaming" => "rgba(99,44,140,1)",
-		"Steam" => "rgba(27,40,56,1)",
-		"Apple TV+" => "rgba(11,11,12,1)",
-		"Comedy Central" => "rgba(253,198,0,1)",
-		"Showtime" => "rgba(177,0,0,1)",
-		"Tubi" => "rgb(255,80,26,1)");
-
-	if($service_name == NULL){
-		return $colors;
-	}
-		return $colors[$service_name];
-}
-
 /**
 * Returns either list of services with colors or just the color of a given service
 * @param optional $service_name = NULL

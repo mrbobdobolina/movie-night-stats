@@ -175,7 +175,7 @@ if(!empty($alert)){
 			<div class="card-body">
 				<ul>
 					<?php
-						foreach(getSelectionTypes() as $selection){
+						foreach(getSelectionTypes(TRUE) as $selection){
 							echo '<li>'.$selection.'</li>';
 						}
 					?>
