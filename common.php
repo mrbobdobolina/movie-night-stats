@@ -263,7 +263,7 @@ function get_seasonal_event(){
 
 	if($now >= new DateTime('March 10') || $now <= new DateTime('March 20')){
 		if(rand(1,100) < 50){
-			if(rand(1,50) < 50){
+			if(rand(1,100) < 50){
 				return 'snow';
 			} else {
 				return 'sakura';
