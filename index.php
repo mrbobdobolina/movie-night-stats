@@ -128,7 +128,7 @@ $numbers = $numberTypes[rand(0,3)];
 						<div class="row g-3">
 				<?php else:?>
 
-				<div class="col col-lg-4 col-md-6, col-sm-12 col-xs-12">
+				<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-lx-4 col-xxl-4">
 					<div class="card">
 						<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
 							<h3>Event <?php echo displayNumbers($count_events--, $numbers);?></h3>
