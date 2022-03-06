@@ -258,6 +258,34 @@ function getListOfServices($sortBy = 'id', $direction = "DESC"){
 	return $data;
 }
 
+function get_seasonal_event(){
+	$now = new DateTime();
+
+	if($now >= new DateTime('December 21') || $now <= new DateTime('March 10')){
+		if(rand(1,100) < 50){
+			return 'snow';
+		}
+	}
+
+	if($now >= new DateTime('March 10') || $now <= new DateTime('March 20')){
+		if(rand(1,100) < 50){
+			if(rand(1,50) < 50){
+				return 'snow';
+			} else {
+				return 'sakura';
+			}
+		}
+	}
+
+	if($now >= new DateTime('March 20') || $now <= new DateTime('May 5')){
+		if(rand(1,100) < 50){
+			return 'sakura';
+		}
+	}
+
+	return FALSE;
+}
+
 //reads the db version listed in the DB
 function read_db_version(){
 	$sql = "SELECT * FROM `options` WHERE `name` = 'db_version'";

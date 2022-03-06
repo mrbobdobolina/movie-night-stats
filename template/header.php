@@ -47,17 +47,24 @@ add_page_load();
 
 	<!-- Movie Night Stats -->
 	<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/movie-night-stats/main.css">
+
+	<?php $season = get_seasonal_event();
+
+	if($season == 'sakura'): ?>
+		<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/seasonal/sakura/sakura.css">
+	<?php endif;?>
+
 </head>
 <body>
-	<?php
-	$now = new DateTime();
-	if(($now >= new DateTime('December 21') || $now <= new DateTime('March 20')) && rand(1,100) < 60):
-	?>
-		<script src="assets/seasonal/snow/snowflakes.min.js"></script>
+	<?php if($season == 'sakura'): ?>
+		<script src="<?php echo WEB_ROOT; ?>/assets/seasonal/sakura/sakura.js"></script>
+	<?php endif;?>
+
+	<?php if($season == 'snow'): ?>
+		<script src="<?php echo WEB_ROOT; ?>/assets/seasonal/snow/snowflakes.min.js"></script>
 		<script>
 			var sf = new Snowflakes();
 		</script>
-
 	<?php endif;?>
 
 <?php template('nav'); ?>

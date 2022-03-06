@@ -6,3 +6,7 @@ roll/.htaccess
 roll/error_log
 spin/.htaccess
 admin/error_log
+
+php_errors.log
+
+*.log
