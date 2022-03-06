@@ -120,8 +120,6 @@ $numbers = $numberTypes[rand(0,3)];
 
 							</div>
 
-
-
 					      </div>
 					    </div>
 						</div>
