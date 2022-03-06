@@ -300,6 +300,20 @@ template('header');
 					</div>
 				</div>
 
+				<div class="card mb-4" >
+					<div class="row g-0">
+						<div class="col-md-4">
+							<img src="images/wheels/pye_spinner.jpg" class="img-fluid rounded-start" alt="PYE Games Spinner die">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title bold">PYE Spinner Die</h5>
+								<p class="card-text">This spinning die is from <a href="https://www.pyegames.com/">PYE Games</a>.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 

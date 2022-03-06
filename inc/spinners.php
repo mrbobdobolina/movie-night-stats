@@ -1,7 +1,11 @@
 <?php
 
-function getSelectionTypes(){
-	$sql = "SELECT `name` FROM `spinners` WHERE `uses` > 0";
+function getSelectionTypes($get_all = FALSE){
+	if($get_all == FALSE){
+		$sql = "SELECT `name` FROM `spinners` WHERE `uses` > 0";
+	} else {
+		$sql = "SELECT `name` FROM `spinners`";
+	}
 	$data = db($sql);
 	$tools = Array();
 	foreach($data as $method){
