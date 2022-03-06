@@ -261,12 +261,6 @@ function getListOfServices($sortBy = 'id', $direction = "DESC"){
 function get_seasonal_event(){
 	$now = new DateTime();
 
-	if($now >= new DateTime('December 21') || $now <= new DateTime('March 10')){
-		if(rand(1,100) < 50){
-			return 'snow';
-		}
-	}
-
 	if($now >= new DateTime('March 10') || $now <= new DateTime('March 20')){
 		if(rand(1,100) < 50){
 			if(rand(1,50) < 50){
@@ -277,9 +271,34 @@ function get_seasonal_event(){
 		}
 	}
 
+	if($now >= new DateTime('April 1') || $now <= new DateTime('May 5')){
+		if(rand(1,100) < 50){
+			$rand = rand(1,100);
+			if($rand < 30){
+				return 'snow';
+			} elseif($rand > 90){
+				return 'rain';
+			} else {
+				return 'sakura';
+			}
+		}
+	}
+
+	if($now >= new DateTime('December 21') || $now <= new DateTime('March 10')){
+		if(rand(1,100) < 50){
+			return 'snow';
+		}
+	}
+
 	if($now >= new DateTime('March 20') || $now <= new DateTime('May 5')){
 		if(rand(1,100) < 50){
 			return 'sakura';
+		}
+	}
+
+	if($now >= new DateTime('May 5') || $now <= new DateTime('September 30')){
+		if(rand(1,100) < 15){
+			return 'rain';
 		}
 	}
 
