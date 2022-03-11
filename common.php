@@ -258,6 +258,57 @@ function getListOfServices($sortBy = 'id', $direction = "DESC"){
 	return $data;
 }
 
+function get_seasonal_weather(){
+	$now = new DateTime();
+
+	$date_hash = md5($now->format('Y-m-d'));
+
+	$base_10 = base_convert(substr($date_hash, -2), 16, 10);
+
+	// outcome between 0 to 255
+
+	if($now >= new DateTime('March 10') && $now <= new DateTime('March 20')){
+		if($base_10 < 64){
+			return 'snow';
+		}
+		if($base_10 < 128){
+			return 'sakura';
+		}
+	}
+
+	if($now >= new DateTime('April 1') && $now <= new DateTime('May 5')){
+		if($base_10 < 10){
+			return 'rain';
+		}
+		if($base_10 < 40){
+			return 'snow';
+		}
+		if($base_10 < 128){
+			return 'sakura';
+		}
+	}
+
+	if($now >= new DateTime('December 21') || $now <= new DateTime('March 10')){
+		if($base_10 < 128){
+			return 'snow';
+		}
+	}
+
+	if($now >= new DateTime('March 20') && $now <= new DateTime('May 5')){
+		if($base_10 < 128){
+			return 'sakura';
+		}
+	}
+
+	if($now >= new DateTime('May 5') && $now <= new DateTime('September 30')){
+		if($base_10 < 40){
+			return 'rain';
+		}
+	}
+
+	return FALSE;
+}
+
 function get_seasonal_event(){
 	$now = new DateTime();
 
