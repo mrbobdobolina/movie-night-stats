@@ -12,6 +12,13 @@ function getListOfEvents($direction = "ASC"){
 	return $data;
 }
 
+function get_single_event($id){
+	$sql = "SELECT * FROM `week` WHERE `id` = $id";
+	$data = db($sql)[0];
+
+	return $data;
+}
+
 function countSpins(){
 	$sql = "SELECT COUNT(*) AS `total` FROM `week`";
 	$data = db($sql)[0]['total'];
