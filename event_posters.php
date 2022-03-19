@@ -15,10 +15,6 @@ $numbers = $numberTypes[rand(0,3)];
 		<p class="display-6 text-center">Running out of wall space</p>
 		<p class="text-center mb-5"><em>...and also printer ink.</em></p>
 
-
-		<a href="./" class="btn btn-sm btn-outline-dark mb-3">Normal View</a>
-		<a href="event_table.php" class="btn btn-sm btn-outline-dark mb-3 mx-2">Table View</a>
-
 		<div class="row g-3">
 			<?php foreach($events as $event): ?>
 				<?php

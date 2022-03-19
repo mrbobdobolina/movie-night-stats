@@ -36,7 +36,8 @@ $numbers = $numberTypes[rand(0,3)];
 						</button>
 
 						<a href="event_table.php" class="btn btn-sm btn-outline-dark mb-3 col-8">Table View</a>
-						<a href="event_posters.php" class="btn btn-sm btn-outline-dark mb-3 col-8">Poster View</a>
+						<a href="event_rows.php" class="btn btn-sm btn-outline-dark mb-3 col-8">Poster View</a>
+						<a href="event_posters.php" class="btn btn-sm btn-outline-dark mb-3 col-8">Winning Posters</a>
 					</div>
 
 
