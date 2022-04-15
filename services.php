@@ -96,9 +96,71 @@ template('header');
 			    }
 				});
 			</script>
+    </div>
+
+  <div id="mwo" class="row pt-5 justify-content-center">
+    <div class="col-6">
+    <h3>Movies watched on</h3>
+    <?php
+    $services = getListOfServices();
+
+    $servicesSelect = "<option disabled selected></option>";
+
+    foreach($services as $aService){
+    	$servicesSelect .= "<option value=\"" . $aService['name'] . "\">" . $aService['name'] . "</option>";
+    }
+    ?>
+
+<div class="col-12 mb-3">
+  <select id="gender" class="form-control form-select">
+      <?php echo $servicesSelect; ?>
+  </select>
+</div>
+
+  <table class="dynamicTable table">
+      <!-- Table heading -->
+          <thead>
+              <tr>
+                  <th>Movie Title</th>
+                  <th>Service</th>
+              </tr>
+          </thead>
+      <tbody>
+        <?php
+          $all_winners = list_winning_films_and_service();
+
+          foreach($all_winners as $a_winner):?>
+          <tr>
+              <td><?php echo getMovieById($a_winner['winning_film']); ?></td>
+              <td><?php echo $a_winner['format']; ?></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+      <!-- // Table body END -->
+  </table>
+
+  <script>
+$("#gender").on("change",
+             function(){
+                 var a = $(this).find("option:selected").html();
+
+                 $("table tr td").each(
+                     function(){
+                         if($(this).html() != a){
+                             $(this).parent().hide();
+                         }
+                         else{
+                             $(this).parent().show();
+                         }
+                     });
+             });
+      </script>
+
+  </div>
+  </div>
 
 
-		</div>
+
   </div>
 </div>
 
