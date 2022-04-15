@@ -757,7 +757,7 @@ function viewer_watchtime($year = null){
 }
 
 function list_winning_films_and_service(){
-	$sql = "SELECT `winning_film`, `format` FROM `week`";
+	$sql = "SELECT `winning_film`, `format`, `date` FROM `week`";
 	$result = db($sql);
 
 	return $result;

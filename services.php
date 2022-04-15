@@ -99,7 +99,7 @@ template('header');
     </div>
 
   <div id="mwo" class="row pt-5 justify-content-center">
-    <div class="col-6">
+    <div class="col-7">
     <h3>Movies watched on</h3>
     <?php
     $services = getListOfServices();
@@ -121,6 +121,7 @@ template('header');
       <!-- Table heading -->
           <thead>
               <tr>
+                <th>Date</th>
                   <th>Movie Title</th>
                   <th>Service</th>
               </tr>
@@ -131,6 +132,7 @@ template('header');
 
           foreach($all_winners as $a_winner):?>
           <tr>
+              <td><?php echo $a_winner['date']; ?></td>
               <td><?php echo getMovieById($a_winner['winning_film']); ?></td>
               <td><?php echo $a_winner['format']; ?></td>
           </tr>
