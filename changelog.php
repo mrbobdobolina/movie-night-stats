@@ -6,6 +6,7 @@ template('header');
 
 //Array('date' => "", 'version' => '', 'details' => Array("")),
 $changes = Array(
+	Array('date'=>"April 18, 2022", 'version' => 'Version 3.8.0', 'details' => Array("Bug fixes.", "Improvements","Added filterable table to Services page.")),
 	Array('date'=>"March 6, 2022", 'version' => 'Version 3.7.0', 'details' => Array("Bug fixes.","Weather manipulations.","General improvements.")),
 	Array('date'=>"February 17, 2022", 'version' => 'Version 3.6.1', 'details' => Array("Bug fixes on admin pages.")),
 	Array('date'=>"February 6, 2022", 'version' => 'Version 3.6.0', 'details' => Array("Tweaked some admin code to make adding movies easier","Fixed missing spaces","Updated One Hit Wonder counter to ignore viewer choices","Viewers page should work better on mobile now")),
