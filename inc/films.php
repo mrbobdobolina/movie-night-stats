@@ -218,7 +218,7 @@ function get_movie_poster($film_id){
 	if($result[0]['poster_url']!= ""){
 		return $result[0]['poster_url'];
 	}
-	
+
 	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",getMovieById($film_id))."&y=".get_movie_year($film_id)."&apikey=".OMDB_API_KEY;
 	$movie_info = json_decode(file_get_contents($movie_info_url), true);
 
@@ -231,6 +231,19 @@ function get_movie_poster($film_id){
 
 		return $poster_url;
 	} else {
+		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",getMovieById($film_id));
+	}
+
+}
+
+function get_movie_poster_2($film_id){
+	$sql = "SELECT `poster_url` FROM `films` WHERE `id` = $film_id";
+
+	$result = db($sql);
+
+	if($result[0]['poster_url']!= ""){
+		return $result[0]['poster_url'];
+ 	} else {
 		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",getMovieById($film_id));
 	}
 

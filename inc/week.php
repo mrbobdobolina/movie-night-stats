@@ -12,6 +12,13 @@ function getListOfEvents($direction = "ASC"){
 	return $data;
 }
 
+function get_single_event($id){
+	$sql = "SELECT * FROM `week` WHERE `id` = $id";
+	$data = db($sql)[0];
+
+	return $data;
+}
+
 function countSpins(){
 	$sql = "SELECT COUNT(*) AS `total` FROM `week`";
 	$data = db($sql)[0]['total'];
@@ -747,6 +754,13 @@ function viewer_watchtime($year = null){
 	}
 
 	return $viewer_times;
+}
+
+function list_winning_films_and_service(){
+	$sql = "SELECT `winning_film`, `format`, `date` FROM `week`";
+	$result = db($sql);
+
+	return $result;
 }
 
 ?>

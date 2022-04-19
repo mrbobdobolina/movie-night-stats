@@ -48,7 +48,9 @@ add_page_load();
 	<!-- Movie Night Stats -->
 	<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/movie-night-stats/main.css">
 
-	<?php $season = get_seasonal_event();
+
+
+	<?php $season = get_seasonal_weather();
 	if($season == 'sakura'): ?>
 		<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/seasonal/sakura/sakura.css">
 	<?php elseif($season == 'rain'): ?>
@@ -57,7 +59,7 @@ add_page_load();
 
 </head>
 <body class="back-row-toggle splat-toggle">
-
+	
 	<?php if($season == 'rain'): ?>
 		<div class="rain front-row"></div>
 		<div class="rain back-row"></div>
