@@ -312,6 +312,7 @@ function get_seasonal_weather(){
 function get_seasonal_event(){
 	$now = new DateTime();
 
+
 	if($now >= new DateTime('March 10') && $now <= new DateTime('March 20')){
 		if(rand(1,100) < 50){
 			if(rand(1,100) < 50){
