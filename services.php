@@ -102,9 +102,9 @@ template('header');
     <div class="col-7">
     <h3>Movies watched on</h3>
     <?php
-    $services = getListOfServices();
+    $services = getListOfServices('name','ASC');
 
-    $servicesSelect = "<option disabled selected></option>";
+    $servicesSelect = "<option disabled selected>All Services</option>";
 
     foreach($services as $aService){
     	$servicesSelect .= "<option value=\"" . $aService['name'] . "\">" . $aService['name'] . "</option>";
