@@ -14,8 +14,6 @@ require_once("../common.php");
 
  if(!empty($_POST['number'])){
 	 $number = $_POST['number'];
- } else {
-   $number = 0;
  }
 
  if(!empty($_POST['hue'])){
