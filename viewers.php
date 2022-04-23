@@ -230,11 +230,17 @@ template('header');
 										</tbody>
 									</table>
 								</div>
-
+								<hr >
 								<li><strong>Spun People: </strong></li>
 								<?php //echo implode(", ", getSpunViewers($person['id']));
 
 								$numbers = getSpunViewers_v2($person['id']);
+
+								$vcs = countViewerChoices($person['id']);
+
+								if($vcs != 0){
+									$numbers['VCs'] = countViewerChoices($person['id']);
+								}
 
 								if(!empty($numbers)){
 									$max = max($numbers);
@@ -246,6 +252,8 @@ template('header');
 
 								?>
 
+
+
 								<div class="chart">
 									<table id="column-<?php echo $person['id'];?>" class="charts-css bar show-labels show-data">
 										<thead>
@@ -255,7 +263,8 @@ template('header');
 											</tr>
 										</thead>
 										<tbody>
-											<?php foreach($numbers as $key => $value):?>
+											<?php
+											foreach($numbers as $key => $value):?>
 												<tr>
 													<th scope="row"> <?php echo $key; ?> </th>
 													<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<?php echo getMoviegoerColorByName($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
@@ -264,13 +273,11 @@ template('header');
 										</tbody>
 									</table>
 								</div>
-
 							</ul>
 
 
-
+							<hr >
 							<?php
-
 							$stats = count_viewer_services($person['id']);
 
 							$format = Array();

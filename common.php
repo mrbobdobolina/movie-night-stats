@@ -283,19 +283,19 @@ function get_seasonal_weather(){
 		if($base_10 < 40){
 			return 'snow';
 		}
-		if($base_10 < 128){
+		if($base_10 < 100){
 			return 'sakura';
 		}
 	}
 
 	if($now >= new DateTime('December 21') || $now <= new DateTime('March 10')){
-		if($base_10 < 128){
+		if($base_10 < 80){
 			return 'snow';
 		}
 	}
 
 	if($now >= new DateTime('March 20') && $now <= new DateTime('May 5')){
-		if($base_10 < 128){
+		if($base_10 < 80){
 			return 'sakura';
 		}
 	}
@@ -309,53 +309,6 @@ function get_seasonal_weather(){
 	return FALSE;
 }
 
-function get_seasonal_event(){
-	$now = new DateTime();
-
-
-	if($now >= new DateTime('March 10') && $now <= new DateTime('March 20')){
-		if(rand(1,100) < 50){
-			if(rand(1,100) < 50){
-				return 'snow';
-			} else {
-				return 'sakura';
-			}
-		}
-	}
-
-	if($now >= new DateTime('April 1') && $now <= new DateTime('May 5')){
-		if(rand(1,100) < 50){
-			$rand = rand(1,100);
-			if($rand < 30){
-				return 'snow';
-			} elseif($rand > 90){
-				return 'rain';
-			} else {
-				return 'sakura';
-			}
-		}
-	}
-
-	if($now >= new DateTime('December 21') || $now <= new DateTime('March 10')){
-		if(rand(1,100) < 50){
-			return 'snow';
-		}
-	}
-
-	if($now >= new DateTime('March 20') && $now <= new DateTime('May 5')){
-		if(rand(1,100) < 50){
-			return 'sakura';
-		}
-	}
-
-	if($now >= new DateTime('May 5') && $now <= new DateTime('September 30')){
-		if(rand(1,100) < 15){
-			return 'rain';
-		}
-	}
-
-	return FALSE;
-}
 
 //reads the db version listed in the DB
 function read_db_version(){

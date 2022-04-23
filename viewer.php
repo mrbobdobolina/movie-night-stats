@@ -21,7 +21,7 @@ else {
 		<p class="lead text-center ">For your convenience.</p>
 
 
-		<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-10 g-3 mt-5">
+		<div class="row row-cols-1 row-cols-md-3 row-cols-md-3 row-cols-xl-10 g-3 mt-5">
 
 			<div class="col-12 mb-4">
 				<div class="card">
@@ -70,9 +70,21 @@ else {
 							</li>
 							<li><strong>Scribe: </strong><?php echo countScribe($viewer); ?></li>
 							<li><strong>All Picks: </strong><?php echo $picks['total'];?></li>
-							<li><strong>Spins: </strong><?php echo $spins['total'];?></li>
+							<li><strong>Total Spins: </strong><?php echo $spins['total'];?></li>
 							<li><strong>Error Spins: </strong><?php echo $spins['bad'];?></li>
+							<li><strong>Viewer Choice: </strong><?php echo countViewerChoices($viewer);?></li>
 						</ul>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-12 mb-4">
+				<div class="card">
+					<div class="card-header bold text-white" style="background-color:#<?php echo getMoviegoerColorById($viewer);?>;" >
+						<h3>Charts</h3>
+					</div>
+					<div class="card-body">
 						<ul>
 							<li><strong>Spun Numbers: </strong><?php //echo implode(", ", listOfSpunNumbersByViewer($viewer));?></li>
 							<?php
@@ -105,7 +117,7 @@ else {
 										</tbody>
 								</table>
 							</div>
-
+							<hr >
 							<li>
 								<strong>Spun People: </strong>
 								<?php //echo implode(", ", getSpunViewers($viewer)); ?>
@@ -115,6 +127,12 @@ else {
 
 							$numbers = getSpunViewers_v2($viewer);
 
+							$vcs = countViewerChoices($viewer);
+
+							if($vcs != 0){
+								$numbers['VCs'] = countViewerChoices($viewer);
+							}
+
 							if(!empty($numbers)){
 								$max = max($numbers);
 								if($max == 0){$max=1;}
@@ -123,7 +141,11 @@ else {
 								$max = 1;
 							}
 
-							?>
+
+							$the_peoples = Array();
+							$the_counts = Array();
+							$the_colors = Array();
+							 ?>
 
 							<div class="chart">
 								<table id="column-<?php echo $viewer;?>" class="charts-css bar show-labels show-data-on-hover">
@@ -135,6 +157,10 @@ else {
 									</thead>
 										<tbody>
 											<?php foreach($numbers as $key => $value):?>
+												<?php
+												$the_peoples[] = $key;
+												$the_counts[] = $value;
+												$the_colors[] = getMoviegoerColorByName($key);?>
 												<tr>
 													<th scope="row"> <?php echo $key; ?> </th>
 													<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<?php echo getMoviegoerColorByName($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
@@ -144,15 +170,38 @@ else {
 								</table>
 							</div>
 
-							<!--<li><strong>Spun Colors: </strong>
-								<?php
-								$colors = getSpunColors($viewer);
-									foreach($colors as $color):?>
-									<i class="fas fa-square" style="color:<?php echo $color;?>;"></i>
-								<?php endforeach;?>
-							</li>!-->
-
 						</ul>
+						<hr >
+						<strong>Spins and Selections: </strong>
+						<canvas id="spinnychart" width="250" height="250" style="position:relative; !important"></canvas>
+						<script>
+						var ctx = document.getElementById('spinnychart').getContext('2d');
+						var myChart = new Chart(ctx, {
+							type: 'pie',
+							data: {
+								labels: ['<?php echo implode("','", $the_peoples); ?>'],
+									datasets: [{
+										data: [<?php echo implode(',', $the_counts); ?>],
+										backgroundColor: ['#<?php echo implode("','#", $the_colors); ?>'],
+										hoverOffset: 10
+									}]
+							},
+							options: {
+								layout: {
+									padding: {
+										left: 30,
+										right: 30,
+										top: 0
+									}
+								},
+								plugins: {
+									legend: {
+										display: true
+									}
+								}
+							}
+						});
+						</script>
 
 						<?php
 
@@ -168,6 +217,7 @@ else {
 						}
 
 						if(!empty($format)): ?>
+						<hr >
 							<strong>Winning Services: </strong>
 							<canvas id="myChart<?php echo $viewer;?>" width="250" height="250" style="position:relative; !important"></canvas>
 							<script>

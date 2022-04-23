@@ -27,14 +27,33 @@ function getMoviegoerColorById($id){
 
 function getMoviegoerColorByName($name){
 	$sql = "SELECT `color` FROM `viewers` WHERE `name` = '$name'";
-	$data = db($sql)[0]['color'];
+	$data = db($sql);
 
-	return $data;
+	if($data != NULL){
+		return $data[0]['color'];
+	}
+
+	return "000000";
+
 }
 
 
 function getViewerName($id){
 	return getMoviegoerById($id);
+}
+
+function countViewerSpins($id){
+	$sql = "SELECT COUNT(*) FROM `week` WHERE `spinner` = '$id' AND `selection_method` != 'viewer choice'";
+	$result = db($sql);
+
+	return $result[0]['COUNT(*)'];
+}
+
+function countViewerChoices($id){
+	$sql = "SELECT COUNT(*) FROM `week` WHERE `spinner` = '$id' AND `selection_method` = 'viewer choice'";
+	$result = db($sql);
+
+	return $result[0]['COUNT(*)'];
 }
 
 ?>
