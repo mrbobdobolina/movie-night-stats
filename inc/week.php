@@ -473,7 +473,7 @@ function getSpunViewers($id){
 }
 
 function getSpunViewers_v2($id){
-	$sql = "SELECT * FROM `week` WHERE `spinner` = $id AND `selection_method` != 'viewer choice'";
+	$sql = "SELECT * FROM `week` WHERE `spinner` = $id AND `selection_method` != 'viewer choice' ORDER BY `winning_moviegoer`";
 	$data = db($sql);
 
 	$list = Array();
