@@ -239,7 +239,7 @@ template('header');
 								$vcs = countViewerChoices($person['id']);
 
 								if($vcs != 0){
-									$numbers['VCs'] = countViewerChoices($person['id']);
+									$numbers['VCs'] = $vcs;
 								}
 
 								if(!empty($numbers)){
