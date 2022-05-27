@@ -213,7 +213,8 @@ if(!empty($alert)){
 
 						<div class="col-12 mb-3">
 							<label class="form-label">Spinner</label>
-							<select class="form-select" name="spinner"><?php echo $viewerSelect; ?></select>
+							<select class="form-select" name="spinner"><?php echo $viewerSelect; ?>
+							<option value="0">Viewer Choice</option></select>
 						</div>
 
 						<div class="col-12 mb-3">

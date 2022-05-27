@@ -72,7 +72,6 @@ else {
 							<li><strong>All Picks: </strong><?php echo $picks['total'];?></li>
 							<li><strong>Total Spins: </strong><?php echo $spins['total'];?></li>
 							<li><strong>Error Spins: </strong><?php echo $spins['bad'];?></li>
-							<li><strong>Viewer Choice: </strong><?php echo countViewerChoices($viewer);?></li>
 						</ul>
 
 					</div>
@@ -126,12 +125,6 @@ else {
 							<?php
 
 							$numbers = getSpunViewers_v2($viewer);
-
-							$vcs = countViewerChoices($viewer);
-
-							if($vcs != 0){
-								$numbers['VCs'] = countViewerChoices($viewer);
-							}
 
 							if(!empty($numbers)){
 								$max = max($numbers);

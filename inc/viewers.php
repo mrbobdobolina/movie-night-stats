@@ -50,7 +50,7 @@ function countViewerSpins($id){
 }
 
 function countViewerChoices($id){
-	$sql = "SELECT COUNT(*) FROM `week` WHERE `spinner` = '$id' AND `selection_method` = 'viewer choice'";
+	$sql = "SELECT COUNT(*) FROM `week` WHERE `spinner` = 0 AND `selection_method` = 'viewer choice'";
 	$result = db($sql);
 
 	return $result[0]['COUNT(*)'];

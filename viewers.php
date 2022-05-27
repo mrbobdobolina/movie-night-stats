@@ -236,11 +236,7 @@ template('header');
 
 								$numbers = getSpunViewers_v2($person['id']);
 
-								$vcs = countViewerChoices($person['id']);
 
-								if($vcs != 0){
-									$numbers['VCs'] = $vcs;
-								}
 
 								if(!empty($numbers)){
 									$max = max($numbers);

@@ -20,9 +20,9 @@ if(!empty($_POST)){
 						db_esc($_POST['name']),
 						db_esc($_POST['year'] ?? ''),
 						db_esc($_POST['runtime'] ?? ''),
-						db_esc($_POST['imdb'] ?? ''),
-						db_esc($_POST['rt_rating'] ?? ''),
-						db_esc($_POST['rta_rating'] ?? ''),
+						db_esc($_POST['imdb'] ?? NULL),
+						db_esc($_POST['rt_rating'] ?? NULL),
+						db_esc($_POST['rta_rating'] ?? NULL),
 						db_esc($_POST['mpaa'] ?? ''),
 						db_esc($_POST['imdbid'] ?? ''),
 						db_esc($_POST['poster'] ?? '')
