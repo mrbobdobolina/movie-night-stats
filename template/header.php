@@ -53,18 +53,11 @@ add_page_load();
 	<?php $season = get_seasonal_weather();
 	if($season == 'sakura'): ?>
 		<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/seasonal/sakura/sakura.css">
-	<?php elseif($season == 'rain'): ?>
-		<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/seasonal/rain/style.css">
 	<?php endif;?>
 
 </head>
-<body class="back-row-toggle splat-toggle">
-	
-	<?php if($season == 'rain'): ?>
-		<div class="rain front-row"></div>
-		<div class="rain back-row"></div>
-		<script src="<?php echo WEB_ROOT; ?>/assets/seasonal/rain/script.js"></script>
-	<?php endif;?>
+<body>
+
 
 	<?php if($season == 'sakura'): ?>
 		<script src="<?php echo WEB_ROOT; ?>/assets/seasonal/sakura/sakura.js"></script>
