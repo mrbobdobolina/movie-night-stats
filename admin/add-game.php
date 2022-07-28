@@ -108,7 +108,7 @@ if(!empty($_POST)){
 
 $movies = getMovieList();
 
-$movieSelect = "<option disabled selected></option>";
+$movieSelect = "<option selected></option>";
 
 foreach($movies as $aFilm){
 	$movieSelect .= "<option value=\"" . $aFilm["id"] . "\">" . $aFilm["name"] . " (".$aFilm["runtime"]." min)</option>";
@@ -143,6 +143,7 @@ foreach($services as $aService){
 <h1 class="display-6 text-center">Add an Event</h1>
 <div class="text-center mb-5"></div>
 
+
 <?php
 
 if(!empty($alert)){
@@ -161,11 +162,11 @@ if(!empty($alert)){
 			<div class="card mb-3">
 				<div class="card-header">Wedges</div>
 				<div class="card-body">
-					<table class="table">
+					<table class="table" style="table-layout:fixed;">
 						<thead>
 							<tr>
-								<th>Wedge #</th>
-								<th>Movie</th>
+								<th style="width:15%;min-width:50px;">Wedge #</th>
+								<th style="width:50%;">Movie</th>
 								<th>Viewer</th>
 							</tr>
 						</thead>
@@ -174,7 +175,7 @@ if(!empty($alert)){
 								<tr>
 									<td><?php echo $i;?></td>
 									<td>
-										<select class="form-select form-select-sm" name="wedge_<?php echo $i;?>" id="wedge_<?php echo $i;?>">
+										<select class="form-control form-control-sm selectpicker"  name="wedge_<?php echo $i;?>" id="wedge_<?php echo $i;?>" data-live-search="true" data-size="10">
 											<?php echo $movieSelect; ?>
 										</select>
 									</td>
