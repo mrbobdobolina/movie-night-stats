@@ -12,7 +12,7 @@
 
 	<!-- Bootstrap -->
 	<link href="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
-	<script src="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.0.0-beta2/js/bootstrap.bundle.min.js"></script>
+	<script src="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.2.0/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
