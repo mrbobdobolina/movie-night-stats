@@ -277,9 +277,6 @@ function get_seasonal_weather(){
 	}
 
 	if($now >= new DateTime('April 1') && $now <= new DateTime('May 5')){
-		if($base_10 < 10){
-			return 'rain';
-		}
 		if($base_10 < 40){
 			return 'snow';
 		}
@@ -297,12 +294,6 @@ function get_seasonal_weather(){
 	if($now >= new DateTime('March 20') && $now <= new DateTime('May 5')){
 		if($base_10 < 80){
 			return 'sakura';
-		}
-	}
-
-	if($now >= new DateTime('May 5') && $now <= new DateTime('September 30')){
-		if($base_10 < 40){
-			return 'rain';
 		}
 	}
 

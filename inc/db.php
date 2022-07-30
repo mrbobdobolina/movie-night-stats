@@ -45,8 +45,6 @@ if($db->connect_errno){
 }
 
 
-
-
 function add_page_load(){
 
 	if(AT_DB_ENABLED){

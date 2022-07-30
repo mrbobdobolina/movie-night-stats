@@ -763,4 +763,34 @@ function list_winning_films_and_service(){
 	return $result;
 }
 
+function count_viewer_win_streak_when_attending_and_not_viewer_choice($viewer){
+	$sql = "SELECT `date`, `winning_moviegoer`, `attendees`, `selection_method` FROM `week` WHERE `selection_method` != 'viewer choice' ORDER BY `date` ASC";
+	$result = db($sql);
+
+	$counter = 0;
+	$max_counter = 0;
+	$dates = Array();
+	$final_dates = Array();
+
+	foreach($result as $a_week){
+		$attendees = explode(", ",$a_week['attendees']);
+		if(in_array($viewer, $attendees)){
+			if($viewer == $a_week['winning_moviegoer']){
+				$counter++;
+				$dates[] = $a_week['date'];
+			} else {
+				if($counter > $max_counter){
+					$max_counter = $counter;
+					$final_dates = $dates;
+				}
+				$counter = 0;
+				unset($dates);
+			}
+		}
+	}
+
+	return array('count' => $max_counter, 'dates' => $final_dates);
+}
+
+
 ?>

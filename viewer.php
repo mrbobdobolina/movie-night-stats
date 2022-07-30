@@ -53,6 +53,7 @@ else {
 							<li><strong>Wins:</strong> <?php echo $wins; ?></li>
 							<li><strong>Win Percentage:</strong> <?php echo round(($wins/$total_events)*100,2);?>%</li>
 							<li><strong>Win % for Attendance:</strong> <?php echo round(($wins/$attend)*100,2);?>%</li>
+							<li><strong>Number of consecutive wins when viewer is in attendance and selection method is not viewers choice:</strong> <?php echo count_viewer_win_streak_when_attending_and_not_viewer_choice($viewer)['count'];?></li>
 							<li>
 								<?php
 
@@ -165,7 +166,7 @@ else {
 
 						</ul>
 						<hr >
-						<strong>Spins and Selections: </strong>
+						<strong>Spun People Pie: </strong>
 						<canvas id="spinnychart" width="250" height="250" style="position:relative; !important"></canvas>
 						<script>
 						var ctx = document.getElementById('spinnychart').getContext('2d');

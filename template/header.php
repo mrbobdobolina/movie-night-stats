@@ -107,11 +107,6 @@ add_page_load();
 			},
 			sound: {
 				enable: false,
-				list: [
-					'explosion0.mp3',
-					'explosion1.mp3',
-					'explosion2.mp3'
-				],
 				min: 4,
 				max: 8
 			}

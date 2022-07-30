@@ -191,12 +191,14 @@ template('header');
 
 		<div class="row g-3 mt-5">
 			<?php foreach($viewer as $person): ?>
+
 				<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mb-4">
 					<div class="card">
 						<div class="card-header bold text-white" style="background-color:#<?php echo $person['color'];?>;" >
 							<h3><strong><?php echo $person['name']; ?></strong></h3>
 						</div>
 						<div class="card-body">
+							
 							<ul>
 								<li>
 									<strong>Spun Numbers: </strong><?php //echo implode(", ", listOfSpunNumbersByViewer($person['id']));?>
@@ -318,6 +320,7 @@ template('header');
 								</script>
 
 							<?php endif; ?>
+
 							<a href="viewer.php?viewer=<?php echo $person['id']; ?>">More Details</a>
 						</div>
 					</div>
@@ -327,6 +330,8 @@ template('header');
 
 
 		</div>
+
+
 	</div>
 </div>
 
