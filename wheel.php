@@ -12,7 +12,7 @@ template('header');
 			<div class="col">
 
 				<p class="display-6 text-center ">How We Chose Our Movies</p>
-				<p class="lead text-center ">Roll a thing, spin a thing, think a thing. </p>
+				<p class="lead text-center "><i class="fa-solid fa-dice-d12"></i> Roll a thing, <i class="fa-solid fa-arrows-spin"></i> spin a thing, <i class="fa-solid fa-thought-bubble"></i> think a thing. </p>
 
 				<?php
 					$service_data = get_selector_stats();
@@ -281,20 +281,6 @@ template('header');
 							<div class="card-body">
 								<h5 class="card-title bold"><a href="https://random.org">Random.org</a></h5>
 								<p class="card-text">Random.org offers several different features for choosing items randomly.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="card mb-4" >
-					<div class="row g-0">
-						<div class="col-md-4">
-							<img src="images/wheels/dd12.jpg" class="img-fluid rounded-start" alt="Wheel Version 1">
-						</div>
-						<div class="col-md-8">
-							<div class="card-body">
-								<h5 class="card-title bold"><a href="https://movienightstats.com/roll/">Digital d12</a></h5>
-								<p class="card-text">Digital d12 is a Movie Night Stats exclusive dice simulator powered by diceapi.com.</p>
 							</div>
 						</div>
 					</div>

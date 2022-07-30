@@ -29,15 +29,15 @@ $numbers = $numberTypes[rand(0,3)];
 					?>
 					<div class=" col-lg-2">
 						<button id="btn-expand-all" class="btn btn-sm btn-outline-primary mb-3 col-8" onclick="$('.collapse').collapse('show'); $('#btn-expand-all').hide(); $('#btn-collapse-all').show();">
-							Expand ALL
+							<i class="fa-solid fa-angles-down"></i> Expand ALL
 						</button>
 						<button id="btn-collapse-all" class="btn btn-sm btn-outline-primary mb-3 col-8" onclick="$('.collapse').collapse('hide'); $('#btn-expand-all').show(); $('#btn-collapse-all').hide();" style="display:none">
-							Collapse ALL
+							<i class="fa-solid fa-angles-up"></i> Collapse ALL
 						</button>
 
-						<a href="event_table.php" class="btn btn-sm btn-outline-dark mb-3 col-8">Table View</a>
-						<a href="event_rows.php" class="btn btn-sm btn-outline-dark mb-3 col-8">Poster View</a>
-						<a href="event_posters.php" class="btn btn-sm btn-outline-dark mb-3 col-8">Winning Posters</a>
+						<a href="event_table.php" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-table"></i> Table View</a>
+						<a href="event_rows.php" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-images"></i> Poster View</a>
+						<a href="event_posters.php" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-image-portrait"></i> Winning Poster</a>
 					</div>
 
 
@@ -85,7 +85,7 @@ $numbers = $numberTypes[rand(0,3)];
 
 								<p class="text-center">
 									<a data-bs-toggle="collapse" href="#collapseExample_<?php echo $count_events; ?>" aria-expanded="false" aria-controls="collapseExample_<?php echo $count_events; ?>">
-										More Details...
+										More Details... 
 									</a>
 								</p>
 
