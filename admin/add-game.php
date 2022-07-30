@@ -106,7 +106,7 @@ if(!empty($_POST)){
 	];
 }
 
-$movies = getMovieList();
+$movies = get_movie_list();
 
 $movieSelect = "<option selected></option>";
 

@@ -7,7 +7,7 @@ template('header');
 ?>
 <div class="album py-5 bg-light">
 	<div class="container">
-		<p class="display-6 text-center "><?php echo countMovieList();?> Films We Could Have Watched</p>
+		<p class="display-6 text-center "><?php echo count_movie_list($pdo);?> Films We Could Have Watched</p>
 		<p class="lead text-center ">(And the <?php echo countWatchedMovies();?> we did.)</p>
 
 		<div class="row">
@@ -36,7 +36,7 @@ template('header');
 				</thead>
 				<tbody>
 					<?php
-					$movies = getMovieList();
+					$movies = get_movie_list($pdo);
 					$week_count = countWeeks();
 					$total_wedges = countWeeks()*12;
 					$oneHitWonders = 0;
@@ -45,7 +45,7 @@ template('header');
 						$winner = didIWin($movie['id']);
 						//$first_date = getFirstOrLastDate($movie['id'], "First");
 
-						$wedges = countTotalFilmApperances($movie['id']);
+						$wedges = count_total_film_appearances($pdo, $movie['id']);
 						$weeks = countWeeksOnWheel($movie['id']);
 
 						if($winner['count'] > 0){

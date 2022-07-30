@@ -280,7 +280,7 @@ else {
 								<?php
 								foreach($allUserPicks3 as $key => $value){
 									if(!in_array($key, $watchedFilmList)){
-									 	echo '<tr><td>'.getMovieById($key).'</td> <td>'.$value.'</td></tr>';
+									 	echo '<tr><td>'.get_movie_by_id($pdo,$key).'</td> <td>'.$value.'</td></tr>';
 									}
 								}
 

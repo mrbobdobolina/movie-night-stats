@@ -26,7 +26,7 @@ $numberTypes = Array("arabic", "roman", "japanese", "arabic", "roman");
 include(ROOT.'inc/db.php');
 
 //check DB Version
-if(read_db_version() != this_db_version()){
+if(read_db_version_v2($pdo) != this_db_version()){
 	header('Location: ./init/error.php?e=oldDB');
 	die();
 }
@@ -302,10 +302,18 @@ function get_seasonal_weather(){
 
 
 //reads the db version listed in the DB
-function read_db_version(){
+/*function read_db_version(){
 	$sql = "SELECT * FROM `options` WHERE `name` = 'db_version'";
 	$result = db($sql);
 	return $result[0]['value'];
+}*/
+
+// pdo version of read DB Version
+function read_db_version_v2($pdo){
+	$stmt = $pdo->prepare('SELECT value FROM options WHERE name = :name');
+	$stmt->execute(['name' => 'db_version']);
+	$result = $stmt->fetchColumn();
+	return $result;
 }
 
 //the db version used by the site right now

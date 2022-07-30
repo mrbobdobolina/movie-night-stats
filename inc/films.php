@@ -1,27 +1,48 @@
 <?php
 
-function getMovieById($id){
+/*function getMovieById($id){
 	$sql = "SELECT `name` FROM `films` WHERE `id` = $id";
 	$data = db($sql)[0]['name'];
 
 	return $data;
+}*/
+
+function get_movie_by_id($pdo, $id){
+	$stmt = $pdo->prepare('SELECT name FROM films WHERE id = ?');
+	$stmt->execute([$id]);
+	$name = $stmt->fetchColumn();
+	return $name;
 }
 
-function getMovieList(){
+/*function getMovieList(){
 	$sql = "SELECT * FROM `films` WHERE `id` != 0 ORDER BY `name` ASC";
 	$data = db($sql);
 
 	return $data;
+}*/
+
+function get_movie_list($pdo){
+	$stmt = $pdo->prepare('SELECT * FROM films WHERE id != 0 ORDER BY name ASC');
+	$stmt->execute();
+	$list = $stmt->fetchAll();
+	return $list;
 }
 
-function countMovieList(){
+/*function countMovieList(){
 	$sql = "SELECT count(*) AS 'count' FROM `films` WHERE `id` != 0 ORDER BY `name` ASC";
 	$data = db($sql)[0];
 
 	return $data['count'];
+}*/
+
+function count_movie_list($pdo){
+	$count = $pdo->query('SELECT count(*) FROM films')->fetchColumn();
+	//we subtract one from the total count because db contains a null field for id = 0...
+	//I'm sure there's a good reason for this.
+	return $count - 1;
 }
 
-function countTotalFilmApperances($filmID){
+/*function countTotalFilmApperances($filmID){
 
 	$counter = 0;
 
@@ -32,6 +53,17 @@ function countTotalFilmApperances($filmID){
 		$counter = $counter + $data;
 	}
 
+	return $counter;
+}*/
+
+function count_total_film_appearances($pdo, $film_id){
+	$counter = 0;
+	for($i = 1; $i <= 12; $i++){
+		$sql = "SELECT count(*) FROM week WHERE wheel_".$i." = ?";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute([$film_id]);
+		$counter += $stmt->fetchColumn();
+	}
 	return $counter;
 }
 
@@ -219,7 +251,7 @@ function get_movie_poster($film_id){
 		return $result[0]['poster_url'];
 	}
 
-	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",getMovieById($film_id))."&y=".get_movie_year($film_id)."&apikey=".OMDB_API_KEY;
+	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",get_movie_by_id($pdo,$film_id))."&y=".get_movie_year($film_id)."&apikey=".OMDB_API_KEY;
 	$movie_info = json_decode(file_get_contents($movie_info_url), true);
 
 	if($movie_info['Response'] == "True"){
@@ -231,7 +263,7 @@ function get_movie_poster($film_id){
 
 		return $poster_url;
 	} else {
-		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",getMovieById($film_id));
+		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",get_movie_by_id($pdo,$film_id));
 	}
 
 }
@@ -244,7 +276,7 @@ function get_movie_poster_2($film_id){
 	if($result[0]['poster_url']!= ""){
 		return $result[0]['poster_url'];
  	} else {
-		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",getMovieById($film_id));
+		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",get_movie_by_id($pdo,$film_id));
 	}
 
 }

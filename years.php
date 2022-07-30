@@ -337,11 +337,11 @@ template('header');
 							//more than one person one! It's a tie!
 							$people = Array();
 							foreach($biggest['top'] as $person){
-								$people[] = getMovieById($person);
+								$people[] = get_movie_by_id($pdo,$person);
 							}
 							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." requests!";
 						} elseif($winners == 1) {
-							$message = getMovieById($biggest['top'][0]) ." with ". $biggest['count']." requests!";
+							$message = get_movie_by_id($pdo,$biggest['top'][0]) ." with ". $biggest['count']." requests!";
 						} else {
 							$message = "(no requests yet)";
 						}

@@ -66,14 +66,14 @@ $numbers = $numberTypes[rand(0,3)];
 												<tr class="bold text-white homepage" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
 													<td class="number homepage"><?php echo $i; ?></td>
 													<td class="viewer-name text-center homepage" ><?php echo getMoviegoerById($event['moviegoer_'.$i]); ?></td>
-													<td class="movie-title homepage"><?php echo getMovieById($event['wheel_'.$i]); ?></td>
+													<td class="movie-title homepage"><?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?></td>
 													<td class="homepage"><?php $movie_freshness[] = getMovieRating($event['wheel_'.$i]);?></td>
 												</tr>
 												<?php else: ?>
 												 <tr class="homepage">
 														 <td class="number homepage"><?php echo $i; ?></td>
 														 <td class="viewer-name text-center homepage"><?php echo getMoviegoerById($event['moviegoer_'.$i]); ?></td>
-														 <td class="movie-title homepage"><?php echo getMovieById($event['wheel_'.$i]); ?></td>
+														 <td class="movie-title homepage"><?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?></td>
 													 	<td class="homepage"><?php $movie_freshness[] = getMovieRating($event['wheel_'.$i]);?></td>
 													 </tr>
 												<?php endif; ?>
@@ -85,7 +85,7 @@ $numbers = $numberTypes[rand(0,3)];
 
 								<p class="text-center">
 									<a data-bs-toggle="collapse" href="#collapseExample_<?php echo $count_events; ?>" aria-expanded="false" aria-controls="collapseExample_<?php echo $count_events; ?>">
-										More Details... 
+										More Details...
 									</a>
 								</p>
 
@@ -147,14 +147,14 @@ $numbers = $numberTypes[rand(0,3)];
 										<tr class="bold text-white homepage" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
 											<td class="number homepage"><?php echo $i; ?></td>
 											<td class="viewer-name text-center homepage" ><?php echo getMoviegoerById($event['moviegoer_'.$i]); ?></td>
-											<td class="movie-title homepage"><?php echo getMovieById($event['wheel_'.$i]); ?></td>
+											<td class="movie-title homepage"><?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?></td>
 											<td class="homepage"><?php $movie_freshness[] = getMovieRating($event['wheel_'.$i]);?></td>
 										</tr>
 										<?php else: ?>
 										 <tr class="homepage">
 												 <td class="number homepage"><?php echo $i; ?></td>
 												 <td class="viewer-name text-center homepage"><?php echo getMoviegoerById($event['moviegoer_'.$i]); ?></td>
-												 <td class="movie-title homepage"><?php echo getMovieById($event['wheel_'.$i]); ?></td>
+												 <td class="movie-title homepage"><?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?></td>
 											 	<td class="homepage"><?php $movie_freshness[] = getMovieRating($event['wheel_'.$i]);?></td>
 											 </tr>
 										<?php endif; ?>

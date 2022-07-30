@@ -42,7 +42,7 @@ $numbers = $numberTypes[rand(0,3)];
 									<?php endif; ?>>
 									<?php if($event['wheel_'.$i] != 0): ?>
 										<i class="fas fa-film-alt" style="color:#<?php echo getMoviegoerColorById($event['moviegoer_'.$i]); ?>"></i>
-										<img src="<?php echo get_movie_poster_2($event['wheel_'.$i]); ?>" class="img-fluid poster" alt="<?php echo getMovieById($event['wheel_'.$i]); ?>">
+										<img src="<?php echo get_movie_poster_2($event['wheel_'.$i]); ?>" class="img-fluid poster" alt="<?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?>">
 										<?php if($event['winning_wedge'] == $i): ?>
 											<div class="text-white pt-2">
 												<i class="fas fa-sync"></i> by <?php echo getMoviegoerById($event['spinner']); ?>

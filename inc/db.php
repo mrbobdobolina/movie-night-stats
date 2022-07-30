@@ -1,5 +1,12 @@
 <?php
+// PDO instantiation
+try {
+     $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, DB_OPTIONS);
+} catch (\PDOException $e) {
+     throw new \PDOException($e->getMessage(), (int)$e->getCode());
+}
 
+// OLD mysqli instantiation
 $db = new mysqli(DB_ADDR, DB_USER, DB_PASS, DB_NAME);
 function db($query = NULL){
 	static $db;

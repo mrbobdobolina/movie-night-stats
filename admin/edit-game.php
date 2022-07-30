@@ -114,7 +114,7 @@ if(isset($_GET['event'])){
 
 $event = get_single_event($event_id);
 
-$movies = getMovieList();
+$movies = get_movie_list();
 
 function create_custom_movie_selection($wedge_film, $movies, $event){
 	$movieSelect = "<option disabled></option>";
