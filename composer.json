@@ -1,6 +1,5 @@
 {
     "require": {
-        "sanmai/japanese-numerals": "^0.1.2",
-        "delight-im/auth": "^8.2"
+        "sanmai/japanese-numerals": "^0.1.2"
     }
 }
