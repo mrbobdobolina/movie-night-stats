@@ -1,2 +1,0 @@
-[13-Jul-2021 00:25:52 America/Chicago] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in /home1/apathday/movienightstats.com/vendor/sanmai/japanese-numerals/tests/JapaneseNumerals/FromArabicToJapaneseTest.php on line 9
-[18-Jul-2021 20:56:00 America/Chicago] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in /home1/apathday/movienightstats.com/vendor/sanmai/japanese-numerals/tests/JapaneseNumerals/TestCase.php on line 9

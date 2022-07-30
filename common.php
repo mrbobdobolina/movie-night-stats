@@ -1,6 +1,4 @@
 <?php
-require __DIR__.'/vendor/autoload.php';
-
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
@@ -141,7 +139,7 @@ function displayNumbers($number, $type){
 	switch ($type) {
 		case 'japanese':
 			# code...
-			$formattedNumber = \JapaneseNumerals\JapaneseNumerals::fromArabicToJapanese($number);
+			$formattedNumber = number_to_japanese_kanji($number);
 			break;
 
 		case 'roman':
@@ -176,6 +174,80 @@ function numberToRomanRepresentation($number) {
         }
     }
     return $returnValue;
+}
+
+// this only goes to 9999, but this gives us 192 years to come up with a better solution
+// also, 99.5% certain this works.
+function number_to_japanese_kanji($number){
+	$jp_map = Array(1 => '一', 2 => '二', 3 => '三', 4 => '四', 5 => '五', 6 => '六', 7 => '七', 8 => '八', 9 => '九', 10 => '十', 100 => '百', 1000 => '千');
+
+	$digits = str_split($number);
+	$count = count($digits);
+
+	switch($number){
+		case 10:
+		case 100;
+		case 1000;
+			$string = $jp_map[$number];
+			return $string;
+			break;
+	}
+
+	switch($count){
+		case 1:
+			$string = $jp_map[$digits[0]];
+			break;
+		case 2:
+			if($digits[0] == 1){
+				$string = $jp_map[10].$jp_map[$digits[1]];
+			} else {
+				$string = $jp_map[$digits[0]].$jp_map[10].$jp_map[$digits[1]];
+			}
+			break;
+		case 3:
+			if($digits[0] == 1){
+				$string = $jp_map[100];
+			} else {
+				$string = $jp_map[$digits[0]].$jp_map[100];
+			}
+			if($digits[1] != 0 ){
+				if($digits[1] == 1){
+					$string .= $jp_map[10];
+				} else {
+					$string .= $jp_map[$digits[1]].$jp_map[10];
+				}
+			}
+			if($digits[2] != 0){
+				$string .= $jp_map[$digits[2]];
+			}
+			break;
+		case 4:
+			if($digits[0] == 1){
+				$string = $jp_map[1000];
+			} else {
+				$string = $jp_map[$digits[0]].$jp_map[1000];
+			}
+			if($digits[1] != 0){
+				if($digits[1] == 1){
+					$string .= $jp_map[100];
+				} else {
+					$string .= $jp_map[$digits[1]].$jp_map[100];
+				}
+			}
+			if($digits[2] != 0){
+				if($digits[2] == 1){
+					$string .= $jp_map[10];
+				} else {
+					$string .= $jp_map[$digits[2]].$jp_map[10];
+				}
+			}
+			if($digits[3] != 0){
+				$string .= $jp_map[$digits[3]];
+			}
+			break;
+	}
+
+	return $string;
 }
 
 function get_freshness($array){
