@@ -32,7 +32,7 @@ else {
 						<ul>
 							<?php
 
-							$attend = countAttendance($viewer);
+							$attend = count_attendance($pdo, $viewer);
 							$total_events = countWeeks();
 
 							$myUnique = calculateMyUniquePicks($viewer);
@@ -53,7 +53,7 @@ else {
 							<li><strong>Wins:</strong> <?php echo $wins; ?></li>
 							<li><strong>Win Percentage:</strong> <?php echo round(($wins/$total_events)*100,2);?>%</li>
 							<li><strong>Win % for Attendance:</strong> <?php echo round(($wins/$attend)*100,2);?>%</li>
-							<li><strong>Number of consecutive wins when viewer is in attendance and selection method is not viewers choice:</strong> <?php echo count_viewer_win_streak_when_attending_and_not_viewer_choice($viewer)['count'];?></li>
+							<li><strong>Number of consecutive wins when viewer is in attendance and selection method is not viewers choice:</strong> <?php echo count_viewer_win_streak_when_attending_and_not_viewer_choice($pdo, $viewer)['count'];?></li>
 							<li>
 								<?php
 

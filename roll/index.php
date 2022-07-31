@@ -54,7 +54,7 @@ add_page_load();
   <header>
   	<div class="bg-red shadow-sm ">
   		<div class="container d-flex header-image text-center" style="height:233px;">
-  			<a href="index.php">
+  			<a href="../index.php">
   				<img src="../images/MovieNightStats_v02B_Rectangle_Transparent.png" class="img-fluid">
   			</a>
   		</div>
@@ -106,7 +106,10 @@ add_page_load();
 	</script>
 
 <footer class="text-muted py-5">
-	<p class="text-center">(Powered by <a href="http://roll.diceapi.com">DiceAPI</a>)</p>
+	<div class="container">
+			This page uses PHP's random_int() function to generate a random integer between 1 and 12. This function "Generates cryptographic random integers that are suitable for use where unbiased results are critical, such as when shuffling a deck of cards for a poker game." If the same number is rolled twice in a row the dice will change color to visually indicate a roll took place.
+	</div>
+
 </footer>
 
 

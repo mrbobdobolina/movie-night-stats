@@ -9,18 +9,19 @@ template('header');
 		<p class="lead text-center ">(They used to be your friends, but then you made them watch <span class="bg-dark text-white px-1"><strong>[REDACTED]</strong></span>.)</p>
 
 		<?php
-		$streakers = get_streakers();
+		//$streakers = get_streakers();
 		$time_watched = viewer_watchtime();
 		$viewers_longest_streaks = find_longest_streak_v2($pdo);
 		$longest_streak = max($viewers_longest_streaks);
 		$longest_streak_key = array_search(max($viewers_longest_streaks),$viewers_longest_streaks);
+		$current_streak = get_current_streak($pdo);
 		?>
 
 		<div class="row justify-content-around">
-			<div class="alert text-center col-5 text-white" role="alert" style="background-color:#<?php echo getMoviegoerColorById($streakers['current']['viewer']);?>;">
-				<?php echo "<strong>Current Winning Streak: </strong>" . getMoviegoerById($streakers['current']['viewer']) .	" with "	. $streakers['current']['count']; " wins! "; ?>
+			<div class="alert text-center col-5 text-white" role="alert" style="background-color:#<?php echo getMoviegoerColorById($current_streak['winner_id']);?>;">
+				<?php echo "<strong>Current Winning Streak: </strong>" . getMoviegoerById($current_streak['winner_id']) .	" with "	. $current_streak['count']; " wins! "; ?>
 			</div>
-			<div class="alert text-center col-5 text-white" role="alert" style="background-color:#<?php echo getMoviegoerColorById($streakers['longest']['viewer']);?>;">
+			<div class="alert text-center col-5 text-white" role="alert" style="background-color:#<?php echo getMoviegoerColorById($longest_streak_key);?>;">
 				<?php echo "<strong>Longest Winning Streak: </strong>" . getMoviegoerById($longest_streak_key) .	" with "	. $longest_streak . " wins! "; ?>
 			</div>
 		</div>
@@ -111,6 +112,8 @@ template('header');
 					$full_count = count_all_attendance_v2($pdo);
 					$full_picker_list = count_total_picks_for_everyone($pdo);
 
+					$all_dry_spells = get_dry_spell_for_all_v2($pdo);
+
 					foreach($viewer as $person): ?>
 
 						<tr style="background-color:<?php echo HTMLToRGB($person['color']);?>;">
@@ -150,7 +153,7 @@ template('header');
 							<td class="text-end"><?php echo round(($wins/$total_events)*100,2);?>%</td>
 							<td class="text-end"><?php echo ($attend == 0) ? 0 : round(($wins/$attend)*100,2);?>%</td>
 							<td class="text-end"><?php echo $my_longest_streak; ?></td>
-							<td class="text-end"><?php echo get_dry_spell($person['id']); ?></td>
+							<td class="text-end"><?php echo $all_dry_spells[$person['id']]; ?></td>
 							<td class="text-end"><?php echo last_spin_date($person['id']); ?></td>
 							<td class="text-end"><?php echo $spins['total'];?></td>
 							<td class="text-end"><?php echo $picks['total'];?></td>

@@ -128,7 +128,7 @@ template('header');
           </thead>
       <tbody>
         <?php
-          $all_winners = list_winning_films_and_service();
+          $all_winners = list_winning_films_and_service_v2($pdo);
 
           foreach($all_winners as $a_winner):?>
           <tr>

@@ -110,7 +110,7 @@ $numbers = $numberTypes[rand(0,3)];
 											<li><strong>Movie Format:</strong> <?php echo $event['format']; ?></li>
 											<li><strong>Selection Tool:</strong> <?php echo $event['selection_method']; ?></li>
 											<li><strong>Runtime:</strong> <?php echo $event['runtime']; ?> minutes</li>
-											<li><strong>MPAA:</strong> <?php echo getMovieMPAA($event['winning_film']); ?></li>
+											<li><strong>MPAA:</strong> <?php echo get_MPAA($pdo, $event['winning_film']); ?></li>
 											<li><strong>Collective Movie Score:</strong> <?php echo get_freshness($movie_freshness); ?>%</li>
 											<li><strong>Winning Movie Score:</strong> <?php echo getMovieRating($event['winning_film']); ?></li>
 											<li><strong>Average Movie Year:</strong> <?php echo round(array_sum($movie_years)/count($movie_years)); ?></li>
@@ -187,7 +187,7 @@ $numbers = $numberTypes[rand(0,3)];
 										<li><strong>Movie Format:</strong> <?php echo $event['format']; ?></li>
 										<li><strong>Selection Tool:</strong> <?php echo $event['selection_method']; ?></li>
 										<li><strong>Runtime:</strong> <?php echo $event['runtime']; ?> minutes</li>
-										<li><strong>MPAA:</strong> <?php echo getMovieMPAA($event['winning_film']); ?></li>
+										<li><strong>MPAA:</strong> <?php echo get_MPAA($pdo,$event['winning_film']); ?></li>
 										<li><strong>Collective Movie Score:</strong> <?php echo get_freshness($movie_freshness); ?>%</li>
 										<li><strong>Winning Movie Score:</strong> <?php echo getMovieRating($event['winning_film']); ?></li>
 										<li><strong>Average Movie Year:</strong> <?php echo round(array_sum($movie_years)/count($movie_years)); ?></li>

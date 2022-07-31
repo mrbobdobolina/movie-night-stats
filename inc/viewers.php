@@ -7,6 +7,14 @@ function getListOfViewers($sortBy = 'id', $direction = "DESC"){
 	return $data;
 }
 
+function get_list_of_viewers($pdo, $sort_by = 'id', $direction = 'DESC'){
+	$sql = "SELECT * FROM viewers ORDER BY ? $direction";
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute([$sort_by]);
+	$result = $stmt->fetchAll();
+	return $result;
+}
+
 function getMoviegoerById($id){
 	$sql = "SELECT `name` FROM `viewers` WHERE `id` = $id";
 	$data = db($sql);

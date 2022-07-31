@@ -494,33 +494,19 @@ function getSpunViewers_v2($id){
 	return $list;
 }
 
-function get_streakers(){
-	$sql = "SELECT `winning_wedge`, `id` FROM `week` ORDER BY `date`, `id` ASC";
+function get_current_streak($pdo){
+	$stmt = $pdo->prepare('SELECT winning_moviegoer FROM week ORDER BY `date` DESC');
+	$stmt->execute();
+	$result = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-	$result = db($sql);
+	$last_winner = $result[0];
+	$i = 0;
 
-	$current_streak = Array('viewer' => 0, 'count' => 0);
-	$longest_streak = Array('viewer' => 0, 'count' => 0);
-
-	foreach($result as $event){
-		$winner = get_moviegoer_from_wedge($event['winning_wedge'], $event['id']);
-		if($winner == $current_streak['viewer']){
-			$current_streak['count']++;
-			//echo "increase\n";
-		} else {
-			$current_streak['viewer'] = $winner;
-			$current_streak['count'] = 1;
-			//echo "reset \n";
-		}
-
-		if($longest_streak['count'] < $current_streak['count']){
-			$longest_streak['viewer'] = $current_streak['viewer'];
-			$longest_streak['count'] = $current_streak['count'];
-		}
+	while($result[$i] == $last_winner){
+		$i++;
 	}
 
-	return Array("longest" => $longest_streak, "current" => $current_streak);
-
+	return Array("winner_id" => $last_winner, "count" => $i);
 }
 
 function get_viewer_years_list($id){
@@ -616,37 +602,6 @@ function get_selector_stats(){
 	return $result;
 }
 
-/*function find_my_longest_streak($moviegoer){
-
-	$sql = "SELECT `winning_moviegoer` FROM `week` ORDER BY `date`, `id` ASC";
-
-	$results = db($sql);
-
-	//print_r($results);
-
-	$counter = 0;
-	$max_counter = 0;
-
-	foreach($results as $week){
-
-		if($moviegoer == $week['winning_moviegoer']){
-			$counter++;
-		} else {
-			if($counter > $max_counter){
-				$max_counter = $counter;
-				$counter = 0;
-			} else {
-				$counter = 0;
-			}
-
-		}
-
-	}
-
-	return $max_counter;
-
-}*/
-
 
 //returns array of everyone's longest streak.
 function find_longest_streak_v2($pdo){
@@ -676,54 +631,44 @@ function find_longest_streak_v2($pdo){
 	return $max_wins;
 }
 
+function get_dry_spell_for_all_v2($pdo){
+	$stmt = $pdo->prepare('SELECT winning_moviegoer, attendees FROM week ORDER BY `date` ASC');
+	$stmt->execute();
+	$result = $stmt->fetchAll();
 
-function get_dry_spell($moviegoer){
+	$attend_counter = Array();
+	$attend_max = Array();
 
-	$sql = "SELECT `date`, `winning_moviegoer`, `attendees` FROM `week` ORDER BY `date` ASC";
-
-	$results = db($sql);
-
-	//print_r($results);
-
-	$attend_list = Array();
-
-	foreach($results as $aweek){
-
-		$attendees = explode(",", $aweek['attendees']);
-
-		if(in_array($moviegoer, $attendees)){
-			$attend_list[] = $aweek;
-		}
-
+	$viewer_list = get_list_of_viewers($pdo, 'id','ASC');
+	foreach($viewer_list as $viewer){
+		$attend_counter[$viewer['id']] = 0;
+		$attend_max[$viewer['id']] = 0;
 	}
 
-	$counter = 0;
-	$max_counter = 0;
-
-	$date_test = Array();
-
-	foreach($attend_list as $anEvent){
-		if($anEvent['winning_moviegoer']!=$moviegoer){
-			$counter++;
-			//echo $anEvent['date'] . " Lost ".$counter."<br />";
-		} else{
-			if($counter > $max_counter){
-				$max_counter = $counter;
-				$counter = 0;
-				//echo $anEvent['date'] . " WON! <br />";
-			} else {
-				$counter = 0;
-				//echo $anEvent['date'] . " WON! <br />";
+	foreach($result as $a_week){
+		$attendees = explode(", ", $a_week['attendees']);
+		foreach($viewer_list as $viewer){
+			//if viewer id is in $attendees, and they are not the winner, add one to their counter
+			//if viewer id is in attendees, and they are the winner, check to see if this is a max, save it, and reset counter
+			//if viewer id is not in attendees, do not add anything
+			if(in_array($viewer['id'],$attendees) && $a_week['winning_moviegoer']!=$viewer['id']){
+				$attend_counter[$viewer['id']]++;
+			} elseif(in_array($viewer['id'],$attendees) && $a_week['winning_moviegoer']==$viewer['id']){
+				if($attend_counter[$viewer['id']] > $attend_max[$viewer['id']]){
+					$attend_max[$viewer['id']] = $attend_counter[$viewer['id']];
+				}
+				$attend_counter[$viewer['id']] = 0;
 			}
 		}
 	}
 
-	if($counter > $max_counter){
-		$max_counter = $counter;
+	foreach($viewer_list as $viewer){
+		if($attend_counter[$viewer['id']] > $attend_max[$viewer['id']]){
+			$attend_max[$viewer['id']] = $attend_counter[$viewer['id']];
+		}
 	}
 
-	return $max_counter;
-
+	return $attend_max;
 }
 
 
@@ -786,16 +731,17 @@ function viewer_watchtime($year = null){
 	return $viewer_times;
 }
 
-function list_winning_films_and_service(){
-	$sql = "SELECT `winning_film`, `format`, `date` FROM `week`";
-	$result = db($sql);
-
-	return $result;
+function list_winning_films_and_service_v2($pdo){
+	$stmt = $pdo->prepare('SELECT winning_film, format, `date` FROM week');
+	$stmt->execute();
+	$list = $stmt->fetchAll();
+	return $list;
 }
 
-function count_viewer_win_streak_when_attending_and_not_viewer_choice($viewer){
-	$sql = "SELECT `date`, `winning_moviegoer`, `attendees`, `selection_method` FROM `week` WHERE `selection_method` != 'viewer choice' ORDER BY `date` ASC";
-	$result = db($sql);
+function count_viewer_win_streak_when_attending_and_not_viewer_choice($pdo, $viewer){
+	$stmt = $pdo->prepare('SELECT `date`, winning_moviegoer, attendees, selection_method FROM week WHERE selection_method != ? ORDER BY `date` ASC');
+	$stmt->execute(['viewer choice']);
+	$result = $stmt->fetchAll();
 
 	$counter = 0;
 	$max_counter = 0;
@@ -821,6 +767,5 @@ function count_viewer_win_streak_when_attending_and_not_viewer_choice($viewer){
 
 	return array('count' => $max_counter, 'dates' => $final_dates);
 }
-
 
 ?>

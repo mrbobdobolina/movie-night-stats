@@ -367,14 +367,6 @@ function get_seasonal_weather(){
 	return FALSE;
 }
 
-
-//reads the db version listed in the DB
-/*function read_db_version(){
-	$sql = "SELECT * FROM `options` WHERE `name` = 'db_version'";
-	$result = db($sql);
-	return $result[0]['value'];
-}*/
-
 // pdo version of read DB Version
 function read_db_version_v2($pdo){
 	$stmt = $pdo->prepare('SELECT value FROM options WHERE name = :name');

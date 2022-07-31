@@ -72,7 +72,7 @@ template('header');
 							<td class="text-center"><?php echo $movie['year']; //get_movie_year($movie['id']); ?></td>
 							<td class="text-end mpaa"><?php echo $movie['MPAA']; ?></td>
 							<td class="text-end"><?php echo $movie['runtime']; ?></td>
-							<td class="text-end"><?php echo getMovieRatingReal($movie['id']); ?></td>
+							<td class="text-end"><?php echo get_movie_avg_rating($pdo,$movie['id']); ?></td>
 							<td class="text-center"><?php echo $winner['count']; ?></td>
 							<td class="text-center"><?php echo $wedges; ?></td>
 							<!-- <td class="text-end"><?php //echo round(($wedges/$total_wedges)*100,2);?>%</td>-->

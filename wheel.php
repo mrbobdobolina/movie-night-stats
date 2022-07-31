@@ -300,6 +300,20 @@ template('header');
 					</div>
 				</div>
 
+				<div class="card mb-4" >
+					<div class="row g-0">
+						<div class="col-md-4">
+							<img src="images/wheels/dd12.jpg" class="img-fluid rounded-start" alt="Digital D12">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title bold"><a href="https://movienightstats.com/roll/">Digital D12</a></h5>
+								<p class="card-text">Movie Night Stats' unofficial-official D12 created for use in case of emergency.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 
