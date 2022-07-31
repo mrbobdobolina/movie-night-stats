@@ -10,3 +10,5 @@ admin/error_log
 php_errors.log
 
 *.log
+
+test_function.php
