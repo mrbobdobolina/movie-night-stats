@@ -69,7 +69,7 @@ else {
 
 								?>
 							</li>
-							<li><strong>Scribe: </strong><?php echo countScribe($viewer); ?></li>
+							<li><strong>Scribe: </strong><?php echo count_scribing($pdo,$viewer); ?></li>
 							<li><strong>All Picks: </strong><?php echo $picks['total'];?></li>
 							<li><strong>Total Spins: </strong><?php echo $spins['total'];?></li>
 							<li><strong>Error Spins: </strong><?php echo $spins['bad'];?></li>

@@ -83,8 +83,6 @@ function getMyMovieYears($id){
 
 	$yearList = array_filter(array_unique($yearList));
 
-
-
 	return round(array_sum($yearList)/count($yearList));
 	//return $yearList;
 }
@@ -180,7 +178,7 @@ function countAttendance($id){
 	return $data[0]['attendance'];
 }
 
-function countAttendanceReal($id){
+/*function countAttendanceReal($id){
 	$sql = "SELECT `attendees` FROM `week` WHERE `attendees` LIKE '%{$id}%' ORDER BY `date` ASC";
 	$data = db($sql);
 
@@ -196,12 +194,77 @@ function countAttendanceReal($id){
 	$values = array_count_values($allAttendence);
 	return $values[$id] ?? 0;
 
+}*/
+
+/*function count_attendance_v2($pdo, $viewer_id){
+	$stmt = $pdo->prepare("SELECT attendees FROM week WHERE attendees LIKE ?");
+	$stmt->execute(["%$viewer_id%"]);
+	$count = $stmt->fetchAll();
+
+	return $count;
+}*/
+
+
+function count_all_attendance_v2($pdo){
+	$stmt = $pdo->prepare("SELECT attendees FROM week");
+	$stmt->execute();
+	$list = $stmt->fetchAll();
+
+	$attendees_count = Array();
+
+	foreach($list as $row){
+		$people = explode(", ", $row['attendees']);
+
+		foreach($people as $person){
+			if(array_key_exists($person,$attendees_count)){
+				$attendees_count[$person]++;
+			} else {
+				$attendees_count[$person] = 1;
+			}
+		}
+	}
+
+	return $attendees_count;
 }
 
-function countScribe($id){
+
+/*function countScribe($id){
 	$sql = "SELECT count(*) AS `scribe` FROM `week`  WHERE `scribe` LIKE '%{$id}%' ORDER BY `date` ASC";
 	$data = db($sql);
 	return $data[0]['scribe'];
+}*/
+
+function count_scribing($pdo, $id){
+	$stmt = $pdo->prepare('SELECT count(*) FROM week WHERE scribe = ?');
+	$stmt->execute([$id]);
+	$count = $stmt->fetchColumn();
+	return $count;
+}
+
+function count_total_picks_for_everyone($pdo){
+	$stmt = $pdo->prepare('SELECT * FROM week');
+	$stmt->execute();
+	$week_list = $stmt->fetchAll();
+
+	$attendee_pick_list = Array();
+
+	foreach($week_list as $week){
+		for($i = 1; $i <= 12; $i++){
+			if(array_key_exists($week['moviegoer_'.$i], $attendee_pick_list)){
+				$attendee_pick_list[$week['moviegoer_'.$i]][] = $week['wheel_'.$i];
+			} else {
+				$attendee_pick_list[$week['moviegoer_'.$i]] = Array($week['wheel_'.$i]);
+			}
+		}
+	}
+	//print_r($attendee_pick_list);
+	$attendee_pick_count = Array();
+
+	foreach($attendee_pick_list as $key => $attendee){
+		$attendee_pick_count[$key] = Array("total" => count($attendee), "unique" => count(array_unique($attendee)));
+	}
+
+	return $attendee_pick_count;
 }
 
 function listMyTotalPicksReal($id){
@@ -268,7 +331,7 @@ function get_movie_poster($film_id){
 
 }
 
-function get_movie_poster_2($film_id){
+/*function get_movie_poster_2($film_id){
 	$sql = "SELECT `poster_url` FROM `films` WHERE `id` = $film_id";
 
 	$result = db($sql);
@@ -279,14 +342,29 @@ function get_movie_poster_2($film_id){
 		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",get_movie_by_id($pdo,$film_id));
 	}
 
+}*/
+
+function get_movie_poster_v3($pdo, $film_id){
+	$stmt = $pdo->prepare('SELECT poster_url FROM films WHERE id = ?');
+	$stmt->execute([$film_id]);
+	$poster = $stmt->fetchColumn();
+
+	if($poster != ""){
+		return $poster;
+	} else {
+		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",get_movie_by_id($pdo,$film_id));
+	}
 }
 
+
+/* This function wasn't being called anywhere.
 function get_imdb_id($film_id){
 	$sql = "SELECT `imdb_id` FROM `films` WHERE `id` = $film_id";
 
 	$result = db($sql);
 
 	return $result[0]['imdb_id'];
-}
+}*/
+
 
 ?>

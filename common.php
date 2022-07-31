@@ -20,7 +20,6 @@ else {
 
 $numberTypes = Array("arabic", "roman", "japanese", "arabic", "roman");
 
-
 include(ROOT.'inc/db.php');
 
 //check DB Version
@@ -34,14 +33,10 @@ function template($part){
 	require_once(ROOT.'template/'.$part.'.php');
 }
 
-
-
 include(ROOT.'inc/films.php');
 include(ROOT.'inc/spinners.php');
 include(ROOT.'inc/viewers.php');
 include(ROOT.'inc/week.php');
-
-
 
 function makeHistogram($data){
 

@@ -616,7 +616,7 @@ function get_selector_stats(){
 	return $result;
 }
 
-function find_my_longest_streak($moviegoer){
+/*function find_my_longest_streak($moviegoer){
 
 	$sql = "SELECT `winning_moviegoer` FROM `week` ORDER BY `date`, `id` ASC";
 
@@ -645,7 +645,37 @@ function find_my_longest_streak($moviegoer){
 
 	return $max_counter;
 
+}*/
+
+
+//returns array of everyone's longest streak.
+function find_longest_streak_v2($pdo){
+	$stmt = $pdo->prepare('SELECT winning_moviegoer FROM week WHERE selection_method != ? ORDER BY `date`, id ASC');
+	$stmt->execute(['viewer choice']);
+	$list_of_winners = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+	$max_wins = Array();
+	$last_winner = 0;
+	$win_counter = 1;
+
+	foreach($list_of_winners as $one_winner){
+		if($one_winner == $last_winner){
+			$win_counter++;
+		} else {
+			if(array_key_exists($last_winner, $max_wins)){
+				if($max_wins[$last_winner] < $win_counter){
+					$max_wins[$last_winner] = $win_counter;
+				}
+			} else {
+				$max_wins[$last_winner] = $win_counter;
+			}
+			$win_counter = 1;
+		}
+		$last_winner = $one_winner;
+	}
+	return $max_wins;
 }
+
 
 function get_dry_spell($moviegoer){
 
