@@ -32,7 +32,8 @@ function count_total_film_appearances($pdo, $film_id){
 	return $counter;
 }
 
-function getMyMovieYears($id){
+//This function isn't being called currently...
+/*function getMyMovieYears($id){
 	$myList = listMyTotalPicksReal($id);
 	$myUnique = array_column($myList, 'filmID');
 
@@ -50,9 +51,9 @@ function getMyMovieYears($id){
 
 	return round(array_sum($yearList)/count($yearList));
 	//return $yearList;
-}
+}*/
 
-function getMovieRating($id){
+/*function getMovieRating($id){
 
 	//SELECT (`tomatometer`+`rt_audience`+`imdb`) / ( COUNT(`tomatometer`) + COUNT(`rt_audience`) + COUNT(`imdb`) ) AS `avg_rating` , `films`.`name` FROM  `films` WHERE  `id` = 40;
 
@@ -79,14 +80,13 @@ function getMovieRating($id){
 		//$value = "";
 		return FALSE;
 	}
-}
+}*/
 
-function get_movie_year($filmID){
-	$sql = "SELECT `year` FROM `films` WHERE `id` = $filmID";
-	$result = db($sql)[0];
-
-
-	return $result['year'];
+function get_movie_year($pdo, $film_id){
+	$stmt = $pdo->prepare('SELECT year FROM films WHERE id = ?');
+	$stmt->execute([$film_id]);
+	$result = $stmt->fetchColumn();
+	return $result;
 }
 
 /**
@@ -246,7 +246,7 @@ function get_movie_poster($film_id){
 		return $result[0]['poster_url'];
 	}
 
-	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",get_movie_by_id($pdo,$film_id))."&y=".get_movie_year($film_id)."&apikey=".OMDB_API_KEY;
+	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",get_movie_by_id($pdo,$film_id))."&y=".get_movie_year($pdo,$film_id)."&apikey=".OMDB_API_KEY;
 	$movie_info = json_decode(file_get_contents($movie_info_url), true);
 
 	if($movie_info['Response'] == "True"){

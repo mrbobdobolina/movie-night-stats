@@ -15,8 +15,6 @@ $numbers = $numberTypes[rand(0,3)];
 		<p class="display-6 text-center">(╯°□°）╯︵ ┻━┻</p>
 		<p class="text-center mb-5"><em>"My how the events have tabled."</em></p>
 
-		<?php //print_r(getMyMovieYears(9));?>
-
 		<div class="row">
 
 			<table id="events" class="table table-hover">

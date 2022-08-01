@@ -57,7 +57,7 @@ else {
 							<li>
 								<?php
 
-								$vy = get_viewers_years_single($viewer);
+								$vy = get_viewers_years_single($pdo,$viewer);
 								if(!empty($vy)){
 									$vy_count = count($vy);
 								}

@@ -69,7 +69,7 @@ template('header');
 								}?>
 							</td>
 							<td><?php echo $movie['name']; ?> </td>
-							<td class="text-center"><?php echo $movie['year']; //get_movie_year($movie['id']); ?></td>
+							<td class="text-center"><?php echo $movie['year']; ?></td>
 							<td class="text-end mpaa"><?php echo $movie['MPAA']; ?></td>
 							<td class="text-end"><?php echo $movie['runtime']; ?></td>
 							<td class="text-end"><?php echo get_movie_avg_rating($pdo,$movie['id']); ?></td>

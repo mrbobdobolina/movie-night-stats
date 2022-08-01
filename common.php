@@ -268,14 +268,14 @@ function get_viewers_years($id){
 	$viewerYears = Array();
 	foreach($viewerPicksUnique as $key => $value){
 		foreach($value as $film){
-			$viewerYears[$key][] = get_movie_year($film);
+			$viewerYears[$key][] = get_movie_year($pdo,$film);
 		}
 	}
 	return $viewerYears[$id];
 }
 
 
-function get_viewers_years_single($id){
+function get_viewers_years_single($pdo,$id){
 	$events = getListOfEvents("ASC");
 	$viewerPicks = Array();
 	foreach($events as $anEvent){
@@ -289,7 +289,7 @@ function get_viewers_years_single($id){
 
 	$viewerYears = Array();
 	foreach($viewerPicksUnique as $film){
-			$viewerYears[] = get_movie_year($film);
+			$viewerYears[] = get_movie_year($pdo,$film);
 	}
 	return $viewerYears;
 }

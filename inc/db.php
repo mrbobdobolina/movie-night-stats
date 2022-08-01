@@ -88,11 +88,8 @@ function add_page_load(){
 		}
 		// If all else fails, return the database resource
 		return $db;
-
 	}
-
 	return FALSE;
-
 }
 
 ?>
