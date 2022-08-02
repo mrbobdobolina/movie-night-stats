@@ -1,9 +1,5 @@
 <?php
-
 require_once('common.php');
-
-template('header');
-
 
 if(isset($_GET['viewer'])){
 	$viewer = $_GET['viewer'];
@@ -12,6 +8,8 @@ else {
 	header('Location: viewers.php');
 	exit;
 }
+
+template('header');
 
 ?>
 
@@ -39,9 +37,7 @@ else {
 							$myTotal = countMyTotalPics($viewer);
 
 							$wins = winningPickStats($viewer);
-
 							$picks = countMySpins($viewer);
-
 							$spins = countMySpins_noChoice($viewer);
 
 							?>

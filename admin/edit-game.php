@@ -14,7 +14,7 @@ if(isset($_GET['event'])){
 	$event_id = 6;
 }
 
-/*if(!empty($_POST)){
+if(!empty($_POST)){
 	// Update the first and last instances for all the movies
 	for($i = 1; $i <= 12; $i++){
 		$query = sprintf(
@@ -110,7 +110,7 @@ if(isset($_GET['event'])){
 		'msg' => 'Success! Game added to database!'
 	];
 }
-*/
+
 
 $event = get_single_event($event_id);
 
