@@ -237,7 +237,7 @@ function get_MPAA($pdo, $film_id){
 	return $result;
 }
 
-function get_movie_poster($film_id){
+function get_movie_poster($pdo, $film_id){
 	$sql = "SELECT `poster_url` FROM `films` WHERE `id` = $film_id";
 
 	$result = db($sql);
