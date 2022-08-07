@@ -106,7 +106,7 @@ if(!empty($_POST)){
 	];
 }
 
-$movies = get_movie_list();
+$movies = get_movie_list($pdo);
 
 $movieSelect = "<option selected></option>";
 

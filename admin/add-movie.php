@@ -193,7 +193,7 @@ if(!empty($alert)){
 				<ul>
 					<?php
 
-					foreach(get_movie_list() as $movie){
+					foreach(get_movie_list($pdo) as $movie){
 						echo '<li>'.$movie['name'].' <em>('.$movie['id'].')</em></li>';
 					}
 
