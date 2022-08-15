@@ -615,6 +615,7 @@ function find_longest_streak_v2($pdo){
 	$win_counter = 1;
 
 	foreach($list_of_winners as $one_winner){
+		//print_r($one_winner);
 		if($one_winner == $last_winner){
 			$win_counter++;
 		} else {
@@ -628,7 +629,16 @@ function find_longest_streak_v2($pdo){
 			$win_counter = 1;
 		}
 		$last_winner = $one_winner;
+		//print_r($max_wins);
 	}
+	if(array_key_exists($last_winner, $max_wins)){
+		if($max_wins[$last_winner] < $win_counter){
+			$max_wins[$last_winner] = $win_counter;
+		}
+	} else {
+		$max_wins[$last_winner] = $win_counter;
+	}
+	//print_r($max_wins);
 	return $max_wins;
 }
 
@@ -764,6 +774,59 @@ function count_viewer_win_streak_when_attending_and_not_viewer_choice($pdo, $vie
 				unset($dates);
 			}
 		}
+	}
+
+	if($counter > $max_counter){
+		$max_counter = $counter;
+		$final_dates = $dates;
+	}
+
+	return array('count' => $max_counter, 'dates' => $final_dates);
+}
+
+function count_viewer_win_streak_when_participating_and_not_viewer_choice($pdo, $viewer){
+	$stmt = $pdo->prepare('SELECT `date`, winning_moviegoer, moviegoer_1, moviegoer_2, moviegoer_3, moviegoer_4, moviegoer_5, moviegoer_6, moviegoer_7, moviegoer_8, moviegoer_9, moviegoer_10, moviegoer_11, moviegoer_12, selection_method FROM week WHERE selection_method != ? ORDER BY `date` ASC');
+	$stmt->execute(['viewer choice']);
+	$result = $stmt->fetchAll();
+
+	$counter = 0;
+	$max_counter = 0;
+	$dates = Array();
+	$final_dates = Array();
+
+	foreach($result as $a_week){
+		$participants = Array();
+		for($i = 1; $i <=12; $i++){
+			$participants[$i] = $a_week['moviegoer_'.$i];
+		}
+		//print_r($participants);
+		if(in_array($viewer, $participants)){
+			//print_r(' User had movies on the wheel .');
+			//print_r(' winner was '. $a_week['winning_moviegoer'].' .');
+			if($viewer == $a_week['winning_moviegoer']){
+				//print_r(' winner! counter up. ');
+				$counter++;
+				$dates[] = $a_week['date'];
+				//print_r($counter . ' ');
+			} else {
+				//print_r(' did not win counter reset. ');
+				if($counter > $max_counter){
+					//print_r(' new max. ');
+					$max_counter = $counter;
+					$final_dates = $dates;
+				}
+				$counter = 0;
+				unset($dates);
+			}
+		} else {
+			//print_r(" skip this week ");
+		}
+	}
+
+	if($counter > $max_counter){
+		//print_r(' new max. ');
+		$max_counter = $counter;
+		$final_dates = $dates;
 	}
 
 	return array('count' => $max_counter, 'dates' => $final_dates);

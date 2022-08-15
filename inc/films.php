@@ -32,6 +32,13 @@ function count_total_film_appearances($pdo, $film_id){
 	return $counter;
 }
 
+function get_movie_runtime($pdo, $film_id){
+	$stmt = $pdo->prepare('SELECT runtime FROM films WHERE id = ?');
+	$stmt->execute([$film_id]);
+	$runtime= $stmt->fetchColumn();
+	return $runtime;
+}
+
 //This function isn't being called currently...
 /*function getMyMovieYears($id){
 	$myList = listMyTotalPicksReal($id);

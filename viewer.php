@@ -50,6 +50,7 @@ template('header');
 							<li><strong>Win Percentage:</strong> <?php echo round(($wins/$total_events)*100,2);?>%</li>
 							<li><strong>Win % for Attendance:</strong> <?php echo round(($wins/$attend)*100,2);?>%</li>
 							<li><strong>Number of consecutive wins when viewer is in attendance and selection method is not viewers choice:</strong> <?php echo count_viewer_win_streak_when_attending_and_not_viewer_choice($pdo, $viewer)['count'];?></li>
+							<li><strong>Number of consecutive wins when viewer has movies on the wheel and selection method is not viewers choice:</strong> <?php echo count_viewer_win_streak_when_participating_and_not_viewer_choice($pdo, $viewer)['count'];?></li>
 							<li>
 								<?php
 
