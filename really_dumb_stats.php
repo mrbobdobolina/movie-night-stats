@@ -128,8 +128,8 @@ template('header');
 							<?php $viewer_time = get_viewers_time($pdo);
 							arsort($viewer_time);
 							unset($viewer_time[0]);
-							//print_r($viewer_time);
-							$max = max($viewer_time);?>
+							$max = max($viewer_time);
+							?>
 							<div class="chart "style="height:25rem;">
 								<table id="columns" class="charts-css column show-labels">
 									<thead>
