@@ -82,7 +82,7 @@ template('header');
 					</div>
 
 					<div class="card-body">
-							<div class="chart" style="height:10rem;">
+							<div class="chart" style="height:25rem;">
 								<table id="wedge_time" class="charts-css column show-labels show-data">
 									<thead>
 										<tr>
@@ -125,7 +125,29 @@ template('header');
 
 					<div class="card-body">
 						<div class="">
-
+							<?php $viewer_time = get_viewers_time($pdo);
+							arsort($viewer_time);
+							unset($viewer_time[0]);
+							//print_r($viewer_time);
+							$max = max($viewer_time);?>
+							<div class="chart "style="height:25rem;">
+								<table id="columns" class="charts-css column show-labels">
+									<thead>
+										<tr>
+											<th scope="col">Person</th>
+											<th scope="col">Minutes</th>
+										</tr>
+									</thead>
+										<tbody>
+											<?php foreach($viewer_time as $key => $value):?>
+												<tr>
+													<th scope="row"> <?php echo getMoviegoerById($key); ?> </th>
+													<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<?php echo getMoviegoerColorById($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
+												</tr>
+											<?php endforeach;?>
+										</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>

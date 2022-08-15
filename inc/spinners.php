@@ -61,5 +61,24 @@ function get_movies_from_this_wedge($pdo, $wedge_number){
 	return $result;
 }
 
+function get_viewers_time($pdo){
+	$stmt = $pdo->prepare("SELECT * FROM week");
+	$stmt->execute();
+	$result = $stmt->fetchAll();
+
+	$viewers_total_time = Array();
+
+	foreach($result as $week){
+		for($i = 1; $i <= 12; $i++){
+			if(array_key_exists($week['moviegoer_'.$i],$viewers_total_time)){
+				$viewers_total_time[$week['moviegoer_'.$i]] += get_movie_runtime($pdo, $week['wheel_'.$i]);
+			} else {
+				$viewers_total_time[$week['moviegoer_'.$i]] = get_movie_runtime($pdo, $week['wheel_'.$i]);
+			}
+		}
+	}
+	return $viewers_total_time;
+}
+
 
 ?>
