@@ -123,7 +123,7 @@ foreach($viewers as $aPerson){
 }
 
 
-$selectors = getSelectionTypes();
+$selectors = getSelectionTypes(TRUE);
 
 $selectorsSelect = "<option disabled selected></option>";
 
