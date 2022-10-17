@@ -9,6 +9,10 @@ $count_events = count($events);
 $numbers = $numberTypes[rand(0,3)];
 
 ?>
+<script>
+	var nanobar = new Nanobar();
+	nanobar.go(5);
+</script>
 <div class="album py-5 bg-light">
 	<div class="container">
 		<?php $minutes = calculateTotalWatchtime(); ?>
@@ -18,15 +22,18 @@ $numbers = $numberTypes[rand(0,3)];
 
 
 		<div class="row g-3  mb-3">
+			<?php $counter_1 = 0; ?>
 			<?php foreach($events as $event): ?>
 				<?php
 				$eventDate = new DateTime($event['date']);
 				$winning_wedge = $event['winning_wedge'];
 				$winning_moviegoer = $event['moviegoer_'.$winning_wedge];
-
+				$counter_1++;
+				$total_events = count($events);
 				?>
 				<?php if(count($events) == $count_events):
 					?>
+					<script>nanobar.go(<?php echo floor(($counter_1/$total_events)*100)-1;?>);</script>
 					<div class=" col-lg-2">
 						<button id="btn-expand-all" class="btn btn-sm btn-outline-primary mb-3 col-8" onclick="$('.collapse').collapse('show'); $('#btn-expand-all').hide(); $('#btn-collapse-all').show();">
 							<i class="fa-solid fa-angles-down"></i> Expand ALL
@@ -204,7 +211,7 @@ $numbers = $numberTypes[rand(0,3)];
 				<?php endif;?>
 			<?php endforeach;?>
 
-
+			<script>nanobar.go(100);</script>
 		</div>
 	</div>
 </div>

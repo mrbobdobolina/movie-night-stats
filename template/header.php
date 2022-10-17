@@ -30,6 +30,9 @@ add_page_load();
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/2b50968540.js" crossorigin="anonymous"></script>
 
+	<!--Nanobar -->
+	<script src="assets/nanobar/nanobar.min.js"></script>
+
 	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

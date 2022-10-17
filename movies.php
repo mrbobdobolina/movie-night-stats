@@ -7,8 +7,6 @@ template('header');
 $movie_count = count_movie_list($pdo);
 
 ?>
-
-<script src="assets/nanobar/nanobar.min.js"></script>
 <script>
 	var nanobar = new Nanobar();
 	nanobar.go(0);
