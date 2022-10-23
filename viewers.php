@@ -86,11 +86,6 @@ template('header');
 								<i class="fas fa-sync"></i>
 							</div>
 						</th>
-						<th>
-							<div data-bs-toggle="tooltip" data-bs-animation='false' data-bs-placement="right" title="The number of times a user has chosen a film: the number of spins plus viewers choice.">
-								<i class="fas fa-sync"></i>+<i class="fas fa-hand-point-up"></i>
-							</div>
-						</th>
 						<th class="text-end">
 							<div data-bs-toggle="tooltip" data-bs-animation='false' data-bs-placement="right" title="The number of minutes viewer has spent watching films.">
 								<i class="far fa-stopwatch"></i>
@@ -156,7 +151,6 @@ template('header');
 							<td class="text-end"><?php echo $all_dry_spells[$person['id']]; ?></td>
 							<td class="text-end"><?php echo last_spin_date($person['id']); ?></td>
 							<td class="text-end"><?php echo $spins['total'];?></td>
-							<td class="text-end"><?php echo $picks['total'];?></td>
 							<td class="text-end"><?php echo $time_watched[$person['id']] ?? 0;?></td>
 							<td class="text-end"><?php echo get_viewer_ratings_real($person['id']);?>%</td>
 
@@ -191,7 +185,6 @@ template('header');
 							<li><strong><i class="fas fa-cactus"></i></strong> Dry: The longest a viewer has gone without winning (only counting attended events.)</li>
 							<li><strong>Last Spin:</strong> The date if a viewers last spin/roll. Used to determine who is up next.</li>
 							<li><strong><i class="fas fa-sync"></i></strong> Spins: The number of times a user has spun a wheel or rolled a die.</li>
-							<li><strong><i class="fas fa-sync"></i>+<i class="fas fa-hand-point-up"></i></strong> Spins + Picks The number of times a user has chosen a film, the number of spins plus viewers choice.</li>
 							<li><strong><i class="far fa-stopwatch"></i></strong> The number of minutes viewer has spent watching films.</li>
 							<li><strong><i class="fas fa-star-half-alt"></i>%</strong> Average Moving Rating across all picked films.</li>
 						<ul>

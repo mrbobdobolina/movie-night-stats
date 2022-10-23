@@ -377,6 +377,8 @@ function countMySpins_noChoice($id){
 	return Array('good' => $good, 'bad' => $bad, 'total' => $total);
 }
 
+
+
 function listOfSpunNumbersByViewer($id){
 	$sql = "SELECT `winning_wedge`, `error_spin` FROM `week` WHERE `spinner` = $id";
 	$data = db($sql);
