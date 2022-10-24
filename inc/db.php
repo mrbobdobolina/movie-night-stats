@@ -1,5 +1,12 @@
 <?php
+// PDO instantiation
+try {
+     $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, DB_OPTIONS);
+} catch (\PDOException $e) {
+     throw new \PDOException($e->getMessage(), (int)$e->getCode());
+}
 
+// OLD mysqli instantiation
 $db = new mysqli(DB_ADDR, DB_USER, DB_PASS, DB_NAME);
 function db($query = NULL){
 	static $db;
@@ -45,8 +52,6 @@ if($db->connect_errno){
 }
 
 
-
-
 function add_page_load(){
 
 	if(AT_DB_ENABLED){
@@ -83,11 +88,8 @@ function add_page_load(){
 		}
 		// If all else fails, return the database resource
 		return $db;
-
 	}
-
 	return FALSE;
-
 }
 
 ?>

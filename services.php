@@ -57,7 +57,7 @@ template('header');
 			</script>
 
 
-			<p class="lead text-center mt-5">The time we've spent with each.</p>
+			<p class="lead text-center mt-5">The time we've clocked on each service.</p>
 
 			<?php
 
@@ -128,12 +128,12 @@ template('header');
           </thead>
       <tbody>
         <?php
-          $all_winners = list_winning_films_and_service();
+          $all_winners = list_winning_films_and_service_v2($pdo);
 
           foreach($all_winners as $a_winner):?>
           <tr>
               <td><?php echo $a_winner['date']; ?></td>
-              <td><?php echo getMovieById($a_winner['winning_film']); ?></td>
+              <td><?php echo get_movie_by_id($pdo,$a_winner['winning_film']); ?></td>
               <td><?php echo $a_winner['format']; ?></td>
           </tr>
         <?php endforeach; ?>

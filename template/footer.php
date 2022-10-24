@@ -1,13 +1,7 @@
 </main>
 <footer class="text-muted py-5">
   <div class="container">
-		Version <?php echoVersionNumber(); ?> <a href="changelog.php">Changelog</a>
-		<small>
-			<?php
-				//$endtime = microtime(true);
-				//printf("Page loaded in %f seconds", $endtime - $starttime );
-			?>
-		</small>
+		Version <?php echoVersionNumber(); ?> <a href="changelog.php">Changelog</a>. (If you like dumb stats, check out <a href="really_dumb_stats.php">these really dumb stats</a>.)
   </div>
 </footer>
 

@@ -15,20 +15,18 @@ if(!empty($_POST)){
 				$query = sprintf("SELECT * FROM `films` WHERE `name`='%s'", db_esc($_POST['name']));
 				if(db($query) == NULL){
 
-					$query2 = sprintf(
-						"INSERT INTO `films` SET `name`='%s',`year`='%s',`runtime`='%s',`imdb`='%s',`tomatometer`='%s',`rt_audience`='%s',`MPAA`='%s', `imdb_id`='%s', `poster_url`='%s'",
-						db_esc($_POST['name']),
-						db_esc($_POST['year'] ?? ''),
-						db_esc($_POST['runtime'] ?? ''),
-						db_esc($_POST['imdb'] ?? ''),
-						db_esc($_POST['rt_rating'] ?? ''),
-						db_esc($_POST['rta_rating'] ?? ''),
-						db_esc($_POST['mpaa'] ?? ''),
-						db_esc($_POST['imdbid'] ?? ''),
-						db_esc($_POST['poster'] ?? '')
-					);
+					$name = $_POST['name'];
+					$year = empty($_POST['year']) ? NULL : $_POST['year'];
+					$runtime = empty($_POST['runtime']) ? NULL : $_POST['runtime'];
+					$imdb = empty($_POST['imdb']) ? NULL : $_POST['imdb'];
+					$rt_rating = empty($_POST['rt_rating']) ? NULL : $_POST['rt_rating'];
+					$rta_rating = empty($_POST['rta_rating']) ? NULL : $_POST['rta_rating'];
+					$mpaa = empty($_POST['mpaa']) ? NULL : $_POST['mpaa'];
+					$imdbid = empty($_POST['imdbid']) ? NULL : $_POST['imdbid'];
+					$poster = empty($_POST['poster']) ? NULL : $_POST['poster'];
 
-					db($query2);
+					$sql = $pdo->prepare("INSERT INTO films SET name = :name, year = :year, runtime = :runtime, imdb = :imdb, tomatometer = :rt, rt_audience = :rta, MPAA = :mpaa, imdb_id = :imdbid, poster_url = :poster");
+					$sql->execute(Array('name' => $name, 'year' => $year, 'runtime' => $runtime, 'imdb' => $imdb, 'rt' => $rt_rating, 'rta' => $rta_rating, 'mpaa' => $mpaa, 'imdbid' => $imdbid, 'poster' => $poster));
 
 					$alert = [
 						'color' => 'success',
@@ -54,8 +52,14 @@ if(!empty($_POST)){
 		case 'search':
 			$movie_name = $_POST['sname'];
 
-			$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",$movie_name)."&apikey=".OMDB_API_KEY;
-			$movie_info = json_decode(file_get_contents($movie_info_url), true);
+			if($_POST['syear'] != ''){
+				$movie_year = $_POST['syear'];
+				$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",$movie_name)."&y=".$movie_year."&apikey=".OMDB_API_KEY;
+				$movie_info = json_decode(file_get_contents($movie_info_url), true);
+			} else {
+				$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",$movie_name)."&apikey=".OMDB_API_KEY;
+				$movie_info = json_decode(file_get_contents($movie_info_url), true);
+			}
 
 			break;
 
@@ -174,6 +178,13 @@ if(!empty($alert)){
 						</div>
 					</div>
 
+					<div class="row mb-3">
+						<label for="sname" class="col-4 col-form-label">Movie Year</label>
+						<div class="col-8">
+							<input id="syear" name="syear" type="number" class="form-control">
+						</div>
+					</div>
+
 					<div class="form-group row">
 						<div class="offset-4 col-8">
 							<button name="submit" type="submit" value="search" class="btn btn-info">Search OMDB</button>
@@ -193,7 +204,7 @@ if(!empty($alert)){
 				<ul>
 					<?php
 
-					foreach(getMovieList() as $movie){
+					foreach(get_movie_list($pdo) as $movie){
 						echo '<li>'.$movie['name'].' <em>('.$movie['id'].')</em></li>';
 					}
 

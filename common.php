@@ -1,6 +1,4 @@
 <?php
-require __DIR__.'/vendor/autoload.php';
-
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
@@ -22,11 +20,10 @@ else {
 
 $numberTypes = Array("arabic", "roman", "japanese", "arabic", "roman");
 
-
 include(ROOT.'inc/db.php');
 
 //check DB Version
-if(read_db_version() != this_db_version()){
+if(read_db_version_v2($pdo) != this_db_version()){
 	header('Location: ./init/error.php?e=oldDB');
 	die();
 }
@@ -36,14 +33,10 @@ function template($part){
 	require_once(ROOT.'template/'.$part.'.php');
 }
 
-
-
 include(ROOT.'inc/films.php');
 include(ROOT.'inc/spinners.php');
 include(ROOT.'inc/viewers.php');
 include(ROOT.'inc/week.php');
-
-
 
 function makeHistogram($data){
 
@@ -141,7 +134,7 @@ function displayNumbers($number, $type){
 	switch ($type) {
 		case 'japanese':
 			# code...
-			$formattedNumber = \JapaneseNumerals\JapaneseNumerals::fromArabicToJapanese($number);
+			$formattedNumber = number_to_japanese_kanji($number);
 			break;
 
 		case 'roman':
@@ -178,6 +171,80 @@ function numberToRomanRepresentation($number) {
     return $returnValue;
 }
 
+// this only goes to 9999, but this gives us 192 years to come up with a better solution
+// also, 99.5% certain this works.
+function number_to_japanese_kanji($number){
+	$jp_map = Array(1 => '一', 2 => '二', 3 => '三', 4 => '四', 5 => '五', 6 => '六', 7 => '七', 8 => '八', 9 => '九', 10 => '十', 100 => '百', 1000 => '千');
+
+	$digits = str_split($number);
+	$count = count($digits);
+
+	switch($number){
+		case 10:
+		case 100;
+		case 1000;
+			$string = $jp_map[$number];
+			return $string;
+			break;
+	}
+
+	switch($count){
+		case 1:
+			$string = $jp_map[$digits[0]];
+			break;
+		case 2:
+			if($digits[0] == 1){
+				$string = $jp_map[10].$jp_map[$digits[1]];
+			} else {
+				$string = $jp_map[$digits[0]].$jp_map[10].$jp_map[$digits[1]];
+			}
+			break;
+		case 3:
+			if($digits[0] == 1){
+				$string = $jp_map[100];
+			} else {
+				$string = $jp_map[$digits[0]].$jp_map[100];
+			}
+			if($digits[1] != 0 ){
+				if($digits[1] == 1){
+					$string .= $jp_map[10];
+				} else {
+					$string .= $jp_map[$digits[1]].$jp_map[10];
+				}
+			}
+			if($digits[2] != 0){
+				$string .= $jp_map[$digits[2]];
+			}
+			break;
+		case 4:
+			if($digits[0] == 1){
+				$string = $jp_map[1000];
+			} else {
+				$string = $jp_map[$digits[0]].$jp_map[1000];
+			}
+			if($digits[1] != 0){
+				if($digits[1] == 1){
+					$string .= $jp_map[100];
+				} else {
+					$string .= $jp_map[$digits[1]].$jp_map[100];
+				}
+			}
+			if($digits[2] != 0){
+				if($digits[2] == 1){
+					$string .= $jp_map[10];
+				} else {
+					$string .= $jp_map[$digits[2]].$jp_map[10];
+				}
+			}
+			if($digits[3] != 0){
+				$string .= $jp_map[$digits[3]];
+			}
+			break;
+	}
+
+	return $string;
+}
+
 function get_freshness($array){
 	return round((array_sum($array)/(count(array_filter($array))*100))*100, 0);
 }
@@ -201,14 +268,14 @@ function get_viewers_years($id){
 	$viewerYears = Array();
 	foreach($viewerPicksUnique as $key => $value){
 		foreach($value as $film){
-			$viewerYears[$key][] = get_movie_year($film);
+			$viewerYears[$key][] = get_movie_year($pdo,$film);
 		}
 	}
 	return $viewerYears[$id];
 }
 
 
-function get_viewers_years_single($id){
+function get_viewers_years_single($pdo,$id){
 	$events = getListOfEvents("ASC");
 	$viewerPicks = Array();
 	foreach($events as $anEvent){
@@ -222,7 +289,7 @@ function get_viewers_years_single($id){
 
 	$viewerYears = Array();
 	foreach($viewerPicksUnique as $film){
-			$viewerYears[] = get_movie_year($film);
+			$viewerYears[] = get_movie_year($pdo,$film);
 	}
 	return $viewerYears;
 }
@@ -277,9 +344,6 @@ function get_seasonal_weather(){
 	}
 
 	if($now >= new DateTime('April 1') && $now <= new DateTime('May 5')){
-		if($base_10 < 10){
-			return 'rain';
-		}
 		if($base_10 < 40){
 			return 'snow';
 		}
@@ -300,21 +364,15 @@ function get_seasonal_weather(){
 		}
 	}
 
-	if($now >= new DateTime('May 5') && $now <= new DateTime('September 30')){
-		if($base_10 < 40){
-			return 'rain';
-		}
-	}
-
 	return FALSE;
 }
 
-
-//reads the db version listed in the DB
-function read_db_version(){
-	$sql = "SELECT * FROM `options` WHERE `name` = 'db_version'";
-	$result = db($sql);
-	return $result[0]['value'];
+// pdo version of read DB Version
+function read_db_version_v2($pdo){
+	$stmt = $pdo->prepare('SELECT value FROM options WHERE name = :name');
+	$stmt->execute(['name' => 'db_version']);
+	$result = $stmt->fetchColumn();
+	return $result;
 }
 
 //the db version used by the site right now

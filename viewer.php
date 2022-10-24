@@ -1,9 +1,5 @@
 <?php
-
 require_once('common.php');
-
-template('header');
-
 
 if(isset($_GET['viewer'])){
 	$viewer = $_GET['viewer'];
@@ -12,6 +8,8 @@ else {
 	header('Location: viewers.php');
 	exit;
 }
+
+template('header');
 
 ?>
 
@@ -32,16 +30,14 @@ else {
 						<ul>
 							<?php
 
-							$attend = countAttendance($viewer);
+							$attend = count_attendance($pdo, $viewer);
 							$total_events = countWeeks();
 
 							$myUnique = calculateMyUniquePicks($viewer);
 							$myTotal = countMyTotalPics($viewer);
 
 							$wins = winningPickStats($viewer);
-
 							$picks = countMySpins($viewer);
-
 							$spins = countMySpins_noChoice($viewer);
 
 							?>
@@ -53,10 +49,12 @@ else {
 							<li><strong>Wins:</strong> <?php echo $wins; ?></li>
 							<li><strong>Win Percentage:</strong> <?php echo round(($wins/$total_events)*100,2);?>%</li>
 							<li><strong>Win % for Attendance:</strong> <?php echo round(($wins/$attend)*100,2);?>%</li>
+							<li><strong>Number of consecutive wins when viewer is in attendance and selection method is not viewers choice:</strong> <?php echo count_viewer_win_streak_when_attending_and_not_viewer_choice($pdo, $viewer)['count'];?></li>
+							<li><strong>Number of consecutive wins when viewer has movies on the wheel and selection method is not viewers choice:</strong> <?php echo count_viewer_win_streak_when_participating_and_not_viewer_choice($pdo, $viewer)['count'];?></li>
 							<li>
 								<?php
 
-								$vy = get_viewers_years_single($viewer);
+								$vy = get_viewers_years_single($pdo,$viewer);
 								if(!empty($vy)){
 									$vy_count = count($vy);
 								}
@@ -68,11 +66,10 @@ else {
 
 								?>
 							</li>
-							<li><strong>Scribe: </strong><?php echo countScribe($viewer); ?></li>
+							<li><strong>Scribe: </strong><?php echo count_scribing($pdo,$viewer); ?></li>
 							<li><strong>All Picks: </strong><?php echo $picks['total'];?></li>
 							<li><strong>Total Spins: </strong><?php echo $spins['total'];?></li>
 							<li><strong>Error Spins: </strong><?php echo $spins['bad'];?></li>
-							<li><strong>Viewer Choice: </strong><?php echo countViewerChoices($viewer);?></li>
 						</ul>
 
 					</div>
@@ -127,12 +124,6 @@ else {
 
 							$numbers = getSpunViewers_v2($viewer);
 
-							$vcs = countViewerChoices($viewer);
-
-							if($vcs != 0){
-								$numbers['VCs'] = countViewerChoices($viewer);
-							}
-
 							if(!empty($numbers)){
 								$max = max($numbers);
 								if($max == 0){$max=1;}
@@ -172,7 +163,7 @@ else {
 
 						</ul>
 						<hr >
-						<strong>Spins and Selections: </strong>
+						<strong>Spun People Pie: </strong>
 						<canvas id="spinnychart" width="250" height="250" style="position:relative; !important"></canvas>
 						<script>
 						var ctx = document.getElementById('spinnychart').getContext('2d');
@@ -286,7 +277,7 @@ else {
 								<?php
 								foreach($allUserPicks3 as $key => $value){
 									if(!in_array($key, $watchedFilmList)){
-									 	echo '<tr><td>'.getMovieById($key).'</td> <td>'.$value.'</td></tr>';
+									 	echo '<tr><td>'.get_movie_by_id($pdo,$key).'</td> <td>'.$value.'</td></tr>';
 									}
 								}
 

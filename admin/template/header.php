@@ -11,8 +11,45 @@
 	<script src="<?php echo WEB_ROOT; ?>/assets/jquery/v3.3.1/jquery.min.js"></script>
 
 	<!-- Bootstrap -->
-	<link href="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
-	<script src="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.0.0-beta2/js/bootstrap.bundle.min.js"></script>
+	<link href="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.2.0/css/bootstrap.min.css" rel="stylesheet" >
+	<script src="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.2.0/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Bootstrap Select -->
+	<link  href="<?php echo WEB_ROOT; ?>/assets/bootstrap-select/v1.14.0-beta2/css/bootstrap-select.min.css" rel="stylesheet">
+	<script src="<?php echo WEB_ROOT; ?>/assets/bootstrap-select/v1.14.0-beta2/js/bootstrap-select.min.js"></script>
+
+	<style>
+		.btn-light, .btn-light:hover {
+			color: #212529;
+			background-color: #fff;
+			border: 1px solid #ced4da;
+		}
+
+
+		.btn-light:focus, .btn-light.focus {
+			background-color: #fff;
+			box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+		}
+
+		.btn-light.disabled, .btn-light:disabled {
+			background-color: #e9ecef;
+		}
+
+		.btn-light:not(:disabled):not(.disabled):active,
+		.btn-light:not(:disabled):not(.disabled).active,
+		.show > .btn-light.dropdown-toggle {
+			background-color: #fff;
+			box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+		}
+
+		.btn-light:not(:disabled):not(.disabled):active:focus,
+		.btn-light:not(:disabled):not(.disabled).active:focus,
+		.show > .btn-light.dropdown-toggle:focus {
+			background-color: #fff;
+			box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+		}
+
+	</style>
 
 	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">

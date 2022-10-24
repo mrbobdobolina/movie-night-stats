@@ -1,9 +1,6 @@
 <?php
-
 require_once('common.php');
-
 template('header');
-
 ?>
 
 <div class="album py-5 bg-light">
@@ -12,23 +9,25 @@ template('header');
 		<p class="lead text-center ">(They used to be your friends, but then you made them watch <span class="bg-dark text-white px-1"><strong>[REDACTED]</strong></span>.)</p>
 
 		<?php
-
-		$streakers = get_streakers();
+		//$streakers = get_streakers();
 		$time_watched = viewer_watchtime();
-
+		$viewers_longest_streaks = find_longest_streak_v2($pdo);
+		$longest_streak = max($viewers_longest_streaks);
+		$longest_streak_key = array_search(max($viewers_longest_streaks),$viewers_longest_streaks);
+		$current_streak = get_current_streak($pdo);
 		?>
 
 		<div class="row justify-content-around">
-			<div class="alert text-center col-5 text-white" role="alert" style="background-color:#<?php echo getMoviegoerColorById($streakers['current']['viewer']);?>;">
-				<?php echo "<strong>Current Winning Streak: </strong>" . getMoviegoerById($streakers['current']['viewer']) .	" with "	. $streakers['current']['count']; " wins! "; ?>
+			<div class="alert text-center col-5 text-white" role="alert" style="background-color:#<?php echo getMoviegoerColorById($current_streak['winner_id']);?>;">
+				<?php echo "<strong>Current Winning Streak: </strong>" . getMoviegoerById($current_streak['winner_id']) .	" with "	. $current_streak['count']; " wins! "; ?>
 			</div>
-			<div class="alert text-center col-5 text-white" role="alert" style="background-color:#<?php echo getMoviegoerColorById($streakers['longest']['viewer']);?>;">
-				<?php echo "<strong>Longest Winning Streak: </strong>" . getMoviegoerById($streakers['longest']['viewer']) .	" with "	. $streakers['longest']['count']; " wins! "; ?>
+			<div class="alert text-center col-5 text-white" role="alert" style="background-color:#<?php echo getMoviegoerColorById($longest_streak_key);?>;">
+				<?php echo "<strong>Longest Winning Streak: </strong>" . getMoviegoerById($longest_streak_key) .	" with "	. $longest_streak . " wins! "; ?>
 			</div>
 		</div>
 
 		<div class="row mt-3">
-
+			<?php $starting_time = microtime(true);?>
 			<table id="movies" class="table table-striped">
 				<thead>
 					<tr>
@@ -70,7 +69,7 @@ template('header');
 							</div>
 						</th>
 						<th>
-							<div data-bs-toggle="tooltip" data-bs-animation='false' data-bs-placement="right" title="Streak: The most consecutive events that a viewer has had their movie chosen.">
+							<div data-bs-toggle="tooltip" data-bs-animation='false' data-bs-placement="right" title="Streak: The most consecutive events that a viewer has had their movie watched, ignoring viewer choice nights.">
 								<i class="fas fa-repeat"></i> <i class="fas fa-trophy"></i>
 							</div>
 						</th>
@@ -85,11 +84,6 @@ template('header');
 						<th>
 							<div data-bs-toggle="tooltip" data-bs-animation='false' data-bs-placement="right" title="The number of times a user has spun a wheel or rolled a die.">
 								<i class="fas fa-sync"></i>
-							</div>
-						</th>
-						<th>
-							<div data-bs-toggle="tooltip" data-bs-animation='false' data-bs-placement="right" title="The number of times a user has chosen a film: the number of spins plus viewers choice.">
-								<i class="fas fa-sync"></i>+<i class="fas fa-hand-point-up"></i>
 							</div>
 						</th>
 						<th class="text-end">
@@ -110,15 +104,27 @@ template('header');
 					$viewer = getListOfViewers('attendance');
 					$total_events = countWeeks();
 
+					$full_count = count_all_attendance_v2($pdo);
+					$full_picker_list = count_total_picks_for_everyone($pdo);
+
+					$all_dry_spells = get_dry_spell_for_all_v2($pdo);
+
 					foreach($viewer as $person): ?>
 
 						<tr style="background-color:<?php echo HTMLToRGB($person['color']);?>;">
 							<?php
 
-							$attend = countAttendanceReal($person['id']);
+							$attend = $full_count[$person['id']];
 
-							$myUnique = calculateMyUniquePicks($person['id']);
-							$myTotal = countMyTotalPics($person['id']);
+							if(array_key_exists($person['id'],$full_picker_list)){
+								$myUnique = $full_picker_list[$person['id']]['unique'];
+								$myTotal = $full_picker_list[$person['id']]['total'];
+							} else {
+								$myUnique = 0;
+								$myTotal = 0;
+							}
+
+							$my_longest_streak = $viewers_longest_streaks[$person['id']] ?? 0;
 
 							$wins = winningPickStats($person['id']);
 
@@ -141,11 +147,10 @@ template('header');
 							<td class="text-end"><?php echo $wins; ?></td>
 							<td class="text-end"><?php echo round(($wins/$total_events)*100,2);?>%</td>
 							<td class="text-end"><?php echo ($attend == 0) ? 0 : round(($wins/$attend)*100,2);?>%</td>
-							<td class="text-end"><?php echo find_my_longest_streak($person['id']); ?></td>
-							<td class="text-end"><?php echo get_dry_spell($person['id']); ?></td>
+							<td class="text-end"><?php echo $my_longest_streak; ?></td>
+							<td class="text-end"><?php echo $all_dry_spells[$person['id']]; ?></td>
 							<td class="text-end"><?php echo last_spin_date($person['id']); ?></td>
 							<td class="text-end"><?php echo $spins['total'];?></td>
-							<td class="text-end"><?php echo $picks['total'];?></td>
 							<td class="text-end"><?php echo $time_watched[$person['id']] ?? 0;?></td>
 							<td class="text-end"><?php echo get_viewer_ratings_real($person['id']);?>%</td>
 
@@ -153,7 +158,8 @@ template('header');
 					<?php endforeach; ?>
 				</tbody>
 			</table>
-
+			<?php $stopping_time = microtime(true);
+			echo "Table calculated in " . ($stopping_time - $starting_time) . " seconds.";?>
 		</div>
 
 		<div class="accordion mt-1" id="accordionExample">
@@ -175,11 +181,10 @@ template('header');
 							<li><strong><i class="fas fa-trophy"></i></strong> Wins: The number of times a viewer's movie has been picked for movie night.</li>
 							<li><strong><i class="fas fa-trophy"></i> %:</strong> The percent of movie nights a viewer has won.</li>
 							<li><strong><i class="fas fa-trophy"></i>/Atnd:</strong> The percentage of attended movie nights that a viewers movie has won.</li>
-							<li><strong><i class="fas fa-repeat"></i> <i class="fas fa-trophy"></i></strong> Streak: The most consecutive events that a viewer has had their movie chosen.</li>
+							<li><strong><i class="fas fa-repeat"></i> <i class="fas fa-trophy"></i></strong> Streak: The most consecutive events that a viewer has had their movie watched, ignoring viewer choice nights.</li>
 							<li><strong><i class="fas fa-cactus"></i></strong> Dry: The longest a viewer has gone without winning (only counting attended events.)</li>
 							<li><strong>Last Spin:</strong> The date if a viewers last spin/roll. Used to determine who is up next.</li>
 							<li><strong><i class="fas fa-sync"></i></strong> Spins: The number of times a user has spun a wheel or rolled a die.</li>
-							<li><strong><i class="fas fa-sync"></i>+<i class="fas fa-hand-point-up"></i></strong> Spins + Picks The number of times a user has chosen a film, the number of spins plus viewers choice.</li>
 							<li><strong><i class="far fa-stopwatch"></i></strong> The number of minutes viewer has spent watching films.</li>
 							<li><strong><i class="fas fa-star-half-alt"></i>%</strong> Average Moving Rating across all picked films.</li>
 						<ul>
@@ -191,12 +196,14 @@ template('header');
 
 		<div class="row g-3 mt-5">
 			<?php foreach($viewer as $person): ?>
+
 				<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mb-4">
 					<div class="card">
 						<div class="card-header bold text-white" style="background-color:#<?php echo $person['color'];?>;" >
 							<h3><strong><?php echo $person['name']; ?></strong></h3>
 						</div>
 						<div class="card-body">
+
 							<ul>
 								<li>
 									<strong>Spun Numbers: </strong><?php //echo implode(", ", listOfSpunNumbersByViewer($person['id']));?>
@@ -236,11 +243,7 @@ template('header');
 
 								$numbers = getSpunViewers_v2($person['id']);
 
-								$vcs = countViewerChoices($person['id']);
 
-								if($vcs != 0){
-									$numbers['VCs'] = countViewerChoices($person['id']);
-								}
 
 								if(!empty($numbers)){
 									$max = max($numbers);
@@ -322,6 +325,7 @@ template('header');
 								</script>
 
 							<?php endif; ?>
+
 							<a href="viewer.php?viewer=<?php echo $person['id']; ?>">More Details</a>
 						</div>
 					</div>
@@ -331,6 +335,8 @@ template('header');
 
 
 		</div>
+
+
 	</div>
 </div>
 

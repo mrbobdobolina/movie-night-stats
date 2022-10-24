@@ -15,8 +15,6 @@ $numbers = $numberTypes[rand(0,3)];
 		<p class="display-6 text-center">(╯°□°）╯︵ ┻━┻</p>
 		<p class="text-center mb-5"><em>"My how the events have tabled."</em></p>
 
-		<?php //print_r(getMyMovieYears(9));?>
-
 		<div class="row">
 
 			<table id="events" class="table table-hover">
@@ -45,7 +43,7 @@ $numbers = $numberTypes[rand(0,3)];
 						<td><?php echo $count_events--;?></td>
 						<td><?php echo $eventDate->format('l, M j, Y'); ?></td>
 						<td><?php echo $event['winning_wedge'];?></td>
-						<td><?php echo getMovieById($event['winning_film']);?></td>
+						<td><?php echo get_movie_by_id($pdo,$event['winning_film']);?></td>
 						<td><?php echo getMoviegoerById($event['winning_moviegoer']);?></td>
 						<td><?php echo getMoviegoerById($event['spinner']);?></td>
 						<td><?php echo $event['selection_method'];?></td>

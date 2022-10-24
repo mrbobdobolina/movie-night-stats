@@ -30,6 +30,9 @@ add_page_load();
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/2b50968540.js" crossorigin="anonymous"></script>
 
+	<!--Nanobar -->
+	<script src="assets/nanobar/nanobar.min.js"></script>
+
 	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,18 +56,11 @@ add_page_load();
 	<?php $season = get_seasonal_weather();
 	if($season == 'sakura'): ?>
 		<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/seasonal/sakura/sakura.css">
-	<?php elseif($season == 'rain'): ?>
-		<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/seasonal/rain/style.css">
 	<?php endif;?>
 
 </head>
-<body class="back-row-toggle splat-toggle">
-	
-	<?php if($season == 'rain'): ?>
-		<div class="rain front-row"></div>
-		<div class="rain back-row"></div>
-		<script src="<?php echo WEB_ROOT; ?>/assets/seasonal/rain/script.js"></script>
-	<?php endif;?>
+<body>
+
 
 	<?php if($season == 'sakura'): ?>
 		<script src="<?php echo WEB_ROOT; ?>/assets/seasonal/sakura/sakura.js"></script>
@@ -114,11 +110,6 @@ add_page_load();
 			},
 			sound: {
 				enable: false,
-				list: [
-					'explosion0.mp3',
-					'explosion1.mp3',
-					'explosion2.mp3'
-				],
 				min: 4,
 				max: 8
 			}

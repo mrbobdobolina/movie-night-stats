@@ -31,7 +31,7 @@ $numbers = $numberTypes[rand(0,3)];
 					  <div class="row g-0">
 							<div class="col-md-12">
 								<div class="card-body text-center justify-content-center">
-									<img src="<?php echo get_movie_poster($event['winning_film']); ?>" class="img-fluid poster" alt="winning movie poster">
+									<img src="<?php echo get_movie_poster($pdo, $event['winning_film']); ?>" class="img-fluid poster" alt="winning movie poster">
 								</div>
 							</div>
 

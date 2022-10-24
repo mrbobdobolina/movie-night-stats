@@ -1,41 +1,46 @@
 <?php
 
-function getMovieById($id){
-	$sql = "SELECT `name` FROM `films` WHERE `id` = $id";
-	$data = db($sql)[0]['name'];
-
-	return $data;
+function get_movie_by_id($pdo, $id){
+	$stmt = $pdo->prepare('SELECT name FROM films WHERE id = ?');
+	$stmt->execute([$id]);
+	$name = $stmt->fetchColumn();
+	return $name;
 }
 
-function getMovieList(){
-	$sql = "SELECT * FROM `films` WHERE `id` != 0 ORDER BY `name` ASC";
-	$data = db($sql);
-
-	return $data;
+function get_movie_list($pdo){
+	$stmt = $pdo->prepare('SELECT * FROM films WHERE id != 0 ORDER BY name ASC');
+	$stmt->execute();
+	$list = $stmt->fetchAll();
+	return $list;
 }
 
-function countMovieList(){
-	$sql = "SELECT count(*) AS 'count' FROM `films` WHERE `id` != 0 ORDER BY `name` ASC";
-	$data = db($sql)[0];
-
-	return $data['count'];
+function count_movie_list($pdo){
+	$count = $pdo->query('SELECT count(*) FROM films')->fetchColumn();
+	//we subtract one from the total count because db contains a null field for id = 0...
+	//I'm sure there's a good reason for this.
+	return $count - 1;
 }
 
-function countTotalFilmApperances($filmID){
-
+function count_total_film_appearances($pdo, $film_id){
 	$counter = 0;
-
 	for($i = 1; $i <= 12; $i++){
-		$sql = "SELECT COUNT(*) AS `count` FROM `week` WHERE `wheel_$i` = $filmID";
-		$data = db($sql)[0]['count'];
-
-		$counter = $counter + $data;
+		$sql = "SELECT count(*) FROM week WHERE wheel_".$i." = ?";
+		$stmt = $pdo->prepare($sql);
+		$stmt->execute([$film_id]);
+		$counter += $stmt->fetchColumn();
 	}
-
 	return $counter;
 }
 
-function getMyMovieYears($id){
+function get_movie_runtime($pdo, $film_id){
+	$stmt = $pdo->prepare('SELECT runtime FROM films WHERE id = ?');
+	$stmt->execute([$film_id]);
+	$runtime= $stmt->fetchColumn();
+	return $runtime;
+}
+
+//This function isn't being called currently...
+/*function getMyMovieYears($id){
 	$myList = listMyTotalPicksReal($id);
 	$myUnique = array_column($myList, 'filmID');
 
@@ -51,13 +56,11 @@ function getMyMovieYears($id){
 
 	$yearList = array_filter(array_unique($yearList));
 
-
-
 	return round(array_sum($yearList)/count($yearList));
 	//return $yearList;
-}
+}*/
 
-function getMovieRating($id){
+/*function getMovieRating($id){
 
 	//SELECT (`tomatometer`+`rt_audience`+`imdb`) / ( COUNT(`tomatometer`) + COUNT(`rt_audience`) + COUNT(`imdb`) ) AS `avg_rating` , `films`.`name` FROM  `films` WHERE  `id` = 40;
 
@@ -84,14 +87,13 @@ function getMovieRating($id){
 		//$value = "";
 		return FALSE;
 	}
-}
+}*/
 
-function get_movie_year($filmID){
-	$sql = "SELECT `year` FROM `films` WHERE `id` = $filmID";
-	$result = db($sql)[0];
-
-
-	return $result['year'];
+function get_movie_year($pdo, $film_id){
+	$stmt = $pdo->prepare('SELECT year FROM films WHERE id = ?');
+	$stmt->execute([$film_id]);
+	$result = $stmt->fetchColumn();
+	return $result;
 }
 
 /**
@@ -142,34 +144,66 @@ function getPickers($filmID){
 	return $movie_pickers;
 }
 
-function countAttendance($id){
-	$sql = "SELECT count(*) AS `attendance` FROM `week`  WHERE `attendees` LIKE '%{$id}%' ORDER BY `date` ASC";
-	$data = db($sql);
-	return $data[0]['attendance'];
+function count_attendance($pdo, $viewer_id){
+	$stmt = $pdo->prepare('SELECT attendance FROM viewers WHERE id = ?');
+	$stmt->execute([$viewer_id]);
+	$result = $stmt->fetchColumn();
+	return $result;
 }
 
-function countAttendanceReal($id){
-	$sql = "SELECT `attendees` FROM `week` WHERE `attendees` LIKE '%{$id}%' ORDER BY `date` ASC";
-	$data = db($sql);
+function count_all_attendance_v2($pdo){
+	$stmt = $pdo->prepare("SELECT attendees FROM week");
+	$stmt->execute();
+	$list = $stmt->fetchAll();
 
-	$allAttendence = Array();
+	$attendees_count = Array();
 
-	foreach($data as $aWeek){
-		$aWeek2 = explode(", ", $aWeek['attendees']);
-		foreach($aWeek2 as $aPerson){
-			$allAttendence[] = $aPerson;
+	foreach($list as $row){
+		$people = explode(", ", $row['attendees']);
+
+		foreach($people as $person){
+			if(array_key_exists($person,$attendees_count)){
+				$attendees_count[$person]++;
+			} else {
+				$attendees_count[$person] = 1;
+			}
 		}
 	}
 
-	$values = array_count_values($allAttendence);
-	return $values[$id] ?? 0;
-
+	return $attendees_count;
 }
 
-function countScribe($id){
-	$sql = "SELECT count(*) AS `scribe` FROM `week`  WHERE `scribe` LIKE '%{$id}%' ORDER BY `date` ASC";
-	$data = db($sql);
-	return $data[0]['scribe'];
+function count_scribing($pdo, $id){
+	$stmt = $pdo->prepare('SELECT count(*) FROM week WHERE scribe = ?');
+	$stmt->execute([$id]);
+	$count = $stmt->fetchColumn();
+	return $count;
+}
+
+function count_total_picks_for_everyone($pdo){
+	$stmt = $pdo->prepare('SELECT * FROM week');
+	$stmt->execute();
+	$week_list = $stmt->fetchAll();
+
+	$attendee_pick_list = Array();
+
+	foreach($week_list as $week){
+		for($i = 1; $i <= 12; $i++){
+			if(array_key_exists($week['moviegoer_'.$i], $attendee_pick_list)){
+				$attendee_pick_list[$week['moviegoer_'.$i]][] = $week['wheel_'.$i];
+			} else {
+				$attendee_pick_list[$week['moviegoer_'.$i]] = Array($week['wheel_'.$i]);
+			}
+		}
+	}
+	//print_r($attendee_pick_list);
+	$attendee_pick_count = Array();
+
+	foreach($attendee_pick_list as $key => $attendee){
+		$attendee_pick_count[$key] = Array("total" => count($attendee), "unique" => count(array_unique($attendee)));
+	}
+
+	return $attendee_pick_count;
 }
 
 function listMyTotalPicksReal($id){
@@ -196,21 +230,21 @@ function myMoviePicksForWeekID($id, $viewerID){
 	return $returnMe;
 }
 
-function getMovieRatingReal($id){
-	$sql = "SELECT (COALESCE(`tomatometer`,0)+COALESCE(`rt_audience`,0)+COALESCE(`imdb`,0)) / ( COUNT(`tomatometer`) + COUNT(`rt_audience`) + COUNT(`imdb`) ) AS `avg_rating` , `films`.`name` FROM  `films` WHERE  `id` = '$id'";
-	$result = db($sql);
-
-	return round($result[0]['avg_rating'], 1)."%";
+function get_movie_avg_rating($pdo, $film_id){
+	$stmt = $pdo->prepare('SELECT (COALESCE(tomatometer,0)+COALESCE(rt_audience,0)+COALESCE(imdb,0)) / ( COUNT(tomatometer) + COUNT(rt_audience) + COUNT(imdb) ) FROM films WHERE  id = ?');
+	$stmt->execute([$film_id]);
+	$result = $stmt->fetchColumn();
+	return round($result, 1)."%";
 }
 
-function getMovieMPAA($id){
-	$sql = "SELECT `MPAA` FROM `films` WHERE `id` = $id";
-	$data = db($sql)[0]['MPAA'];
-
-	return $data;
+function get_MPAA($pdo, $film_id){
+	$stmt = $pdo->prepare('SELECT MPAA FROM films WHERE id = ?');
+	$stmt->execute([$film_id]);
+	$result = $stmt->fetchColumn();
+	return $result;
 }
 
-function get_movie_poster($film_id){
+function get_movie_poster($pdo, $film_id){
 	$sql = "SELECT `poster_url` FROM `films` WHERE `id` = $film_id";
 
 	$result = db($sql);
@@ -219,7 +253,7 @@ function get_movie_poster($film_id){
 		return $result[0]['poster_url'];
 	}
 
-	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",getMovieById($film_id))."&y=".get_movie_year($film_id)."&apikey=".OMDB_API_KEY;
+	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",get_movie_by_id($pdo,$film_id))."&y=".get_movie_year($pdo,$film_id)."&apikey=".OMDB_API_KEY;
 	$movie_info = json_decode(file_get_contents($movie_info_url), true);
 
 	if($movie_info['Response'] == "True"){
@@ -231,30 +265,21 @@ function get_movie_poster($film_id){
 
 		return $poster_url;
 	} else {
-		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",getMovieById($film_id));
+		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",get_movie_by_id($pdo,$film_id));
 	}
 
 }
 
-function get_movie_poster_2($film_id){
-	$sql = "SELECT `poster_url` FROM `films` WHERE `id` = $film_id";
+function get_movie_poster_v3($pdo, $film_id){
+	$stmt = $pdo->prepare('SELECT poster_url FROM films WHERE id = ?');
+	$stmt->execute([$film_id]);
+	$poster = $stmt->fetchColumn();
 
-	$result = db($sql);
-
-	if($result[0]['poster_url']!= ""){
-		return $result[0]['poster_url'];
- 	} else {
-		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",getMovieById($film_id));
+	if($poster != ""){
+		return $poster;
+	} else {
+		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",get_movie_by_id($pdo,$film_id));
 	}
-
-}
-
-function get_imdb_id($film_id){
-	$sql = "SELECT `imdb_id` FROM `films` WHERE `id` = $film_id";
-
-	$result = db($sql);
-
-	return $result[0]['imdb_id'];
 }
 
 ?>

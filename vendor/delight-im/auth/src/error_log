@@ -1,2 +1,0 @@
-[13-Jul-2021 00:26:00 America/Chicago] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in /home1/apathday/movienightstats.com/vendor/delight-im/auth/src/ResetDisabledException.php on line 9
-[13-Jul-2021 00:26:14 America/Chicago] PHP Fatal error:  Namespace declaration statement has to be the very first statement or after any declare call in the script in /home1/apathday/movienightstats.com/vendor/delight-im/auth/src/AuthError.php on line 9

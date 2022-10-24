@@ -4,10 +4,16 @@ require_once('common.php');
 
 template('header');
 
+$movie_count = count_movie_list($pdo);
+
 ?>
+<script>
+	var nanobar = new Nanobar();
+	nanobar.go(0);
+</script>
 <div class="album py-5 bg-light">
 	<div class="container">
-		<p class="display-6 text-center "><?php echo countMovieList();?> Films We Could Have Watched</p>
+		<p class="display-6 text-center "><?php echo $movie_count;?> Films We Could Have Watched</p>
 		<p class="lead text-center ">(And the <?php echo countWatchedMovies();?> we did.)</p>
 
 		<div class="row">
@@ -36,16 +42,19 @@ template('header');
 				</thead>
 				<tbody>
 					<?php
-					$movies = getMovieList();
+					$movies = get_movie_list($pdo);
 					$week_count = countWeeks();
 					$total_wedges = countWeeks()*12;
 					$oneHitWonders = 0;
 
+					$counter = 0;
+
 					foreach($movies as $movie):
+						$counter++;
 						$winner = didIWin($movie['id']);
 						//$first_date = getFirstOrLastDate($movie['id'], "First");
 
-						$wedges = countTotalFilmApperances($movie['id']);
+						$wedges = count_total_film_appearances($pdo, $movie['id']);
 						$weeks = countWeeksOnWheel($movie['id']);
 
 						if($winner['count'] > 0){
@@ -69,10 +78,10 @@ template('header');
 								}?>
 							</td>
 							<td><?php echo $movie['name']; ?> </td>
-							<td class="text-center"><?php echo $movie['year']; //get_movie_year($movie['id']); ?></td>
+							<td class="text-center"><?php echo $movie['year']; ?></td>
 							<td class="text-end mpaa"><?php echo $movie['MPAA']; ?></td>
 							<td class="text-end"><?php echo $movie['runtime']; ?></td>
-							<td class="text-end"><?php echo getMovieRatingReal($movie['id']); ?></td>
+							<td class="text-end"><?php echo get_movie_avg_rating($pdo,$movie['id']); ?></td>
 							<td class="text-center"><?php echo $winner['count']; ?></td>
 							<td class="text-center"><?php echo $wedges; ?></td>
 							<!-- <td class="text-end"><?php //echo round(($wedges/$total_wedges)*100,2);?>%</td>-->
@@ -93,6 +102,10 @@ template('header');
 							</td>
 
 						</tr>
+
+						<script>
+							nanobar.go(<?php echo floor(($counter/$movie_count)*100)-1; ?>);
+						</script>
 					<?php endforeach; ?>
 				</tbody>
 			</table>
@@ -119,6 +132,8 @@ template('header');
 				}
 			);
 	} );
+
+	nanobar.go(100);
 	</script>
 
 <?php template('footer');?>
