@@ -6,6 +6,7 @@ template('header');
 
 //Array('date' => "", 'version' => '', 'details' => Array("")),
 $changes = Array(
+	Array('date'=>"October 23, 2022", 'version' => 'Version 4.0.0', 'details' => Array("Bug fixes.", "Removed unneeded column from viewers page", "fixed issue on the backend", "updated version number", "added really dumb stats","Lots of other stuff probably.")),
 		Array('date'=>"April 23, 2022", 'version' => 'Version 3.9.0', 'details' => Array("Bug fixes.", "Improvements to viewers and viewer pages.")),
 	Array('date'=>"April 18, 2022", 'version' => 'Version 3.8.0', 'details' => Array("Bug fixes.", "Improvements","Added filterable table to Services page.")),
 	Array('date'=>"March 6, 2022", 'version' => 'Version 3.7.0', 'details' => Array("Bug fixes.","Weather manipulations.","General improvements.")),
