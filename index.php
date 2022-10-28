@@ -70,20 +70,20 @@ $numbers = $numberTypes[rand(0,3)];
 											?>
 												<?php $movie_years[] = get_movie_year($pdo,$event['wheel_'.$i]); ?>
 												<?php if($event['winning_wedge'] == $i): ?>
-												<tr class="bold text-white homepage" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
+													<tr class="bold text-white homepage" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
+												<?php else: ?>
+													<tr class="homepage">
+												<?php endif; ?>
 													<td class="number homepage"><?php echo $i; ?></td>
 													<td class="viewer-name text-center homepage" ><?php echo getMoviegoerById($event['moviegoer_'.$i]); ?></td>
 													<td class="movie-title homepage"><?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?></td>
-													<td class="homepage"><?php $movie_freshness[] = get_movie_avg_rating($pdo, $event['wheel_'.$i]);?></td>
+													<?php if($event['wheel_'.$i] != 0):
+													?>
+														<td class="homepage"><?php $movie_freshness[] = get_movie_avg_rating($pdo, $event['wheel_'.$i]);?></td>
+													<?php else: ?>
+														<td class="homepage"></td>
+													<?php endif; ?>
 												</tr>
-												<?php else: ?>
-												 <tr class="homepage">
-														 <td class="number homepage"><?php echo $i; ?></td>
-														 <td class="viewer-name text-center homepage"><?php echo getMoviegoerById($event['moviegoer_'.$i]); ?></td>
-														 <td class="movie-title homepage"><?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?></td>
-													 	<td class="homepage"><?php $movie_freshness[] = get_movie_avg_rating($pdo, $event['wheel_'.$i]);?></td>
-													 </tr>
-												<?php endif; ?>
 											<?php endfor;?>
 										</tbody>
 									</table>
@@ -152,19 +152,20 @@ $numbers = $numberTypes[rand(0,3)];
 										<?php $movie_years[] = get_movie_year($pdo,$event['wheel_'.$i]); ?>
 										<?php if($event['winning_wedge'] == $i): ?>
 										<tr class="bold text-white homepage" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
+											<?php else: ?>
+												<tr class="homepage">
+											<?php endif; ?>
 											<td class="number homepage"><?php echo $i; ?></td>
 											<td class="viewer-name text-center homepage" ><?php echo getMoviegoerById($event['moviegoer_'.$i]); ?></td>
 											<td class="movie-title homepage"><?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?></td>
-											<td class="homepage"><?php $movie_freshness[] = get_movie_avg_rating($pdo,$event['wheel_'.$i]);?></td>
+											<?php if($event['wheel_'.$i] != 0):
+											?>
+												<td class="homepage"><?php $movie_freshness[] = get_movie_avg_rating($pdo, $event['wheel_'.$i]);?></td>
+											<?php else: ?>
+												<td class="homepage"></td>
+											<?php endif; ?>
 										</tr>
-										<?php else: ?>
-										 <tr class="homepage">
-												 <td class="number homepage"><?php echo $i; ?></td>
-												 <td class="viewer-name text-center homepage"><?php echo getMoviegoerById($event['moviegoer_'.$i]); ?></td>
-												 <td class="movie-title homepage"><?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?></td>
-											 	<td class="homepage"><?php $movie_freshness[] = get_movie_avg_rating($pdo,$event['wheel_'.$i]);?></td>
-											 </tr>
-										<?php endif; ?>
+
 									<?php endfor;?>
 								</tbody>
 							</table>
