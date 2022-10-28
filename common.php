@@ -381,7 +381,7 @@ function this_db_version(){
 }
 
 function echoVersionNumber(){
-	echo "4.0.0";
+	echo "4.0.1";
 	return;
 }
 
