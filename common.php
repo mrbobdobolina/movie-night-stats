@@ -174,7 +174,7 @@ function numberToRomanRepresentation($number) {
 // this only goes to 9999, but this gives us 192 years to come up with a better solution
 // also, 99.5% certain this works.
 function number_to_japanese_kanji($number){
-	$jp_map = Array(1 => '一', 2 => '二', 3 => '三', 4 => '四', 5 => '五', 6 => '六', 7 => '七', 8 => '八', 9 => '九', 10 => '十', 100 => '百', 1000 => '千');
+	$jp_map = Array(0 => '', 1 => '一', 2 => '二', 3 => '三', 4 => '四', 5 => '五', 6 => '六', 7 => '七', 8 => '八', 9 => '九', 10 => '十', 100 => '百', 1000 => '千');
 
 	$digits = str_split($number);
 	$count = count($digits);
@@ -381,7 +381,7 @@ function this_db_version(){
 }
 
 function echoVersionNumber(){
-	echo "3.9.0";
+	echo "4.0.1";
 	return;
 }
 
