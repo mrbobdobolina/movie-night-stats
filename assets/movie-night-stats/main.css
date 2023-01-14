@@ -325,3 +325,7 @@ ul h5{
 .poster{
 	width: 100%;
 }
+
+#method-chart.bar {
+	--labels-size: 150px;
+}

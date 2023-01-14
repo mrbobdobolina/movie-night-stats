@@ -160,6 +160,34 @@ template('header');
 										</tbody>
 								</table>
 							</div>
+	<hr >
+							<li>
+								<strong>Spun Methods: </strong>
+								<?php //echo implode(", ", getSpunViewers($viewer)); ?>
+							</li>
+
+							<div class="chart">
+								<table id="method-chart" class="charts-css bar show-labels show-data-on-hover">
+									<thead>
+										<tr>
+											<th >Method</th>
+											<th >Count</th>
+										</tr>
+									</thead>
+										<tbody>
+											<?php $methods = count_viewer_spin_methods($pdo, $viewer);
+											$m_max = $methods[0]['count(*)']
+											?>
+											<?php foreach($methods as $method):?>
+												<tr>
+													<th scope="row"> <?php echo $method['selection_method']; ?> </th>
+													<td style="--size:<?php echo round($method['count(*)']/$m_max,2); ?>;w"><span class="data data_padding"><?php echo $method['count(*)']; ?></span></td>
+												</tr>
+											<?php endforeach;?>
+										</tbody>
+								</table>
+							</div>
+
 
 						</ul>
 						<hr >
