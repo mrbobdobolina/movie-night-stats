@@ -19,14 +19,17 @@ template('header');
 		$yearly_attendance = Array();
 		$current_year = date('Y');
 		for($y = 2019; $y <= $current_year; $y++){
-			$yearly_events[$y] = count_yearly_events($y);
-			$yearly_time[$y] = calculateYearlyWatchtime($y);
-			$yearly_attendance[$y] = calculate_attendance($y);
+			if(count_yearly_events($y) > 0){
+				$yearly_events[$y] = count_yearly_events($y);
+				$yearly_time[$y] = calculateYearlyWatchtime($y);
+				$yearly_attendance[$y] = calculate_attendance($y);
+				$year_list[] = $y;
+			}
 		}
 		$max_events = max($yearly_events);
 		$max_time = max($yearly_time);
 		$max_attendance = max($yearly_attendance);
-
+		arsort($year_list);
 		?>
 
 		<!-- top row of charts -->
@@ -105,7 +108,8 @@ template('header');
 		</div>
 
 
-		<?php for($ii = $current_year; $ii >= 2019; $ii--):?>
+		<?php //for($ii = $current_year; $ii >= 2019; $ii--):?>
+		<?php foreach($year_list as $ii): ?>
 			<div class="card p-2 mt-5 mb-3">
 				<p class="display-6 text-center mt-5 mb-2"> <?php echo $ii; ?> Stats</p>
 				<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3 justify-content-center">
@@ -512,7 +516,7 @@ template('header');
 				</div>
 
 			</div>
-		<?php endfor;?>
+		<?php endforeach;?>
 
 	</div>
 </div>
