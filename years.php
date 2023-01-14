@@ -339,18 +339,22 @@ template('header');
 						$winners = count($biggest['top']);
 						if($winners > 1){
 							//more than one person one! It's a tie!
-							$people = Array();
-							foreach($biggest['top'] as $person){
-								$people[] = get_movie_by_id($pdo,$person);
+							if($winners != 12){
+								$people = Array();
+								foreach($biggest['top'] as $person){
+									$people[] = get_movie_by_id($pdo,$person);
+								}
+								$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." requests!";
+							} else {
+								$message = "(All the films are tied.)";//probably only one movie night for this year
 							}
-							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." requests!";
 						} elseif($winners == 1) {
 							$message = get_movie_by_id($pdo,$biggest['top'][0]) ." with ". $biggest['count']." requests!";
 						} else {
 							$message = "(no requests yet)";
 						}
 						?>
-						<div class="card align-self-center" style="height:175px;">
+						<div class="card align-self-center" style="height:175px; overflow:hidden;">
 							<div class="card-body" >
 								<p class="bold">Most Requested Films:</p>
 								<div>
