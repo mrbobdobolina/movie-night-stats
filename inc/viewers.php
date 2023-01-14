@@ -49,4 +49,13 @@ function getViewerName($id){
 	return getMoviegoerById($id);
 }
 
+function count_viewer_spin_methods($pdo, $viewer_id){
+	$stmt = $pdo->prepare("SELECT selection_method, count(*) FROM week WHERE spinner = ? GROUP BY selection_method ORDER BY count(*) DESC");
+	$stmt->execute([$viewer_id]);
+	$result = $stmt->fetchALL();
+
+	return $result;
+
+}
+
 ?>

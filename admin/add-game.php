@@ -263,7 +263,7 @@ if(!empty($alert)){
 
 						<div class="col-12 mb-3">
 							<label class="form-label">Error Spin(s)</label>
-							<input class="form-control" type="text" name="errors">
+							<input class="form-control" type="text" name="error_spin">
 						</div>
 
 						<div class="col-12 mb-3">
