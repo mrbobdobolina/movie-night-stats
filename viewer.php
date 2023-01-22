@@ -97,7 +97,7 @@ template('header');
 							?>
 
 							<div class="chart">
-								<table id="column-<?php echo $viewer;?>" class="charts-css column show-labels show-data-on-hover">
+								<table id="column-<?php echo $viewer;?>" class="charts-css column show-labels show-data">
 									<thead>
 										<tr>
 											<th scope="col">Number</th>
@@ -139,7 +139,7 @@ template('header');
 							 ?>
 
 							<div class="chart">
-								<table id="column-<?php echo $viewer;?>" class="charts-css bar show-labels show-data-on-hover">
+								<table id="column-<?php echo $viewer;?>" class="charts-css bar show-labels show-data">
 									<thead>
 										<tr>
 											<th scope="col">Number</th>
@@ -167,7 +167,7 @@ template('header');
 							</li>
 
 							<div class="chart">
-								<table id="method-chart" class="charts-css bar show-labels show-data-on-hover">
+								<table id="method-chart" class="charts-css bar show-labels show-data">
 									<thead>
 										<tr>
 											<th >Method</th>
