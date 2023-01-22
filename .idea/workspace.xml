@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ed612eca-27b7-46bc-9740-eb06d5844c4e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add-game.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add-list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add-movie.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add-service.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add-spinner.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/add-viewer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/edit-game.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/inc/credentials.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/log-out.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/template/footer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/template/header.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/template/navigation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/bower.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/composer.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/css/bootstrap-select.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/css/bootstrap-select.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/css/bootstrap-select.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/js/bootstrap-select.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/js/bootstrap-select.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/js/bootstrap-select.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/js/bootstrap-select.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/js/i18n/defaults-en_US.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/js/i18n/defaults-en_US.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/js/i18n/defaults-en_US.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap-select/v1.14.0-beta2/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-grid.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-grid.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-grid.rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-grid.rtl.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-grid.rtl.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-grid.rtl.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-reboot.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-reboot.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-reboot.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-reboot.rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-reboot.rtl.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-reboot.rtl.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-reboot.rtl.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-utilities.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-utilities.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-utilities.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-utilities.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-utilities.rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-utilities.rtl.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-utilities.rtl.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap-utilities.rtl.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap.rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap.rtl.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap.rtl.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/css/bootstrap.rtl.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.bundle.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.bundle.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.esm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.esm.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.esm.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.esm.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.0.0-beta2/js/bootstrap.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-grid.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-grid.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-grid.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-grid.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-grid.rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-grid.rtl.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-grid.rtl.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-grid.rtl.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-reboot.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-reboot.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-reboot.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-reboot.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-reboot.rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-reboot.rtl.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-reboot.rtl.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-reboot.rtl.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-utilities.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-utilities.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-utilities.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-utilities.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-utilities.rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-utilities.rtl.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-utilities.rtl.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap-utilities.rtl.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap.rtl.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap.rtl.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap.rtl.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/css/bootstrap.rtl.min.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.bundle.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.bundle.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.esm.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.esm.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.esm.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.esm.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/bootstrap/v5.2.0/js/bootstrap.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/datatables/v1.10.23/datatables.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/datatables/v1.10.23/datatables.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/datatables/v1.10.23/images/sort_asc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/datatables/v1.10.23/images/sort_asc_disabled.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/datatables/v1.10.23/images/sort_both.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/datatables/v1.10.23/images/sort_desc.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/datatables/v1.10.23/images/sort_desc_disabled.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/fireworks/v1.0.0/fireworks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/fireworks/v1.0.0/sticky.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/fitty/fitty.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/jquery/v3.3.1/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/movie-night-stats/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/nanobar/nanobar.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/seasonal/cherry_blossoms/sakura.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/seasonal/cherry_blossoms/sakura.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/seasonal/sakura/sakura.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/seasonal/sakura/sakura.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/seasonal/snow/snowflakes.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/attendance.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/changelog.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/common.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/event_posters.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/event_rows.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/event_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/MovieNightStats_v02B_Rectangle_Transparent.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/favicon_32.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wheels/bobbot.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wheels/d12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wheels/dd12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wheels/pye_spinner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wheels/random_org.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wheels/viewerchoice.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wheels/wheel_v1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wheels/wheel_v2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wheels/wheel_v3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/wheels/wheelofsus.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/db.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/films.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/spinners.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/viewers.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/week.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/init/create_database.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/init/error.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/movies.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/really_dumb_stats.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/11.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/12.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/dice/9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roll/roll.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/services.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings-TEMPLATE.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/spin/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/footer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/header.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/nav.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/viewer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/viewers.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wheel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/years.php" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/sanmai/japanese-numerals" />
+      <path value="$PROJECT_DIR$/vendor/delight-im/cookie" />
+      <path value="$PROJECT_DIR$/vendor/delight-im/auth" />
+      <path value="$PROJECT_DIR$/vendor/delight-im/base64" />
+      <path value="$PROJECT_DIR$/vendor/delight-im/http" />
+      <path value="$PROJECT_DIR$/vendor/delight-im/db" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="2CYVquHFjSzlBPKEDo134op2npV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "true",
+    "last_opened_file_path": "/home/tv/PhpstormProjects/movie-night-stats/src",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ed612eca-27b7-46bc-9740-eb06d5844c4e" name="Changes" comment="" />
+      <created>1658979699005</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1658979699005</updated>
+      <workItem from="1658979700140" duration="4421000" />
+      <workItem from="1666572080674" duration="9000" />
+      <workItem from="1666572095621" duration="8000" />
+      <workItem from="1674369566896" duration="2605000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

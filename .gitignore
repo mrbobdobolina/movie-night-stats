@@ -12,3 +12,8 @@ php_errors.log
 *.log
 
 test_function.php
+settings.config.php
+
+.idea/deployment.xml
+
+.idea/webServers.xml

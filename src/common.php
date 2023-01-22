@@ -8,9 +8,9 @@ if(!defined('ROOT')){
 }
 
 // Check if settings file exists
-if(file_exists(ROOT.'settings.config')){
+if(file_exists(ROOT.'settings.config.php')){
 	// It Does!
-	require ROOT.'settings.config';
+	require ROOT.'settings.config.php';
 }
 else {
 	// No Settings file. Redirect to an error page
