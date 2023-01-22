@@ -80,7 +80,7 @@ switch($_GET['e']){
 
 	<header>
 	  <div class="bg-red shadow-sm ">
-			<a href="index.php">
+			<a href="../pages/index.php">
 				<div class="container d-flex header-image text-center" style="height:233px;">
 					<img src="../images/MovieNightStats_v02B_Rectangle_Transparent.png" class="img-fluid">
 				</div>
