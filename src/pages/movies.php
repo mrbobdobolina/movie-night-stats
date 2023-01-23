@@ -18,7 +18,7 @@ $movie_count = count_movie_list($pdo);
 
 		<div class="row">
 			<p>
-				<i class="fas fa-star p-1" style="color:#FFFF00;background-color:#82D173;"></i> Indicates movie was spun its first night on the wheel. <i class="fas fa-hand-point-down p-1" style="color:#FFFF00;background-color:#82D173;"></i> Indicated movie was picked first night on the wheel. <span style="background-color:#82D173;">Green row indicates movie won at least once.</span>
+				<i class="fas fa-star p-1" style="color:#FFFF00;background-color:#82D173;"></i> Indicates movie was (randomly) spun its first night on the wheel. <i class="fas fa-hand-point-down p-1" style="color:#FFFF00;background-color:#82D173;"></i> Indicated movie was picked (viewer choice) its first night on the wheel. <span style="background-color:#82D173;">Green row indicates movie won at least once.</span>
 			</p>
 
 			<table id="movies" class="table table-striped">
@@ -66,15 +66,17 @@ $movie_count = count_movie_list($pdo);
 
 						?>
 
-							<td>
+
 								<?php
 								if($winner['first_win'] == $movie['first_instance']){
 									if(!was_it_viewer_choice($movie['first_instance'],$movie['id'])){
 										$oneHitWonders++;
-										echo '<i class="fas fa-star" style="color:#FFFF00;"></i>';
+										echo '<td data-search="one hit wonder" data-order="2"><i class="fas fa-star" style="color:#FFFF00;"></i>';
 									} else {
-										echo '<i class="fas fa-hand-point-down" style="color:#FFFF00;">';
+										echo '<td data-search="picked first night" data-order="1"><i class="fas fa-hand-point-down" style="color:#FFFF00;">';
 									}
+								} else {
+									echo '<td data-search="" data-order="0">';
 								}?>
 							</td>
 							<td><?php echo $movie['name']; ?> </td>
