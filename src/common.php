@@ -249,30 +249,6 @@ function get_freshness($array){
 	return round((array_sum($array)/(count(array_filter($array))*100))*100, 0);
 }
 
-function get_viewers_years($id){
-	$events = getListOfEvents("ASC");
-	$viewerPicks = Array();
-
-	foreach($events as $anEvent){
-		for($i = 1; $i <=12; $i++){
-			$viewerPicks[$anEvent["moviegoer_$i"]][] = $anEvent["wheel_$i"];
-		}
-	}
-
-	$viewerPicksUnique = Array();
-
-	foreach($viewerPicks as $key => $value){
-		$viewerPicksUnique[$key] = array_unique($value);
-	}
-
-	$viewerYears = Array();
-	foreach($viewerPicksUnique as $key => $value){
-		foreach($value as $film){
-			$viewerYears[$key][] = get_movie_year($pdo,$film);
-		}
-	}
-	return $viewerYears[$id];
-}
 
 
 function get_viewers_years_single($pdo,$id){
@@ -385,4 +361,3 @@ function echoVersionNumber(){
 	return;
 }
 
-?>

@@ -1,11 +1,16 @@
-<?php /** @noinspection ALL */
+<?php /** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
+/** @noinspection SpellCheckingInspection */
 
+include('Event_Date.php');
 include('Event_Item.php');
 include('Media_Item.php');
+include('Media_Reviews.php');
 include('Viewer_Item.php');
-include('../common.php');
+include_once('../common.php');
 
 class Event_List {
+	private $events;
+
 	public function __construct(){
 
 	}
@@ -49,7 +54,7 @@ class Event_List {
 
 
 
-`week`.`spinner` AS `spinner_viewer_id`, `week`.`spinner` AS `winner_viewer_id`, `week`.`spinner` AS `scribe_viewer_id`,
+`week`.`spinner` AS `spinner_viewer_id`, `week`.`winning_moviegoer` AS `winner_viewer_id`, `week`.`scribe` AS `scribe_viewer_id`,
 `viewer_spin`.`name` AS `spinner_viewer_name`, `viewer_win`.`name` AS `winner_viewer_name`, `viewer_scribe`.`name` AS `scribe_viewer_name`,
 `viewer_spin`.`color` AS `spinner_viewer_color`, `viewer_win`.`color` AS `winner_viewer_color`, `viewer_scribe`.`color` AS `scribe_viewer_color`,
 
@@ -81,9 +86,26 @@ ORDER BY `date` DESC";
 
 //        echo $query;
 		$data = db($query);
+		$this->events = [];
 		foreach($data as $thing){
-			$test = new Event_Item($thing);
+			$this->events[] = new Event_Item($thing);
+//			print_r($test);
 		}
+	}
+
+	public function events(){
+		return $this->events;
+	}
+
+
+
+	public function sum_watchtime(){
+		$watchtime = 0;
+		foreach($this->events() as $event){
+			$watchtime += $event->runtime;
+		}
+
+		return $watchtime;
 	}
 }
 

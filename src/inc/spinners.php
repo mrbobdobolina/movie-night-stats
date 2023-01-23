@@ -81,4 +81,3 @@ function get_viewers_time($pdo){
 }
 
 
-?>

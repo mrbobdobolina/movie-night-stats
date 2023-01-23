@@ -39,55 +39,6 @@ function get_movie_runtime($pdo, $film_id){
 	return $runtime;
 }
 
-//This function isn't being called currently...
-/*function getMyMovieYears($id){
-	$myList = listMyTotalPicksReal($id);
-	$myUnique = array_column($myList, 'filmID');
-
-	$yearList = Array();
-
-	foreach($myUnique as $aFilmID){
-
-		$sql = "SELECT `year` FROM `films` WHERE `id` = '$aFilmID'";
-		$result = db($sql);
-
-		$yearList[] = $result[0]['year'];
-	}
-
-	$yearList = array_filter(array_unique($yearList));
-
-	return round(array_sum($yearList)/count($yearList));
-	//return $yearList;
-}*/
-
-/*function getMovieRating($id){
-
-	//SELECT (`tomatometer`+`rt_audience`+`imdb`) / ( COUNT(`tomatometer`) + COUNT(`rt_audience`) + COUNT(`imdb`) ) AS `avg_rating` , `films`.`name` FROM  `films` WHERE  `id` = 40;
-
-	$sql = "SELECT * FROM `films` WHERE `id` = '$id'";
-
-	$result = db($sql)[0];
-
-	$rating_total = 0;
-	$rating_divisor = 0;
-
-	$ratings_list = Array('tomatometer', 'rt_audience', 'imdb', 'metacritic', 'meta_userscore');
-
-	foreach($ratings_list as $list){
-		if(!is_null($result[$list])){
-			$rating_total += $result[$list];
-			$rating_divisor += 1;
-		}
-	}
-
-	if($rating_divisor > 0){
-		$value = round(($rating_total/$rating_divisor),0);
-		return $value . "%";
-	} else {
-		//$value = "";
-		return FALSE;
-	}
-}*/
 
 function get_movie_year($pdo, $film_id){
 	$stmt = $pdo->prepare('SELECT year FROM films WHERE id = ?');
@@ -123,26 +74,6 @@ function getPickers_v3($filmID){
 }
 
 
-function getPickers($filmID){
-	$movie_pickers = [];
-	for($i = 1; $i <= 12; $i++){
-		$query_pickers = "SELECT `moviegoer_$i` AS `moviegoer` FROM `week` WHERE `wheel_$i` = $filmID";
-		$data_pickers = db($query_pickers);
-
-		if($data_pickers){
-			foreach($data_pickers as $movie_picker){
-				if(empty($movie_pickers[$movie_picker['moviegoer']])){
-					$movie_pickers[$movie_picker['moviegoer']] = 1;
-				}
-				else {
-					$movie_pickers[$movie_picker['moviegoer']]++;
-				}
-			}
-
-		}
-	}
-	return $movie_pickers;
-}
 
 function count_attendance($pdo, $viewer_id){
 	$stmt = $pdo->prepare('SELECT attendance FROM viewers WHERE id = ?');
@@ -281,5 +212,3 @@ function get_movie_poster_v3($pdo, $film_id){
 		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",get_movie_by_id($pdo,$film_id));
 	}
 }
-
-?>

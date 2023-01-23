@@ -246,21 +246,6 @@ function most_requested_film($year){
 	return Array('top' => $top_winners, 'count' => $max);
 }
 
-function getFirstOrLastDate($filmID, $type = "First"){
-	switch ($type) {
-		case 'First':
-		$query_first = "SELECT `date` FROM `week` WHERE `wheel_1` = {$filmID} OR `wheel_2` = {$filmID} OR `wheel_3` = {$filmID} OR `wheel_4` = {$filmID} OR `wheel_5` = {$filmID} OR `wheel_6` = {$filmID} OR `wheel_7` = {$filmID} OR `wheel_8` = {$filmID} OR `wheel_9` = {$filmID} OR `wheel_10` = {$filmID} OR `wheel_11` = {$filmID} OR `wheel_12` = {$filmID} ORDER BY `date` ASC LIMIT 0,1";
-			break;
-		case 'Last':
-		$query_first = "SELECT `date` FROM `week` WHERE `wheel_1` = {$filmID} OR `wheel_2` = {$filmID} OR `wheel_3` = {$filmID} OR `wheel_4` = {$filmID} OR `wheel_5` = {$filmID} OR `wheel_6` = {$filmID} OR `wheel_7` = {$filmID} OR `wheel_8` = {$filmID} OR `wheel_9` = {$filmID} OR `wheel_10` = {$filmID} OR `wheel_11` = {$filmID} OR `wheel_12` = {$filmID} ORDER BY `date` DESC LIMIT 0,1";
-			break;
-	}
-
-	$data = db($query_first)[0];
-
-	return $data['date'];
-
-}
 
 function countWeeksOnWheel($filmID){
 	$query_first = "SELECT COUNT(*) AS `count` FROM `week` WHERE `wheel_1` = {$filmID} OR `wheel_2` = {$filmID} OR `wheel_3` = {$filmID} OR `wheel_4` = {$filmID} OR `wheel_5` = {$filmID} OR `wheel_6` = {$filmID} OR `wheel_7` = {$filmID} OR `wheel_8` = {$filmID} OR `wheel_9` = {$filmID} OR `wheel_10` = {$filmID} OR `wheel_11` = {$filmID} OR `wheel_12` = {$filmID}";
@@ -379,30 +364,6 @@ function countMySpins_noChoice($id){
 
 
 
-function listOfSpunNumbersByViewer($id){
-	$sql = "SELECT `winning_wedge`, `error_spin` FROM `week` WHERE `spinner` = $id";
-	$data = db($sql);
-
-	$list = Array();
-
-	foreach($data as $spin){
-		$list[] = $spin['winning_wedge'];
-		if($spin['error_spin'] != ""){
-			$espin = explode(",", $spin['error_spin']);
-			if(count($espin) > 1){
-				foreach($espin as $ii){
-					$list[] = str_replace(" ","",$ii)."*";
-				}
-			} else {
-				$list[] = str_replace(" ","",$spin['error_spin'])."*";
-			}
-		}
-	}
-
-	return $list;
-
-}
-
 function listOfSpunNumbersByViewer_noChoice($id){
 	$sql = "SELECT `winning_wedge`, `error_spin` FROM `week` WHERE `spinner` = $id AND `selection_method` != 'viewer choice'";
 	$data = db($sql);
@@ -426,53 +387,7 @@ function listOfSpunNumbersByViewer_noChoice($id){
 	return $list;
 }
 
-function getSpunColors($id){
-	$sql = "SELECT * FROM `week` WHERE `spinner` = $id";
-	$data = db($sql);
 
-	$list = Array();
-
-	//global $wheel_color;
-
-	$wheel_color = getWheelColors();
-
-	if($data != NULL){
-		foreach($data as $item){
-			$list[] = $wheel_color[$item['selection_method']][$item['winning_wedge']];
-		}
-	}
-
-
-	return $list;
-}
-
-function getSpunViewers($id){
-	$sql = "SELECT * FROM `week` WHERE `spinner` = $id";
-	$data = db($sql);
-
-	$list = Array();
-
-	foreach($data as $item){
-		$name = getViewerName($item['moviegoer_'.$item['winning_wedge']]);
-
-
-		if(array_key_exists($name, $list)){
-			$list[$name]++;
-		} else {
-			$list[$name] = 1;
-		}
-
-		//$list[] = getViewerName($item['moviegoer_'.$item['winning_wedge']]);
-		//$list[] = $item['selection_method'] [$item['winning_wedge'];
-	}
-
-	$plist = Array();
-	foreach($list as $key => $value){
-		$plist[] = $key . " (". $value .")";
-	}
-
-	return $plist;
-}
 
 function getSpunViewers_v2($id){
 	$sql = "SELECT * FROM `week` WHERE `spinner` = $id AND `selection_method` != 'viewer choice' ORDER BY `winning_moviegoer`";
@@ -511,14 +426,6 @@ function get_current_streak($pdo){
 	return Array("winner_id" => $last_winner, "count" => $i);
 }
 
-
-function get_viewer_years_list($id){
-	//SELECT `week`.`id`, `date`, `moviegoer_1`, `moviegoer_2`, `moviegoer_3`, `moviegoer_4`, `moviegoer_5`, `moviegoer_6`, `moviegoer_7`, `moviegoer_8`, `moviegoer_9`, `moviegoer_10`, `moviegoer_11`, `moviegoer_12`, `film_1`.`year` AS `year_1`, `film_2`.`year` AS `year_2`, `film_3`.`year` AS `year_3`, `film_4`.`year` AS `year_4`, `film_5`.`year` AS `year_5`, `film_6`.`year` AS `year_6`, `film_7`.`year` AS `year_7`, `film_8`.`year` AS `year_8`, `film_9`.`year` AS `year_9`, `film_10`.`year` AS `year_10`, `film_11`.`year` AS `year_11`, `film_12`.`year` AS `year_12` FROM `week` LEFT JOIN `films` AS `film_1` ON (`week`.`wheel_1` = `film_1`.`id`) LEFT JOIN `films` AS `film_2` ON (`week`.`wheel_2` = `film_2`.`id`) LEFT JOIN `films` AS `film_3` ON (`week`.`wheel_3` = `film_3`.`id`) LEFT JOIN `films` AS `film_4` ON (`week`.`wheel_4` = `film_4`.`id`) LEFT JOIN `films` AS `film_5` ON (`week`.`wheel_5` = `film_5`.`id`) LEFT JOIN `films` AS `film_6` ON (`week`.`wheel_6` = `film_6`.`id`) LEFT JOIN `films` AS `film_7` ON (`week`.`wheel_7` = `film_7`.`id`) LEFT JOIN `films` AS `film_8` ON (`week`.`wheel_8` = `film_8`.`id`) LEFT JOIN `films` AS `film_9` ON (`week`.`wheel_9` = `film_9`.`id`) LEFT JOIN `films` AS `film_10` ON (`week`.`wheel_10` = `film_10`.`id`) LEFT JOIN `films` AS `film_11` ON (`week`.`wheel_11` = `film_11`.`id`) LEFT JOIN `films` AS `film_12` ON (`week`.`wheel_12` = `film_12`.`id`) WHERE ( `moviegoer_1` = '$id' OR `moviegoer_2` = '$id' OR `moviegoer_3` = '$id' OR `moviegoer_4` = '$id' OR `moviegoer_5` = '$id' OR `moviegoer_6` = '$id' OR `moviegoer_7` = '$id' OR `moviegoer_8` = '$id' OR `moviegoer_9` = '$id' OR `moviegoer_10` = '$id' OR `moviegoer_11` = '$id' OR `moviegoer_12` = '$id' );
-
-	$sql = "SELECT `week`.`id`, `date`, `moviegoer_1`, `moviegoer_2`, `moviegoer_3`, `moviegoer_4`, `moviegoer_5`, `moviegoer_6`, `moviegoer_7`, `moviegoer_8`, `moviegoer_9`, `moviegoer_10`, `moviegoer_11`, `moviegoer_12`, `film_1`.`year` AS `year_1`, `film_2`.`year` AS `year_2`, `film_3`.`year` AS `year_3`, `film_4`.`year` AS `year_4`, `film_5`.`year` AS `year_5`, `film_6`.`year` AS `year_6`, `film_7`.`year` AS `year_7`, `film_8`.`year` AS `year_8`, `film_9`.`year` AS `year_9`, `film_10`.`year` AS `year_10`, `film_11`.`year` AS `year_11`, `film_12`.`year` AS `year_12` FROM `week` LEFT JOIN `films` AS `film_1` ON (`week`.`wheel_1` = `film_1`.`id`) LEFT JOIN `films` AS `film_2` ON (`week`.`wheel_2` = `film_2`.`id`) LEFT JOIN `films` AS `film_3` ON (`week`.`wheel_3` = `film_3`.`id`) LEFT JOIN `films` AS `film_4` ON (`week`.`wheel_4` = `film_4`.`id`) LEFT JOIN `films` AS `film_5` ON (`week`.`wheel_5` = `film_5`.`id`) LEFT JOIN `films` AS `film_6` ON (`week`.`wheel_6` = `film_6`.`id`) LEFT JOIN `films` AS `film_7` ON (`week`.`wheel_7` = `film_7`.`id`) LEFT JOIN `films` AS `film_8` ON (`week`.`wheel_8` = `film_8`.`id`) LEFT JOIN `films` AS `film_9` ON (`week`.`wheel_9` = `film_9`.`id`) LEFT JOIN `films` AS `film_10` ON (`week`.`wheel_10` = `film_10`.`id`) LEFT JOIN `films` AS `film_11` ON (`week`.`wheel_11` = `film_11`.`id`) LEFT JOIN `films` AS `film_12` ON (`week`.`wheel_12` = `film_12`.`id`) WHERE ( `moviegoer_1` = '$id' OR `moviegoer_2` = '$id' OR `moviegoer_3` = '$id' OR `moviegoer_4` = '$id' OR `moviegoer_5` = '$id' OR `moviegoer_6` = '$id' OR `moviegoer_7` = '$id' OR `moviegoer_8` = '$id' OR `moviegoer_9` = '$id' OR `moviegoer_10` = '$id' OR `moviegoer_11` = '$id' OR `moviegoer_12` = '$id' )";
-
-		$result = db($sql);
-}
 
 function get_viewer_ratings_real($id){
 	$sql = "SELECT `week`.`id`, `date`, `moviegoer_1`, `moviegoer_2`, `moviegoer_3`, `moviegoer_4`, `moviegoer_5`, `moviegoer_6`, `moviegoer_7`, `moviegoer_8`, `moviegoer_9`, `moviegoer_10`, `moviegoer_11`, `moviegoer_12`,
@@ -564,16 +471,6 @@ function find_best_or_worst_watched_film_with_year_option($best_or_worst = "best
 	return $result;
 }
 
-function get_moviegoer_from_wedge($number, $id){
-	$column = "moviegoer_".$number;
-
-	$sql = "SELECT `$column` FROM `week` WHERE `id` = $id";
-
-	$result = db($sql);
-
-	return $result[0][$column];
-
-}
 
 function last_spin_date($id){
 
@@ -712,14 +609,6 @@ function count_yearly_events($year){
 	return $return[0]['COUNT(*)'];
 }
 
-function count_events(){
-
-	$sql = "SELECT COUNT(*) FROM `week`";
-
-	$return = db($sql);
-
-	return $return[0]['COUNT(*)'];
-}
 
 function viewer_watchtime($year = null){
 	if($year == null){
@@ -833,5 +722,3 @@ function count_viewer_win_streak_when_participating_and_not_viewer_choice($pdo, 
 
 	return array('count' => $max_counter, 'dates' => $final_dates);
 }
-
-?>

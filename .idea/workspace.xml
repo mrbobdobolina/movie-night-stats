@@ -5,11 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed612eca-27b7-46bc-9740-eb06d5844c4e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/inc/Event_Item.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/inc/Event_List.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/inc/Media_Item.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/inc/Viewer_Item.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/inc/Event_Date.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/inc/Media_Reviews.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/common.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/inc/Event_Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Event_Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/inc/Event_List.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Event_List.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/inc/Media_Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Media_Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/inc/Viewer_Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Viewer_Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/inc/films.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/films.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/inc/spinners.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/spinners.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/inc/viewers.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/viewers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/inc/week.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/week.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +62,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Makefile",
+    "settings.editor.selected.configurable": "preferences.sourceCode.HTML",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -80,7 +90,8 @@
       <workItem from="1658979700140" duration="4421000" />
       <workItem from="1666572080674" duration="9000" />
       <workItem from="1666572095621" duration="8000" />
-      <workItem from="1674369566896" duration="9614000" />
+      <workItem from="1674369566896" duration="10552000" />
+      <workItem from="1674423971627" duration="12968000" />
     </task>
     <servers />
   </component>

@@ -57,5 +57,3 @@ function count_viewer_spin_methods($pdo, $viewer_id){
 	return $result;
 
 }
-
-?>
