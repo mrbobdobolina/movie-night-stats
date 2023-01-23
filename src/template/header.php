@@ -118,3 +118,5 @@ add_page_load();
 		fireworks.start()
 		</script>
 	<?php endif; ?>
+<div class="py-5 bg-light">
+	<div class="container">

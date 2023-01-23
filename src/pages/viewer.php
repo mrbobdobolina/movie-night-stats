@@ -1,5 +1,4 @@
 <?php
-require_once('../common.php');
 
 if(isset($_GET['viewer'])){
 	$viewer = $_GET['viewer'];

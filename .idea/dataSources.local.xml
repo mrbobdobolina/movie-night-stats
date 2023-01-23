@@ -2,18 +2,8 @@
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="PS-223.8214.64">
     <data-source name="movienight@movienight.pi4.local" uuid="1a642cb7-674b-4787-8713-9de04bdb4232">
-      <database-info product="MariaDB" version="10.3.27-MariaDB-0+deb10u1" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="3.0.7" dbms="MARIADB" exact-version="10.3.27" exact-driver-version="3.0">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact" />
-      <secret-storage>session</secret-storage>
-      <user-name>root</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="movienight" />
-        </introspection-scope>
-      </schema-mapping>
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MARIADB" exact-version="0" />
+      <schema-mapping />
     </data-source>
   </component>
 </project>

@@ -1,12 +1,11 @@
 <?php /** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
 /** @noinspection SpellCheckingInspection */
 
-include('Event_Date.php');
-include('Event_Item.php');
-include('Media_Item.php');
-include('Media_Reviews.php');
-include('Viewer_Item.php');
-include_once('../common.php');
+include(ROOT.'/inc/Event_Date.php');
+include(ROOT.'/inc/Event_Item.php');
+include(ROOT.'/inc/Media_Item.php');
+include(ROOT.'/inc/Media_Reviews.php');
+include(ROOT.'/inc/Viewer_Item.php');
 
 class Event_List {
 	private $events;
@@ -29,6 +28,11 @@ class Event_List {
 			$query .= "`wedge_{$i}`.`year` AS `wedge_{$i}_media_year`,";
 			$query .= "`wedge_{$i}`.`runtime` AS `wedge_{$i}_media_runtime`,";
 			$query .= "`wedge_{$i}`.`mpaa` AS `wedge_{$i}_media_mpaa`,";
+			$query .= "`wedge_{$i}`.`mpaa` AS `wedge_{$i}_media_mpaa`,";
+			$query .= "`wedge_{$i}`.`first_instance` AS `wedge_{$i}_instance_first`,";
+			$query .= "`wedge_{$i}`.`last_instance` AS `wedge_{$i}_instance_last`,";
+			$query .= "`wedge_{$i}`.`imdb_id` AS `wedge_{$i}_imdb_id`,";
+			$query .= "`wedge_{$i}`.`poster_url` AS `wedge_{$i}_poster_url`,";
 			$query .= "\n";
 		}
 		$query .= "\n";
@@ -51,7 +55,10 @@ class Event_List {
 `wedge_win`.`year` AS `winner_media_year`,
 `wedge_win`.`runtime` AS `winner_media_runtime`,
 `wedge_win`.`mpaa` AS `winner_media_mpaa`,
-
+`wedge_win`.`first_instance` AS `winner_media_instance_first`,
+`wedge_win`.`last_instance` AS `winner_media_instance_last`,
+`wedge_win`.`imdb_id` AS `winner_media_imdb_id`,
+`wedge_win`.`poster_url` AS `winner_media_poster_url`,
 
 
 `week`.`spinner` AS `spinner_viewer_id`, `week`.`winning_moviegoer` AS `winner_viewer_id`, `week`.`scribe` AS `scribe_viewer_id`,

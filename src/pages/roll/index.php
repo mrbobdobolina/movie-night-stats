@@ -1,5 +1,4 @@
 <?php
-require_once("../../common.php");
 add_page_load();
 
 ?>

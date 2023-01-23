@@ -1,7 +1,5 @@
 <?php
 
-require_once("../../common.php");
-
 //diceapi.com seems to no longer be functional.
 //Switching to PHP random_int which is, according to the documentation, cryptographically secure.
  //$url = 'http://roll.diceapi.com/json/d12';

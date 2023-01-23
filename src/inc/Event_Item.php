@@ -41,7 +41,13 @@ class Event_Item {
 					]),
 					'year'    => $data['wedge_'.$i.'_media_year'],
 					'runtime' => $data['wedge_'.$i.'_media_runtime'],
-					'mpaa'    => $data['wedge_'.$i.'_media_mpaa']
+					'mpaa'    => $data['wedge_'.$i.'_media_mpaa'],
+					'instances' => [
+						'first' => $data['wedge_'.$i.'_instance_first'],
+						'last'  => $data['wedge_'.$i.'_instance_last']
+					],
+					'imdb_id'    => $data['wedge_'.$i.'_imdb_id'],
+					'poster_url' => $data['wedge_'.$i.'_poster_url']
 				]);
 
 				$this->viewers[$i] = new Viewer_Item([
@@ -63,7 +69,13 @@ class Event_Item {
 				]),
 				'year'    => $data['winner_media_year'],
 				'runtime' => $data['winner_media_runtime'],
-				'mpaa'    => $data['winner_media_mpaa']
+				'mpaa'    => $data['winner_media_mpaa'],
+				'instances' => [
+					'first' => $data['winner_media_instance_first'],
+					'last'  => $data['winner_media_instance_last']
+				],
+				'imdb_id'    => $data['winner_media_imdb_id'],
+				'poster_url' => $data['winner_media_poster_url']
 			]);
 
 			$this->spinner = new Viewer_Item([
@@ -83,7 +95,8 @@ class Event_Item {
 			]);
 
 			$this->winning_wedge = $data['winning_wedge'];
-			$this->format = $data['format'];
+			$this->format = new stdClass();
+			$this->format->name = $data['format'];
 			$this->error_spin = $data['error_spin'];
 			$this->theme = $data['theme'];
 			$this->attendees = $data['attendees'];
@@ -93,4 +106,32 @@ class Event_Item {
         }
     }
 
+	
+	public function average_year(){
+		$count = 0;
+		$total = 0;
+		
+		foreach($this->wedges as $wedge){
+			if($wedge->year !== null){
+				$count++;
+				$total += $wedge->year;
+			}
+		}
+		
+		return round(($total/$count), 0);
+	}
+	
+	public function average_rating(){
+		$count = 0;
+		$total = 0;
+		
+		foreach($this->wedges as $wedge){
+			if($wedge->reviews->average() != NULL){
+				$count++;
+				$total += $wedge->reviews->average();
+			}
+		}
+		
+		return ($count) ? round(($total/$count), 1) : NULL;
+	}
 }

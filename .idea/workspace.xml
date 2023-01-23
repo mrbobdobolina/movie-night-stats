@@ -5,21 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed612eca-27b7-46bc-9740-eb06d5844c4e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/inc/Event_Date.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/inc/Media_Reviews.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/src/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/common.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/inc/Event_Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Event_Item.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/inc/Event_List.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Event_List.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/inc/Media_Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Media_Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/inc/Viewer_Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Viewer_Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/inc/films.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/films.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/inc/spinners.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/spinners.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/inc/viewers.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/viewers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/inc/week.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/week.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/inc/Media_Reviews.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Media_Reviews.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/inc/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/db.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/attendance.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/attendance.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/changelog.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/changelog.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event_posters.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event_posters.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event_rows.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event_rows.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/event_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/movies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/movies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/really_dumb_stats.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/really_dumb_stats.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/roll/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/roll/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/roll/roll.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/roll/roll.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/services.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/viewer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/viewer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/viewers.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/viewers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/wheel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/wheel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/years.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/years.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/template/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/template/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/template/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/template/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/template/nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/template/nav.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,26 +64,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "true",
-    "last_opened_file_path": "/home/tv/PhpstormProjects/movie-night-stats/src",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.sourceCode.HTML",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/tv/PhpstormProjects/movie-night-stats/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql",
-      "mariadb"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;,
+      &quot;mariadb&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/pages" />
@@ -91,7 +108,7 @@
       <workItem from="1666572080674" duration="9000" />
       <workItem from="1666572095621" duration="8000" />
       <workItem from="1674369566896" duration="10552000" />
-      <workItem from="1674423971627" duration="12968000" />
+      <workItem from="1674423971627" duration="17524000" />
     </task>
     <servers />
   </component>

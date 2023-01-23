@@ -4,18 +4,12 @@ class Media_Item {
 	public $id;
 	public $name;
 	public $reviews;
-	/**
-	 * @var mixed
-	 */
 	public $year;
-	/**
-	 * @var mixed
-	 */
 	public $runtime;
-	/**
-	 * @var mixed
-	 */
 	public $mpaa;
+	public $instances;
+	public $imdb_id;
+	public $poster_url;
 
 	public function __construct($data = null){
 		if($data){
@@ -26,6 +20,9 @@ class Media_Item {
 			$this->year = $data['year'];
 			$this->runtime = $data['runtime'];
 			$this->mpaa = $data['mpaa'];
+			$this->instances = $data['instances'];
+			$this->imdb_id = $data['imdb_id'];
+			$this->poster_url = $data['poster_url'];
 		}
 	}
 }

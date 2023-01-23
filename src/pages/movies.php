@@ -1,7 +1,5 @@
 <?php
 
-require_once('../common.php');
-
 template('header');
 
 $movie_count = count_movie_list($pdo);

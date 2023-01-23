@@ -4,13 +4,13 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 if(!defined('ROOT')){
-	define('ROOT', dirname( __FILE__ ) . '/');
+	define('ROOT', dirname( __FILE__ ));
 }
 
 // Check if settings file exists
-if(file_exists(ROOT.'settings.config.php')){
+if(file_exists(ROOT.'/settings.config.php')){
 	// It Does!
-	require ROOT.'settings.config.php';
+	require ROOT.'/settings.config.php';
 }
 else {
 	// No Settings file. Redirect to an error page
@@ -20,7 +20,7 @@ else {
 
 $numberTypes = Array("arabic", "roman", "japanese", "arabic", "roman");
 
-include(ROOT.'inc/db.php');
+include(ROOT.'/inc/db.php');
 
 //check DB Version
 if(read_db_version_v2($pdo) != this_db_version()){
@@ -30,13 +30,13 @@ if(read_db_version_v2($pdo) != this_db_version()){
 
 // Includes a file from the template directory
 function template($part){
-	require_once(ROOT.'template/'.$part.'.php');
+	require_once(ROOT.'/template/'.$part.'.php');
 }
 
-include(ROOT.'inc/films.php');
-include(ROOT.'inc/spinners.php');
-include(ROOT.'inc/viewers.php');
-include(ROOT.'inc/week.php');
+include(ROOT.'/inc/films.php');
+include(ROOT.'/inc/spinners.php');
+include(ROOT.'/inc/viewers.php');
+include(ROOT.'/inc/week.php');
 
 function makeHistogram($data){
 

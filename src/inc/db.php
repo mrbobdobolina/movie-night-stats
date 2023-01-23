@@ -1,4 +1,7 @@
 <?php
+
+$db_counter = 0;
+
 // PDO instantiation
 try {
      $pdo = new PDO(DB_DSN, DB_USER, DB_PASS, DB_OPTIONS);
@@ -10,6 +13,10 @@ try {
 $db = new mysqli(DB_ADDR, DB_USER, DB_PASS, DB_NAME);
 function db($query = NULL){
 	static $db;
+	
+	global $db_counter;
+	
+	$db_counter++;
 
 	// Only connect to the database once.
 	if(!isset($db)){
