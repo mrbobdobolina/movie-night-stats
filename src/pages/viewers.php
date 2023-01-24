@@ -1,9 +1,4 @@
-<?php
-template('header');
-?>
 
-<div class="album py-5 bg-light">
-	<div class="container">
 		<p class="display-6 text-center ">The People</p>
 		<p class="lead text-center ">(They used to be your friends, but then you made them watch <span class="bg-dark text-white px-1"><strong>[REDACTED]</strong></span>.)</p>
 
@@ -325,7 +320,7 @@ template('header');
 
 							<?php endif; ?>
 
-							<a href="viewer.php?viewer=<?php echo $person['id']; ?>">More Details</a>
+							<a href="viewer?viewer=<?php echo $person['id']; ?>">More Details</a>
 						</div>
 					</div>
 				</div>
@@ -360,4 +355,3 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 })
 </script>
 
-<?php template('footer');?>

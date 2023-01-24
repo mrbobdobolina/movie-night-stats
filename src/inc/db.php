@@ -15,8 +15,6 @@ function db($query = NULL){
 	static $db;
 	
 	global $db_counter;
-	
-	$db_counter++;
 
 	// Only connect to the database once.
 	if(!isset($db)){
@@ -26,6 +24,7 @@ function db($query = NULL){
 
 	// Execute a query if provided
 	if(!empty($query)){
+		$db_counter++;
 		$result = $db->query($query);
 		// Stop if the DB errors
 		if(!$result){

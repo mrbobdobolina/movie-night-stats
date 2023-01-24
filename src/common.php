@@ -28,15 +28,17 @@ if(read_db_version_v2($pdo) != this_db_version()){
 	die();
 }
 
-// Includes a file from the template directory
-function template($part){
-	require_once(ROOT.'/template/'.$part.'.php');
-}
+
 
 include(ROOT.'/inc/films.php');
 include(ROOT.'/inc/spinners.php');
 include(ROOT.'/inc/viewers.php');
 include(ROOT.'/inc/week.php');
+
+// Includes a file from the template directory
+function template($part){
+	include(ROOT.'/template/'.$part.'.php');
+}
 
 function makeHistogram($data){
 

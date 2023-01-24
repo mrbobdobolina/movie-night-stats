@@ -2,6 +2,8 @@
 
 require_once('common.php');
 
+$db_counter = 0;
+
 $url = ROOT.'/pages/404.php';
 
 if(file_exists(ROOT.'/pages/'.$_GET['url'].'.php')){
@@ -16,4 +18,4 @@ template('header');
 include($url);
 
 
-template('footer'); 
+include(ROOT.'/template/footer.php');

@@ -1,7 +1,5 @@
 <?php
 
-template('header');
-
 $events = getListOfEvents("DESC");
 $count_events = count($events);
 $ten_percent = round(($count_events * .1), 0);
@@ -10,8 +8,6 @@ $sql = "SELECT `id`, `name`, `color` FROM `viewers` WHERE `attendance` >= $ten_p
 $top_viewers = db($sql);
 
 ?>
-<div class="album py-5 bg-light">
-	<div class="container">
 		<p class="display-6 text-center">Attendance, Selection, Winners: visualized.</p>
 		<p class="text-center mb-5">
 			<i class="fas fa-sync-alt px-1"></i> indicates spinner, <i class="far fa-trophy-alt px-1"></i> indicates winner.
@@ -92,7 +88,3 @@ $top_viewers = db($sql);
 			</tbody>
 		</table>
 
-	</div>
-</div>
-
-<?php template('footer');?>

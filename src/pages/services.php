@@ -1,11 +1,4 @@
-<?php
 
-template('header');
-
-?>
-
-<div class="album py-5 bg-light">
-  <div class="container">
 		<p class="display-6 text-center ">The Services</p>
 		<p class="lead text-center ">Things That Cost $$$ Every Month</p>
 
@@ -161,7 +154,3 @@ $("#gender").on("change",
 
 
 
-  </div>
-</div>
-
-<?php template('footer');?>

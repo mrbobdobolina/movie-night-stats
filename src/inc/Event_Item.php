@@ -19,8 +19,15 @@ class Event_Item {
 	public $selection_method;
 	public $runtime;
 	public $notes;
+	/**
+	 * @var mixed
+	 */
+	public $viewer_list;
 
-	public function __construct($data = null){
+	public function __construct($data = null, $viewer_list = null){
+		if($viewer_list){
+			$this->viewer_list = $viewer_list;
+		}
         if($data){
 
 			$this->id = $data['id'];

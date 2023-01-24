@@ -1,7 +1,5 @@
 <?php
 
-include(ROOT.'/inc/Event_List.php');
-
 $event_list = new Event_List();
 $event_list->init();
 

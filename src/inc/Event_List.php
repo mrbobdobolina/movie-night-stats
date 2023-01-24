@@ -6,12 +6,15 @@ include(ROOT.'/inc/Event_Item.php');
 include(ROOT.'/inc/Media_Item.php');
 include(ROOT.'/inc/Media_Reviews.php');
 include(ROOT.'/inc/Viewer_Item.php');
+include(ROOT.'/inc/Viewer_List.php');
 
 class Event_List {
 	private $events;
+	private $viewer_list;
 
 	public function __construct(){
-
+		$this->viewer_list = new Viewer_List();
+		$this->viewer_list->init();
 	}
 
 	public function init(){
@@ -95,7 +98,7 @@ ORDER BY `date` DESC";
 		$data = db($query);
 		$this->events = [];
 		foreach($data as $thing){
-			$this->events[] = new Event_Item($thing);
+			$this->events[] = new Event_Item($thing, $this->viewer_list);
 //			print_r($test);
 		}
 	}
@@ -115,6 +118,3 @@ ORDER BY `date` DESC";
 		return $watchtime;
 	}
 }
-
-$test = new Event_List();
-$test->init();

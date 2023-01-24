@@ -5,15 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed612eca-27b7-46bc-9740-eb06d5844c4e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/inc/Viewer_List.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/src/.htaccess" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/common.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/inc/Event_Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Event_Item.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/inc/Event_List.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Event_List.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/inc/Media_Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Media_Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/inc/Media_Reviews.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/Media_Reviews.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/inc/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/inc/db.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/attendance.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/attendance.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/changelog.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/changelog.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/event_posters.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/event_posters.php" afterDir="false" />
@@ -22,8 +21,6 @@
       <change beforePath="$PROJECT_DIR$/src/pages/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/movies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/movies.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/really_dumb_stats.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/really_dumb_stats.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/roll/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/roll/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/roll/roll.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/roll/roll.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/services.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/viewer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/viewer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/viewers.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/viewers.php" afterDir="false" />
@@ -31,7 +28,6 @@
       <change beforePath="$PROJECT_DIR$/src/pages/years.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/years.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/template/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/template/footer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/template/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/template/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/template/nav.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/template/nav.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,12 +56,16 @@
     </include_path>
   </component>
   <component name="ProjectId" id="2CYVquHFjSzlBPKEDo134op2npV" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
@@ -109,6 +109,8 @@
       <workItem from="1666572095621" duration="8000" />
       <workItem from="1674369566896" duration="10552000" />
       <workItem from="1674423971627" duration="17524000" />
+      <workItem from="1674445373758" duration="778000" />
+      <workItem from="1674540324384" duration="3307000" />
     </task>
     <servers />
   </component>
@@ -125,5 +127,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

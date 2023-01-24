@@ -1,7 +1,5 @@
 <?php
 
-template('header');
-
 //Array('date' => "", 'version' => '', 'details' => Array("")),
 $changes = Array(
 	Array('date'=>"January 14, 2023", 'version' => 'Version 4.0.3', 'details' => Array("Fixed bug where error spin wasn't added to DB correctly.","Fixed graphical issue where all 12 movies were tied for most requests.","Added viewer chart for spun methods.")),
@@ -48,34 +46,29 @@ $changes = Array(
 );
 ?>
 
-<div class="album py-5 bg-light">
-	<div class="container">
-		<p class="display-6 text-center mb-5">Changelog</p>
+<p class="display-6 text-center mb-5">Changelog</p>
 
-		<div class="row ">
-			<div class="card">
-				 <div class="card-body">
-					 <div id="content">
-						 <ul class="timeline">
-							 <?php foreach($changes as $single):?>
-								 <li class="event" data-date="<?php echo $single['date'];?>">
-									<h3><?php echo $single['version'];?></h3>
-									<?php
-										foreach($single['details'] as $detail){
-											echo '<p>'.$detail.'</p>';
-										}
-									?>
+<div class="row ">
+	<div class="card">
+		 <div class="card-body">
+			 <div id="content">
+				 <ul class="timeline">
+					 <?php foreach($changes as $single):?>
+						 <li class="event" data-date="<?php echo $single['date'];?>">
+							<h3><?php echo $single['version'];?></h3>
+							<?php
+								foreach($single['details'] as $detail){
+									echo '<p>'.$detail.'</p>';
+								}
+							?>
 
-							 <?php endforeach;?>
+					 <?php endforeach;?>
 
-						 </ul>
-					 </div>
-				 </div>
+				 </ul>
 			 </div>
+		 </div>
+	 </div>
 
 
-		</div>
-	</div>
 </div>
 
-<?php template('footer');?>

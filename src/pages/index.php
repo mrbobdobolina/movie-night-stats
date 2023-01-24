@@ -1,13 +1,8 @@
 <?php
 
-include(ROOT.'/inc/Event_List.php');
-
-
-
 $event_list = new Event_List();
 $event_list->init();
 $count_events = count($event_list->events());
-
 
 $numbers = $numberTypes[rand(0,3)];
 
@@ -117,7 +112,7 @@ $numbers = $numberTypes[rand(0,3)];
 							$attendees = explode(",", $event->attendees);
 							$viewers = Array();
 							foreach($attendees as $person){
-								$viewers[] = getMoviegoerById($person);
+								$viewers[] = $event->viewer_list->get_by_id(trim($person))->name;
 							}
 							?>
 							<ul>

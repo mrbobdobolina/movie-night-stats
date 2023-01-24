@@ -1,6 +1,8 @@
 <?php
 add_page_load();
 
+include(ROOT.'/inc/Event_List.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,10 +79,12 @@ add_page_load();
 <main>
 
 	<?php
-	$events = getListOfEvents("DESC");
-	$count_events = count($events);
+	$event_list = new Event_List();
+	$event_list->init();
+	$count_events = count($event_list->events());
+	
 	$fireworks_random = rand(1,100);
-	$lastWinner = get_last_winner();
+	$lastWinner = $event_list->events()[0]->winner_viewer->id;
 
 	if($count_events % 100 == 0 || $count_events % 50 == 0 || $fireworks_random == 1 || $lastWinner == 8):
 	?>
