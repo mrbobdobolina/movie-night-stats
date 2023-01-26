@@ -21,3 +21,5 @@ settings.config.php
 .idea/codeStyles/codeStyleConfig.xml
 
 .idea/dataSources/
+
+.idea/

@@ -7,8 +7,7 @@ class Event_Item {
 	public $date;
 	public $wedges;
 	public $viewers;
-	public $winner_media;
-	public $winner_viewer;
+	public $winner;
 	public $spinner;
 	public $scribe;
 	public $winning_wedge;
@@ -36,35 +35,36 @@ class Event_Item {
 			$this->viewers = [];
 
 			for($i = 1; $i <= 12; $i++){
-				$this->wedges[$i] = new Media_Item([
-					'id'   => $data['wedge_'.$i.'_media_id'],
-					'name' => $data['wedge_'.$i.'_media_name'],
-					'reviews' => new Media_Reviews([
-						'tomatometer'   => $data['wedge_'.$i.'_media_review_tomatometer'],
-						'rtaudience'    => $data['wedge_'.$i.'_media_review_rtaudience'],
-						'imdb'          => $data['wedge_'.$i.'_media_review_imdb'],
-						'metacritic'    => $data['wedge_'.$i.'_media_review_metacritic'],
-						'metauserscore' => $data['wedge_'.$i.'_media_review_metauserscore']
+				$this->wedges[$i] = [
+					'media' => new Media_Item([
+						'id'   => $data['wedge_'.$i.'_media_id'],
+						'name' => $data['wedge_'.$i.'_media_name'],
+						'reviews' => new Media_Reviews([
+							'tomatometer'   => $data['wedge_'.$i.'_media_review_tomatometer'],
+							'rtaudience'    => $data['wedge_'.$i.'_media_review_rtaudience'],
+							'imdb'          => $data['wedge_'.$i.'_media_review_imdb'],
+							'metacritic'    => $data['wedge_'.$i.'_media_review_metacritic'],
+							'metauserscore' => $data['wedge_'.$i.'_media_review_metauserscore']
+						]),
+						'year'    => $data['wedge_'.$i.'_media_year'],
+						'runtime' => $data['wedge_'.$i.'_media_runtime'],
+						'mpaa'    => $data['wedge_'.$i.'_media_mpaa'],
+						'instances' => [
+							'first' => $data['wedge_'.$i.'_instance_first'],
+							'last'  => $data['wedge_'.$i.'_instance_last']
+						],
+						'imdb_id'    => $data['wedge_'.$i.'_imdb_id'],
+						'poster_url' => $data['wedge_'.$i.'_poster_url']
 					]),
-					'year'    => $data['wedge_'.$i.'_media_year'],
-					'runtime' => $data['wedge_'.$i.'_media_runtime'],
-					'mpaa'    => $data['wedge_'.$i.'_media_mpaa'],
-					'instances' => [
-						'first' => $data['wedge_'.$i.'_instance_first'],
-						'last'  => $data['wedge_'.$i.'_instance_last']
-					],
-					'imdb_id'    => $data['wedge_'.$i.'_imdb_id'],
-					'poster_url' => $data['wedge_'.$i.'_poster_url']
-				]);
-
-				$this->viewers[$i] = new Viewer_Item([
-					'id'    => $data['wedge_'.$i.'_viewer_id'],
-					'name'  => $data['wedge_'.$i.'_viewer_name'],
-					'color' => $data['wedge_'.$i.'_viewer_color']
-				]);
+					'viewer' => new Viewer_Item([
+						'id'    => $data['wedge_'.$i.'_viewer_id'],
+						'name'  => $data['wedge_'.$i.'_viewer_name'],
+						'color' => $data['wedge_'.$i.'_viewer_color']
+					])
+				];
 			}
 
-			$this->winner_media = new Media_Item([
+			$this->winner['media'] = new Media_Item([
 				'id'   => $data['winner_media_id'],
 				'name' => $data['winner_media_name'],
 				'reviews' => new Media_Reviews([
@@ -90,7 +90,7 @@ class Event_Item {
 				'name'  => $data['spinner_viewer_name'],
 				'color' => $data['spinner_viewer_color']
 			]);
-			$this->winner_viewer = new Viewer_Item([
+			$this->winner['viewer'] = new Viewer_Item([
 				'id'    => $data['winner_viewer_id'],
 				'name'  => $data['winner_viewer_name'],
 				'color' => $data['winner_viewer_color']
@@ -119,9 +119,9 @@ class Event_Item {
 		$total = 0;
 		
 		foreach($this->wedges as $wedge){
-			if($wedge->year !== null){
+			if($wedge['media']->year !== null){
 				$count++;
-				$total += $wedge->year;
+				$total += $wedge['media']->year;
 			}
 		}
 		
@@ -133,9 +133,9 @@ class Event_Item {
 		$total = 0;
 		
 		foreach($this->wedges as $wedge){
-			if($wedge->reviews->average() != NULL){
+			if($wedge['media']->reviews->average() != NULL){
 				$count++;
-				$total += $wedge->reviews->average();
+				$total += $wedge['media']->reviews->average();
 			}
 		}
 		

@@ -1,10 +1,28 @@
 <?php
 
-$movie_count = count_movie_list($pdo);
+$viewer_list = new Viewer_List();
+$viewer_list->init();
+
+$event_list = new Event_List($viewer_list);
+$event_list->init();
+$count_events = count($event_list->events());
+
+
+$movie_stats = $event_list->stats_by_movie();
+
+function winning_film_count($movie_stats): int {
+	$count = 0;
+	foreach($movie_stats as $stat){
+		if(count($stat['wins'])){
+			$count++;
+		}
+	}
+	return $count;
+}
 
 ?>
-<p class="display-6 text-center "><?php echo $movie_count;?> Films We Could Have Watched</p>
-<p class="lead text-center ">(And the <?php echo countWatchedMovies();?> we did.)</p>
+<p class="display-6 text-center "><?php echo count($movie_stats);?> Films We Could Have Watched</p>
+<p class="lead text-center ">(And the <?php echo winning_film_count($movie_stats); ?> we did.)</p>
 
 <div class="row">
 	<p>
@@ -32,72 +50,66 @@ $movie_count = count_movie_list($pdo);
 		</thead>
 		<tbody>
 			<?php
-			$movies = get_movie_list($pdo);
-			$week_count = countWeeks();
-			$total_wedges = countWeeks()*12;
 			$oneHitWonders = 0;
 
 			$counter = 0;
 
-			foreach($movies as $movie):
+			foreach($movie_stats as $movie):
 				$counter++;
-				$winner = didIWin($movie['id']);
-				//$first_date = getFirstOrLastDate($movie['id'], "First");
 
-				$wedges = count_total_film_appearances($pdo, $movie['id']);
-				$weeks = countWeeksOnWheel($movie['id']);
+//				$wedges = count_total_film_appearances($pdo, $movie['id']);
+//				$weeks = countWeeksOnWheel($movie['id']);
 
-				if($winner['count'] > 0){
+				if($movie['wins']){
 					echo '<tr style="background-color:#82D173;">';
 				}
 				else {
 					echo '<tr>';
 				}
+				
+				if(count($movie['wins'])){
+					$media_first_win = $movie['wins'][count($movie['wins']) - 1];
+					$media_first_date = $movie['dates'][count($movie['dates']) - 1];
+					$media_first_format = $movie['formats'][count($movie['formats']) - 1];
+					
+					if($media_first_win->short() == $media_first_date->short()){
+						if($media_first_format != 'viewer choice'){
+							$oneHitWonders++;
+							echo '<td data-search="one hit wonder" data-order="2"><i class="fas fa-star" style="color:#FFFF00;"></i>';
+						} else {
+							echo '<td data-search="picked first night" data-order="1"><i class="fas fa-hand-point-down" style="color:#FFFF00;">';
+						}
+					} else {
+						echo '<td data-search="" data-order="0">';
+					}
+				}
+				else {
+					echo '<td data-search="" data-order="0">';
+				}
 
 				?>
-
-
-						<?php
-						if($winner['first_win'] == $movie['first_instance']){
-							if(!was_it_viewer_choice($movie['first_instance'],$movie['id'])){
-								$oneHitWonders++;
-								echo '<td data-search="one hit wonder" data-order="2"><i class="fas fa-star" style="color:#FFFF00;"></i>';
-							} else {
-								echo '<td data-search="picked first night" data-order="1"><i class="fas fa-hand-point-down" style="color:#FFFF00;">';
-							}
-						} else {
-							echo '<td data-search="" data-order="0">';
-						}?>
 					</td>
-					<td><?php echo $movie['name']; ?> </td>
-					<td class="text-center"><?php echo $movie['year']; ?></td>
-					<td class="text-end mpaa"><?php echo $movie['MPAA']; ?></td>
-					<td class="text-end"><?php echo $movie['runtime']; ?></td>
-					<td class="text-end"><?php echo get_movie_avg_rating($pdo,$movie['id']); ?></td>
-					<td class="text-center"><?php echo $winner['count']; ?></td>
-					<td class="text-center"><?php echo $wedges; ?></td>
-					<!-- <td class="text-end"><?php //echo round(($wedges/$total_wedges)*100,2);?>%</td>-->
-					<td class="text-center"><?php echo $weeks; ?></td>
-					<!-- <td class="text-end"><?php //echo round(($weeks/$week_count)*100,2);?>%</td>-->
-					<td><?php echo $movie['first_instance']; ?></td>
-					<td><?php echo $movie['last_instance'];?></td>
+					<td><?php echo $movie['item']->name; ?> </td>
+					<td class="text-center"><?php echo $movie['item']->year; ?></td>
+					<td class="text-end mpaa"><?php echo $movie['item']->mpaa; ?></td>
+					<td class="text-end"><?php echo $movie['item']->runtime; ?></td>
+					<td class="text-end"><?php echo $movie['item']->reviews->average(); ?>%</td>
+					<td class="text-center"><?php echo count($movie['wins']); ?></td>
+					<td class="text-center"><?php echo $movie['wedges']; ?></td>
+					<td class="text-center"><?php echo $movie['events']; ?></td>
+					<td><?php echo $movie['dates'][count($movie['dates'])-1]->short(); ?></td>
+					<td><?php echo $movie['dates'][0]->short();?></td>
 					<td>
 						<?php
-						$pickers = getPickers_v3($movie['id']);
-						//print_r($pickers);
 						$pickerArray = Array();
-						foreach($pickers as $viewer => $count){
-							$pickerArray[] = getViewerName($viewer) . " (".$count.")";
+						foreach($movie['pickers'] as $viewer){
+							$pickerArray[] = $viewer['item']->name . " (".$viewer['count'].")";
 						}
 						echo implode(", ", $pickerArray);
 						?>
 					</td>
 
 				</tr>
-
-				<script>
-					nanobar.go(<?php echo floor(($counter/$movie_count)*100)-1; ?>);
-				</script>
 			<?php endforeach; ?>
 		</tbody>
 	</table>
@@ -113,15 +125,15 @@ $movie_count = count_movie_list($pdo);
 </div>
 
 <script>
-	$(document).ready(function() {
-			$('#movies').DataTable(
-				{
-					"pageLength": 100,
-					 "lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
-					"order": [[ 1, "asc" ]]
-				}
-			);
-	} );
+$(document).ready(function() {
+	$('#movies').DataTable(
+		{
+			"pageLength": 100,
+			"lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
+			"order": [[ 1, "asc" ]]
+		}
+	);
+} );
 
-	</script>
+</script>
 

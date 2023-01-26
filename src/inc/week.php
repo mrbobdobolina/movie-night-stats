@@ -91,14 +91,6 @@ function getNumbersFromTool($tool){
 	return $histogram;
 }
 
-function countWatchedMovies(){
-	$sql = "SELECT `winning_film` FROM `week`";
-	$data = db($sql);
-	$list = array_column($data, "winning_film");
-
-	return count(array_unique($list));
-}
-
 function listWatchedMovies(){
 	$sql = "SELECT `winning_film` FROM `week`";
 	$data = db($sql);
@@ -137,12 +129,6 @@ function calculate_attendance($year){
 	return $total;
 }
 
-function get_last_winner(){
-	$sql = "SELECT `winning_moviegoer` FROM `week` ORDER BY `date` DESC LIMIT 1";
-	$data = db($sql)[0]['winning_moviegoer'];
-
-	return $data;
-}
 
 function winners_by_year($year){
 	$time1 = $year."-01-01";
@@ -247,44 +233,6 @@ function most_requested_film($year){
 }
 
 
-function countWeeksOnWheel($filmID){
-	$query_first = "SELECT COUNT(*) AS `count` FROM `week` WHERE `wheel_1` = {$filmID} OR `wheel_2` = {$filmID} OR `wheel_3` = {$filmID} OR `wheel_4` = {$filmID} OR `wheel_5` = {$filmID} OR `wheel_6` = {$filmID} OR `wheel_7` = {$filmID} OR `wheel_8` = {$filmID} OR `wheel_9` = {$filmID} OR `wheel_10` = {$filmID} OR `wheel_11` = {$filmID} OR `wheel_12` = {$filmID}";
-
-	$data = db($query_first)[0];
-
-	return $data['count'];
-}
-
-function didIWin($filmID){
-	$sql = "SELECT `date` FROM `week` WHERE `winning_film` = $filmID ORDER BY `date` ASC";
-
-	$data = db($sql);
-
-	if($data){
-		$count = count($data);
-		$return_this = $data[0]['date'];
-	} else {
-		$count = "";
-		$return_this = NULL;
-	}
-
-	return Array("count" => $count, "first_win"=> $return_this);
-
-}
-
-function was_it_viewer_choice($date, $filmID){
-	$sql = "SELECT `selection_method` FROM `week` WHERE `date` = '$date' AND `winning_film` = '$filmID'";
-
-	$data = db($sql);
-
-	if($data != NULL){
-		if($data[0]['selection_method'] == "viewer choice"){
-			return TRUE;
-		} else {
-			return FALSE;
-		}
-	}
-}
 
 function winningPickStats($user_id){
 	$wedge_query = 'SELECT `id`,`winning_wedge` FROM `week`';

@@ -84,7 +84,7 @@ include(ROOT.'/inc/Event_List.php');
 	$count_events = count($event_list->events());
 	
 	$fireworks_random = rand(1,100);
-	$lastWinner = $event_list->events()[0]->winner_viewer->id;
+	$lastWinner = $event_list->events()[0]->winner['viewer']->id;
 
 	if($count_events % 100 == 0 || $count_events % 50 == 0 || $fireworks_random == 1 || $lastWinner == 8):
 	?>

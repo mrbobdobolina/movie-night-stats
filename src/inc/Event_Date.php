@@ -14,4 +14,12 @@ class Event_Date {
 			return 'DATE ERROR';
 		}
 	}
+	
+	public function short() {
+		try {
+			return (new DateTime($this->date))->format('Y-m-d');
+		} catch (Exception $e) {
+			return 'DATE ERROR';
+		}
+	}
 }

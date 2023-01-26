@@ -2,9 +2,11 @@
 
 class Viewer_List {
 	public $viewers;
+	public $event_list;
 
-	public function __construct(){
+	public function __construct($event_list = null){
 		$this->viewers = [];
+		$this->event_list = $event_list;
 	}
 	
 	public function init(){

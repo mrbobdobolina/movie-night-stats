@@ -27,12 +27,12 @@ $numbers = $numberTypes[rand(0,3)];
 	<tbody>
 	<?php foreach($event_list->events() as $event): ?>
 	
-		<tr class="text-white" style="background-color:#<?php echo $event->winner_viewer->color; ?>">
+		<tr class="text-white" style="background-color:#<?php echo $event->winner['viewer']->color; ?>">
 			<td><?php echo $count_events--; ?></td>
 			<td><?php echo $event->date->long(); ?></td>
 			<td><?php echo $event->winning_wedge; ?></td>
-			<td><?php echo $event->winner_media->name; ?></td>
-			<td><?php echo $event->winner_viewer->name; ?></td>
+			<td><?php echo $event->winner['media']->name; ?></td>
+			<td><?php echo $event->winner['viewer']->name; ?></td>
 			<td><?php echo $event->spinner->name; ?></td>
 			<td><?php echo $event->selection_method; ?></td>
 			<td><?php echo $event->format->name; ?></td>

@@ -14,24 +14,6 @@ function get_movie_list($pdo){
 	return $list;
 }
 
-function count_movie_list($pdo){
-	$count = $pdo->query('SELECT count(*) FROM films')->fetchColumn();
-	//we subtract one from the total count because db contains a null field for id = 0...
-	//I'm sure there's a good reason for this.
-	return $count - 1;
-}
-
-function count_total_film_appearances($pdo, $film_id){
-	$counter = 0;
-	for($i = 1; $i <= 12; $i++){
-		$sql = "SELECT count(*) FROM week WHERE wheel_".$i." = ?";
-		$stmt = $pdo->prepare($sql);
-		$stmt->execute([$film_id]);
-		$counter += $stmt->fetchColumn();
-	}
-	return $counter;
-}
-
 function get_movie_runtime($pdo, $film_id){
 	$stmt = $pdo->prepare('SELECT runtime FROM films WHERE id = ?');
 	$stmt->execute([$film_id]);
@@ -45,32 +27,6 @@ function get_movie_year($pdo, $film_id){
 	$stmt->execute([$film_id]);
 	$result = $stmt->fetchColumn();
 	return $result;
-}
-
-/**
-* Returns array of viewers who put a given film on the wheel.
-* @param int $filmID id value for a given film
-* @return array( "User ID" => "Number of times they picked a given film")
-*/
-function getPickers_v3($filmID){
-	$movie_pickers = [];
-
-	$sql = "SELECT * FROM `week` WHERE `wheel_1` = $filmID OR `wheel_2` = $filmID OR `wheel_3` = $filmID OR `wheel_4` = $filmID OR `wheel_5` = $filmID OR `wheel_6` = $filmID OR `wheel_7` = $filmID OR `wheel_8` = $filmID OR `wheel_9` = $filmID OR `wheel_10` = $filmID OR `wheel_11` = $filmID OR `wheel_12` = $filmID ";
-
-	$data_pickers = db($sql);
-
-	foreach($data_pickers as $week){
-		for($i = 1; $i <= 12; $i++){
-			if($week["wheel_$i"] == $filmID){
-				if(isset($movie_pickers[$week["moviegoer_$i"]])){
-					$movie_pickers[$week["moviegoer_$i"]]++;
-				} else {
-					$movie_pickers[$week["moviegoer_$i"]] = 1;
-				}
-			}
-		}
-	}
-	return $movie_pickers;
 }
 
 
@@ -161,54 +117,4 @@ function myMoviePicksForWeekID($id, $viewerID){
 	return $returnMe;
 }
 
-function get_movie_avg_rating($pdo, $film_id){
-	$stmt = $pdo->prepare('SELECT (COALESCE(tomatometer,0)+COALESCE(rt_audience,0)+COALESCE(imdb,0)) / ( COUNT(tomatometer) + COUNT(rt_audience) + COUNT(imdb) ) FROM films WHERE  id = ?');
-	$stmt->execute([$film_id]);
-	$result = $stmt->fetchColumn();
-	return round($result, 1)."%";
-}
 
-function get_MPAA($pdo, $film_id){
-	$stmt = $pdo->prepare('SELECT MPAA FROM films WHERE id = ?');
-	$stmt->execute([$film_id]);
-	$result = $stmt->fetchColumn();
-	return $result;
-}
-
-function get_movie_poster($pdo, $film_id){
-	$sql = "SELECT `poster_url` FROM `films` WHERE `id` = $film_id";
-
-	$result = db($sql);
-
-	if($result[0]['poster_url']!= ""){
-		return $result[0]['poster_url'];
-	}
-
-	$movie_info_url = "http://www.omdbapi.com/?t=".str_replace(" ","+",get_movie_by_id($pdo,$film_id))."&y=".get_movie_year($pdo,$film_id)."&apikey=".OMDB_API_KEY;
-	$movie_info = json_decode(file_get_contents($movie_info_url), true);
-
-	if($movie_info['Response'] == "True"){
-		$poster_url = $movie_info['Poster'];
-		$imdb_id = $movie_info['imdbID'];
-
-		$sql = "UPDATE `films` SET `poster_url` = '$poster_url', `imdb_id` = '$imdb_id' WHERE `id` = $film_id";
-		db($sql);
-
-		return $poster_url;
-	} else {
-		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",get_movie_by_id($pdo,$film_id));
-	}
-
-}
-
-function get_movie_poster_v3($pdo, $film_id){
-	$stmt = $pdo->prepare('SELECT poster_url FROM films WHERE id = ?');
-	$stmt->execute([$film_id]);
-	$poster = $stmt->fetchColumn();
-
-	if($poster != ""){
-		return $poster;
-	} else {
-		return "https://via.placeholder.com/400x600/333/fff?text=".str_replace(" ","+",get_movie_by_id($pdo,$film_id));
-	}
-}

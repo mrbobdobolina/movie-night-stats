@@ -12,9 +12,8 @@ class Event_List {
 	private $events;
 	private $viewer_list;
 
-	public function __construct(){
-		$this->viewer_list = new Viewer_List();
-		$this->viewer_list->init();
+	public function __construct($viewer_list = null){
+		$this->viewer_list = $viewer_list;
 	}
 
 	public function init(){
@@ -116,5 +115,58 @@ ORDER BY `date` DESC";
 		}
 
 		return $watchtime;
+	}
+	
+	
+	public function stats_by_movie(){
+		$movie_stats = [];
+		
+		foreach($this->events() as $event){
+			$already_counted_win = false;
+			$already_counted_media = [];
+			
+			foreach($event->wedges as $wedge){
+				if($wedge['media']->id) {
+					$this_id = $wedge['media']->id;
+					
+					if (!array_key_exists($this_id, $movie_stats)) {
+						$movie_stats[$this_id] = [
+							'item' => $wedge['media'],
+							'wins' => [],
+							'formats' => [],
+							'wedges' => 0,
+							'events' => 0,
+							'dates' => [],
+							'pickers' => []
+						];
+					}
+					
+					$movie_stats[$this_id]['dates'][] = $event->date;
+					$movie_stats[$this_id]['wedges']++;
+
+					if (!in_array($this_id, $already_counted_media)) {
+						$movie_stats[$this_id]['events']++;
+						$already_counted_media[] = $this_id;
+					}
+
+					if (!$already_counted_win && $event->winner['media']->id == $this_id) {
+						$movie_stats[$this_id]['wins'][] = $event->date;
+						$movie_stats[$this_id]['formats'][] = $event->format->name;
+						$already_counted_win = true;
+					}
+					
+					if(!array_key_exists($wedge['viewer']->id, $movie_stats[$this_id]['pickers'])){
+						$movie_stats[$this_id]['pickers'][$wedge['viewer']->id] = [
+							'item' => $wedge['viewer'],
+							'count' => 0
+						];
+					}
+					$movie_stats[$this_id]['pickers'][$wedge['viewer']->id]['count']++;
+				}
+				
+			}
+		}
+		
+		return $movie_stats;
 	}
 }

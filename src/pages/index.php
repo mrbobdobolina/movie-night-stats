@@ -1,6 +1,9 @@
 <?php
 
-$event_list = new Event_List();
+$viewer_list = new Viewer_List();
+$viewer_list->init();
+
+$event_list = new Event_List($viewer_list);
 $event_list->init();
 $count_events = count($event_list->events());
 
@@ -45,7 +48,7 @@ $numbers = $numberTypes[rand(0,3)];
 			<div class="card">
 
 				<!-- Card Header -->
-				<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo $event->winner_viewer->color; ?>">
+				<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo $event->winner['viewer']->color; ?>">
 					<h3>Event <?php echo displayNumbers($count_events--, $numbers);?></h3>
 					<small><em><?php echo $event->date->long(); ?></em></small>
 				</div>
@@ -59,7 +62,7 @@ $numbers = $numberTypes[rand(0,3)];
 							?>
 							<div class="col">
 								<div class="card-body text-center justify-content-center">
-									<img src="<?php echo $event->winner_media->poster_url; ?>" class="img-fluid poster" alt="winning movie poster">
+									<img src="<?php echo $event->winner['media']->poster_url; ?>" class="img-fluid poster" alt="winning movie poster">
 								</div>
 							</div>
 							<?php
@@ -72,16 +75,14 @@ $numbers = $numberTypes[rand(0,3)];
 								<tbody>
 									<?php
 									$movie_freshness = Array();
-									$movie_years = Array();
 									for($ii = 1; $ii <= 12; $ii++):
-										$movie_years[] = $event->wedges[$ii]->year;
 
-										if($event->wedges[$ii]->id != 0){
-											$movie_freshness[] = $event->wedges[$ii]->reviews->average();
+										if($event->wedges[$ii]['media']->id != 0){
+											$movie_freshness[] = $event->wedges[$ii]['media']->reviews->average();
 										}
 
 										if($event->winning_wedge == $ii){
-											echo '<tr class="bold text-white homepage" style="background-color:#'.$event->viewers[$ii]->color.'">';
+											echo '<tr class="bold text-white homepage" style="background-color:#'.$event->wedges[$ii]['viewer']->color.'">';
 										}
 										else {
 											echo '<tr class="homepage">';
@@ -89,8 +90,8 @@ $numbers = $numberTypes[rand(0,3)];
 
 										?>
 											<td class="number homepage"><?php echo $ii; ?></td>
-											<td class="viewer-name text-center homepage" ><?php echo $event->viewers[$ii]->name; ?></td>
-											<td class="movie-title homepage"><?php echo $event->wedges[$ii]->name; ?></td>
+											<td class="viewer-name text-center homepage" ><?php echo $event->wedges[$ii]['viewer']->name; ?></td>
+											<td class="movie-title homepage"><?php echo $event->wedges[$ii]['media']->name; ?></td>
 										</tr>
 
 									<?php endfor;?>
@@ -108,7 +109,6 @@ $numbers = $numberTypes[rand(0,3)];
 					<div class="collapse" id="collapseExample_<?php echo $count_events; ?>">
 						<div class="card card-body">
 							<?php
-							$movie_years = array_filter($movie_years);
 							$attendees = explode(",", $event->attendees);
 							$viewers = Array();
 							foreach($attendees as $person){
@@ -126,9 +126,9 @@ $numbers = $numberTypes[rand(0,3)];
 								<li><strong>Runtime:</strong> <?php echo $event->runtime; ?> minutes</li>
 								<li><strong>MPAA:</strong> <?php echo $event->winner_media->mpaa; ?></li>
 								<li><strong>Collective Movie Score:</strong> <?php echo $event->average_rating(); ?>%</li>
-								<li><strong>Winning Movie Score:</strong> <?php echo $event->winner_media->reviews->average(); ?>%</li>
-								<li><strong>Average Movie Year:</strong> <?php echo $event->average_year(); //round(array_sum($movie_years)/count($movie_years)); ?></li>
-								<li><strong>Winning Movie Year:</strong> <?php echo $event->winner_media->year;?></li>
+								<li><strong>Winning Movie Score:</strong> <?php echo $event->winner['media']->reviews->average(); ?>%</li>
+								<li><strong>Average Movie Year:</strong> <?php echo $event->average_year(); ?></li>
+								<li><strong>Winning Movie Year:</strong> <?php echo $event->winner['media']->year;?></li>
 							</ul>
 						</div>
 					</div>
