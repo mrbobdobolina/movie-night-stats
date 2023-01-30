@@ -122,9 +122,9 @@ $numbers = $numberTypes[rand(0,3)];
 								<li><strong>Bad Spin #s:</strong> <?php echo $event->error_spin; ?></li>
 								<li><strong>Theme/Comment:</strong> <?php echo $event->theme; ?></li>
 								<li><strong>Movie Format:</strong> <?php echo $event->format->name; ?></li>
-								<li><strong>Selection Tool:</strong> <?php echo $event->selection_method; ?></li>
+								<li><strong>Selection Tool:</strong> <?php echo $event->selection_method->name; ?></li>
 								<li><strong>Runtime:</strong> <?php echo $event->runtime; ?> minutes</li>
-								<li><strong>MPAA:</strong> <?php echo $event->winner_media->mpaa; ?></li>
+								<li><strong>MPAA:</strong> <?php echo $event->winner['media']->mpaa; ?></li>
 								<li><strong>Collective Movie Score:</strong> <?php echo $event->average_rating(); ?>%</li>
 								<li><strong>Winning Movie Score:</strong> <?php echo $event->winner['media']->reviews->average(); ?>%</li>
 								<li><strong>Average Movie Year:</strong> <?php echo $event->average_year(); ?></li>

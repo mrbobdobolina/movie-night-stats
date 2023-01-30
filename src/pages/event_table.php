@@ -34,7 +34,7 @@ $numbers = $numberTypes[rand(0,3)];
 			<td><?php echo $event->winner['media']->name; ?></td>
 			<td><?php echo $event->winner['viewer']->name; ?></td>
 			<td><?php echo $event->spinner->name; ?></td>
-			<td><?php echo $event->selection_method; ?></td>
+			<td><?php echo $event->selection_method->name; ?></td>
 			<td><?php echo $event->format->name; ?></td>
 		</tr>
 	<?php endforeach; ?>

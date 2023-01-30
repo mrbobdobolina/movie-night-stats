@@ -1,6 +1,6 @@
 <?php
 
-require_once('common.php');
+include_once('common.php');
 
 $db_counter = 0;
 
@@ -19,3 +19,5 @@ include($url);
 
 
 include(ROOT.'/template/footer.php');
+
+//phpinfo();

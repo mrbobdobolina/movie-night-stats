@@ -55,21 +55,20 @@ function makeHistogram($data){
 	return $histogram;
 }
 
-function HTMLToRGB($htmlCode)
-  {
-    if($htmlCode[0] == '#')
-      $htmlCode = substr($htmlCode, 1);
-
-    if (strlen($htmlCode) == 3)
-    {
-      $htmlCode = $htmlCode[0] . $htmlCode[0] . $htmlCode[1] . $htmlCode[1] . $htmlCode[2] . $htmlCode[2];
-    }
-
-    $r = hexdec($htmlCode[0] . $htmlCode[1]);
-    $g = hexdec($htmlCode[2] . $htmlCode[3]);
-    $b = hexdec($htmlCode[4] . $htmlCode[5]);
-
-  return "rgba($r, $g, $b, .1)";
+function convert_hex_to_rgba($hex, $alpha = 0.1): string {
+	if($hex[0] == '#'){
+		$hex = substr($hex, 1);
+	}
+	
+	if (strlen($hex) == 3){
+		$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+	}
+	
+	$r = hexdec($hex[0] . $hex[1]);
+	$g = hexdec($hex[2] . $hex[3]);
+	$b = hexdec($hex[4] . $hex[5]);
+	
+	return "rgba($r, $g, $b, $alpha)";
 }
 
 function biggest_winner($year){

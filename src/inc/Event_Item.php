@@ -60,7 +60,8 @@ class Event_Item {
 						'id'    => $data['wedge_'.$i.'_viewer_id'],
 						'name'  => $data['wedge_'.$i.'_viewer_name'],
 						'color' => $data['wedge_'.$i.'_viewer_color']
-					])
+					]),
+					'is_winner' => $i == $data['winning_wedge']
 				];
 			}
 
@@ -107,7 +108,8 @@ class Event_Item {
 			$this->error_spin = $data['error_spin'];
 			$this->theme = $data['theme'];
 			$this->attendees = $data['attendees'];
-			$this->selection_method = $data['selection_method'];
+			$this->selection_method = new stdClass();
+			$this->selection_method->name = $data['selection_method'];
 			$this->runtime = $data['runtime'];
 			$this->notes = $data['notes'];
         }
@@ -140,5 +142,16 @@ class Event_Item {
 		}
 		
 		return ($count) ? round(($total/$count), 1) : NULL;
+	}
+	
+	public function attendees(){
+		$viewers = [];
+		
+		foreach(explode(',',$this->attendees) as $viewer_id){
+			$viewer_id = trim($viewer_id);
+			$viewers[] = $this->viewer_list->get_by_id($viewer_id);
+		}
+		
+		return $viewers;
 	}
 }

@@ -1,7 +1,7 @@
 <header>
 	<div class="bg-red shadow-sm ">
 		<div class="container d-flex header-image text-center" style="height:233px;">
-			<a href="../pages/index.php">
+			<a href="/">
 				<img src="images/MovieNightStats_v02B_Rectangle_Transparent.png" class="img-fluid">
 			</a>
 		</div>
