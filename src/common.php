@@ -99,17 +99,6 @@ function highest_attendance($year){
 	return Array('top' => $top_winners, 'count' => $max);
 }
 
-function countMyTotalPics($id){
-	$myList = listMyTotalPicksReal($id);
-
-	return count($myList);
-}
-
-function calculateMyUniquePicks($id){
-	$myList = listMyTotalPicksReal($id);
-	$myUnique = array_column($myList, 'filmID');
-	return count(array_unique($myUnique));
-}
 
 function graphSpunNumbersByViewer($id){
 
@@ -246,30 +235,6 @@ function number_to_japanese_kanji($number){
 	return $string;
 }
 
-function get_freshness($array){
-	return round((array_sum($array)/(count(array_filter($array))*100))*100, 0);
-}
-
-
-
-function get_viewers_years_single($pdo,$id){
-	$events = getListOfEvents("ASC");
-	$viewerPicks = Array();
-	foreach($events as $anEvent){
-		for($i = 1; $i <=12; $i++){
-			if($anEvent["moviegoer_$i"] == $id){
-				$viewerPicks[] = $anEvent["wheel_$i"];
-			}
-		}
-	}
-	$viewerPicksUnique = array_unique($viewerPicks);
-
-	$viewerYears = Array();
-	foreach($viewerPicksUnique as $film){
-			$viewerYears[] = get_movie_year($pdo,$film);
-	}
-	return $viewerYears;
-}
 
 
 /**
@@ -358,7 +323,7 @@ function this_db_version(){
 }
 
 function echoVersionNumber(){
-	echo "4.0.3";
+	echo "5.0.0";
 	return;
 }
 

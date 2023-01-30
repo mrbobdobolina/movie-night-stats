@@ -22,43 +22,6 @@ function get_movie_runtime($pdo, $film_id){
 }
 
 
-function get_movie_year($pdo, $film_id){
-	$stmt = $pdo->prepare('SELECT year FROM films WHERE id = ?');
-	$stmt->execute([$film_id]);
-	$result = $stmt->fetchColumn();
-	return $result;
-}
-
-
-
-function count_attendance($pdo, $viewer_id){
-	$stmt = $pdo->prepare('SELECT attendance FROM viewers WHERE id = ?');
-	$stmt->execute([$viewer_id]);
-	$result = $stmt->fetchColumn();
-	return $result;
-}
-
-function count_all_attendance_v2($pdo){
-	$stmt = $pdo->prepare("SELECT attendees FROM week");
-	$stmt->execute();
-	$list = $stmt->fetchAll();
-
-	$attendees_count = Array();
-
-	foreach($list as $row){
-		$people = explode(", ", $row['attendees']);
-
-		foreach($people as $person){
-			if(array_key_exists($person,$attendees_count)){
-				$attendees_count[$person]++;
-			} else {
-				$attendees_count[$person] = 1;
-			}
-		}
-	}
-
-	return $attendees_count;
-}
 
 function count_scribing($pdo, $id){
 	$stmt = $pdo->prepare('SELECT count(*) FROM week WHERE scribe = ?');
@@ -67,31 +30,6 @@ function count_scribing($pdo, $id){
 	return $count;
 }
 
-function count_total_picks_for_everyone($pdo){
-	$stmt = $pdo->prepare('SELECT * FROM week');
-	$stmt->execute();
-	$week_list = $stmt->fetchAll();
-
-	$attendee_pick_list = Array();
-
-	foreach($week_list as $week){
-		for($i = 1; $i <= 12; $i++){
-			if(array_key_exists($week['moviegoer_'.$i], $attendee_pick_list)){
-				$attendee_pick_list[$week['moviegoer_'.$i]][] = $week['wheel_'.$i];
-			} else {
-				$attendee_pick_list[$week['moviegoer_'.$i]] = Array($week['wheel_'.$i]);
-			}
-		}
-	}
-	//print_r($attendee_pick_list);
-	$attendee_pick_count = Array();
-
-	foreach($attendee_pick_list as $key => $attendee){
-		$attendee_pick_count[$key] = Array("total" => count($attendee), "unique" => count(array_unique($attendee)));
-	}
-
-	return $attendee_pick_count;
-}
 
 function listMyTotalPicksReal($id){
 	$weeks = getListOfEvents();

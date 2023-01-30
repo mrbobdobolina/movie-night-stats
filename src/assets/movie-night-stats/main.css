@@ -39,9 +39,6 @@ a {
 .number{
 	width:10%;
 }
-.bold{
-	font-weight: bold;
-}
 .header-image{
 	max-width:800px;
 	display:inline-block;
@@ -59,15 +56,6 @@ canvas {
 	font-variant-numeric: tabular-nums;
 }
 
-li{
-	margin-bottom:10px;
-	margin-top:10px;
-}
-ul{
-	list-style-type: none;
-	padding: 0;
-	margin: 5;
-}
 .data{
 	color: #fff;
 	font-weight:bold;

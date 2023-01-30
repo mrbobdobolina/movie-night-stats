@@ -171,7 +171,7 @@
 			</div>
 			<div class="col-md-8">
 			<div class="card-body">
-				<h5 class="card-title bold">Wheel Version 1.1</h5>
+				<h5 class="card-title fw-bold">Wheel Version 1.1</h5>
 				<p class="card-text">Wheel version 1 was made from a $3 clock in the entrance of target and a fidget spinner bearing. Small brad nails were used as pegs and the flipper was crafted from hardwood. Version 1.0 broke on it's first spin. Several brad nails were dislodged upon contact with the flipper. The flipper also broke. The original flipper was replaced with a thin piece of project board and the nails were replaced with wooden dowel pegs and thus Version 1.1 was born.</p>
 			</div>
 			</div>
@@ -185,7 +185,7 @@
 			</div>
 			<div class="col-md-8">
 			<div class="card-body">
-				<h5 class="card-title bold">Wheel Version 2</h5>
+				<h5 class="card-title fw-bold">Wheel Version 2</h5>
 				<p class="card-text">Wheel version 2 was build using a piece of plywood. It was used for 17 spins before it was found to be weighted and most likely to land on the number 8. While it may be possible to reblance the wheel at some point, no efforts have been made at this time.</p>
 			</div>
 			</div>
@@ -199,7 +199,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="card-body">
-						<h5 class="card-title bold">Wheel Version 3</h5>
+						<h5 class="card-title fw-bold">Wheel Version 3</h5>
 						<p class="card-text">Wheel version 3 was designed using particleboard, which should have a more uniform density than plywood. It used a similar flipper and axel to the other two. It was designed to be 18 inches in diameter, which became an issue when drilling the center hole. The wheel is heavy and does not sit level as it rotates. The balance was fine-tuned using tacks along the perimeter, though the level of balance is still being debated. Wheel 3 broke while an attempt was made to update the spinning mechanism. It has not been repaired.</p>
 					</div>
 				</div>
@@ -213,7 +213,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="card-body">
-						<h5 class="card-title bold">Die (or dice)</h5>
+						<h5 class="card-title fw-bold">Die (or dice)</h5>
 						<p class="card-text">A single 12-sided die is often used. There is no single die designated for rolling. Dice rolled include a large 5" foam die and smaller normal dice. The only requirements for dice is that they be 12-sided and not weighted.</p>
 					</div>
 				</div>
@@ -227,7 +227,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="card-body">
-						<h5 class="card-title bold">Bobbot</h5>
+						<h5 class="card-title fw-bold">Bobbot</h5>
 						<p class="card-text">Bobbot was (is?) a Discord Bot built by TV to allow users to spin electronically. The bot has been offline since July 2020.</p>
 					</div>
 				</div>
@@ -241,7 +241,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="card-body">
-						<h5 class="card-title bold">Viewer Choice</h5>
+						<h5 class="card-title fw-bold">Viewer Choice</h5>
 						<p class="card-text">Occasionally we decide it's better not to leave things up to chance. Typically this means only one person is present for movie night or everyone attending wants to watch the same thing.</p>
 					</div>
 				</div>
@@ -255,7 +255,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="card-body">
-						<h5 class="card-title bold">wheelofsus</h5>
+						<h5 class="card-title fw-bold">wheelofsus</h5>
 						<p class="card-text">Originally created for specialized games of Among Us, wheelofsus is a propriatary interactive virtual wheel that can be customized for many different events.</p>
 					</div>
 				</div>
@@ -269,7 +269,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="card-body">
-						<h5 class="card-title bold"><a href="https://random.org">Random.org</a></h5>
+						<h5 class="card-title fw-bold"><a href="https://random.org">Random.org</a></h5>
 						<p class="card-text">Random.org offers several different features for choosing items randomly.</p>
 					</div>
 				</div>
@@ -283,7 +283,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="card-body">
-						<h5 class="card-title bold">PYE Spinner Die</h5>
+						<h5 class="card-title fw-bold">PYE Spinner Die</h5>
 						<p class="card-text">This spinning die is from <a href="https://www.pyegames.com/">PYE Games</a>.</p>
 					</div>
 				</div>
@@ -297,7 +297,7 @@
 				</div>
 				<div class="col-md-8">
 					<div class="card-body">
-						<h5 class="card-title bold"><a href="https://movienightstats.com/roll/">Digital D12</a></h5>
+						<h5 class="card-title fw-bold"><a href="https://movienightstats.com/roll/">Digital D12</a></h5>
 						<p class="card-text">Movie Night Stats' unofficial-official D12 created for use in case of emergency.</p>
 					</div>
 				</div>

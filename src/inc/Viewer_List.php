@@ -29,7 +29,7 @@ class Viewer_List {
 		return $this->viewers[$viewer_id];
 	}
 	
-	public function stats_by_viewer(){
+	public function stats_by_viewer(): array {
 		$viewer_stats = [];
 		
 		foreach($this->viewers as $viewer){
@@ -53,10 +53,7 @@ class Viewer_List {
 			
 			foreach($event->attendees() as $attendee){
 				// Attendance
-				$viewer_stats[$attendee->id]['attendance'][] = [
-					'id' => $event->id,
-					'date' => $event->date
-				];
+				$viewer_stats[$attendee->id]['attendance'][] = $event;
 				
 				// Watchtime
 				$viewer_stats[$attendee->id]['watchtime'] += $event->runtime;

@@ -112,10 +112,6 @@ $current_streak = get_current_streak($pdo);
 
 			$viewer2 = getListOfViewers('attendance');
 
-			$full_count = count_all_attendance_v2($pdo);
-			$full_picker_list = count_total_picks_for_everyone($pdo);
-
-			$all_dry_spells = get_dry_spell_for_all_v2($pdo);
 
 			foreach($viewer_stats as $viewer): ?>
 
@@ -165,15 +161,15 @@ $current_streak = get_current_streak($pdo);
 					}
 
 					?>
-					<td style="background-color:#<?php echo $viewer['item']->color;?>;" class="bold text-white"><?php echo $viewer['item']->name;?></td>
+					<td style="background-color:#<?php echo $viewer['item']->color;?>;" class="fw-bold text-white"><?php echo $viewer['item']->name;?></td>
 					<td class="text-end"><?php echo $attendance_count;?></td>
 					<td class="text-end"><em><?php echo round(($attendance_count/$count_events)*100, 2)?>%</em> </td>
 					<td class="text-end"><?php echo $unique_count; ?></td>
 					<td class="text-end"><?php echo $wedges_count; ?></td>
-					<td class="text-end"><?php echo ($wedges_count) ? round(($unique_count / $wedges_count) * 100, 2) : 0; ?>%</td>
+					<td class="text-end"><?php echo ($wedges_count) ? round(($unique_count / $wedges_count) * 100, 2) : '-'; ?>%</td>
 					<td class="text-end"><?php echo $wins_count; ?></td>
-					<td class="text-end"><?php echo round(($wins_count/$count_events)*100,2);?>%</td>
-					<td class="text-end"><?php echo ($attendance_count) ? round(($wins_count/$attendance_count)*100,2) : 0;?>%</td>
+					<td class="text-end"><?php echo ($count_events) ? round(( $wins_count / $count_events ) * 100,2) : '-';?>%</td>
+					<td class="text-end"><?php echo ($attendance_count) ? round(( $wins_count / $attendance_count ) * 100,2) : '-';?>%</td>
 					<td class="text-end"><?php echo $longest_win_streak; ?></td>
 					<td class="text-end"><?php echo $longest_lose_streak; ?></td>
 					<td class="text-end"><?php echo ($spin_count) ? $viewer['spins'][0]->date->short() : ''; ?></td>
@@ -226,16 +222,15 @@ $current_streak = get_current_streak($pdo);
 
 		<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 col-xxl-4 mb-4">
 			<div class="card">
-				<div class="card-header bold text-white" style="background-color:#<?php echo $person['color'];?>;" >
-					<h3><strong><?php echo $person['name']; ?></strong></h3>
+				<div class="card-header fw-bold text-white h3" style="background-color:#<?php echo $person['color'];?>;" >
+					<?php echo $person['name']; ?>
 				</div>
-				<div class="card-body">
 
-					<ul>
-						<li>
-							<strong>Spun Numbers: </strong><?php //echo implode(", ", listOfSpunNumbersByViewer($person['id']));?>
-						</li>
-						<?php //print_r(graphSpunNumbersByViewer($id));
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item py-3">
+						<div class="fw-bold mb-3">Spun Numbers: </div>
+					
+						<?php
 						$numbers = graphSpunNumbersByViewer($person['id']);
 						if(!empty($numbers)){
 							$max = max($numbers);
@@ -245,7 +240,7 @@ $current_streak = get_current_streak($pdo);
 							$max = 1;
 						}
 						?>
-
+	
 						<div class="chart">
 							<table id="column-<?php echo $person['id'];?>" class="charts-css column show-labels show-data-on-hover">
 								<thead>
@@ -264,14 +259,12 @@ $current_streak = get_current_streak($pdo);
 								</tbody>
 							</table>
 						</div>
-						<hr >
-						<li><strong>Spun People: </strong></li>
-						<?php //echo implode(", ", getSpunViewers($person['id']));
-
+					</li>
+					<li class="list-group-item py-3">
+						<div class="fw-bold mb-3">Spun People: </div>
+						<?php
 						$numbers = getSpunViewers_v2($person['id']);
-
-
-
+						
 						if(!empty($numbers)){
 							$max = max($numbers);
 							if($max == 0){$max=1;}
@@ -279,7 +272,7 @@ $current_streak = get_current_streak($pdo);
 						else {
 							$max = 1;
 						}
-
+	
 						?>
 
 
@@ -303,58 +296,18 @@ $current_streak = get_current_streak($pdo);
 								</tbody>
 							</table>
 						</div>
-					</ul>
+					</li>
+					
+					
+				</ul>
 
-
-					<hr >
-					<?php
-					$stats = count_viewer_services($person['id']);
-
-					$format = Array();
-					$count = Array();
-					$color = Array();
-					foreach($stats as $key => $value){
-						$format[] = $key;
-						$count[] = $value;
-						$color[] = get_service_color_v3($key);
-					}
-
-					if(!empty($format)): ?>
-						<strong>Winning Services: </strong>
-						<canvas id="myChart<?php echo$person['id'];?>" width="250" height="250" style="position:relative; !important"></canvas>
-						<script>
-						var ctx = document.getElementById('myChart<?php echo$person['id'];?>').getContext('2d');
-						var myChart = new Chart(ctx, {
-							type: 'doughnut',
-							data: {
-								labels: ['<?php echo implode("','", $format); ?>'],
-									datasets: [{
-										data: [<?php echo implode(',', $count); ?>],
-										backgroundColor: ['<?php echo implode("','", $color); ?>'],
-										hoverOffset: 10
-									}]
-							},
-							options: {
-								layout: {
-									padding: {
-										left: 30,
-										right: 30,
-										top: 0
-									}
-								},
-								plugins: {
-									legend: {
-										display: false
-									}
-								}
-							}
-						});
-						</script>
-
-					<?php endif; ?>
-
-					<a href="/viewer/stats?viewer=<?php echo $person['id']; ?>">More Details</a>
-				</div>
+				<a class="card-footer text-center py-3" href="/viewer/stats?viewer=<?php echo $person['id']; ?>">
+					More Stats
+				</a>
+				
+				
+				
+				
 			</div>
 		</div>
 	<?php endforeach;?>
