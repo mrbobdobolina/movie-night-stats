@@ -32,9 +32,9 @@ $numbers = $numberTypes[rand(0,3)];
 			<i class="fa-solid fa-angles-up"></i> Collapse ALL
 		</button>
 
-		<a href="event_table" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-table"></i> Table View</a>
-		<a href="event_rows" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-images"></i> Poster View</a>
-		<a href="event_posters" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-image-portrait"></i> Winning Poster</a>
+		<a href="/events/table" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-table"></i> Table View</a>
+		<a href="/events/rows" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-images"></i> Poster View</a>
+		<a href="/events/posters" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-image-portrait"></i> Winning Poster</a>
 	</div>
 	<?php
 	

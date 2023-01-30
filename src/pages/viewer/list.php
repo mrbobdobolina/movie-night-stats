@@ -353,7 +353,7 @@ $current_streak = get_current_streak($pdo);
 
 					<?php endif; ?>
 
-					<a href="viewer?viewer=<?php echo $person['id']; ?>">More Details</a>
+					<a href="/viewer/stats?viewer=<?php echo $person['id']; ?>">More Details</a>
 				</div>
 			</div>
 		</div>

@@ -97,5 +97,3 @@ function add_page_load(){
 	}
 	return FALSE;
 }
-
-?>
