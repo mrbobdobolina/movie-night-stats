@@ -5,11 +5,13 @@ include(ROOT.'/inc/Event_Date.php');
 include(ROOT.'/inc/Event_Item.php');
 include(ROOT.'/inc/Media_Item.php');
 include(ROOT.'/inc/Media_Reviews.php');
+include(ROOT.'/inc/Spinner_List.php');
+include(ROOT.'/inc/Spinner_Item.php');
 include(ROOT.'/inc/Viewer_Item.php');
 include(ROOT.'/inc/Viewer_List.php');
 
 class Event_List {
-	private $events;
+	public $events;
 	private $viewer_list;
 
 	public function __construct($viewer_list = null){
@@ -38,6 +40,7 @@ class Event_List {
 			$query .= "\n";
 		}
 		$query .= "\n";
+		
 		for($i = 1; $i <= 12; $i++){
 			$query .= "`week`.`moviegoer_{$i}` AS `wedge_{$i}_viewer_id`,";
 			$query .= "`viewer_{$i}`.`name` AS `wedge_{$i}_viewer_name`,";
@@ -45,6 +48,12 @@ class Event_List {
 			$query .= "\n";
 		}
 		$query .= "\n";
+		
+		$query .= "`week`.`selection_method` AS `spinner_name`,";
+		$query .= "`spinners`.`id` AS `spinner_id`,";
+		for($i = 1; $i <= 12; $i++){
+			$query .= "`spinners`.`wedge_{$i}` AS `spinner_color_{$i}`,";
+		}
 
 		$query .= "
 `week`.`winning_film` AS `winner_media_id`,
@@ -70,7 +79,9 @@ class Event_List {
 
 
 
-`week`.`winning_wedge`,`week`.`format`,`week`.`error_spin`,`week`.`theme`,`week`.`attendees`,`week`.`selection_method`,`week`.`runtime`,`week`.`notes`
+`week`.`winning_wedge`,`week`.`format`,`week`.`error_spin`,`week`.`theme`,`week`.`attendees`,`week`.`runtime`,`week`.`notes`
+
+
 
 FROM `week`
 ";
@@ -89,6 +100,8 @@ LEFT JOIN `films` AS `wedge_win` ON `week`.`winning_film`=`wedge_win`.`id`
 LEFT JOIN `viewers` AS `viewer_spin` ON `week`.`spinner`=`viewer_spin`.`id`
 LEFT JOIN `viewers` AS `viewer_win`  ON `week`.`winning_moviegoer`=`viewer_win`.`id`
 LEFT JOIN `viewers` AS `viewer_scribe`  ON `week`.`scribe`=`viewer_scribe`.`id`
+
+LEFT JOIN `spinners` AS `spinners`  ON `week`.`selection_method`=`spinners`.`name`
 
 
 ORDER BY `date` DESC";

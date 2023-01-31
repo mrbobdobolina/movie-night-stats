@@ -116,10 +116,10 @@ $numbers = $numberTypes[rand(0,3)];
 							}
 							?>
 							<ul>
-								<li><strong>Attendees:</strong> <?php echo implode(", ", $viewers);?>
+								<li><strong>Attendees:</strong> <?php echo implode(', ', $viewers);?>
 								<li><strong>Scribe:</strong> <?php echo $event->scribe->name; ?></li>
 								<li><strong>Spinner:</strong> <?php echo $event->spinner->name; ?></li>
-								<li><strong>Bad Spin #s:</strong> <?php echo $event->error_spin; ?></li>
+								<li><strong>Bad Spin #s:</strong> <?php echo implode(', ', $event->error_spins); ?></li>
 								<li><strong>Theme/Comment:</strong> <?php echo $event->theme; ?></li>
 								<li><strong>Movie Format:</strong> <?php echo $event->format->name; ?></li>
 								<li><strong>Selection Tool:</strong> <?php echo $event->selection_method->name; ?></li>

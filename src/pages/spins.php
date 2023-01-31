@@ -1,33 +1,84 @@
-<div class="row mt-3 mb-3">
+<?php
+
+$spinner_list = new Spinner_List();
+$spinner_list->init();
+
+$event_list = new Event_List();
+$event_list->init();
+$count_events = count($event_list->events());
+
+
+$spinner_list->event_list = $event_list;
+
+$spinner_stats = $spinner_list->stats_by_spinner();
+
+// Sort $spinner_stats by number of events
+$sorted_spinner_stats = $spinner_stats;
+usort($sorted_spinner_stats, function($a, $b){
+	return count($b['events']) - count($a['events']);
+});
+
+// TODO: The following code could be cleaned up a bit.
+
+// Count all spaces on all things
+$total_space_spun_count = 
+$total_space_spun_good_count = 
+$total_space_spun_bad_count = [
+	1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0,
+	7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0,
+];
+
+$total_spin_count = 0;
+$total_spin_good_count = 0;
+$total_spin_bad_count = 0;
+
+foreach($spinner_stats as $wheel_stats){
+	foreach($wheel_stats['spaces'] as $space_id => $space){
+		foreach($space['spins'] as $spin){
+			$total_space_spun_count[$space_id]++;
+			$total_spin_count++;
+			
+			if($spin['good']){
+				$total_space_spun_good_count[$space_id]++;
+				$total_spin_good_count++;
+			}
+			else {
+				$total_space_spun_bad_count[$space_id]++;
+				$total_spin_bad_count++;
+			}
+		}
+	}
+}
+
+
+?>
+
+<div class="row my-3">
 	<div class="col">
 
 		<p class="display-6 text-center ">How We Chose Our Movies</p>
 		<p class="lead text-center "><i class="fa-solid fa-dice-d12"></i> Roll a thing, <i class="fa-solid fa-arrows-spin"></i> spin a thing, <i class="fa-solid fa-thought-bubble"></i> think a thing. </p>
 
 		<?php
-			$service_data = get_selector_stats();
-
-			$format = Array();
-			$count = Array();
-
-			foreach($service_data as $item){
-				$format[] = $item['selection_method'];
-				$count[] = $item['COUNT(*)'];
-
+			$graph_labels = [];
+			$graph_data = [];
+			
+			foreach($sorted_spinner_stats as $spinner){
+				$graph_labels[] = $spinner['item']->name;
+				$graph_data[] = count($spinner['events']);
 			}
-
 		?>
 
 		<canvas id="myChart" width="400" height="200" style="position:relative; !important"></canvas>
 		<script>
-			var ctx = document.getElementById('myChart').getContext('2d');
-			var myChart = new Chart(ctx, {
+			let ctx = document.getElementById('myChart').getContext('2d');
+			let myChart = new Chart(ctx, {
 				type: 'bar',
 				data: {
-					labels: ['<?php echo implode("','", $format); ?>'],
+					labels: ['<?php echo implode("','", $graph_labels); ?>'],
 					datasets: [{
 						label: '# of Events',
-						data: [<?php echo implode(',', $count ); ?>],
+						data: [<?php echo implode(',', $graph_data ); ?>],
 						backgroundColor: [
 							'rgba(216,66,45,1)'
 						]
@@ -49,7 +100,7 @@
 <div class="row my-3">
 	<div class="col">
 
-		<p class="display-6 text-center mb-5 mt-5">Virtually meaningless, but still fun to look at.</p>
+		<p class="display-6 text-center my-5">Virtually meaningless, but still fun to look at.</p>
 
 		<div class="card">
 			<div class="card-header">
@@ -71,21 +122,18 @@
 						</thead>
 						<tbody>
 							<?php
-								$total = countSpins() + countErrorSpins();
 								for($i = 1; $i <= 12; $i++){
-									$wins = countWinsForNumber($i);
-									$wins_with_error = countWinsForNumber($i) + $error_spin_list[$i];
-									$percent = round(($wins/$total)*100, 0);
-									$errorPercent = round(($error_spin_list[$i]/$total)*100, 0);
 									?>
 									<tr>
 										<td class="text-center"><?php echo $i;?></td>
-										<td class="text-center"><?php echo $wins_with_error;?></td>
-										<td class="text-end"><?php echo $percent + $errorPercent;?>%</td>
-										<td >
+										<td class="text-center"><?php echo $total_space_spun_count[$i];?></td>
+										<td class="text-end">
+											<?php echo round(( $total_space_spun_count[$i] / $total_spin_count ) * 100, 2);?>%
+										</td>
+										<td>
 											<div class="progress">
-												<div class="progress-bar" role="progressbar" style="width: <?php echo $percent; ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-												<div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo $errorPercent; ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+												<div class="progress-bar" role="progressbar" style="width: <?php echo round(( $total_space_spun_good_count[$i] / $total_spin_count ) * 100, 2); ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+												<div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo round(( $total_space_spun_bad_count[$i] / $total_spin_count ) * 100, 2); ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
 										</td>
 									</tr>
@@ -94,12 +142,12 @@
 							?>
 							<tr>
 								<td>Total:</td>
-								<td	class="text-center"><?php echo $total; ?></td>
-								<td class="text-end">Error Rate: <?php echo round((countErrorSpins()/$total)*100);?>%</td>
+								<td	class="text-center"><?php echo $total_spin_count; ?></td>
+								<td class="text-end">Error Rate: <?php echo round(( $total_spin_bad_count / $total_spin_count ) * 100, 2); ?>%</td>
 								<td>
 									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: <?php echo round((countSpins()/$total)*100); ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-										<div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo round((countErrorSpins()/$total)*100); ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+										<div class="progress-bar" role="progressbar" style="width: <?php echo round(( $total_spin_good_count / $total_spin_count ) * 100, 2); ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+										<div class="progress-bar bg-danger" role="progressbar" style="width: <?php echo round(( $total_spin_bad_count / $total_spin_count ) * 100, 2); ?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 									</div>
 								</td>
 							</tr>
@@ -114,52 +162,61 @@
 	</div>
 </div>
 
+
 <p class="display-6 text-center mb-4 mt-5">The totally "unbiased" tools we use.</p>
 
-	<div class="row row-cols-2 row-cols-md-3 row-cols-md-4 row-cols-xl-4 g-5 ">
+<div class="row row-cols-2 row-cols-md-3 row-cols-md-4 g-4">
 
-	<?php
-		$tools = getSelectionTypes();
-		$wheel_color = getWheelColors();
+<?php
+	foreach($spinner_stats as $spinner):
+		$spinner_max_value = 0;
+		$spinner_total_count = 0;
+		foreach($spinner['spin_count']['total'] as $spins){
+			$spinner_total_count += $spins;
+			if($spins > $spinner_max_value){
+				$spinner_max_value = $spins;
+			}
+		}
+		?>
 
-		foreach($tools as $a_tool):
-			$numbers = getNumbersFromTool($a_tool);
-			$total_spins = array_sum($numbers);
-			$max = max($numbers);
-
-			?>
-
-			<div class="col">
-				<div class="card">
-					<div class="card-header">
-						<h3><?php echo $a_tool; ?></h3>
-					</div>
-					<div class="card-body">
-						<p>
-							<strong>Total Uses:</strong> <?php echo $total_spins; ?> (<?php echo round(($total_spins/$total)*100);?>%)
-						</p>
-						<table id="column-<?php echo $a_tool;?>" class="charts-css bar show-labels show-data data-spacing-2">
-							<thead>
+		<div class="col">
+			<div class="card">
+				<div class="card-header">
+					<h3><?php echo $spinner['item']->name; ?></h3>
+				</div>
+				<div class="card-body">
+					<p>
+						<strong>Total Uses:</strong> <?php echo $spinner_total_count; ?> (<?php echo round(($spinner_total_count/$total_spin_count)*100);?>%)
+					</p>
+					<table id="column-<?php echo $spinner['item']->id;?>" class="charts-css bar show-labels show-data data-spacing-2">
+						<thead>
+							<tr>
+								<th scope="col">Number</th>
+								<th scope="col">Wins</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach($spinner['spaces'] as $wedge_id => $wedge): ?>
 								<tr>
-									<th scope="col">Number</th>
-									<th scope="col">Wins</th>
+									<th scope="row text-end"> <?php echo $wedge_id; ?></th>
+									<td style="--size:<?php echo ($spinner_max_value) ? round($spinner['spin_count']['total'][$wedge_id]/$spinner_max_value,2) : '0'; ?>; --color:<?php echo $wedge['color']; ?>">
+										<span class="data" style="padding-right:3px;"><?php echo $spinner['spin_count']['total'][$wedge_id]; ?></span>
+									</td>
 								</tr>
-							</thead>
-							<tbody>
-								<?php foreach($numbers as $key => $wedge): ?>
-									<tr>
-										<th scope="row text-end"> <?php echo $key; ?></th>
-										<td style="--size:<?php echo round(($wedge/$max),2); ?>; --color:<?php echo $wheel_color[$a_tool][$key]; ?>"><span class="data" style="padding-right:3px;"><?php echo $wedge; ?> </span></td>
-									</tr>
-								<?php endforeach;?>
-							</tbody>
-						</table>
-					</div>
+							<?php endforeach;?>
+						</tbody>
+					</table>
 				</div>
 			</div>
-		<?php endforeach;?>
+		</div>
+	<?php
+	endforeach;
+
+	?>
 
 </div>
+
+
 
 <div class="row">
 	<div class="col m-5">

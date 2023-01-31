@@ -12,7 +12,7 @@ class Event_Item {
 	public $scribe;
 	public $winning_wedge;
 	public $format;
-	public $error_spin;
+	public $error_spins;
 	public $theme;
 	public $attendees;
 	public $selection_method;
@@ -33,7 +33,7 @@ class Event_Item {
 			$this->date = new Event_Date($data['date']);
 			$this->wedges = [];
 			$this->viewers = [];
-			$this->error_spin = explode(', ',$data['error_spin']);
+			$this->error_spins = strlen($data['error_spin']) ? explode(', ',$data['error_spin']) : [];
 
 			for($i = 1; $i <= 12; $i++){
 				$this->wedges[$i] = [
@@ -63,7 +63,7 @@ class Event_Item {
 						'color' => $data['wedge_'.$i.'_viewer_color']
 					]),
 					'is_winner' => ($i == $data['winning_wedge']),
-					'is_error_spin' => in_array($i, $this->error_spin)
+					'is_error_spin' => in_array($i, $this->error_spins)
 				];
 			}
 
@@ -108,10 +108,19 @@ class Event_Item {
 			$this->format = new stdClass();
 			$this->format->name = $data['format'];
 			
+			
+			$this->selection_method = new Spinner_Item();
+			$this->selection_method->id = $data['spinner_id'];
+			$this->selection_method->name = $data['spinner_name'];
+			for($i = 1; $i <= 12; $i++){
+				if($data['spinner_color_'.$i] !== NULL){
+					$this->selection_method->wedges[$i] = $data['spinner_color_'.$i];
+				}
+			}
+			
+			
 			$this->theme = $data['theme'];
 			$this->attendees = $data['attendees'];
-			$this->selection_method = new stdClass();
-			$this->selection_method->name = $data['selection_method'];
 			$this->runtime = $data['runtime'];
 			$this->notes = $data['notes'];
         }
