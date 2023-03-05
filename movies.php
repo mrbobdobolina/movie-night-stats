@@ -25,6 +25,7 @@ $movie_count = count_movie_list($pdo);
 				<thead>
 					<tr>
 						<th><i class="fas fa-star"></i></th>
+						<th class="text-center"><i class="fa-regular fa-photo-film-music"></i></th>
 						<th class="col-2">Title</th>
 						<th>Year</th>
 						<th class="text-end">MPAA#</th>
@@ -79,6 +80,8 @@ $movie_count = count_movie_list($pdo);
 									echo '<td data-search="" data-order="0">';
 								}?>
 							</td>
+							<?php $type_data = Array("film" => "film movie", "tv" => "tv show episode series", "gamepad" => "video game", "twitch" => "twitch"); ?>
+							<td data-search="<?php echo $type_data[$movie['type']];?>" data-order="<?php echo $movie['type'];?>" class="text-center"><i class="fa fa-<?php echo $movie['type'];?>"></td>
 							<td><?php echo $movie['name']; ?> </td>
 							<td class="text-center"><?php echo $movie['year']; ?></td>
 							<td class="text-end mpaa"><?php echo $movie['MPAA']; ?></td>
@@ -130,7 +133,7 @@ $movie_count = count_movie_list($pdo);
 				{
 					"pageLength": 100,
 					 "lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
-					"order": [[ 1, "asc" ]]
+					"order": [[ 2, "asc" ]]
 				}
 			);
 	} );
