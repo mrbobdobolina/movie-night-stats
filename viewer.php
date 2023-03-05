@@ -298,6 +298,7 @@ template('header');
 								<table id="movies" class="table table-striped">
 									<thead>
 										<tr>
+											<td><strong><i class="fa-regular fa-photo-film-music"></i></strong></td>
 											<td><strong>Movie Title</strong></td>
 											<td><strong>Times on Wheel</strong></td>
 										</tr>
@@ -305,7 +306,7 @@ template('header');
 								<?php
 								foreach($allUserPicks3 as $key => $value){
 									if(!in_array($key, $watchedFilmList)){
-									 	echo '<tr><td>'.get_movie_by_id($pdo,$key).'</td> <td>'.$value.'</td></tr>';
+									 	echo '<tr><td class="text-center"><i class="fa fa-'.get_type_by_id($pdo,$key).'"></i></td><td>'.get_movie_by_id($pdo,$key).'</td> <td>'.$value.'</td></tr>';
 									}
 								}
 
