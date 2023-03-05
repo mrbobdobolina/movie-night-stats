@@ -109,9 +109,117 @@ ORDER BY `date` DESC";
 //        echo $query;
 		$data = db($query);
 		$this->events = [];
+
 		foreach($data as $thing){
-			$this->events[] = new Event_Item($thing, $this->viewer_list);
-//			print_r($test);
+            $event = new Event_Item();
+
+            $event->viewer_list = $this->viewer_list;
+            $event->id = $thing['id'];
+
+            $event->date = new Event_Date();
+            $event->date->date = $thing['date'];
+
+            $event->wedges = [];
+            $event->viewers = [];
+
+            $event->error_spins = strlen($thing['error_spin']) ? explode(', ', $thing['error_spin']) : [];
+
+            for($i = 1; $i <= 12; $i++){
+
+                $event->wedges[$i] = [
+                    'media' => new Media_Item(),
+                    'viewer' => new Viewer_Item(),
+                    'is_winner' => ($i == $thing['winning_wedge']),
+                    'is_error_spin' => in_array($i, $event->error_spins)
+                ];
+
+                $event->wedges[$i]['media']->id         = $thing['wedge_'.$i.'_media_id'];
+                $event->wedges[$i]['media']->name       = $thing['wedge_'.$i.'_media_name'];
+                $event->wedges[$i]['media']->year       = $thing['wedge_'.$i.'_media_year'];
+                $event->wedges[$i]['media']->runtime    = $thing['wedge_'.$i.'_media_runtime'];
+                $event->wedges[$i]['media']->mpaa       = $thing['wedge_'.$i.'_media_mpaa'];
+                $event->wedges[$i]['media']->imdb_id    = $thing['wedge_'.$i.'_imdb_id'];
+                $event->wedges[$i]['media']->poster_url = $thing['wedge_'.$i.'_poster_url'];
+
+                $event->wedges[$i]['media']->instances  = [
+                    'first' => $thing['wedge_'.$i.'_instance_first'],
+                    'last'  => $thing['wedge_'.$i.'_instance_last']
+                ];
+                $event->wedges[$i]['media']->reviews                = new Media_Reviews();
+                $event->wedges[$i]['media']->reviews->tomatometer   = $thing['wedge_'.$i.'_media_review_tomatometer'];
+                $event->wedges[$i]['media']->reviews->rtaudience    = $thing['wedge_'.$i.'_media_review_rtaudience'];
+                $event->wedges[$i]['media']->reviews->imdb          = $thing['wedge_'.$i.'_media_review_imdb'];
+                $event->wedges[$i]['media']->reviews->metacritic    = $thing['wedge_'.$i.'_media_review_metacritic'];
+                $event->wedges[$i]['media']->reviews->metauserscore = $thing['wedge_'.$i.'_media_review_metauserscore'];
+
+
+                $event->wedges[$i]['viewer']->id    = $thing['wedge_'.$i.'_viewer_id'];
+                $event->wedges[$i]['viewer']->name  = $thing['wedge_'.$i.'_viewer_name'];
+                $event->wedges[$i]['viewer']->color = $thing['wedge_'.$i.'_viewer_color'];
+            }
+
+            $event->winner = [
+                'media' => new Media_Item(),
+                'viewer' => new Viewer_Item()
+            ];
+            $event->winner['media']->id         = $thing['winner_media_id'];
+            $event->winner['media']->name       = $thing['winner_media_name'];
+            $event->winner['media']->year       = $thing['winner_media_year'];
+            $event->winner['media']->runtime    = $thing['winner_media_runtime'];
+            $event->winner['media']->mpaa       = $thing['winner_media_mpaa'];
+            $event->winner['media']->imdb_id    = $thing['winner_media_imdb_id'];
+            $event->winner['media']->poster_url = $thing['winner_media_poster_url'];
+
+            $event->winner['media']->instances = [
+                    'first' => $thing['winner_media_instance_first'],
+                    'last'  => $thing['winner_media_instance_last']
+                ];;
+            $event->winner['media']->reviews = new Media_Reviews();
+            $event->winner['media']->reviews->tomatometer   = $thing['winner_media_review_tomatometer'];
+            $event->winner['media']->reviews->rtaudience    = $thing['winner_media_review_rtaudience'];
+            $event->winner['media']->reviews->imdb          = $thing['winner_media_review_imdb'];
+            $event->winner['media']->reviews->metacritic    = $thing['winner_media_review_metacritic'];
+            $event->winner['media']->reviews->metauserscore = $thing['winner_media_review_metauserscore'];
+
+            $event->winner['viewer']->id    = $thing['winner_viewer_id'];
+            $event->winner['viewer']->name  = $thing['winner_viewer_name'];
+            $event->winner['viewer']->color = $thing['winner_viewer_color'];
+
+
+            $event->spinner = new Viewer_Item();
+            $event->spinner->id    = $thing['spinner_viewer_id'];
+            $event->spinner->name  = $thing['spinner_viewer_name'];
+            $event->spinner->color = $thing['spinner_viewer_color'];
+
+            $event->scribe = new Viewer_Item();
+            $event->scribe->id    = $thing['scribe_viewer_id'];
+            $event->scribe->name  = $thing['scribe_viewer_name'];
+            $event->scribe->color = $thing['scribe_viewer_color'];
+
+            $event->winning_wedge = $thing['winning_wedge'];
+
+            $event->format = new stdClass();
+			$event->format->name = $thing['format'];
+
+            $event->selection_method = new Spinner_Item();
+			$event->selection_method->id   = $thing['spinner_id'];
+			$event->selection_method->name = $thing['spinner_name'];
+
+			for($i = 1; $i <= 12; $i++){
+				if($thing['spinner_color_'.$i] !== NULL){
+					$event->selection_method->wedges[$i] = $thing['spinner_color_'.$i];
+				}
+			}
+
+			$event->theme     = $thing['theme'];
+			$event->attendees = $thing['attendees'];
+			$event->runtime   = $thing['runtime'];
+			$event->notes     = $thing['notes'];
+
+
+
+//			$this->events[] = new Event_Item($thing, $this->viewer_list);
+			$this->events[] = $event;
 		}
 	}
 

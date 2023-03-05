@@ -40,7 +40,7 @@ $numbers = $numberTypes[rand(0,3)];
 	
 	$i = 0;
 	
-	foreach($event_list->events() as $event): 
+	foreach($event_list->events as $event):
 		$i++;
 		?>
 			

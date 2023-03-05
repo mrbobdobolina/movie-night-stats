@@ -43,14 +43,31 @@ class Viewer_List {
 				'streak' => [
 					'win' => [],
 					'lose' => [],
-					'last' => -1
+					'last' => -1,
+					'when_viewer_choice' => [
+						'win' => [],
+						'lose' => [],
+						'last' => -1
+					],
+					'when_attending' => [
+						'win' => [],
+						'lose' => [],
+						'last' => -1
+					],
+					'when_attending_or_viewer_choice' => [
+						'win' => [],
+						'lose' => [],
+						'last' => -1
+					]
 				],
-				'watchtime' => 0
+				'watchtime' => 0,
 			];
 		}
 		
+		// Gather stats from every event
 		foreach($this->event_list->events() as $event){
 			
+			// Stats based on attendance
 			foreach($event->attendees() as $attendee){
 				// Attendance
 				$viewer_stats[$attendee->id]['attendance'][] = $event;
@@ -132,5 +149,20 @@ class Viewer_List {
 		}
 		
 		return $viewer_stats;
+	}
+	
+	public function generate_streak_stats($viewer_stats){
+		$streak_stats = [];
+		
+		foreach($viewer_stats as $viewer_id => $viewer){
+			$streak_stats[$viewer_id] = [
+				'spun_only' => ['win' => 0, 'lose' => 0, 'last' => -1],
+				'spun_or_attendance' => ['win' => 0, 'lose' => 0, 'last' => -1],
+				'spun_or_viewer_choice' => ['win' => 0, 'lose' => 0, 'last' => -1],
+				'spun_or_viewer_choice_or_attendance' => ['win' => 0, 'lose' => 0, 'last' => -1],
+			];
+		}
+		
+		return $streak_stats;
 	}
 }

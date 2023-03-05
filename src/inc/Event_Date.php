@@ -1,9 +1,9 @@
 <?php
 
 class Event_Date {
-	private $date;
+	public $date;
 
-	public function __construct($data){
+	public function __construct($data = null){
 		$this->date = $data;
 	}
 

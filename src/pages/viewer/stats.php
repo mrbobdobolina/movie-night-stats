@@ -560,7 +560,7 @@ $(function() {
 	$('#movies').DataTable(
 		{
 			"pageLength": 25,
-			"lengthMenu": [ [10, 25, 50, 100, 200, -1], [50, 100, 200, "All"] ],
+			"lengthMenu": [ [10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "All"] ],
 			"order": [[ 1, "desc" ]]
 		}
 	);
