@@ -24,11 +24,22 @@ class Event_Item {
 	public $viewer_list;
 
 	public function __construct(){
+
+        $this->date = new Event_Date();
+        $this->winner = [
+            'media' => new Media_Item(),
+            'viewer' => new Viewer_Item()
+        ];
+        $this->spinner = new Viewer_Item();
+        $this->scribe = new Viewer_Item();
+        $this->format = new stdClass();
+        $this->selection_method = new Spinner_Item();
+
 		return $this;
     }
 
 	
-	public function average_year(){
+	public function average_year(): float {
 		$count = 0;
 		$total = 0;
 		
@@ -39,10 +50,10 @@ class Event_Item {
 			}
 		}
 		
-		return round(($total/$count), 0);
+		return ($count) ? round(($total/$count)) : 0;
 	}
 	
-	public function average_rating(){
+	public function average_rating(): float {
 		$count = 0;
 		$total = 0;
 		
@@ -53,10 +64,10 @@ class Event_Item {
 			}
 		}
 		
-		return ($count) ? round(($total/$count), 1) : NULL;
+		return ($count) ? round(($total/$count), 1) : 0;
 	}
 	
-	public function attendees(){
+	public function attendees(): array {
 		$viewers = [];
 		
 		foreach(explode(',',$this->attendees) as $viewer_id){
