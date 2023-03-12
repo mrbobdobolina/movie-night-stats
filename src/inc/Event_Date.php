@@ -4,7 +4,7 @@ class Event_Date {
 	public $date;
 
 	public function __construct($data = null){
-		$this->date = $data;
+		return $this;
 	}
 
 	public function long(): string {

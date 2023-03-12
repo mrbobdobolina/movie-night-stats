@@ -8,7 +8,60 @@ $event_list->init();
 $count_events = count($event_list->events());
 
 
-$movie_stats = $event_list->stats_by_movie();
+function stats_by_movie($events): array {
+	$movie_stats = [];
+
+	foreach($events as $event){
+		$already_counted_win = false;
+		$already_counted_media = [];
+
+		foreach($event->wedges as $wedge){
+			if($wedge['media']->id) {
+				$this_id = $wedge['media']->id;
+
+				if (!array_key_exists($this_id, $movie_stats)) {
+					$movie_stats[$this_id] = [
+						'item' => $wedge['media'],
+						'wins' => [],
+						'formats' => [],
+						'wedges' => 0,
+						'events' => 0,
+						'dates' => [],
+						'pickers' => []
+					];
+				}
+
+				$movie_stats[$this_id]['dates'][] = $event->date;
+				$movie_stats[$this_id]['wedges']++;
+
+				if (!in_array($this_id, $already_counted_media)) {
+					$movie_stats[$this_id]['events']++;
+					$already_counted_media[] = $this_id;
+				}
+
+				if (!$already_counted_win && $event->winner['media']->id == $this_id) {
+					$movie_stats[$this_id]['wins'][] = $event->date;
+					$movie_stats[$this_id]['formats'][] = $event->format->name;
+					$already_counted_win = true;
+				}
+
+				if(!array_key_exists($wedge['viewer']->id, $movie_stats[$this_id]['pickers'])){
+					$movie_stats[$this_id]['pickers'][$wedge['viewer']->id] = [
+						'item' => $wedge['viewer'],
+						'count' => 0
+					];
+				}
+				$movie_stats[$this_id]['pickers'][$wedge['viewer']->id]['count']++;
+			}
+
+		}
+	}
+
+	return $movie_stats;
+}
+
+
+$movie_stats = stats_by_movie($event_list->events);
 
 function winning_film_count($movie_stats): int {
 	$count = 0;
@@ -34,6 +87,7 @@ function winning_film_count($movie_stats): int {
 			<tr>
 				<th><i class="fas fa-star"></i></th>
 				<th class="col-2">Title</th>
+				<th class="text-center"><i class="fa-regular fa-photo-film-music"></i></th>
 				<th>Year</th>
 				<th class="text-end">MPAA#</th>
 				<th class="text-end">Runtime</th>
@@ -56,9 +110,6 @@ function winning_film_count($movie_stats): int {
 
 			foreach($movie_stats as $movie):
 				$counter++;
-
-//				$wedges = count_total_film_appearances($pdo, $movie['id']);
-//				$weeks = countWeeksOnWheel($movie['id']);
 
 				if($movie['wins']){
 					echo '<tr style="background-color:#82D173;">';
@@ -87,8 +138,9 @@ function winning_film_count($movie_stats): int {
 					echo '<td data-search="" data-order="0">';
 				}
 
+				echo '</td>';
+
 				?>
-					</td>
 					<td><?php echo $movie['item']->name; ?> </td>
 					<?php $type_data = Array("" => "", "film" => "film movie", "tv" => "tv show episode series", "gamepad" => "video game", "twitch" => "twitch"); ?>
 					<td data-search="<?php echo $type_data[$movie['item']->type];?>" data-order="<?php echo $movie['item']->type;?>" class="text-center"><i class="fa fa-<?php echo $movie['item']->type;?>"></td>
@@ -127,12 +179,12 @@ function winning_film_count($movie_stats): int {
 </div>
 
 <script>
-$(document).ready(function() {
+$(function() {
 	$('#movies').DataTable(
 		{
 			"pageLength": 100,
 			"lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
-			"order": [[ 2, "asc" ]]
+			"order": [[ 1, "asc" ]]
 		}
 	);
 } );

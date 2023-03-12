@@ -20,4 +20,3 @@ include($url);
 
 include(ROOT.'/template/footer.php');
 
-//phpinfo();

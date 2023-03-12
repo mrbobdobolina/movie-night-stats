@@ -12,21 +12,8 @@ class Media_Item {
 	public $poster_url;
     public $type;
 
-    public function __construct($data = null){
+    public function __construct(){
         $this->reviews = new Media_Reviews();
-
-		if($data){
-//			print_r($data);
-			$this->id = $data['id'];
-			$this->name = $data['name'];
-			$this->reviews = $data['reviews'];
-			$this->year = $data['year'];
-			$this->runtime = $data['runtime'];
-			$this->mpaa = $data['mpaa'];
-			$this->instances = $data['instances'];
-			$this->imdb_id = $data['imdb_id'];
-			$this->poster_url = $data['poster_url'];
-		}
 
         $this->type = '';
 	}

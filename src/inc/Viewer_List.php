@@ -16,12 +16,11 @@ class Viewer_List {
 		
 		$this->viewers = [];
 		foreach($data as $viewer){
-			$this->viewers[$viewer['id']] = new Viewer_Item([
-				'id'    => $viewer['id'],
-				'name'  => $viewer['name'],
-				'color' => $viewer['color'],
-				'attendance' => $viewer['attendance']
-			]);
+			$this->viewers[$viewer['id']] = new Viewer_Item();
+			$this->viewers[$viewer['id']]->id         = $viewer['id'];
+			$this->viewers[$viewer['id']]->name       = $viewer['name'];
+			$this->viewers[$viewer['id']]->color      = $viewer['color'];
+			$this->viewers[$viewer['id']]->attendance = $viewer['attendance'];
 		}
 	}
 	
