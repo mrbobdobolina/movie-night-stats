@@ -7,6 +7,13 @@ function get_movie_by_id($pdo, $id){
 	return $name;
 }
 
+function get_type_by_id($pdo, $id){
+	$stmt = $pdo->prepare('SELECT type FROM films WHERE id = ?');
+	$stmt->execute([$id]);
+	$name = $stmt->fetchColumn();
+	return $name;
+}
+
 function get_movie_list($pdo){
 	$stmt = $pdo->prepare('SELECT * FROM films WHERE id != 0 ORDER BY name ASC');
 	$stmt->execute();

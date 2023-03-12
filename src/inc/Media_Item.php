@@ -10,6 +10,7 @@ class Media_Item {
 	public $instances;
 	public $imdb_id;
 	public $poster_url;
+    public $type;
 
 	public function __construct($data = null){
 		if($data){
@@ -24,6 +25,8 @@ class Media_Item {
 			$this->imdb_id = $data['imdb_id'];
 			$this->poster_url = $data['poster_url'];
 		}
+
+        $this->type = '';
 	}
 	
 	public function poster_url_or_bust() {

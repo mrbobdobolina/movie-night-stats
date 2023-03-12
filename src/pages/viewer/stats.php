@@ -531,6 +531,7 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 						<table id="movies" class="table table-striped">
 							<thead>
 								<tr>
+									<td><strong><i class="fa-regular fa-photo-film-music"></i></strong></td>
 									<td><strong>Movie Title</strong></td>
 									<td><strong>Times on Wheel</strong></td>
 								</tr>
@@ -539,7 +540,7 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 							<?php
 							foreach($allUserPicks3 as $key => $value){
 								if(!in_array($key, $watchedFilmList)){
-									echo '<tr><td>'.get_movie_by_id($pdo,$key).'</td> <td>'.$value.'</td></tr>';
+									echo '<tr><td class="text-center"><i class="fa fa-'.get_type_by_id($pdo,$key).'"></i></td><td>'.get_movie_by_id($pdo,$key).'</td> <td>'.$value.'</td></tr>';
 								}
 							}
 							?>
@@ -561,7 +562,7 @@ $(function() {
 		{
 			"pageLength": 25,
 			"lengthMenu": [ [10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "All"] ],
-			"order": [[ 1, "desc" ]]
+			"order": [[ 2, "desc" ]]
 		}
 	);
 } );

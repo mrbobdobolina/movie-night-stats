@@ -90,6 +90,8 @@ function winning_film_count($movie_stats): int {
 				?>
 					</td>
 					<td><?php echo $movie['item']->name; ?> </td>
+					<?php $type_data = Array("" => "", "film" => "film movie", "tv" => "tv show episode series", "gamepad" => "video game", "twitch" => "twitch"); ?>
+					<td data-search="<?php echo $type_data[$movie['item']->type];?>" data-order="<?php echo $movie['item']->type;?>" class="text-center"><i class="fa fa-<?php echo $movie['item']->type;?>"></td>
 					<td class="text-center"><?php echo $movie['item']->year; ?></td>
 					<td class="text-end mpaa"><?php echo $movie['item']->mpaa; ?></td>
 					<td class="text-end"><?php echo $movie['item']->runtime; ?></td>
@@ -130,7 +132,7 @@ $(document).ready(function() {
 		{
 			"pageLength": 100,
 			"lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
-			"order": [[ 1, "asc" ]]
+			"order": [[ 2, "asc" ]]
 		}
 	);
 } );
