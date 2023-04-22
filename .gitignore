@@ -12,3 +12,5 @@ php_errors.log
 *.log
 
 test_function.php
+
+add_type.php

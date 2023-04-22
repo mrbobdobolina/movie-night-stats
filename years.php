@@ -107,6 +107,42 @@ template('header');
 			</div>
 		</div>
 
+		<div class="row g-3 mt-2">
+			<div class="col">
+				<div class="card ">
+					<div class="card-body">
+						<p>Weekdays of Events</p>
+						<table id="column-years" class="charts-css column show-labels show-data">
+							<thead>
+								<tr>
+									<th scope="col">Monday</th>
+									<th scope="col">Tuesday</th>
+									<th scope="col">Wednesday</th>
+									<th scope="col">Thursday</th>
+									<th scope="col">Friday</th>
+									<th scope="col">Saturday</th>
+									<th scope="col">Sunday</th>
+								</tr>
+							</thead>
+								<tbody style="height: 250px;">
+									<?php $weekdays = histogram(day_of_week($pdo));
+									$max_day = max($weekdays);
+									$day_order = Array(7 => "Sunday", 1 => "Monday", 2 => "Tuesday", 3 => "Wednesday", 4 => "Thursday", 5 => "Friday", 6 => "Saturday" );
+									?>
+
+									<?php foreach($day_order as $key => $value):?>
+									<tr>
+										<th scope="row"><?php echo $value; ?> </th>
+										<td style="--size:<?php echo round($weekdays[$key]/$max_day,2); ?>;"><span class="data flying-number text-dark"><?php echo $weekdays[$key]; ?></span></td>
+									</tr>
+								<?php endforeach;?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<?php //for($ii = $current_year; $ii >= 2019; $ii--):?>
 		<?php foreach($year_list as $ii): ?>

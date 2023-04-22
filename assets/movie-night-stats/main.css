@@ -329,3 +329,8 @@ ul h5{
 #method-chart.bar {
 	--labels-size: 150px;
 }
+
+ .flying-number {
+	 position: relative;
+	 top: -21px !important;
+ }

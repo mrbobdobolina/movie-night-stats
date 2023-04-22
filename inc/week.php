@@ -834,4 +834,36 @@ function count_viewer_win_streak_when_participating_and_not_viewer_choice($pdo, 
 	return array('count' => $max_counter, 'dates' => $final_dates);
 }
 
+function day_of_week($pdo, $year = NULL){
+	if($year == NULL){
+		$query = "SELECT `date` FROM week";
+		$stmt = $pdo->query($query);
+	} else {
+		$query = "SELECT `date` FROM week WHERE `date` BETWEEN ? AND ?";
+		$stmt = $pdo->prepare($query);
+		$stmt->execute(["$year-01-01","$year-12-31"]);
+	}
+	$date_list = Array();
+	while($row = $stmt->fetch()){
+		$week_day = new DateTime($row['date']);
+		$date_list[] = $week_day->format('N');
+	}
+		return $date_list;
+}
+
+function histogram($list){
+	$histogram = Array();
+
+	foreach($list as $item){
+		if(array_key_exists($item, $histogram)){
+			$histogram[$item]++;
+		} else {
+			$histogram[$item] = 1;
+		}
+	}
+
+	ksort($histogram, SORT_REGULAR);
+	return $histogram;
+}
+
 ?>
