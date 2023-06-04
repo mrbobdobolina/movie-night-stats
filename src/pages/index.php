@@ -10,7 +10,7 @@ $count_events = count($event_list->events());
 $numbers = $numberTypes[rand(0,3)];
 
 ?>
-		
+
 <p class="display-6 text-center">"I'm not a nerd, you're a nerd."</p>
 <p class="text-center mb-5">
 	<?php
@@ -35,21 +35,29 @@ $numbers = $numberTypes[rand(0,3)];
 		<a href="/events/table" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-table"></i> Table View</a>
 		<a href="/events/rows" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-images"></i> Poster View</a>
 		<a href="/events/posters" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-image-portrait"></i> Winning Poster</a>
+
+		<br>
+        <label for="ctrl-numbers" class="form-label">Numbers</label>
+		<select id="ctrl-numbers" class="form-input form-select" onchange="switch_event_numbers(this.value)">
+			<option value="arabic">Arabic</option>
+			<option value="roman">Roman Numerals</option>
+			<option value="japanese">Japanese Kanji</option>
+		</select>
 	</div>
 	<?php
-	
+
 	$i = 0;
-	
+
 	foreach($event_list->events as $event):
 		$i++;
 		?>
-			
+
 		<div class="mb-3 col-12 <?php if($i == 1) {echo 'col-md-8';} else {echo 'col-md-6 col-lg-4';} ?>">
 			<div class="card">
 
 				<!-- Card Header -->
 				<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo $event->winner['viewer']->color; ?>">
-					<h3>Event <?php echo displayNumbers($count_events--, $numbers);?></h3>
+					<h3>Event <span data-event-number="<?php echo $count_events; ?>"><?php echo $count_events--; ?></span></h3>
 					<small><em><?php echo $event->date->long(); ?></em></small>
 				</div>
 
@@ -57,7 +65,7 @@ $numbers = $numberTypes[rand(0,3)];
 				<div class="card-body">
 					<div class="row">
 						<?php
-						
+
 						if($i == 1){
 							?>
 							<div class="col">
@@ -67,9 +75,9 @@ $numbers = $numberTypes[rand(0,3)];
 							</div>
 							<?php
 						}
-						
+
 						?>
-						
+
 						<div class="col">
 							<table class="table homepage">
 								<tbody>
@@ -100,11 +108,6 @@ $numbers = $numberTypes[rand(0,3)];
 						</div>
 					</div>
 
-					<p class="text-center">
-						<a data-bs-toggle="collapse" href="#collapseExample_<?php echo $count_events; ?>" aria-expanded="false" aria-controls="collapseExample_<?php echo $count_events; ?>">
-							More Details...
-						</a>
-					</p>
 
 					<div class="collapse" id="collapseExample_<?php echo $count_events; ?>">
 						<div class="card card-body">
@@ -134,8 +137,12 @@ $numbers = $numberTypes[rand(0,3)];
 					</div>
 
 
-
 				</div>
+
+				<a class="card-footer text-center py-3" data-bs-toggle="collapse" href="#collapseExample_<?php echo $count_events; ?>" aria-expanded="false" aria-controls="collapseExample_<?php echo $count_events; ?>">
+					Toggle Details
+				</a>
+
 			</div>
 		</div>
 		<?php ?>
@@ -144,3 +151,93 @@ $numbers = $numberTypes[rand(0,3)];
 
 
 <?php echo $db_counter; ?>
+
+<script>
+	function arabic_to_roman_numerals($number){
+		let $lookup = {
+			M:1000, CM:900,
+			D:500, CD:400,
+			C:100, XC:90,
+			L:50, XL:40,
+			X:10, IX:9,
+			V:5, IV:4,
+			I:1
+		};
+
+		let $roman_numeral = '';
+
+		for(let $i in $lookup){
+			while($number >= $lookup[$i]){
+				$roman_numeral += $i;
+				$number -= $lookup[$i];
+			}
+		}
+
+		return $roman_numeral;
+	}
+
+    function arabic_to_japanese_kanji($number){
+        const $count_thousands = Math.floor($number / 1000);
+        const $count_hundreds = Math.floor($number % 1000 / 100);
+        const $count_tens = Math.floor($number % 1000 % 100 / 10);
+        const $count_ones = Math.floor($number % 1000 % 100 % 10);
+
+        const $kanji = {
+            1:'一', 2:'二', 3:'三', 4:'四', 5:'五', 6:'六', 7:'七', 8:'八', 9:'九',
+            10:'十',
+            100:'百',
+            1000:'千'
+        }
+
+        let $value = '';
+
+        if($count_thousands){
+            $value += (($count_thousands > 1) ? $kanji[$count_thousands] : '') + $kanji[1000];
+        }
+        if($count_hundreds){
+            $value += (($count_hundreds > 1) ? $kanji[$count_hundreds] : '') + $kanji[100];
+        }
+        if($count_tens){
+            $value += (($count_tens > 1) ? $kanji[$count_tens] : '') + $kanji[10];
+        }
+        if($count_ones){
+            $value += $kanji[$count_ones];
+        }
+
+        return $value;
+    }
+
+    function set_event_numbers($type){
+
+        $('*[data-event-number]').each(($i, $element) => {
+            let $this = $($element);
+            const $number = parseInt($this.attr('data-event-number'));
+            let $value;
+
+            switch ($type) {
+                case 'roman':
+                    $value = arabic_to_roman_numerals($number);
+                    break;
+                case 'japanese':
+                    $value = arabic_to_japanese_kanji($number);
+                    break;
+                default:
+                    $value = $number;
+            }
+
+            $this.html($value);
+        })
+
+    }
+
+    function switch_event_numbers($value){
+        localStorage.setItem('event-numbers', $value);
+        set_event_numbers($value);
+    }
+
+	$(function(){
+        const $event_numbers = localStorage.getItem('event-numbers');
+        $('#ctrl-numbers').val($event_numbers);
+		set_event_numbers($event_numbers);
+	})
+</script>

@@ -15,7 +15,7 @@ include(ROOT.'/inc/Event_List.php');
 
 
 	<!-- jQuery -->
-	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/jquery/v3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/jquery/v3.7.0/jquery.min.js"></script>
 
 	<!-- Bootstrap -->
 	<link href="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
@@ -82,7 +82,7 @@ include(ROOT.'/inc/Event_List.php');
 	$event_list = new Event_List();
 	$event_list->init();
 	$count_events = count($event_list->events());
-	
+
 	$fireworks_random = rand(1,100);
 	$lastWinner = $event_list->events()[0]->winner['viewer']->id;
 
