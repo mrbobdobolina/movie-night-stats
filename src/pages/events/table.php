@@ -4,7 +4,8 @@ $event_list = new Event_List();
 $event_list->init();
 
 $count_events = count($event_list->events());
-$numbers = $numberTypes[rand(0,3)];
+/** @var int $numberTypes */
+$numbers = $numberTypes[rand(0, 3)];
 
 ?>
 <p class="display-6 text-center">(╯°□°）╯︵ ┻━┻</p>
@@ -13,20 +14,22 @@ $numbers = $numberTypes[rand(0,3)];
 
 <table id="events" class="table table-hover">
 	<thead>
-		<tr>
-			<th>#</th>
-			<th>Date</th>
-			<th>Wedge</th>
-			<th>Winning Film</th>
-			<th>Winner</th>
-			<th>Spinner</th>
-			<th>Tool</th>
-			<th>Format</th>
-		</tr>
+	<tr>
+		<th>#</th>
+		<th>Date</th>
+		<th>Wedge</th>
+		<th>Winning Film</th>
+		<th>Winner</th>
+		<th>Spinner</th>
+		<th>Tool</th>
+		<th>Format</th>
+	</tr>
 	</thead>
 	<tbody>
-	<?php foreach($event_list->events() as $event): ?>
-	
+	<?php
+	/** @var Event_Item $event */
+	foreach ($event_list->events() as $event): ?>
+
 		<tr class="text-white" style="background-color:#<?php echo $event->winner['viewer']->color; ?>">
 			<td><?php echo $count_events--; ?></td>
 			<td><?php echo $event->date->long(); ?></td>
@@ -42,16 +45,14 @@ $numbers = $numberTypes[rand(0,3)];
 </table>
 
 
-
-
 <script>
-$(document).ready(function() {
-	$('#events').DataTable(
-		{
-			"pageLength": 100,
-			"lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
-			"order": [[ 0, "desc" ]]
-		}
-	);
-} );
+	$(document).ready(function () {
+		$('#events').DataTable(
+			{
+				'pageLength': 100,
+				'lengthMenu': [[50, 100, 200, -1], [50, 100, 200, 'All']],
+				'order': [[0, 'desc']],
+			},
+		);
+	});
 </script>

@@ -1,23 +1,23 @@
 <?php
 
-require_once("../common.php");
+require_once( "../common.php" );
 
-include('inc/credentials.php');
+include( 'inc/credentials.php' );
 
 restrict_page_to_admin();
 
-if(!empty($_POST)){
-	if(
+if (!empty($_POST)) {
+	if (
 		!empty($_POST['name']) &&
 		!empty($_POST['color_1']) && !empty($_POST['color_2']) && !empty($_POST['color_3']) &&
 		!empty($_POST['color_4']) && !empty($_POST['color_5']) && !empty($_POST['color_6']) &&
 		!empty($_POST['color_7']) && !empty($_POST['color_8']) && !empty($_POST['color_9']) &&
 		!empty($_POST['color_10']) && !empty($_POST['color_11']) && !empty($_POST['color_12'])
-	){
+	) {
 		$query = sprintf(
-			"INSERT INTO `spinners` SET `name`='%s',".
-			"`wedge_1`='%s',`wedge_2`='%s',`wedge_3`='%s',`wedge_4`='%s',".
-			"`wedge_5`='%s',`wedge_6`='%s',`wedge_7`='%s',`wedge_8`='%s',".
+			"INSERT INTO `spinners` SET `name`='%s'," .
+			"`wedge_1`='%s',`wedge_2`='%s',`wedge_3`='%s',`wedge_4`='%s'," .
+			"`wedge_5`='%s',`wedge_6`='%s',`wedge_7`='%s',`wedge_8`='%s'," .
 			"`wedge_9`='%s',`wedge_10`='%s',`wedge_11`='%s',`wedge_12`='%s', `uses`='0'",
 
 			db_esc($_POST['name'] ?? ''),
@@ -43,18 +43,18 @@ if(!empty($_POST)){
 
 		$alert = [
 			'color' => 'success',
-			'msg' => 'Success! Spinner added to database!'
+			'msg'   => 'Success! Spinner added to database!',
 		];
 	}
 	else {
 		$alert = [
 			'color' => 'danger',
-			'msg' => 'Error! You need to fill out all the fields.'
+			'msg'   => 'Error! You need to fill out all the fields.',
 		];
 	}
 }
 
-include('template/header.php');
+include( 'template/header.php' );
 
 ?>
 <h1 class="display-6 text-center">Add a Spinner</h1>
@@ -62,8 +62,8 @@ include('template/header.php');
 
 <?php
 
-if(!empty($alert)){
-	echo '<div class="alert alert-'.$alert['color'].' alert-dismissible fade show" role="alert">';
+if (!empty($alert)) {
+	echo '<div class="alert alert-' . $alert['color'] . ' alert-dismissible fade show" role="alert">';
 	echo $alert['msg'];
 	echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
 	echo '</div>';
@@ -114,7 +114,7 @@ if(!empty($alert)){
 							<input id="color_5" name="color_5" type="text" class="form-control">
 						</div>
 					</div>
-				 	<div class="row mb-3">
+					<div class="row mb-3">
 						<label for="color 1" class="col-4 col-form-label">Color 6</label>
 						<div class="col-8">
 							<input id="color_6" name="color_6" type="text" class="form-control">
@@ -175,9 +175,9 @@ if(!empty($alert)){
 			<div class="card-body">
 				<ul>
 					<?php
-						foreach(getSelectionTypes(TRUE) as $selection){
-							echo '<li>'.$selection.'</li>';
-						}
+					foreach (getSelectionTypes(TRUE) as $selection) {
+						echo '<li>' . $selection . '</li>';
+					}
 					?>
 				</ul>
 			</div>
@@ -189,6 +189,6 @@ if(!empty($alert)){
 
 <?php
 
-include('template/footer.php')
+include( 'template/footer.php' )
 
 ?>

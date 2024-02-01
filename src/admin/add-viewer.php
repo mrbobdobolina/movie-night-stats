@@ -1,13 +1,13 @@
 <?php
 
-require_once("../common.php");
+require_once( "../common.php" );
 
-include('inc/credentials.php');
+include( 'inc/credentials.php' );
 
 restrict_page_to_admin();
 
-if(!empty($_POST)){
-	if(!empty($_POST['name']) && !empty($_POST['color'])){
+if (!empty($_POST)) {
+	if (!empty($_POST['name']) && !empty($_POST['color'])) {
 		$query = sprintf(
 			"INSERT INTO `viewers` SET `name`='%s', `color`='%s'",
 			db_esc($_POST['name']),
@@ -18,31 +18,37 @@ if(!empty($_POST)){
 
 		$alert = [
 			'color' => 'success',
-			'msg' => 'Success! Added new viewer!'
+			'msg'   => 'Success! Added new viewer!',
 		];
 	}
-	else if(empty($_POST['name']) && empty($_POST['color'])){
-		$alert = [
-			'color' => 'danger',
-			'msg' => 'Error! Please enter a name and color.'
-		];
-	}
-	else if(empty($_POST['name'])) {
-		$alert = [
-			'color' => 'danger',
-			'msg' => 'Error! Please enter a name.'
-		];
-	}
-	else if(empty($_POST['color'])) {
-		$alert = [
-			'color' => 'danger',
-			'msg' => 'Error! Please enter a color.'
-		];
+	else {
+		if (empty($_POST['name']) && empty($_POST['color'])) {
+			$alert = [
+				'color' => 'danger',
+				'msg'   => 'Error! Please enter a name and color.',
+			];
+		}
+		else {
+			if (empty($_POST['name'])) {
+				$alert = [
+					'color' => 'danger',
+					'msg'   => 'Error! Please enter a name.',
+				];
+			}
+			else {
+				if (empty($_POST['color'])) {
+					$alert = [
+						'color' => 'danger',
+						'msg'   => 'Error! Please enter a color.',
+					];
+				}
+			}
+		}
 	}
 
 }
 
-include('template/header.php');
+include( 'template/header.php' );
 
 ?>
 <h1 class="display-6 text-center">Add a viewer</h1>
@@ -50,8 +56,8 @@ include('template/header.php');
 
 <?php
 
-if(!empty($alert)){
-	echo '<div class="alert alert-'.$alert['color'].' alert-dismissible fade show" role="alert">';
+if (!empty($alert)) {
+	echo '<div class="alert alert-' . $alert['color'] . ' alert-dismissible fade show" role="alert">';
 	echo $alert['msg'];
 	echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
 	echo '</div>';
@@ -72,7 +78,7 @@ if(!empty($alert)){
 						</div>
 					</div>
 					<div class="row mb-3">
-						<label for="color" class="col-4 col-form-label">Color <br ><em>hex no #</em></label>
+						<label for="color" class="col-4 col-form-label">Color <br><em>hex no #</em></label>
 						<div class="col-8">
 							<input id="color" name="color" type="text" class="form-control">
 						</div>
@@ -98,8 +104,8 @@ if(!empty($alert)){
 					<?php
 
 					$viewers = getListOfViewers();
-					foreach($viewers as $person){
-						echo '<li>'.$person['name'].'</li>';
+					foreach ($viewers as $person) {
+						echo '<li>' . $person['name'] . '</li>';
 					}
 
 					?>
@@ -113,6 +119,6 @@ if(!empty($alert)){
 
 <?php
 
-include('template/footer.php')
+include( 'template/footer.php' )
 
 ?>

@@ -15,8 +15,10 @@ elseif(file_exists(ROOT.'/pages/'.$_GET['url'].'/index.php')){
 
 template('header');
 
+$url = str_replace('..', '.', $url);
+
+
 include($url);
 
 
 include(ROOT.'/template/footer.php');
-

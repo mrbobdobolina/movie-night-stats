@@ -1,10 +1,13 @@
 <?php
 add_page_load();
 
-include(ROOT.'/inc/Event_List.php');
+include( ROOT . '/inc/Event_List.php' );
 
-?>
-<!DOCTYPE html>
+if (!defined('WEB_ROOT')) {
+	define('WEB_ROOT', '');
+}
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -15,14 +18,17 @@ include(ROOT.'/inc/Event_List.php');
 
 
 	<!-- jQuery -->
-	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/jquery/v3.7.0/jquery.min.js"></script>
+	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/jquery/v3.7.0/jquery-3.7.0.min.js"></script>
 
 	<!-- Bootstrap -->
-	<link href="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
-	<script src="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.0.0-beta2/js/bootstrap.bundle.min.js"></script>
+	<link href="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.3.2/css/bootstrap.min.css" rel="stylesheet">
+	<script src="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.3.2/js/bootstrap.bundle.min.js"></script>
 
 	<!-- DataTables -->
-	<link rel="stylesheet" type="text/css" href="<?php echo WEB_ROOT; ?>/assets/datatables/v1.10.23/datatables.min.css"/>
+	<link
+		rel="stylesheet"
+		type="text/css"
+		href="<?php echo WEB_ROOT; ?>/assets/datatables/v1.10.23/datatables.min.css" />
 	<script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/datatables/v1.10.23/datatables.min.js"></script>
 
 	<!-- Fitty -->
@@ -50,77 +56,74 @@ include(ROOT.'/inc/Event_List.php');
 	<link rel="icon" href="images/favicon_32.png">
 
 	<!-- Movie Night Stats -->
-	<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/movie-night-stats/main.css">
-
+	<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/movie-night-stats/movie-night-stats.min.css">
 
 
 	<?php $season = get_seasonal_weather();
-	if($season == 'sakura'): ?>
+	if ($season == 'sakura'): ?>
 		<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/seasonal/sakura/sakura.css">
-	<?php endif;?>
+	<?php endif; ?>
 
 </head>
 <body>
 
 
-	<?php if($season == 'sakura'): ?>
-		<script src="<?php echo WEB_ROOT; ?>/assets/seasonal/sakura/sakura.js"></script>
-	<?php endif;?>
+<?php if ($season == 'sakura'): ?>
+	<script src="<?php echo WEB_ROOT; ?>/assets/seasonal/sakura/sakura.js"></script>
+<?php endif; ?>
 
-	<?php if($season == 'snow'): ?>
-		<script src="<?php echo WEB_ROOT; ?>/assets/seasonal/snow/snowflakes.min.js"></script>
-		<script>
-			var sf = new Snowflakes();
-		</script>
-	<?php endif;?>
+<?php if ($season == 'snow'): ?>
+	<script src="<?php echo WEB_ROOT; ?>/assets/seasonal/snow/snowflakes.min.js"></script>
+	<script>
+		var sf = new Snowflakes();
+	</script>
+<?php endif; ?>
 
 <?php template('nav'); ?>
 
-<main>
+<main class="container">
 
 	<?php
 	$event_list = new Event_List();
 	$event_list->init();
 	$count_events = count($event_list->events());
 
-	$fireworks_random = rand(1,100);
+	$fireworks_random = rand(1, 100);
 	$lastWinner = $event_list->events()[0]->winner['viewer']->id;
 
-	if($count_events % 100 == 0 || $count_events % 50 == 0 || $fireworks_random == 1 || $lastWinner == 8):
-	?>
+	if ($count_events % 100 == 0 || $count_events % 50 == 0 || $fireworks_random == 1 || $lastWinner == 8):
+		?>
 		<script src="<?php echo WEB_ROOT; ?>/assets/fireworks/v1.0.0/fireworks.js"></script>
 		<script>
-		const container = document.querySelector('.container')
+			const container = document.querySelector('.container');
 
-		const fireworks = new Fireworks({
-			target: container,
-			hue: 120,
-			startDelay: 1,
-			minDelay: 20,
-			maxDelay: 30,
-			speed: 4,
-			acceleration: 1.05,
-			friction: 0.98,
-			gravity: 1,
-			particles: 75,
-			trace: 3,
-			explosion: 5,
-			boundaries: {
-				top: 50,
-				bottom: container.clientHeight,
-				left: 50,
-				right: container.clientWidth
-			},
-			sound: {
-				enable: false,
-				min: 4,
-				max: 8
-			}
-		})
+			const fireworks = new Fireworks({
+				target: container,
+				hue: 120,
+				startDelay: 1,
+				minDelay: 20,
+				maxDelay: 30,
+				speed: 4,
+				acceleration: 1.05,
+				friction: 0.98,
+				gravity: 1,
+				particles: 75,
+				trace: 3,
+				explosion: 5,
+				boundaries: {
+					top: 50,
+					bottom: container.clientHeight,
+					left: 50,
+					right: container.clientWidth,
+				},
+				sound: {
+					enable: false,
+					min: 4,
+					max: 8,
+				},
+			});
 
-		// start fireworks
-		fireworks.start()
+			// start fireworks
+			fireworks.start();
 		</script>
 	<?php endif; ?>
-<div class="py-5 bg-light">
-	<div class="container">

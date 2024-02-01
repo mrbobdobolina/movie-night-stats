@@ -6,7 +6,7 @@ class Viewer_Item {
 	public $color;
 	public $attendance;
 
-	public function __construct(){
+	public function __construct() {
 		return $this;
 	}
 }

@@ -5,7 +5,7 @@ class Spinner_Item {
 	public $name;
 	public $wedges;
 
-	public function __construct(){
+	public function __construct() {
 		return $this;
 	}
 }

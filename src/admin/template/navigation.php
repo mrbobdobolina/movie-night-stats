@@ -2,9 +2,9 @@
 	<div class="container d-flex justify-content-between">
 		<?php
 
-		if(is_admin()):
+		if (is_admin()):
 
-		?>
+			?>
 			<a href="add-list.php" class="nav-link text-white fw-bold">Scribe's List</a>
 			<a href="add-viewer.php" class="nav-link text-white fw-bold">Add Viewer</a>
 			<a href="add-movie.php" class="nav-link text-white fw-bold">Add Movie</a>

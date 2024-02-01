@@ -1,43 +1,43 @@
 <?php
 
-function getListOfViewers($sortBy = 'id', $direction = "DESC"){
+function getListOfViewers($sortBy = 'id', $direction = "DESC") {
 	$sql = "SELECT * FROM `viewers` ORDER BY `$sortBy` $direction";
 	$data = db($sql);
 
 	return $data;
 }
 
-function get_list_of_viewers($pdo, $sort_by = 'id', $direction = 'DESC'){
+function get_list_of_viewers($pdo, $sort_by = 'id', $direction = 'DESC') {
 	$sql = "SELECT * FROM viewers ORDER BY ? $direction";
 	$stmt = $pdo->prepare($sql);
-	$stmt->execute([$sort_by]);
+	$stmt->execute([ $sort_by ]);
 	$result = $stmt->fetchAll();
 	return $result;
 }
 
-function getMoviegoerById($id){
+function getMoviegoerById($id) {
 	$sql = "SELECT `name` FROM `viewers` WHERE `id` = $id";
 	$data = db($sql);
 
-	if($data){
+	if ($data) {
 		return $data[0]['name'];
 	}
 
-	return null;
+	return NULL;
 }
 
-function getMoviegoerColorById($id){
+function getMoviegoerColorById($id) {
 	$sql = "SELECT `color` FROM `viewers` WHERE `id` = $id";
 	$data = db($sql)[0]['color'];
 
 	return $data;
 }
 
-function getMoviegoerColorByName($name){
+function getMoviegoerColorByName($name) {
 	$sql = "SELECT `color` FROM `viewers` WHERE `name` = '$name'";
 	$data = db($sql);
 
-	if($data != NULL){
+	if ($data != NULL) {
 		return $data[0]['color'];
 	}
 
@@ -45,13 +45,13 @@ function getMoviegoerColorByName($name){
 }
 
 
-function getViewerName($id){
+function getViewerName($id) {
 	return getMoviegoerById($id);
 }
 
-function count_viewer_spin_methods($pdo, $viewer_id){
+function count_viewer_spin_methods($pdo, $viewer_id) {
 	$stmt = $pdo->prepare("SELECT selection_method, count(*) FROM week WHERE spinner = ? GROUP BY selection_method ORDER BY count(*) DESC");
-	$stmt->execute([$viewer_id]);
+	$stmt->execute([ $viewer_id ]);
 	$result = $stmt->fetchALL();
 
 	return $result;

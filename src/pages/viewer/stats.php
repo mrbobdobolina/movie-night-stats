@@ -12,8 +12,8 @@ $viewer_list->event_list = $event_list;
 
 $viewer_stats = $viewer_list->stats_by_viewer();
 
-if(array_key_exists((int) $_GET['viewer'], $viewer_stats)){
-	$viewer_id = (int) $_GET['viewer'];
+if (array_key_exists((int)$_GET['viewer'], $viewer_stats)) {
+	$viewer_id = (int)$_GET['viewer'];
 	$this_viewer = $viewer_list->get_by_id($viewer_id);
 	$this_viewer_stats = $viewer_stats[$viewer_id];
 	$viewer = $viewer_id; // TODO: Remove This
@@ -34,23 +34,23 @@ $spin_count = count($this_viewer_stats['spins']);
 
 $average_year_count = 0;
 $average_year_total = 0;
-foreach($this_viewer_stats['media'] as $media){
+foreach ($this_viewer_stats['media'] as $media) {
 	$average_year_count++;
 	$average_year_total += $media['item']->year;
 }
-$average_year = ($average_year_count) ? round($average_year_total / $average_year_count, 0) : '-';
+$average_year = ( $average_year_count ) ? round($average_year_total / $average_year_count, 0) : '-';
 
 // Win Streaks
 $longest_win_streak = 0;
 $longest_lose_streak = 0;
 
-foreach($this_viewer_stats['streak']['win'] as $win_streak){
-	if(count($win_streak) >= $longest_win_streak){
+foreach ($this_viewer_stats['streak']['win'] as $win_streak) {
+	if (count($win_streak) >= $longest_win_streak) {
 		$longest_win_streak = count($win_streak);
 	}
 }
-foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
-	if(count($lose_streak) >= $longest_lose_streak){
+foreach ($this_viewer_stats['streak']['lose'] as $lose_streak) {
+	if (count($lose_streak) >= $longest_lose_streak) {
 		$longest_lose_streak = count($lose_streak);
 	}
 }
@@ -58,7 +58,7 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 ?>
 
 <style>
-	.card-header{
+	.card-header {
 		background-color: #<?php echo $this_viewer->color;?>;
 		color: white;
 	}
@@ -73,11 +73,11 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 	</div>
 </div>
 <div class="row">
-	
+
 	<div class="col-12 col-md-6 col-lg-4">
 		<div class="row row-cols-1">
-			
-			
+
+
 			<div class="col mb-3">
 				<div class="card">
 					<div class="card-header h3">
@@ -93,14 +93,14 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 						<li class="list-group-item">
 							<div class="row">
 								<div class="col fw-bold">Attendance:</div>
-								<div class="col"><?php echo $attendance_count;?></div>
+								<div class="col"><?php echo $attendance_count; ?></div>
 							</div>
 						</li>
 						<li class="list-group-item">
 							<div class="row">
 								<div class="col fw-bold">First Seen:</div>
 								<div class="col">
-									<?php echo $this_viewer_stats['attendance'][$attendance_count-1]->date->short();  ?>
+									<?php echo $this_viewer_stats['attendance'][$attendance_count - 1]->date->short(); ?>
 								</div>
 							</div>
 						</li>
@@ -113,8 +113,8 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 					</ul>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="col mb-3">
 				<div class="card">
 					<div class="card-header h3">
@@ -137,7 +137,8 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 							<div class="row">
 								<div class="col fw-bold">% Unique:</div>
 								<div class="col">
-									<?php echo ($wedges_count) ? round(( $unique_count / $wedges_count ) * 100,2) : '-';?>%
+									<?php echo ( $wedges_count ) ? round(( $unique_count / $wedges_count ) * 100, 2) : '-'; ?>
+									%
 								</div>
 							</div>
 						</li>
@@ -150,8 +151,8 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 					</ul>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="col mb-3">
 				<div class="card">
 					<div class="card-header h3">
@@ -168,7 +169,8 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 							<div class="row">
 								<div class="col fw-bold">% / Total Events:</div>
 								<div class="col">
-									<?php echo ($count_events) ? round(( $wins_count / $count_events ) * 100,2) : '-';?>%
+									<?php echo ( $count_events ) ? round(( $wins_count / $count_events ) * 100, 2) : '-'; ?>
+									%
 								</div>
 							</div>
 						</li>
@@ -176,15 +178,16 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 							<div class="row">
 								<div class="col fw-bold">% / Attendance:</div>
 								<div class="col">
-									<?php echo ($attendance_count) ? round(( $wins_count / $attendance_count ) * 100,2) : '-';?>%
+									<?php echo ( $attendance_count ) ? round(( $wins_count / $attendance_count ) * 100, 2) : '-'; ?>
+									%
 								</div>
 							</div>
 						</li>
 					</ul>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="col mb-3">
 				<div class="card">
 					<div class="card-header h3">
@@ -209,7 +212,7 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 							<div class="row">
 								<div class="col fw-bold">Longest Win when Attending:</div>
 								<div class="col">
-									<?php echo count_viewer_win_streak_when_attending_and_not_viewer_choice($pdo, $viewer)['count'];?>
+									<?php echo count_viewer_win_streak_when_attending_and_not_viewer_choice($pdo, $viewer)['count']; ?>
 								</div>
 							</div>
 						</li>
@@ -234,8 +237,8 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 					</ul>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="col mb-3">
 				<div class="card">
 					<?php
@@ -249,38 +252,38 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 						<li class="list-group-item">
 							<div class="row">
 								<div class="col fw-bold">Scribe:</div>
-								<div class="col"><?php echo count_scribing($pdo,$viewer); ?></div>
+								<div class="col"><?php echo count_scribing($pdo, $viewer); ?></div>
 							</div>
 						</li>
 						<li class="list-group-item">
 							<div class="row">
 								<div class="col fw-bold">All Picks:</div>
-								<div class="col"><?php echo $picks['total'];?></div>
+								<div class="col"><?php echo $picks['total']; ?></div>
 							</div>
 						</li>
 						<li class="list-group-item">
 							<div class="row">
 								<div class="col fw-bold">Total Spins:</div>
-								<div class="col"><?php echo $spin_count;?></div>
+								<div class="col"><?php echo $spin_count; ?></div>
 							</div>
 						</li>
 						<li class="list-group-item">
 							<div class="row">
 								<div class="col fw-bold">Error Spins:</div>
-								<div class="col"><?php echo $spins['bad'];?></div>
+								<div class="col"><?php echo $spins['bad']; ?></div>
 							</div>
 						</li>
 					</ul>
 				</div>
 			</div>
-			
-			
+
+
 		</div>
 	</div>
 	<div class="col-12 col-md-6 col-lg-4">
 		<div class="row row-cols-1">
-			
-			
+
+
 			<div class="col mb-3">
 				<div class="card">
 					<div class="card-header h3">
@@ -290,39 +293,44 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 						<li class="list-group-item">
 							<?php
 							$numbers = graphSpunNumbersByViewer($viewer);
-							if(!empty($numbers)){
+							if (!empty($numbers)) {
 								$max = max($numbers);
-								if($max == 0){$max = 1;}
+								if ($max == 0) {
+									$max = 1;
+								}
 							}
 							else {
 								$max = 1;
 							}
 							?>
-		
+
 							<div class="chart">
-								<table id="column-<?php echo $viewer;?>" class="charts-css column show-labels show-data">
+								<table
+									id="column-<?php echo $viewer; ?>"
+									class="charts-css column show-labels show-data">
 									<thead>
-										<tr>
-											<th scope="col">Number</th>
-											<th scope="col">Wins</th>
-										</tr>
+									<tr>
+										<th scope="col">Number</th>
+										<th scope="col">Wins</th>
+									</tr>
 									</thead>
-										<tbody style="height: 120px;">
-											<?php foreach($numbers as $key => $value):?>
-												<tr>
-													<th scope="row"> <?php echo $key; ?> </th>
-													<td style="--size:<?php echo round($value/$max,1); ?>;"><span class="data"><?php echo $value; ?></span></td>
-												</tr>
-											<?php endforeach;?>
-										</tbody>
+									<tbody style="height: 120px;">
+									<?php foreach ($numbers as $key => $value): ?>
+										<tr>
+											<th scope="row"> <?php echo $key; ?> </th>
+											<td style="--size:<?php echo round($value / $max, 1); ?>;">
+												<span class="data"><?php echo $value; ?></span></td>
+										</tr>
+									<?php endforeach; ?>
+									</tbody>
 								</table>
 							</div>
 						</li>
 					</ul>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="col mb-3">
 				<div class="card">
 					<div class="card-header h3">
@@ -333,82 +341,91 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 							<?php
 
 							$numbers = getSpunViewers_v2($viewer);
-		
-							if(!empty($numbers)){
+
+							if (!empty($numbers)) {
 								$max = max($numbers);
-								if($max == 0){$max=1;}
+								if ($max == 0) {
+									$max = 1;
+								}
 							}
 							else {
 								$max = 1;
 							}
-		
-		
-							$the_peoples = Array();
-							$the_counts = Array();
-							$the_colors = Array();
-							 ?>
-		
+
+
+							$the_peoples = [];
+							$the_counts = [];
+							$the_colors = [];
+							?>
+
 							<div class="chart">
-								<table id="column-<?php echo $viewer;?>" class="charts-css bar show-labels show-data">
+								<table id="column-<?php echo $viewer; ?>" class="charts-css bar show-labels show-data">
 									<thead>
-										<tr>
-											<th scope="col">Number</th>
-											<th scope="col">Wins</th>
-										</tr>
+									<tr>
+										<th scope="col">Number</th>
+										<th scope="col">Wins</th>
+									</tr>
 									</thead>
-										<tbody>
-											<?php foreach($numbers as $key => $value):?>
-												<?php
-												$the_peoples[] = $key;
-												$the_counts[] = $value;
-												$the_colors[] = getMoviegoerColorByName($key);?>
-												<tr>
-													<th scope="row"> <?php echo $key; ?> </th>
-													<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<?php echo getMoviegoerColorByName($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
-												</tr>
-											<?php endforeach;?>
-										</tbody>
+									<tbody>
+									<?php foreach ($numbers as $key => $value): ?>
+										<?php
+										$the_peoples[] = $key;
+										$the_counts[] = $value;
+										$the_colors[] = getMoviegoerColorByName($key); ?>
+										<tr>
+											<th scope="row"> <?php echo $key; ?> </th>
+											<td style="--size:<?php echo round($value / $max, 2); ?>; --color:#<?php echo getMoviegoerColorByName($key); ?>">
+												<span class="data data_padding"><?php echo $value; ?></span></td>
+										</tr>
+									<?php endforeach; ?>
+									</tbody>
 								</table>
 							</div>
 						</li>
 					</ul>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
-							<canvas id="spinnychart" width="250" height="250" style="position:relative; !important"></canvas>
+							<canvas
+								id="spinnychart"
+								width="250"
+								height="250"
+								style="position:relative; !important"></canvas>
 							<script>
-							var ctx = document.getElementById('spinnychart').getContext('2d');
-							var myChart = new Chart(ctx, {
-								type: 'pie',
-								data: {
-									labels: ['<?php echo implode("','", $the_peoples); ?>'],
-										datasets: [{
-											data: [<?php echo implode(',', $the_counts); ?>],
-											backgroundColor: ['#<?php echo implode("','#", $the_colors); ?>'],
-											hoverOffset: 10
-										}]
-								},
-								options: {
-									layout: {
-										padding: {
-											left: 30,
-											right: 30,
-											top: 0
-										}
+								var ctx = document.getElementById('spinnychart').getContext('2d');
+								var myChart = new Chart(ctx, {
+									type: 'pie',
+									data: {
+										labels: ['<?php echo implode("','", $the_peoples); ?>'],
+										datasets: [
+											{
+												data: [<?php echo implode(',', $the_counts); ?>],
+												backgroundColor: ['#<?php echo implode("','#", $the_colors); ?>'],
+												hoverOffset: 10,
+											},
+										],
 									},
-									plugins: {
-										legend: {
-											display: true
-										}
-									}
-								}
-							});
+									options: {
+										layout: {
+											padding: {
+												left: 30,
+												right: 30,
+												top: 0,
+											},
+										},
+										plugins: {
+											legend: {
+												display: true,
+											},
+										},
+									},
+								});
 							</script>
 						</li>
 					</ul>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="col mb-3">
 				<div class="card">
 					<div class="card-header h3">
@@ -419,30 +436,32 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 							<div class="chart">
 								<table id="method-chart" class="charts-css bar show-labels show-data">
 									<thead>
-										<tr>
-											<th >Method</th>
-											<th >Count</th>
-										</tr>
+									<tr>
+										<th>Method</th>
+										<th>Count</th>
+									</tr>
 									</thead>
-										<tbody>
-											<?php $methods = count_viewer_spin_methods($pdo, $viewer);
-											$m_max = $methods[0]['count(*)']
-											?>
-											<?php foreach($methods as $method):?>
-												<tr>
-													<th scope="row"> <?php echo $method['selection_method']; ?> </th>
-													<td style="--size:<?php echo round($method['count(*)']/$m_max,2); ?>;w"><span class="data data_padding"><?php echo $method['count(*)']; ?></span></td>
-												</tr>
-											<?php endforeach;?>
-										</tbody>
+									<tbody>
+									<?php $methods = count_viewer_spin_methods($pdo, $viewer);
+									$m_max = $methods[0]['count(*)']
+									?>
+									<?php foreach ($methods as $method): ?>
+										<tr>
+											<th scope="row"> <?php echo $method['selection_method']; ?> </th>
+											<td style="--size:<?php echo round($method['count(*)'] / $m_max, 2); ?>;w">
+												<span class="data data_padding"><?php echo $method['count(*)']; ?></span>
+											</td>
+										</tr>
+									<?php endforeach; ?>
+									</tbody>
 								</table>
 							</div>
 						</li>
 					</ul>
 				</div>
 			</div>
-			
-			
+
+
 			<div class="col mb-3">
 				<div class="card">
 					<div class="card-header h3">
@@ -453,60 +472,66 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 							<?php
 
 							$stats = count_viewer_services($viewer);
-			
-							$format = Array();
-							$count = Array();
-							$color = Array();
-							foreach($stats as $key => $value){
+
+							$format = [];
+							$count = [];
+							$color = [];
+							foreach ($stats as $key => $value) {
 								$format[] = $key;
 								$count[] = $value;
 								$color[] = get_service_color_v3($key);
 							}
-			
-							if(!empty($format)): ?>
-								<canvas id="myChart<?php echo $viewer;?>" width="250" height="250" style="position:relative; !important"></canvas>
+
+							if (!empty($format)): ?>
+								<canvas
+									id="myChart<?php echo $viewer; ?>"
+									width="250"
+									height="250"
+									style="position:relative; !important"></canvas>
 								<script>
-								var ctx = document.getElementById('myChart<?php echo $viewer;?>').getContext('2d');
-								var myChart = new Chart(ctx, {
+									var ctx = document.getElementById('myChart<?php echo $viewer;?>').getContext('2d');
+									var myChart = new Chart(ctx, {
 										type: 'doughnut',
 										data: {
 											labels: ['<?php echo implode("','", $format); ?>'],
-												datasets: [{
+											datasets: [
+												{
 													data: [<?php echo implode(',', $count); ?>],
 													backgroundColor: ['<?php echo implode("','", $color); ?>'],
-													hoverOffset: 10
-												}]
+													hoverOffset: 10,
+												},
+											],
 										},
 										options: {
 											layout: {
 												padding: {
 													left: 30,
 													right: 30,
-													top: 10
-												}
+													top: 10,
+												},
 											},
 											plugins: {
 												legend: {
-													display: false
-												}
-											}
-										}
-								});
+													display: false,
+												},
+											},
+										},
+									});
 								</script>
-			
+
 							<?php endif; ?>
 						</li>
 					</ul>
 				</div>
 			</div>
-			
-			
+
+
 		</div>
 	</div>
 	<div class="col-12 col-lg-4">
 		<div class="row row-cols-1">
-			
-			
+
+
 			<div class="col mb-3">
 				<div class="card">
 					<div class="card-header h3">
@@ -517,30 +542,30 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 
 						$watchedFilmList = listWatchedMovies();
 						$allUsersPicks = listMyTotalPicksReal($viewer);
-						$allUserPicks2 = Array();
-						foreach($allUsersPicks as $aPick){
+						$allUserPicks2 = [];
+						foreach ($allUsersPicks as $aPick) {
 							$allUserPicks2[] = $aPick['filmID'];
 						}
 						//$allUserPicks2 = array_unique($allUserPicks2);
 						$allUserPicks3 = array_count_values($allUserPicks2);
 						arsort($allUserPicks3);
-	
+
 						?>
-	
-	
+
+
 						<table id="movies" class="table table-striped">
 							<thead>
-								<tr>
-									<td><strong><i class="fa-regular fa-photo-film-music"></i></strong></td>
-									<td><strong>Movie Title</strong></td>
-									<td><strong>Times on Wheel</strong></td>
-								</tr>
+							<tr>
+								<td><strong><i class="fa-regular fa-photo-film-music"></i></strong></td>
+								<td><strong>Movie Title</strong></td>
+								<td><strong>Times on Wheel</strong></td>
+							</tr>
 							</thead>
 							<tbody>
 							<?php
-							foreach($allUserPicks3 as $key => $value){
-								if(!in_array($key, $watchedFilmList)){
-									echo '<tr><td class="text-center"><i class="fa fa-'.get_type_by_id($pdo,$key).'"></i></td><td>'.get_movie_by_id($pdo,$key).'</td> <td>'.$value.'</td></tr>';
+							foreach ($allUserPicks3 as $key => $value) {
+								if (!in_array($key, $watchedFilmList)) {
+									echo '<tr><td class="text-center"><i class="fa fa-' . get_type_by_id($pdo, $key) . '"></i></td><td>' . get_movie_by_id($pdo, $key) . '</td> <td>' . $value . '</td></tr>';
 								}
 							}
 							?>
@@ -549,22 +574,21 @@ foreach($this_viewer_stats['streak']['lose'] as $lose_streak){
 					</div>
 				</div>
 			</div>
-			
-			
+
+
 		</div>
 	</div>
 </div>
 
 
 <script>
-$(function() {
-	$('#movies').DataTable(
-		{
-			"pageLength": 25,
-			"lengthMenu": [ [10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, "All"] ],
-			"order": [[ 2, "desc" ]]
-		}
-	);
-} );
+	$(function () {
+		$('#movies').DataTable(
+			{
+				'pageLength': 25,
+				'lengthMenu': [[10, 25, 50, 100, 200, -1], [10, 25, 50, 100, 200, 'All']],
+				'order': [[2, 'desc']],
+			},
+		);
+	});
 </script>
-

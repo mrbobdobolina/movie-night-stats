@@ -1,0 +1,10 @@
+$mns_red:      #E6210B !default;
+$mns_red_dark: #891406 !default;
+
+:root {
+	--mns-primary-bg: #{$mns_red};
+}
+
+[data-bs-theme="dark"] {
+	--mns-primary-bg: #{$mns_red_dark};
+}

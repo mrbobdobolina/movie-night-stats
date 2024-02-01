@@ -16,11 +16,11 @@ add_page_load();
 	<script type="text/javascript" src="../../assets/jquery/v3.3.1/jquery.min.js"></script>
 
 	<!-- Bootstrap -->
-	<link href="../../assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet" >
+	<link href="../../assets/bootstrap/v5.0.0-beta2/css/bootstrap.min.css" rel="stylesheet">
 	<script src="../../assets/bootstrap/v5.0.0-beta2/js/bootstrap.bundle.min.js"></script>
 
 	<!-- DataTables -->
-	<link rel="stylesheet" type="text/css" href="../../assets/datatables/v1.10.23/datatables.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../assets/datatables/v1.10.23/datatables.min.css" />
 	<script type="text/javascript" src="../../assets/datatables/v1.10.23/datatables.min.js"></script>
 
 	<!-- Fitty -->
@@ -50,67 +50,73 @@ add_page_load();
 </head>
 <body>
 
-  <header>
-  	<div class="bg-red shadow-sm ">
-  		<div class="container d-flex header-image text-center" style="height:233px;">
-  			<a href="../index.php">
-  				<img src="../../images/MovieNightStats_v02B_Rectangle_Transparent.png" class="img-fluid">
-  			</a>
-  		</div>
-  	</div>
-  </header>
+<header>
+	<div class="bg-red shadow-sm ">
+		<div class="container d-flex header-image text-center" style="height:233px;">
+			<a href="../index.php">
+				<img src="../../images/MovieNightStats_v02B_Rectangle_Transparent.png" class="img-fluid">
+			</a>
+		</div>
+	</div>
+</header>
 
 <main>
 
-  <div class="album py-5 bg-light">
-    <div class="container">
-						<p class="display-6 text-center">Digital d12.</p>
+	<div class="album py-5 bg-light">
+		<div class="container">
+			<p class="display-6 text-center">Digital d12.</p>
 
-      <div class="row row-cols-1 flex d-flex justify-content-center">
+			<div class="row row-cols-1 flex d-flex justify-content-center">
 				<div class="col-sm-12 col-md-6 col-lg-4 ">
-							<div class="card">
-								<div id="dice-roll">
-							  <img id="thedie" src="dice/0.jpg" class="img-fluid" alt="?" data-number="0" data-hue="0" />
+					<div class="card">
+						<div id="dice-roll">
+							<img id="thedie" src="dice/0.jpg" class="img-fluid" alt="?" data-number="0" data-hue="0" />
+						</div>
+						<div class="card-body">
+							<div class="d-grid gap-2 col-6 mx-auto">
+								<button id="roll-button" type="button" class="btn btn-primary">Roll Dice</button>
 							</div>
-							  <div class="card-body">
-									<div class="d-grid gap-2 col-6 mx-auto">
-							    <button id="roll-button" type="button" class="btn btn-primary">Roll Dice</button>
-								</div>
-							  </div>
-							</div>
+						</div>
+					</div>
 				</div>
 
-      </div>
-    </div>
-  </div>
+			</div>
+		</div>
+	</div>
 	<div id="preload">
-		<img src="dice/1.jpg" /><img src="dice/2.jpg" /><img src="dice/3.jpg" /><img src="dice/4.jpg" /><img src="dice/5.jpg" /><img src="dice/6.jpg" /><img src="dice/7.jpg" /><img src="dice/8.jpg" /><img src="dice/9.jpg" /><img src="dice/10.jpg" /><img src="dice/11.jpg" /><img src="dice/12.jpg" />
+		<img src="dice/1.jpg" /><img src="dice/2.jpg" /><img src="dice/3.jpg" /><img src="dice/4.jpg" /><img src="dice/5.jpg" /><img
+			src="dice/6.jpg" /><img src="dice/7.jpg" /><img src="dice/8.jpg" /><img src="dice/9.jpg" /><img src="dice/10.jpg" /><img
+			src="dice/11.jpg" /><img src="dice/12.jpg" />
 	</div>
 
 </main>
 
 <script>
-	$("#roll-button").click(function(){
-		$("#roll-button").prop("disabled", true);
-	  $.ajax({
-			url: "roll.php",
-			type:"POST",
-			data: {number: $("#thedie").attr('data-number'), hue: $("#thedie").attr('data-hue') },
-			success: function(result){
-	    $("#dice-roll").html(result);
-	  }});
-		$("#roll-button").prop("disabled", false);
+	$('#roll-button').click(function () {
+		$('#roll-button').prop('disabled', true);
+		$.ajax({
+			url: 'roll.php',
+			type: 'POST',
+			data: {number: $('#thedie').attr('data-number'), hue: $('#thedie').attr('data-hue')},
+			success: function (result) {
+				$('#dice-roll').html(result);
+			},
+		});
+		$('#roll-button').prop('disabled', false);
 	});
 
-	</script>
+</script>
 
 <footer class="text-muted py-5">
 	<div class="container">
-			This page uses PHP's random_int() function to generate a random integer between 1 and 12. This function "Generates cryptographic random integers that are suitable for use where unbiased results are critical, such as when shuffling a deck of cards for a poker game." If the same number is rolled twice in a row the dice will change color to visually indicate a roll took place.
+		This page uses PHP's random_int() function to generate a random integer between 1 and 12. This function
+		"Generates cryptographic random integers that are suitable for use where unbiased results are critical, such as
+		when shuffling a deck of cards for a poker game." If the same number is rolled twice in a row the dice will
+		change color to visually indicate a roll took place.
 	</div>
 
 </footer>
 
 
-  </body>
+</body>
 </html>
