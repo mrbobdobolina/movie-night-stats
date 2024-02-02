@@ -1,5 +1,5 @@
 <?php
-add_page_load();
+
 
 include( ROOT . '/inc/Event_List.php' );
 
@@ -38,7 +38,7 @@ if (!defined('WEB_ROOT')) {
 	<script src="https://kit.fontawesome.com/2b50968540.js" crossorigin="anonymous"></script>
 
 	<!--Nanobar -->
-	<script src="assets/nanobar/nanobar.min.js"></script>
+	<script src="/assets/nanobar/nanobar.min.js"></script>
 
 	<!-- Google Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,50 +80,3 @@ if (!defined('WEB_ROOT')) {
 <?php endif; ?>
 
 <?php template('nav'); ?>
-
-<main class="container">
-
-	<?php
-	$event_list = new Event_List();
-	$event_list->init();
-	$count_events = count($event_list->events());
-
-	$fireworks_random = rand(1, 100);
-	$lastWinner = $event_list->events()[0]->winner['viewer']->id;
-
-	if ($count_events % 100 == 0 || $count_events % 50 == 0 || $fireworks_random == 1 || $lastWinner == 8):
-		?>
-		<script src="<?php echo WEB_ROOT; ?>/assets/fireworks/v1.0.0/fireworks.js"></script>
-		<script>
-			const container = document.querySelector('.container');
-
-			const fireworks = new Fireworks({
-				target: container,
-				hue: 120,
-				startDelay: 1,
-				minDelay: 20,
-				maxDelay: 30,
-				speed: 4,
-				acceleration: 1.05,
-				friction: 0.98,
-				gravity: 1,
-				particles: 75,
-				trace: 3,
-				explosion: 5,
-				boundaries: {
-					top: 50,
-					bottom: container.clientHeight,
-					left: 50,
-					right: container.clientWidth,
-				},
-				sound: {
-					enable: false,
-					min: 4,
-					max: 8,
-				},
-			});
-
-			// start fireworks
-			fireworks.start();
-		</script>
-	<?php endif; ?>

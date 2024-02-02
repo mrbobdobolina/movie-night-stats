@@ -1,32 +1,17 @@
 <?php
-ini_set('display_errors', '0');
-ini_set('display_startup_errors', '0');
-//error_reporting(E_ALL);
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 
 if(!defined('ROOT')){
 	define('ROOT', dirname( __FILE__ ));
 }
 
-// Check if settings file exists
-if(file_exists(ROOT.'/settings.config.php')){
-	// It Does!
-	require ROOT.'/settings.config.php';
-}
-else {
-	// No Settings file. Redirect to an error page
-	header('Location: ./init/error.php?e=settings.cfg');
-	die();
-}
+include(ROOT.'/inc/check_install.php');
+
+
 
 $numberTypes = Array("arabic", "roman", "japanese", "arabic", "roman");
-
-include(ROOT.'/inc/db.php');
-
-//check DB Version
-if(read_db_version_v2($pdo) != this_db_version()){
-	header('Location: ./init/error.php?e=oldDB');
-	die();
-}
 
 
 
@@ -59,15 +44,15 @@ function convert_hex_to_rgba($hex, $alpha = 0.1): string {
 	if($hex[0] == '#'){
 		$hex = substr($hex, 1);
 	}
-	
+
 	if (strlen($hex) == 3){
 		$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
 	}
-	
+
 	$r = hexdec($hex[0] . $hex[1]);
 	$g = hexdec($hex[2] . $hex[3]);
 	$b = hexdec($hex[4] . $hex[5]);
-	
+
 	return "rgba($r, $g, $b, $alpha)";
 }
 
@@ -311,10 +296,10 @@ function get_seasonal_weather(){
 
 // pdo version of read DB Version
 function read_db_version_v2($pdo){
-	$stmt = $pdo->prepare('SELECT value FROM options WHERE name = :name');
-	$stmt->execute(['name' => 'db_version']);
-	$result = $stmt->fetchColumn();
-	return $result;
+//	$stmt = $pdo->prepare('SELECT value FROM options WHERE name = :name');
+//	$stmt->execute(['name' => 'db_version']);
+//	$result = $stmt->fetchColumn();
+//	return $result;
 }
 
 //the db version used by the site right now
@@ -326,4 +311,3 @@ function echoVersionNumber(){
 	echo "5.0.0";
 	return;
 }
-

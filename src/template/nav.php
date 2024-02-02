@@ -10,6 +10,7 @@
 				</a>
 			</div>
 		</div>
+		<?php if(!is_service_url()): ?>
 		<nav class="navbar navbar-expand-lg">
 			<ul class="navbar-nav row justify-content-between site-navigation">
 				<li class="col nav-item">
@@ -58,6 +59,7 @@
 
 
 		</nav>
+		<?php endif; ?>
 	</div>
 	<?php
 	$page_array = [ 'events/table', 'events/rows', 'events/posters' ];

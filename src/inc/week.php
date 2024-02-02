@@ -371,10 +371,10 @@ function find_best_or_worst_watched_film_with_year_option($best_or_worst = "best
 	if ($year != NULL) {
 		$time1 = $year . "-01-01";
 		$time2 = $year . "-12-31";
-		$sql = "SELECT * FROM ( SELECT week.id, winning_film, films.name, (COALESCE(tomatometer, 0)+COALESCE(rt_audience, 0)+COALESCE(imdb, 0)) / ( COUNT(tomatometer) + COUNT(rt_audience) + COUNT(imdb) ) AS avg_rating FROM week LEFT JOIN films ON (week.winning_film = films.id) WHERE `date` BETWEEN CAST('$time1' AS DATE) AND CAST('$time2' AS DATE) GROUP BY id ORDER BY avg_rating $order ) AS `temp` WHERE `temp`.`avg_rating` IS NOT NULL";
+		$sql = "SELECT * FROM ( SELECT week.id, winning_film, films.name, (COALESCE(tomatometer, 0)+COALESCE(rt_audience, 0)+COALESCE(imdb, 0)) / ( COUNT(tomatometer) + COUNT(rt_audience) + COUNT(imdb) ) AS avg_rating FROM week LEFT JOIN films ON (week.winning_film = films.id) WHERE `date` BETWEEN CAST('$time1' AS DATE) AND CAST('$time2' AS DATE) GROUP BY id ORDER BY avg_rating $order ) AS `temp.php` WHERE `temp.php`.`avg_rating` IS NOT NULL";
 	}
 	else {
-		$sql = "SELECT * FROM ( SELECT week.id, winning_film, films.name, (COALESCE(tomatometer, 0)+COALESCE(rt_audience, 0)+COALESCE(imdb, 0)) / ( COUNT(tomatometer) + COUNT(rt_audience) + COUNT(imdb) ) AS avg_rating FROM week LEFT JOIN films ON (week.winning_film = films.id) GROUP BY id ORDER BY avg_rating $order ) AS `temp` WHERE `temp`.`avg_rating` IS NOT NULL;";
+		$sql = "SELECT * FROM ( SELECT week.id, winning_film, films.name, (COALESCE(tomatometer, 0)+COALESCE(rt_audience, 0)+COALESCE(imdb, 0)) / ( COUNT(tomatometer) + COUNT(rt_audience) + COUNT(imdb) ) AS avg_rating FROM week LEFT JOIN films ON (week.winning_film = films.id) GROUP BY id ORDER BY avg_rating $order ) AS `temp.php` WHERE `temp.php`.`avg_rating` IS NOT NULL;";
 	}
 	//echo $sql;
 

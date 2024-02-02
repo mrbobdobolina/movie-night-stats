@@ -41,7 +41,7 @@ switch($_GET['e']){
 	case 'settings.cfg':
 		$text1 = 'Error: Settings.config.php does not exist!';
 
-		$text2 = 'Please make a copy of settings-TEMPLATE.config ';
+		$text2 = 'Please make a copy of settings-TEMPLATE.php ';
 		$text2 .= 'then click <a href="../">here</a> to continue.';
 		break;
 

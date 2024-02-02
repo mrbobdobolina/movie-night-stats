@@ -3,12 +3,12 @@
 $db_counter = 0;
 
 // PDO instantiation
-try {
-	$pdo = new PDO(DB_DSN, DB_USER, DB_PASS, DB_OPTIONS);
-}
-catch (\PDOException $e) {
-	throw new \PDOException($e->getMessage(), (int)$e->getCode());
-}
+//try {
+//	$pdo = new PDO(DB_DSN, DB_USER, DB_PASS, DB_OPTIONS);
+//}
+//catch (\PDOException $e) {
+//	throw new \PDOException($e->getMessage(), (int)$e->getCode());
+//}
 
 // OLD mysqli instantiation
 $db = new mysqli(DB_ADDR, DB_USER, DB_PASS, DB_NAME);
@@ -35,7 +35,7 @@ function db($query = NULL) {
 			// return $result->error;
 		}
 		// Format returned rows into an array
-		else if (stripos($query, 'SELECT ') !== FALSE) {
+		else if (str_contains($query, 'SELECT ') || str_contains($query, 'SHOW TABLES')) {
 			$return = [];
 			while ($row = $result->fetch_assoc()) {
 				$return[] = $row;
