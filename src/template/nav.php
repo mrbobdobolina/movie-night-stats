@@ -10,14 +10,48 @@
 				</a>
 			</div>
 		</div>
-		<?php if(!is_service_url()): ?>
-		<nav class="navbar navbar-expand-lg">
+
+	</div>
+</header>
+
+<?php if (!is_service_url()): ?>
+	<nav class="navbar navbar-dark navbar-expand-lg">
+		<div class="container">
 			<ul class="navbar-nav row justify-content-between site-navigation">
 				<li class="col nav-item">
-					<a href="/" class="nav-link fw-bold">
+					<a
+						class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+						aria-expanded="false">
 						<i class="fa-solid fa-calendar-check"></i>
 						Events
 					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a class="dropdown-item" href="/">
+								<i class="fa-solid fa-cards-blank"></i>
+								Card View
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="/events/table">
+								<i class="fa-solid fa-table"></i>
+								Table View
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="/events/rows">
+								<i class="fa-solid fa-images"></i>
+								Poster View
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="/events/posters">
+								<i class="fa-solid fa-image-portrait"></i>
+								Winning Poster
+							</a>
+						</li>
+					</ul>
+
 				</li>
 				<li class="col nav-item">
 					<a href="/attendance" class="nav-link">
@@ -57,21 +91,6 @@
 				</li>
 			</ul>
 
-
-		</nav>
-		<?php endif; ?>
-	</div>
-	<?php
-	$page_array = [ 'events/table', 'events/rows', 'events/posters' ];
-	if (in_array($_GET['url'] ?? '', $page_array)):?>
-		<div class="container d-flex flex-wrap justify-content-start">
-			<span class="nav-link text-white fw-bold">View Options:</span>
-			<a href="/" class="nav-link text-white fw-bold"><i class="fa-solid fa-cards-blank"></i> Normal View</a>
-			<a href="/events/table" class="nav-link text-white fw-bold"><i class="fa-solid fa-table"></i> Table View</a>
-			<a href="/events/rows" class="nav-link text-white fw-bold"><i class="fa-solid fa-images"></i> Poster
-				View</a>
-			<a href="/events/posters" class="nav-link text-white fw-bold"><i class="fa-solid fa-image-portrait"></i>
-				Winning Posters</a>
 		</div>
-	<?php endif; ?>
-</header>
+	</nav>
+<?php endif; ?>

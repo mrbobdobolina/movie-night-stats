@@ -1,0 +1,30 @@
+nav.navbar {
+	position: sticky;
+	top: 0;
+	background: var(--mns-primary-bg);
+	z-index: 999;
+}
+
+.site-navigation {
+	width: 100%;
+	text-align: center;
+	position: sticky;
+	top: 0;
+
+	.nav-link, .dropdown-item {
+		text-shadow: 0 2px black;
+		color: white;
+		font-weight: bold;
+	}
+
+	.dropdown-item:hover {
+		text-shadow: none;
+		color: var(--bs-body-color);
+		background: var(--bs-body-bg);
+	}
+
+	.dropdown-menu {
+		background: var(--mns-primary-bg);
+		color: white;
+	}
+}

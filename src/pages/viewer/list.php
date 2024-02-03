@@ -1,3 +1,4 @@
+<div class="container">
 <?php
 
 $viewer_list = new Viewer_List();
@@ -445,3 +446,4 @@ $current_streak = get_current_streak($pdo);
 		return new bootstrap.Tooltip(tooltipTriggerEl);
 	});
 </script>
+</div>

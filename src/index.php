@@ -48,15 +48,10 @@ elseif(file_exists(ROOT.'/pages/'.$_GET['url'].'/index.php')){
 
 ob_start();
 
-
-include(ROOT.'/template/header.php');
-
 $url = str_replace('..', '.', $url);
 
+include(ROOT.'/template/page.php');
 
-include($url);
 
-
-include(ROOT.'/template/footer.php');
 
 echo ob_get_clean();

@@ -1,5 +1,7 @@
 @import 'scss/_colors';
 @import 'scss/_header';
+@import 'scss/_navigation';
+@import 'scss/_footer';
 
 body {
 	font-family: "Open Sans", sans-serif;
@@ -278,6 +280,7 @@ ul h5 {
 
 .poster {
 	width: 100%;
+	max-height: 30rem;
 }
 
 #method-chart.bar {

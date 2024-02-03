@@ -1,22 +1,12 @@
 header {
 	background: var(--mns-primary-bg);
 
-	nav {
-		text-shadow: 0 2px black;
-	}
+
 
 	.site-logo {
 		max-height: 15rem;
 		max-width: 100%;
 	}
 
-	.site-navigation {
-		width:       100%;
-		text-align:  center;
-		font-weight: bold;
 
-		.nav-link {
-			color: white;
-		}
-	}
 }
