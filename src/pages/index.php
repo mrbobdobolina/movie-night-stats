@@ -1,4 +1,13 @@
-<div class="container my-3">
+<div style="background: var(--mns-primary-bg);">
+	<div class="container">
+		<img
+			alt="Movie Night Stats"
+			src="/images/MovieNightStats_v02B_Rectangle_Transparent.png"
+			style="max-height: 15rem; max-width: 100%; display:block; margin: 0 auto;">
+	</div>
+</div>
+
+<div class="container my-4">
 
 	<?php
 
@@ -10,6 +19,8 @@
 	$count_events = count($event_list->events());
 
 	?>
+
+
 
 	<p class="display-6 text-center">Yes! We made a website for this.</p>
 	<p class="text-center mb-3">
@@ -179,7 +190,7 @@
 
 			<?php
 
-			if($i==1){
+			if ($i == 1) {
 				echo '<div class="w-100"></div>';
 			}
 

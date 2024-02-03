@@ -34,9 +34,6 @@
 <script src="https://cdn.jsdelivr.net/combine/npm/chart.js@3.3.2,npm/chart.js@3.5.0"></script>
 
 <!-- Favicons -->
-<link rel="apple-touch-icon" href="images/favicon_32.png" sizes="180x180">
-<link rel="icon" href="images/favicon_32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="images/favicon_32.png" sizes="16x16" type="image/png">
 <link rel="icon" href="images/favicon_32.png">
 
 <!-- Movie Night Stats -->
