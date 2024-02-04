@@ -1,4 +1,4 @@
-<div class="container my-4 mns-events mns-view-poster">
+<div class="container my-4 mns-events mns-view-poster-win">
 	<?php
 
 	$event_list = new Event_List();
@@ -7,18 +7,25 @@
 
 	?>
 	<?php $minutes = calculateTotalWatchtime(); ?>
-	<h1 class="text-center">Running out of wall space</h1>
-	<p class="text-center mb-3"><em>...and also printer ink.</em></p>
+	<h1 class="text-center">Events - Winning Poster View</h1>
+	<p class="text-center mb-4"><em>Running out of wall space...and also printer ink.</em></p>
 
 	<div class="row g-3">
 		<?php foreach ($event_list->events() as $event): ?>
 			<div class="col-12 col-md-6 col-lg-3">
 				<div class="card">
 					<div
-						class="card-header pt-2 pb-1 text-center text-white lead"
-						style="background-color:#<?php echo $event->winner['viewer']->color; ?>">
-						<h3>Event <?php echo displayNumbers($count_events--, $numbers); ?></h3>
-						<small><em><?php echo $event->date->long(); ?></em></small>
+						class="card-header"
+						style="<?php echo $event->winner['viewer']->css_style_color(); ?>">
+						<div class="event-number">
+							Event
+							<span data-mns-number="<?php echo $count_events; ?>">
+								<?php echo $count_events--; ?>
+							</span>
+						</div>
+						<div class="event-date">
+							<?php echo $event->date->long(); ?>
+						</div>
 					</div>
 					<div class="row g-0">
 						<div class="col-md-12">

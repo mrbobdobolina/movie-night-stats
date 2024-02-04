@@ -70,6 +70,9 @@ html, body {
 .table > :not(caption) > tr:last-child > td {
   border-bottom: none;
 }
+.table tr.bg-success-subtle td {
+  background: transparent;
+}
 
 .mns-events .bg-clear td {
   background: transparent !important;
@@ -110,6 +113,33 @@ html, body {
 .mns-events.mns-view-cards .movie-list .list-winner {
   font-weight: bold;
 }
+.mns-events.mns-view-poster .event-number {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.mns-events.mns-view-poster .event-date {
+  font-weight: bold;
+  font-size: 1rem;
+}
+.mns-events.mns-view-poster .event-info {
+  font-weight: bold;
+  text-align: right;
+  font-size: 1.25rem;
+}
+.mns-events.mns-view-poster .poster {
+  width: 100%;
+}
+.mns-events.mns-view-poster-win .card-header {
+  font-weight: bold;
+  text-align: center;
+}
+.mns-events.mns-view-poster-win .event-number {
+  font-size: 1.75rem;
+}
+.mns-events.mns-view-poster-win .event-date {
+  font-size: 1rem;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
 }

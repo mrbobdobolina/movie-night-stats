@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-4">
 	<?php
 
 	$spinner_list = new Spinner_List();
@@ -63,15 +63,15 @@
 
 
 	?>
+	<h1 class="text-center ">How We Chose Our Movies</h1>
+	<p class="lead text-center mb-4 "><i class="fa-solid fa-dice-d12"></i> Roll a thing,
+		<i class="fa-solid fa-arrows-spin"></i> spin a thing, <i class="fa-solid fa-thought-bubble"></i> think a
+		thing.
+	</p>
 
-	<div class="row my-3">
+	<div class="row">
 		<div class="col">
 
-			<p class="display-6 text-center ">How We Chose Our Movies</p>
-			<p class="lead text-center "><i class="fa-solid fa-dice-d12"></i> Roll a thing,
-				<i class="fa-solid fa-arrows-spin"></i> spin a thing, <i class="fa-solid fa-thought-bubble"></i> think a
-				thing.
-			</p>
 
 			<?php
 			$graph_labels = [];

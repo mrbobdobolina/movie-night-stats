@@ -53,6 +53,39 @@
 	}
 
 	&.mns-view-poster {
+		.event-number {
+			font-weight: bold;
+			font-size: 1.5rem;
+		}
 
+		.event-date {
+			font-weight: bold;
+			font-size: 1rem;
+		}
+
+		.event-info {
+			font-weight: bold;
+			text-align: right;
+			font-size: 1.25rem;
+		}
+
+		.poster {
+			width: 100%;
+		}
+	}
+
+	&.mns-view-poster-win {
+		.card-header {
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.event-number {
+			font-size:   1.75rem;
+		}
+
+		.event-date {
+			font-size:   1rem;
+		}
 	}
 }

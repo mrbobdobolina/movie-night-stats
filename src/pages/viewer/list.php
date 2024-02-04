@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-4">
 <?php
 
 $viewer_list = new Viewer_List();
@@ -15,7 +15,7 @@ $viewer_stats = $viewer_list->stats_by_viewer();
 
 ?>
 
-<p class="display-6 text-center ">The People</p>
+<h1 class="text-center">The People</h1>
 <p class="lead text-center ">(They used to be your friends, but then you made them watch
 	<span class="bg-dark text-white px-1"><strong>[REDACTED]</strong></span>.)
 </p>
@@ -23,25 +23,25 @@ $viewer_stats = $viewer_list->stats_by_viewer();
 <?php
 //$streakers = get_streakers();
 $time_watched = viewer_watchtime();
-$viewers_longest_streaks = find_longest_streak_v2($pdo);
-$longest_streak = max($viewers_longest_streaks);
-$longest_streak_key = array_search(max($viewers_longest_streaks), $viewers_longest_streaks);
-$current_streak = get_current_streak($pdo);
+//$viewers_longest_streaks = find_longest_streak_v2($pdo);
+//$longest_streak = max($viewers_longest_streaks);
+//$longest_streak_key = array_search(max($viewers_longest_streaks), $viewers_longest_streaks);
+//$current_streak = get_current_streak($pdo);
 ?>
 
 <div class="row justify-content-around">
 	<div
 		class="alert text-center col-5 text-white"
 		role="alert"
-		style="background-color:#<?php echo getMoviegoerColorById($current_streak['winner_id']); ?>;">
-		<?php echo "<strong>Current Winning Streak: </strong>" . getMoviegoerById($current_streak['winner_id']) . " with " . $current_streak['count'];
+		style="background-color:#<?php //echo getMoviegoerColorById($current_streak['winner_id']); ?>;">
+		<?php //echo "<strong>Current Winning Streak: </strong>" . getMoviegoerById($current_streak['winner_id']) . " with " . $current_streak['count'];
 		" wins! "; ?>
 	</div>
 	<div
 		class="alert text-center col-5 text-white"
 		role="alert"
-		style="background-color:#<?php echo getMoviegoerColorById($longest_streak_key); ?>;">
-		<?php echo "<strong>Longest Winning Streak: </strong>" . getMoviegoerById($longest_streak_key) . " with " . $longest_streak . " wins! "; ?>
+		style="background-color:#<?php //echo getMoviegoerColorById($longest_streak_key); ?>;">
+		<?php //echo "<strong>Longest Winning Streak: </strong>" . getMoviegoerById($longest_streak_key) . " with " . $longest_streak . " wins! "; ?>
 	</div>
 </div>
 
@@ -173,7 +173,7 @@ $current_streak = get_current_streak($pdo);
 
 		foreach ($viewer_stats as $viewer): ?>
 
-			<tr style="background-color:<?php echo convert_hex_to_rgba($viewer['item']->color, 0.1); ?>">
+			<tr>
 				<?php
 
 				$attendance_count = count($viewer['attendance']);
@@ -220,8 +220,8 @@ $current_streak = get_current_streak($pdo);
 
 				?>
 				<td
-					style="background-color:#<?php echo $viewer['item']->color; ?>;"
-					class="fw-bold text-white"><?php echo $viewer['item']->name; ?></td>
+					style="<?php echo $viewer['item']->css_style_color(); ?>;"
+					class="fw-bold"><?php echo $viewer['item']->name; ?></td>
 				<td class="text-end"><?php echo $attendance_count; ?></td>
 				<td class="text-end"><em><?php echo round(( $attendance_count / $count_events ) * 100, 2) ?>%</em></td>
 				<td class="text-end"><?php echo $unique_count; ?></td>

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-4">
 	<?php
 
 	$viewer_list = new Viewer_List();
@@ -75,19 +75,17 @@
 	}
 
 	?>
-	<p class="display-6 text-center "><?php echo count($movie_stats); ?> Films We Could Have Watched</p>
-	<p class="lead text-center ">(And the <?php echo winning_film_count($movie_stats); ?> we did.)</p>
+	<h1 class="text-center"><?php echo count($movie_stats); ?> Films We Could Have Watched</h1>
+	<p class="lead text-center mb-4">(And the <?php echo winning_film_count($movie_stats); ?> we did.)</p>
 
 	<div class="row">
+		<div class="bg-success-subtle">Green row indicates movie won at least once.</div>
+
 		<p>
-			<i class="fas fa-star p-1" style="color:#FFFF00;background-color:#82D173;"></i> Indicates movie was
-			(randomly)
-			spun its first night on the wheel. <i
-				class="fas fa-hand-point-down p-1"
-				style="color:#FFFF00;background-color:#82D173;"></i> Indicated movie was picked (viewer choice) its
-			first
-			night on the wheel. <span
-				style="background-color:#82D173;">Green row indicates movie won at least once.</span>
+			<i class="fas fa-star p-1 bg-success-subtle"></i>
+			Indicates movie was (randomly) spun its first night on the wheel.<br>
+			<i class="fas fa-hand-point-down p-1 bg-success-subtle"></i>
+			Indicated movie was picked (viewer choice) its first night on the wheel.
 		</p>
 
 		<table id="movies" class="table table-striped">
@@ -121,7 +119,7 @@
 				$counter++;
 
 				if ($movie['wins']) {
-					echo '<tr style="background-color:#82D173;">';
+					echo '<tr class="bg-success-subtle">';
 				}
 				else {
 					echo '<tr>';
@@ -190,10 +188,8 @@
 
 		<div class="row justify-content-around">
 			<div class="alert alert-warning text-center col-5">
-				<p> We've had a total of <?php echo $oneHitWonders; ?> "One Hit Wonders". <br />(Movies picked randomly
-					on
-					their first apperance on the wheel.)
-				</p>
+				We've had a total of <?php echo $oneHitWonders; ?> "One Hit Wonders". <br />
+				(Movies picked randomly on their first appearance on the wheel.)
 			</div>
 		</div>
 

@@ -38,8 +38,8 @@ if (!is_service_url()) {
 		'text' => '<i class="fa-solid fa-film"></i> Movies',
 	];
 	$navigation_links[] = [
-		'link' => '/services',
-		'text' => WEB_ROOT . '<i class="fa-solid fa-projector"></i> Services',
+		'link' => WEB_ROOT . '/formats',
+		'text' => '<i class="fa-solid fa-projector"></i> Formats',
 	];
 	$navigation_links[] = [
 		'link' => WEB_ROOT . '/viewer/list',

@@ -9,8 +9,8 @@
 	$numbers = $numberTypes[rand(0, 3)];
 
 	?>
-	<h1 class="text-center">Winning Events - Table View</h1>
-	<p class="text-center mb-3">My how the turntables. (╯°□°）╯︵ ┻━┻</p>
+	<h1 class="text-center">Wins - Table View</h1>
+	<p class="text-center mb-4">My how the turntables. (╯°□°）╯︵ ┻━┻</p>
 
 
 	<table id="events" class="table table-hover bg-clear">

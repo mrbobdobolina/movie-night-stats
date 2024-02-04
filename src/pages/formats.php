@@ -1,6 +1,6 @@
-<div class="container">
-	<p class="display-6 text-center ">The Services</p>
-	<p class="lead text-center ">Things That Cost $$$ Every Month</p>
+<div class="container my-4">
+	<h1 class="text-center ">The Formats</h1>
+	<p class="lead text-center ">Thank you farm-to-table WiFi!</p>
 
 	<?php
 
@@ -50,7 +50,7 @@
 		</script>
 
 
-		<p class="lead text-center mt-5">The time we've clocked on each service.</p>
+		<p class="lead text-center mt-5">The time we've clocked on each format.</p>
 
 		<?php
 

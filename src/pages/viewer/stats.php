@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-4">
 	<?php
 
 	$viewer_list = new Viewer_List();
@@ -65,7 +65,7 @@
 		}
 	</style>
 
-	<a href="/viewer/list" class="btn btn-primary mb-3" style="margin-top: -2rem;">Back to List</a>
+	<a href="/viewer/list" class="btn btn-primary mb-3">Back to List</a>
 	<div class="row">
 		<div class="col-12">
 			<h1
@@ -216,7 +216,7 @@
 								<div class="row">
 									<div class="col fw-bold">Longest Win when Attending:</div>
 									<div class="col">
-										<?php echo count_viewer_win_streak_when_attending_and_not_viewer_choice($pdo, $viewer)['count']; ?>
+										<?php //echo count_viewer_win_streak_when_attending_and_not_viewer_choice($pdo, $viewer)['count']; ?>
 									</div>
 								</div>
 							</li>
@@ -256,7 +256,7 @@
 							<li class="list-group-item">
 								<div class="row">
 									<div class="col fw-bold">Scribe:</div>
-									<div class="col"><?php echo count_scribing($pdo, $viewer); ?></div>
+									<div class="col"><?php //echo count_scribing($pdo, $viewer); ?></div>
 								</div>
 							</li>
 							<li class="list-group-item">
@@ -447,8 +447,9 @@
 										</tr>
 										</thead>
 										<tbody>
-										<?php $methods = count_viewer_spin_methods($pdo, $viewer);
-										$m_max = $methods[0]['count(*)']
+										<?php //$methods = count_viewer_spin_methods($pdo, $viewer);
+										//$m_max = $methods[0]['count(*)']
+										$methods = [];
 										?>
 										<?php foreach ($methods as $method): ?>
 											<tr>

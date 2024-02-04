@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container my-4 mns-events mns-view-attendance">
 	<?php
 
 	$events = getListOfEvents("DESC");
@@ -9,8 +9,9 @@
 	$top_viewers = db($sql);
 
 	?>
-	<p class="display-6 text-center">Attendance, Selection, Winners: visualized.</p>
-	<p class="text-center mb-5">
+	<h1 class="text-center">Events - Attendance View</h1>
+	<p class="text-center">Attendance, Selection, Winners: visualized.</p>
+	<p class="text-center mb-4">
 		<i class="fas fa-sync-alt px-1"></i> indicates spinner, <i class="far fa-trophy-alt px-1"></i> indicates winner.
 	</p>
 	<table class="table table-sm">
