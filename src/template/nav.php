@@ -23,11 +23,11 @@ if (!is_service_url()) {
 				'link' => WEB_ROOT . '/events/posters',
 				'text' => '<i class="fa-solid fa-image-portrait"></i> Winning Poster',
 			],
+			[
+				'link' => WEB_ROOT . '/attendance',
+				'text' => '<i class="fa-solid fa-users"></i> Attendance',
+			]
 		],
-	];
-	$navigation_links[] = [
-		'link' => WEB_ROOT . '/attendance',
-		'text' => '<i class="fa-solid fa-users"></i> Attendance',
 	];
 	$navigation_links[] = [
 		'link' => WEB_ROOT . '/spins',

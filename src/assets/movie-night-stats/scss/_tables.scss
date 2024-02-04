@@ -1,0 +1,12 @@
+.table {
+	margin-bottom: 0;
+
+	& > :not(caption) > * > * {
+		//--bs-table-bg: transparent;
+		//color: inherit;
+	}
+
+	& > :not(caption) > tr:last-child > td {
+		border-bottom: none;
+	}
+}

@@ -1,4 +1,4 @@
-/* PAGE THEMES */
+// PAGE THEMES
 
 function get_page_theme() {
 	// return localStorage.getItem('theme') ?? 'light';
@@ -11,7 +11,7 @@ function apply_theme($theme) {
 
 apply_theme(get_page_theme());
 
-/* NUMBERING */
+// NUMBERING
 
 function arabic_to_roman_numerals($number) {
 	let $lookup = {

@@ -20,9 +20,8 @@
 
 	?>
 
-
-
-	<p class="display-6 text-center">Yes, we made a website for this.</p>
+	<!-- Header -->
+	<h1 class="text-center">Yes, we made a website for this.</h1>
 	<p class="text-center mb-3">
 		<?php
 		$minutes = $event_list->sum_watchtime();
@@ -32,8 +31,17 @@
 		?>
 	</p>
 
+	<!-- Controls -->
 	<div class="row justify-content-center align-items-end">
-		<div class="col-3 mb-3">
+		<div class="col-12 col-sm-6 col-md-4 col-xl-3 mb-3">
+			<label for="ctrl-numbers" class="form-label">Numbering System</label>
+			<select id="ctrl-numbers" class="form-input form-select" onchange="set_mns_numbers(this.value)">
+				<option value="arabic">Arabic</option>
+				<option value="roman">Roman Numerals</option>
+				<option value="japanese">Japanese Kanji</option>
+			</select>
+		</div>
+		<div class="col-12 col-sm-6 col-md-4 col-xl-3 mb-3">
 			<button
 				id="btn-expand-all"
 				class="btn btn-outline-primary form-control"
@@ -48,18 +56,10 @@
 				<i class="fa-solid fa-angles-up"></i> Collapse ALL Details
 			</button>
 		</div>
-		<div class="col-3 mb-3">
-			<label for="ctrl-numbers" class="form-label">Numbers</label>
-			<select id="ctrl-numbers" class="form-input form-select" onchange="set_mns_numbers(this.value)">
-				<option value="arabic">Arabic</option>
-				<option value="roman">Roman Numerals</option>
-				<option value="japanese">Japanese Kanji</option>
-			</select>
-		</div>
 	</div>
 
 
-	<div class="row justify-content-center">
+	<div class="row justify-content-center mns-events mns-view-cards">
 		<?php
 
 		$i = 0;
@@ -68,23 +68,20 @@
 			$i++;
 			?>
 
-			<div
-				class="mb-3 col-12 <?php if ($i == 1) {
-					echo 'col-md-8';
-				}
-				else {
-					echo 'col-md-6 col-lg-4';
-				} ?>">
+			<div class="mb-3 col-12 <?php echo ( $i == 1 ) ? 'col-lg-8' : 'col-md-6 col-lg-4'; ?>">
 				<div class="card shadow">
 
 					<!-- Card Header -->
 					<div
-						class="card-header pt-2 pb-1 text-center text-white lead"
-						style="background-color:#<?php echo $event->winner['viewer']->color; ?>">
-						<h3>Event
+						class="card-header text-center"
+						style="background-color:#<?php echo $event->winner['viewer']->color; ?>;color:<?php echo get_text_color_from_hex('#' . $event->winner['viewer']->color); ?>">
+						<div class="title-event-number">
+							Event
 							<span data-mns-number="<?php echo $count_events; ?>"><?php echo $count_events--; ?></span>
-						</h3>
-						<small><em><?php echo $event->date->long(); ?></em></small>
+						</div>
+						<div class="title-event-date">
+							<?php echo $event->date->long(); ?>
+						</div>
 					</div>
 
 					<!-- Card Body -->
@@ -94,8 +91,8 @@
 
 							if ($i == 1) {
 								?>
-								<div class="col">
-									<div class="card-body text-center justify-content-center">
+								<div class="col-12 col-md-auto">
+									<div class="justify-content-center">
 										<img
 											src="<?php echo $event->winner['media']->poster_url; ?>"
 											class="img-fluid poster"
@@ -108,7 +105,7 @@
 							?>
 
 							<div class="col">
-								<table class="table homepage">
+								<table class="table movie-list">
 									<tbody>
 									<?php
 									$movie_freshness = [];
@@ -119,16 +116,24 @@
 										}
 
 										if ($event->winning_wedge == $ii) {
-											echo '<tr class="bold text-white homepage" style="background-color:#' . $event->wedges[$ii]['viewer']->color . '">';
+											echo '<tr class="list-winner" style="background-color:#' . $event->wedges[$ii]['viewer']->color . ';color:' . get_text_color_from_hex('#' . $event->winner['viewer']->color) .
+												'">';
 										}
 										else {
-											echo '<tr class="homepage">';
+											echo '<tr>';
 										}
 
+
 										?>
-										<td class="number homepage" data-mns-number="<?php echo $ii; ?>"><?php echo $ii; ?></td>
-										<td class="viewer-name text-center homepage"><?php echo $event->wedges[$ii]['viewer']->name; ?></td>
-										<td class="movie-title homepage"><?php echo $event->wedges[$ii]['media']->name; ?></td>
+										<td class="list-number" data-mns-number="<?php echo $ii; ?>">
+											<?php echo $ii; ?>
+										</td>
+										<td class="list-viewer">
+											<?php echo $event->wedges[$ii]['viewer']->name; ?>
+										</td>
+										<td class="list-title" title="<?php echo $event->wedges[$ii]['media']->name; ?>">
+											<?php echo $event->wedges[$ii]['media']->name; ?>
+										</td>
 										</tr>
 
 									<?php endfor; ?>
@@ -138,8 +143,8 @@
 						</div>
 
 
-						<div class="collapse" id="collapseExample_<?php echo $count_events; ?>">
-							<div class="card card-body">
+						<div class="collapse" id="collapse_<?php echo $count_events; ?>">
+							<div class="card mt-3">
 								<?php
 								$attendees = explode(",", $event->attendees);
 								$viewers = [];
@@ -147,27 +152,65 @@
 									$viewers[] = $event->viewer_list->get_by_id(trim($person))->name;
 								}
 								?>
-								<ul>
-									<li><strong>Attendees:</strong> <?php echo implode(', ', $viewers); ?>
-									<li><strong>Scribe:</strong> <?php echo $event->scribe->name; ?></li>
-									<li><strong>Spinner:</strong> <?php echo $event->spinner->name; ?></li>
-									<li><strong>Bad Spin #s:</strong> <?php echo implode(', ', $event->error_spins); ?>
+								<div class="card-header">
+									Details
+								</div>
+								<ul class="list-group list-group-flush">
+									<?php if ($event->theme): ?>
+										<li class="list-group-item">
+											<strong>Theme:</strong>
+											<?php echo $event->theme; ?>
+										</li>
+									<?php endif; ?>
+									<li class="list-group-item">
+										<strong>Attendees:</strong>
+										<?php echo implode(', ', $viewers); ?>
 									</li>
-									<li><strong>Theme/Comment:</strong> <?php echo $event->theme; ?></li>
-									<li><strong>Movie Format:</strong> <?php echo $event->format->name; ?></li>
-									<li><strong>Selection Tool:</strong> <?php echo $event->selection_method->name; ?>
+									<li class="list-group-item">
+										<strong>Scribe:</strong>
+										<?php echo $event->scribe->name; ?>
 									</li>
-									<li><strong>Runtime:</strong> <?php echo $event->runtime; ?> minutes</li>
-									<li><strong>MPAA:</strong> <?php echo $event->winner['media']->mpaa; ?></li>
-									<li><strong>Collective Movie Score:</strong> <?php echo $event->average_rating(); ?>
-										%
+									<li class="list-group-item">
+										<strong>Spinner:</strong>
+										<?php echo $event->spinner->name; ?>
 									</li>
-									<li><strong>Winning Movie
-											Score:</strong> <?php echo $event->winner['media']->reviews->average(); ?>%
+									<?php if (sizeof($event->error_spins)): ?>
+										<li class="list-group-item">
+											<strong>Bad Spin #s:</strong>
+											<?php echo implode(', ', $event->error_spins); ?>
+										</li>
+									<?php endif; ?>
+									<li class="list-group-item">
+										<strong>Format:</strong>
+										<?php echo $event->format->name; ?>
 									</li>
-									<li><strong>Average Movie Year:</strong> <?php echo $event->average_year(); ?></li>
-									<li><strong>Winning Movie
-											Year:</strong> <?php echo $event->winner['media']->year; ?>
+									<li class="list-group-item">
+										<strong>Selection Tool:</strong>
+										<?php echo $event->selection_method->name; ?>
+									</li>
+									<li class="list-group-item">
+										<strong>Runtime:</strong>
+										<?php echo $event->runtime; ?> minutes
+									</li>
+									<li class="list-group-item">
+										<strong>MPAA #:</strong>
+										<?php echo $event->winner['media']->mpaa; ?>
+									</li>
+									<li class="list-group-item">
+										<strong>Collective Movie Score:</strong>
+										<?php echo $event->average_rating(); ?>%
+									</li>
+									<li class="list-group-item">
+										<strong>Winning Movie Score:</strong>
+										<?php echo $event->winner['media']->reviews->average(); ?>%
+									</li>
+									<li class="list-group-item">
+										<strong>Average Movie Year:</strong>
+										<?php echo $event->average_year(); ?>
+									</li>
+									<li class="list-group-item">
+										<strong>Winning Movie Year:</strong>
+										<?php echo $event->winner['media']->year; ?>
 									</li>
 								</ul>
 							</div>
@@ -179,9 +222,9 @@
 					<a
 						class="card-footer text-center py-3"
 						data-bs-toggle="collapse"
-						href="#collapseExample_<?php echo $count_events; ?>"
+						href="#collapse_<?php echo $count_events; ?>"
 						aria-expanded="false"
-						aria-controls="collapseExample_<?php echo $count_events; ?>">
+						aria-controls="collapse_<?php echo $count_events; ?>">
 						Toggle Details
 					</a>
 

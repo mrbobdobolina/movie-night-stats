@@ -26,8 +26,12 @@ header.navbar {
 			padding:    0;
 		}
 
-		.nav-link {
+		.nav-link, .dropdown-item {
 			text-shadow:   0 0.1rem 0.1rem hsla(0, 0%, 0%, 75%);
+			color:         white;
+		}
+
+		.nav-link {
 			border-radius: 100em;
 			padding:       0.5em 1em;
 

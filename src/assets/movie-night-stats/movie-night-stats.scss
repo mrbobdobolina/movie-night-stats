@@ -1,7 +1,10 @@
 @import 'scss/_colors';
 @import 'scss/_header';
-@import 'scss/_navigation';
 @import 'scss/_footer';
+
+@import 'scss/_tables';
+
+@import 'scss/_mns_events.scss';
 
 body {
 	font-family: "Open Sans", sans-serif;
@@ -14,28 +17,6 @@ body {
 a {
 	text-decoration: none;
 }
-
-.movie-title {
-	width:         60%;
-	white-space:   nowrap;
-	overflow:      hidden;
-	text-overflow: ellipsis;
-}
-
-.viewer-name {
-	width: 30%;
-}
-
-.number {
-	width: 10%;
-}
-
-
-table.homepage { table-layout: fixed; }
-
-table tr.homepage { height: 1em; }
-
-td.homepage { overflow: hidden;white-space: nowrap; }
 
 canvas {
 	position: absolute;
@@ -278,10 +259,7 @@ ul h5 {
 	display: none;
 }
 
-.poster {
-	width: 100%;
-	max-height: 30rem;
-}
+
 
 #method-chart.bar {
 	--labels-size: 150px;
