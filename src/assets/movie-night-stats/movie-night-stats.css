@@ -10,6 +10,7 @@ header.navbar {
   z-index: 999;
   background: var(--mns-primary-bg);
   font-weight: bold;
+  height: 3.5rem;
   --bs-navbar-color: var(--bs-light) !important;
   --bs-navbar-active-color: var(--bs-light) !important;
   --bs-navbar-hover-color: var(--bs-light) !important;

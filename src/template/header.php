@@ -38,6 +38,7 @@
 
 <!-- Movie Night Stats -->
 <link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/movie-night-stats/movie-night-stats.min.css">
+<script src="<?php echo WEB_ROOT; ?>/assets/movie-night-stats/script.js"></script>
 
 
 <?php $season = get_seasonal_weather();
