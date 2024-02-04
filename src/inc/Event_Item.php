@@ -17,7 +17,7 @@ class Event_Item {
 	public $selection_method;
 	public int $runtime;
 	public string|null $notes;
-	public Viewer_List $viewer_list;
+	public Viewer_List|null $viewer_list;
 
 	public function __construct() {
 

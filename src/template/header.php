@@ -9,11 +9,8 @@
 <script src="<?php echo WEB_ROOT; ?>/assets/bootstrap/v5.3.2/js/bootstrap.bundle.min.js"></script>
 
 <!-- DataTables -->
-<link
-	rel="stylesheet"
-	type="text/css"
-	href="<?php echo WEB_ROOT; ?>/assets/datatables/v1.10.23/datatables.min.css" />
-<script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/datatables/v1.10.23/datatables.min.js"></script>
+<link rel="stylesheet" href="<?php echo WEB_ROOT; ?>/assets/datatables/v1.13.8/datatables.min.css" />
+<script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/datatables/v1.13.8/datatables.min.js"></script>
 
 <!-- Fitty -->
 <script type="text/javascript" src="<?php echo WEB_ROOT; ?>/assets/fitty/fitty.min.js"></script>

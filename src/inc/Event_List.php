@@ -12,13 +12,13 @@ include( ROOT . '/inc/Viewer_List.php' );
 
 class Event_List {
 	public array $events;
-	private Viewer_List $viewer_list;
+	private Viewer_List|null $viewer_list;
 
 	public function __construct($viewer_list = NULL) {
 		$this->viewer_list = $viewer_list;
 	}
 
-	public function init() {
+	public function init(): void {
 		// Header info in the week table
 		$query = "SELECT `week`.`id`,`week`.`date`,\n";
 

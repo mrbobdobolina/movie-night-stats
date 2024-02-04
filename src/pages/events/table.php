@@ -1,16 +1,16 @@
-<div class="container">
+<div class="container my-4">
 	<?php
 
 	$event_list = new Event_List();
 	$event_list->init();
 
 	$count_events = count($event_list->events());
-	/** @var int $numberTypes */
+	/** @var array $numberTypes */
 	$numbers = $numberTypes[rand(0, 3)];
 
 	?>
-	<p class="display-6 text-center">(╯°□°）╯︵ ┻━┻</p>
-	<p class="text-center mb-5"><em>"My how the events have tabled."</em></p>
+	<h1 class="text-center">Winning Events - Table View</h1>
+	<p class="text-center mb-3">My how the turntables. (╯°□°）╯︵ ┻━┻</p>
 
 
 	<table id="events" class="table table-hover">
