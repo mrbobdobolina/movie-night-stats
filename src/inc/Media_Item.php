@@ -1,21 +1,23 @@
 <?php
 
 class Media_Item {
-	public $id;
-	public $name;
-	public $reviews;
-	public $year;
-	public $runtime;
-	public $mpaa;
-	public $instances;
-	public $imdb_id;
-	public $poster_url;
-	public $type;
+	public int $id;
+	public string $name;
+	public Media_Reviews $reviews;
+	public int|null $year;
+	public int|null $runtime;
+	public string|null $mpaa;
+	public array $instances;
+	public string|null $imdb_id;
+	public string|null $poster_url;
+	public string|null $type;
 
 	public function __construct() {
 		$this->reviews = new Media_Reviews();
 
 		$this->type = '';
+
+		return $this;
 	}
 
 	public function poster_url_or_bust() {

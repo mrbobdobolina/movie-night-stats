@@ -1,28 +1,23 @@
-<?php /** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
-
-/** @noinspection SpellCheckingInspection */
+<?php
 
 class Event_Item {
 
-	public $id;
-	public $date;
-	public $wedges;
-	public $viewers;
-	public $winner;
-	public $spinner;
-	public $scribe;
+	public int $id;
+	public Event_Date $date;
+	public array $wedges;
+	public array $viewers;
+	public array $winner;
+	public Viewer_Item $spinner;
+	public Viewer_Item $scribe;
 	public $winning_wedge;
 	public $format;
-	public $error_spins;
-	public $theme;
+	public array $error_spins;
+	public string $theme;
 	public $attendees;
 	public $selection_method;
-	public $runtime;
-	public $notes;
-	/**
-	 * @var mixed
-	 */
-	public $viewer_list;
+	public int $runtime;
+	public string|null $notes;
+	public Viewer_List $viewer_list;
 
 	public function __construct() {
 

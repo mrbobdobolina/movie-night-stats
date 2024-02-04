@@ -1,31 +1,47 @@
 <?php
 
 class Viewer_List {
-	public $viewers;
-	public $event_list;
+	public array $viewers;
+	public Event_List|null $event_list;
 
 	public function __construct($event_list = NULL) {
 		$this->viewers = [];
 		$this->event_list = $event_list;
 	}
 
-	public function init() {
+	/**
+	 * Grabs all the viewers from the database and turns them into View_Items
+	 * @return void
+	 */
+	public function init(): void {
 		$query = "SELECT `id`,`name`,`color`,`attendance` FROM `viewers`";
-
 		$data = db($query);
 
 		$this->viewers = [];
-		foreach ($data as $viewer) {
-			$this->viewers[$viewer['id']] = new Viewer_Item();
-			$this->viewers[$viewer['id']]->id = $viewer['id'];
-			$this->viewers[$viewer['id']]->name = $viewer['name'];
-			$this->viewers[$viewer['id']]->color = $viewer['color'];
-			$this->viewers[$viewer['id']]->attendance = $viewer['attendance'];
+		foreach ($data as $viewer_raw) {
+			$viewer = new Viewer_Item();
+			$viewer->id = $viewer_raw['id'];
+			$viewer->name = $viewer_raw['name'];
+			$viewer->color = $viewer_raw['color'];
+			$viewer->attendance = $viewer_raw['attendance'];
+
+			$this->viewers[$viewer_raw['id']] = $viewer;
 		}
 	}
 
-	public function get_by_id($viewer_id) {
-		return $this->viewers[$viewer_id];
+	/**
+	 * @param int $viewer_id The ID of the viewer
+	 *
+	 * @return Viewer_Item An object containing information about the chosen viewer or null if the ID does not exist.
+	 */
+	public function get_by_id(int $viewer_id): Viewer_Item {
+		if(array_key_exists($viewer_id, $this->viewers)){
+			return $this->viewers[$viewer_id];
+		}
+		else {
+			return new Viewer_Item();
+		}
+
 	}
 
 	public function stats_by_viewer(): array {
