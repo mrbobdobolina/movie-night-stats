@@ -26,7 +26,7 @@ if (!is_service_url()) {
 			[
 				'link' => WEB_ROOT . '/events/attendance',
 				'text' => '<i class="fa-solid fa-users"></i> Attendance',
-			]
+			],
 		],
 	];
 	$navigation_links[] = [
@@ -49,19 +49,56 @@ if (!is_service_url()) {
 		'link' => WEB_ROOT . '/years',
 		'text' => '<i class="fa-solid fa-calendar-days"></i> Years',
 	];
+
+	if (is_admin()) {
+		$navigation_links[] = [
+			'link'     => '#',
+			'text'     => 'Admin',
+			'dropdown' => [
+				[
+					'link' => WEB_ROOT . '/admin/add-list',
+					'text' => 'Scribe\'s List',
+				],
+				[
+					'link' => WEB_ROOT . '/admin/add-viewer',
+					'text' => 'Add Viewer',
+				],
+				[
+					'link' => WEB_ROOT . '/admin/add-movie',
+					'text' => 'Add Movie',
+				],
+				[
+					'link' => WEB_ROOT . '/admin/add-game',
+					'text' => 'Add Event',
+				],
+				[
+					'link' => WEB_ROOT . '/admin/add-service',
+					'text' => 'Add Format',
+				],
+				[
+					'link' => WEB_ROOT . '/admin/add-spinner',
+					'text' => 'Add Spinner',
+				],
+				[
+					'link' => WEB_ROOT . '/admin/log-out',
+					'text' => 'Log Out',
+				],
+			],
+		];
+	}
 }
 
 ?>
 
 <header class="navbar navbar-expand-xl sticky-top shadow">
 	<nav class="container">
-		<a href="<?php echo is_service_url() ? '#' : WEB_ROOT.'/'; ?>" class="navbar-brand">
+		<a href="<?php echo is_service_url() ? '#' : WEB_ROOT . '/'; ?>" class="navbar-brand">
 			<img
 				alt="Movie Night Stats"
 				src="/images/MovieNightStats_v02B_Rectangle_Transparent.png">
 		</a>
 
-		<?php if(!empty($navigation_links)): ?>
+		<?php if (!empty($navigation_links)): ?>
 
 			<button
 				class="navbar-toggler text-end"
@@ -93,8 +130,8 @@ if (!is_service_url()) {
 						if (!empty($element['dropdown'])) {
 							echo '<ul class="dropdown-menu shadow">';
 
-							foreach($element['dropdown'] as $sub_element){
-								echo '<li><a class="dropdown-item" href="'.$sub_element['link'].'">';
+							foreach ($element['dropdown'] as $sub_element) {
+								echo '<li><a class="dropdown-item" href="' . $sub_element['link'] . '">';
 								echo $sub_element['text'];
 								echo '</a></li>';
 							}

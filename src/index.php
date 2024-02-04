@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include_once('common.php');
 
 // Check the PHP installation
@@ -46,9 +48,15 @@ elseif(file_exists(ROOT.'/pages/'.$_GET['url'].'/index.php')){
 	$url = ROOT.'/pages/'.$_GET['url'].'/index.php';
 }
 
+$url = str_replace('..', '.', $url);
+
+if(str_starts_with($_GET['url'], 'admin') && $_GET['url'] !== 'admin/' && !is_admin()){
+	header('Location: '.WEB_ROOT.'/admin/');
+	die();
+}
+
 ob_start();
 
-$url = str_replace('..', '.', $url);
 
 include(ROOT.'/template/page.php');
 

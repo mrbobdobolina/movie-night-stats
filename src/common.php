@@ -14,12 +14,14 @@ include(ROOT.'/inc/check_install.php');
 $numberTypes = Array("arabic", "roman", "japanese", "arabic", "roman");
 
 
+include(ROOT.'/inc/credentials.php');
 
 include(ROOT.'/inc/films.php');
 include(ROOT.'/inc/spinners.php');
 include(ROOT.'/inc/viewers.php');
 include(ROOT.'/inc/week.php');
 include(ROOT.'/inc/colors.php');
+
 
 // Includes a file from the template directory
 function template($part){
