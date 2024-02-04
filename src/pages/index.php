@@ -74,7 +74,7 @@
 					<!-- Card Header -->
 					<div
 						class="card-header text-center"
-						style="background-color:#<?php echo $event->winner['viewer']->color; ?>;color:<?php echo get_text_color_from_hex('#' . $event->winner['viewer']->color); ?>">
+						style="<?php echo $event->winner['viewer']->css_style_color(); ?>">
 						<div class="title-event-number">
 							Event
 							<span data-mns-number="<?php echo $count_events; ?>"><?php echo $count_events--; ?></span>
@@ -105,7 +105,7 @@
 							?>
 
 							<div class="col">
-								<table class="table movie-list">
+								<table class="table movie-list bg-clear">
 									<tbody>
 									<?php
 									$movie_freshness = [];
@@ -116,8 +116,7 @@
 										}
 
 										if ($event->winning_wedge == $ii) {
-											echo '<tr class="list-winner" style="background-color:#' . $event->wedges[$ii]['viewer']->color . ';color:' . get_text_color_from_hex('#' . $event->winner['viewer']->color) .
-												'">';
+											echo '<tr class="list-winner" style="' . $event->winner['viewer']->css_style_color() . '">';
 										}
 										else {
 											echo '<tr>';
@@ -131,7 +130,9 @@
 										<td class="list-viewer">
 											<?php echo $event->wedges[$ii]['viewer']->name; ?>
 										</td>
-										<td class="list-title" title="<?php echo $event->wedges[$ii]['media']->name; ?>">
+										<td
+											class="list-title"
+											title="<?php echo $event->wedges[$ii]['media']->name; ?>">
 											<?php echo $event->wedges[$ii]['media']->name; ?>
 										</td>
 										</tr>

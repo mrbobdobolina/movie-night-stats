@@ -13,18 +13,18 @@ if (!is_service_url()) {
 			],
 			[
 				'link' => WEB_ROOT . '/events/table',
-				'text' => '<i class="fa-solid fa-table"></i> Table View',
+				'text' => '<i class="fa-solid fa-table"></i> Win Table',
 			],
 			[
-				'link' => WEB_ROOT . '/events/rows',
+				'link' => WEB_ROOT . '/events/poster',
 				'text' => '<i class="fa-solid fa-images"></i> Poster View',
 			],
 			[
-				'link' => WEB_ROOT . '/events/posters',
+				'link' => WEB_ROOT . '/events/poster-win',
 				'text' => '<i class="fa-solid fa-image-portrait"></i> Winning Poster',
 			],
 			[
-				'link' => WEB_ROOT . '/attendance',
+				'link' => WEB_ROOT . '/events/attendance',
 				'text' => '<i class="fa-solid fa-users"></i> Attendance',
 			]
 		],

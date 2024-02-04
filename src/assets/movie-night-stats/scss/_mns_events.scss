@@ -1,52 +1,58 @@
-.mns-events.mns-view-cards {
+.mns-events {
 
-	.title-event-number {
-		font-size: 1.75rem;
-		font-weight: bold;
+	.bg-clear td {
+		background: transparent !important;
+		color:      inherit !important;
 	}
 
-	.title-event-date {
-		font-size: 1rem;
-		font-weight: bold;
-	}
+	&.mns-view-cards {
 
-	.poster {
-		object-fit: cover;
-		width: calc(30.6rem / 41 * 27); /* Movie Posters are 27" x 41" */
-		height: 30.6rem;
-	}
-
-	.movie-list {
-		table-layout: fixed;
-		width: 100%;
-
-		td {
-			--bs-table-bg: transparent;
-			color: inherit;
-		}
-
-		.list-number {
-			text-align: center;
-			width: 2.5rem;
-			padding-left: 0;
-			padding-right: 0;
-		}
-
-		.list-viewer {
-			width: 30%;
-			text-align: center;
-		}
-
-		.list-title {
-			white-space:   nowrap;
-			overflow:      hidden;
-			text-overflow: ellipsis;
-		}
-
-		.list-winner {
+		.title-event-number {
+			font-size:   1.75rem;
 			font-weight: bold;
 		}
 
+		.title-event-date {
+			font-size:   1rem;
+			font-weight: bold;
+		}
+
+		.poster {
+			object-fit: cover;
+			width:      calc(30.6rem / 41 * 27); /* Movie Posters are 27" x 41" */
+			height:     30.6rem;
+		}
+
+		.movie-list {
+			table-layout: fixed;
+			width:        100%;
+
+			.list-number {
+				text-align:    center;
+				width:         2.5rem;
+				padding-left:  0;
+				padding-right: 0;
+			}
+
+			.list-viewer {
+				width:      30%;
+				text-align: center;
+			}
+
+			.list-title {
+				white-space:   nowrap;
+				overflow:      hidden;
+				text-overflow: ellipsis;
+			}
+
+			.list-winner {
+				font-weight: bold;
+			}
+
+		}
 	}
 
+	&.mns-view-poster {
+
+	}
 }

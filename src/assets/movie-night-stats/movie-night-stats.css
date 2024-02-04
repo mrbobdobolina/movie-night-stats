@@ -71,6 +71,10 @@ html, body {
   border-bottom: none;
 }
 
+.mns-events .bg-clear td {
+  background: transparent !important;
+  color: inherit !important;
+}
 .mns-events.mns-view-cards .title-event-number {
   font-size: 1.75rem;
   font-weight: bold;
@@ -87,10 +91,6 @@ html, body {
 .mns-events.mns-view-cards .movie-list {
   table-layout: fixed;
   width: 100%;
-}
-.mns-events.mns-view-cards .movie-list td {
-  --bs-table-bg: transparent;
-  color: inherit;
 }
 .mns-events.mns-view-cards .movie-list .list-number {
   text-align: center;
@@ -110,7 +110,6 @@ html, body {
 .mns-events.mns-view-cards .movie-list .list-winner {
   font-weight: bold;
 }
-
 body {
   font-family: "Open Sans", sans-serif;
 }

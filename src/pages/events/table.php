@@ -1,4 +1,4 @@
-<div class="container my-4">
+<div class="container my-4 mns-events mns-view-win-table">
 	<?php
 
 	$event_list = new Event_List();
@@ -13,12 +13,11 @@
 	<p class="text-center mb-3">My how the turntables. (╯°□°）╯︵ ┻━┻</p>
 
 
-	<table id="events" class="table table-hover">
+	<table id="events" class="table table-hover bg-clear">
 		<thead>
 		<tr>
 			<th>#</th>
 			<th>Date</th>
-			<th>Wedge</th>
 			<th>Winning Film</th>
 			<th>Winner</th>
 			<th>Spinner</th>
@@ -31,10 +30,9 @@
 		/** @var Event_Item $event */
 		foreach ($event_list->events() as $event): ?>
 
-			<tr class="text-white" style="background-color:#<?php echo $event->winner['viewer']->color; ?>">
+			<tr style="<?php echo $event->winner['viewer']->css_style_color(); ?>">
 				<td><?php echo $count_events--; ?></td>
 				<td><?php echo $event->date->long(); ?></td>
-				<td><?php echo $event->winning_wedge; ?></td>
 				<td><?php echo $event->winner['media']->name; ?></td>
 				<td><?php echo $event->winner['viewer']->name; ?></td>
 				<td><?php echo $event->spinner->name; ?></td>

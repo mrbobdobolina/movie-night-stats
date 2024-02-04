@@ -1,17 +1,14 @@
-<div class="container">
+<div class="container my-4 mns-events mns-view-poster">
 	<?php
-
 
 	$event_list = new Event_List();
 	$event_list->init();
 	$count_events = count($event_list->events());
 
-	$numbers = $numberTypes[rand(0, 3)];
-
 	?>
 	<?php $minutes = calculateTotalWatchtime(); ?>
-	<p class="display-6 text-center">Running out of wall space</p>
-	<p class="text-center mb-5"><em>...and also printer ink.</em></p>
+	<h1 class="text-center">Running out of wall space</h1>
+	<p class="text-center mb-3"><em>...and also printer ink.</em></p>
 
 	<div class="row g-3">
 		<?php foreach ($event_list->events() as $event): ?>
