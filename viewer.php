@@ -1,337 +1,525 @@
+<?php include('common.php');?>
 <?php
-require_once('common.php');
-
-if(isset($_GET['viewer'])){
-	$viewer = $_GET['viewer'];
+// Check if the GET variable exists
+if (isset($_GET['v'])) {
+    // Sanitize the value (for example, using filter_var for a string)
+    $person = $_GET['v'];
+} else {
+    if($_GET['v'] == NULL){
+      header('Location: viewers.php');
+    exit;
+    }
 }
-else {
-	header('Location: viewers.php');
-	exit;
-}
+ $viewer_data = get_cast_member($pdo, $person);
+ $viewer_data = get_cast_list($pdo);
+ $viewer_picks = get_cast_picks($pdo, $person);
+ $viewer_attendance = get_cast_atnd($pdo, $person);
+ $pick_details = get_pick_details($pdo, $person);
+ $count = get_event_count($pdo);
+ $stats = get_cast_stats($pdo, $person);
+ $spinner_stats = get_cast_wheel($pdo, $person);
+ $service_colors = get_service_colors($pdo);
+ $unwatched_films = get_unwatched_films($pdo, $person);
 
-template('header');
+ $dataTables = TRUE;
+
+ $film_years = [];
 
 ?>
+<?php include('template/header.php');?>
+<script src="assets/echarts-5.6.0/echarts.min.js"></script>
+<style>
+	.card-header{
+		background-color: #<?php echo $viewer_data[$person]['color'];?> ;
+		color: white;
+	}
+</style>
 
-<div class="album py-5 bg-light">
-	<div class="container">
-		<p class="display-6 text-center ">Even More Details.</p>
-		<p class="lead text-center ">For your convenience.</p>
+  <body>
 
+<main>
 
-		<div class="row row-cols-1 row-cols-md-3 row-cols-md-3 row-cols-xl-10 g-3 mt-5">
+  <?php include('template/nav.php');?>
 
-			<div class="col-12 mb-4">
-				<div class="card">
-					<div class="card-header bold text-white" style="background-color:#<?php echo getMoviegoerColorById($viewer);?>;" >
-						<h3><?php echo getViewerName($viewer); ?></h3>
-					</div>
-					<div class="card-body">
-						<ul>
-							<?php
+  <?php //print_r($unwatched_films); ?>
 
-							$attend = count_attendance($pdo, $viewer);
-							$total_events = countWeeks();
-
-							$myUnique = calculateMyUniquePicks($viewer);
-							$myTotal = countMyTotalPics($viewer);
-
-							$wins = winningPickStats($viewer);
-							$picks = countMySpins($viewer);
-							$spins = countMySpins_noChoice($viewer);
-
-							?>
-						 	<li><strong>Attendance:</strong> <?php echo $attend;?></li>
-							<li><strong>Unique Picks:</strong> <?php echo $myUnique; ?></li>
-							<li><strong>Total Picks:</strong> <?php echo $myTotal; ?></li>
-							<?php if($myTotal == 0){$myTotal = 1;}?>
-							<li><strong>Percent Unique:</strong> <?php echo round(($myUnique/$myTotal)*100,2);?>%</li>
-							<li><strong>Wins:</strong> <?php echo $wins; ?></li>
-							<li><strong>Win Percentage:</strong> <?php echo round(($wins/$total_events)*100,2);?>%</li>
-							<li><strong>Win % for Attendance:</strong> <?php echo round(($wins/$attend)*100,2);?>%</li>
-							<li><strong>Number of consecutive wins when viewer is in attendance and selection method is not viewers choice:</strong> <?php echo count_viewer_win_streak_when_attending_and_not_viewer_choice($pdo, $viewer)['count'];?></li>
-							<li><strong>Number of consecutive wins when viewer has movies on the wheel and selection method is not viewers choice:</strong> <?php echo count_viewer_win_streak_when_participating_and_not_viewer_choice($pdo, $viewer)['count'];?></li>
-							<li>
-								<?php
-
-								$vy = get_viewers_years_single($pdo,$viewer);
-								if(!empty($vy)){
-									$vy_count = count($vy);
-								}
-								else {
-									$vy_count = 1;
-								}
-
-								echo 'Tends to pick movies that were released around '.round(array_sum($vy)/$vy_count);
-
-								?>
-							</li>
-							<li><strong>Scribe: </strong><?php echo count_scribing($pdo,$viewer); ?></li>
-							<li><strong>All Picks: </strong><?php echo $picks['total'];?></li>
-							<li><strong>Total Spins: </strong><?php echo $spins['total'];?></li>
-							<li><strong>Error Spins: </strong><?php echo $spins['bad'];?></li>
-						</ul>
-
-					</div>
-				</div>
-			</div>
-
-			<div class="col-12 mb-4">
-				<div class="card">
-					<div class="card-header bold text-white" style="background-color:#<?php echo getMoviegoerColorById($viewer);?>;" >
-						<h3>Charts</h3>
-					</div>
-					<div class="card-body">
-						<ul>
-							<li><strong>Spun Numbers: </strong><?php //echo implode(", ", listOfSpunNumbersByViewer($viewer));?></li>
-							<?php
-								//print_r(graphSpunNumbersByViewer($id));
-								$numbers = graphSpunNumbersByViewer($viewer);
-								if(!empty($numbers)){
-									$max = max($numbers);
-									if($max == 0){$max = 1;}
-								}
-								else {
-									$max = 1;
-								}
-							?>
-
-							<div class="chart">
-								<table id="column-<?php echo $viewer;?>" class="charts-css column show-labels show-data-on-hover">
-									<thead>
-										<tr>
-											<th scope="col">Number</th>
-											<th scope="col">Wins</th>
-										</tr>
-									</thead>
-										<tbody style="height: 120px;">
-											<?php foreach($numbers as $key => $value):?>
-												<tr>
-													<th scope="row"> <?php echo $key; ?> </th>
-													<td style="--size:<?php echo round($value/$max,1); ?>;"><span class="data"><?php echo $value; ?></span></td>
-												</tr>
-											<?php endforeach;?>
-										</tbody>
-								</table>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+	       <h1 class="alert text-white text-center fw-bold" style="background-color:#<?php echo $viewer_data[$person]['color'];?>"><?php echo $viewer_data[$person]['name'];?></h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-4">
+		    <div class="row row-cols-1">
+			    <div class="col mb-3">
+				    <div class="card">
+					    <div class="card-header h3">
+                Info
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col fw-bold">Name:</div>
+                    <div class="col"><?php echo $viewer_data[$person]['name'];?></div>
+                  </div>
+                </li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Attendance:</div>
+								<div class="col"><?php echo $viewer_data[$person]['attendance'];?></div>
 							</div>
-							<hr >
-							<li>
-								<strong>Spun People: </strong>
-								<?php //echo implode(", ", getSpunViewers($viewer)); ?>
-							</li>
-
-							<?php
-
-							$numbers = getSpunViewers_v2($viewer);
-
-							if(!empty($numbers)){
-								$max = max($numbers);
-								if($max == 0){$max=1;}
-							}
-							else {
-								$max = 1;
-							}
-
-
-							$the_peoples = Array();
-							$the_counts = Array();
-							$the_colors = Array();
-							 ?>
-
-							<div class="chart">
-								<table id="column-<?php echo $viewer;?>" class="charts-css bar show-labels show-data-on-hover">
-									<thead>
-										<tr>
-											<th scope="col">Number</th>
-											<th scope="col">Wins</th>
-										</tr>
-									</thead>
-										<tbody>
-											<?php foreach($numbers as $key => $value):?>
-												<?php
-												$the_peoples[] = $key;
-												$the_counts[] = $value;
-												$the_colors[] = getMoviegoerColorByName($key);?>
-												<tr>
-													<th scope="row"> <?php echo $key; ?> </th>
-													<td style="--size:<?php echo round($value/$max,2); ?>; --color:#<?php echo getMoviegoerColorByName($key); ?>"><span class="data data_padding"><?php echo $value; ?></span></td>
-												</tr>
-											<?php endforeach;?>
-										</tbody>
-								</table>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">First Seen:</div>
+								<div class="col"><?php echo substr($viewer_attendance[0],0,10); ?></div>
 							</div>
-	<hr >
-							<li>
-								<strong>Spun Methods: </strong>
-								<?php //echo implode(", ", getSpunViewers($viewer)); ?>
-							</li>
-
-							<div class="chart">
-								<table id="method-chart" class="charts-css bar show-labels show-data-on-hover">
-									<thead>
-										<tr>
-											<th >Method</th>
-											<th >Count</th>
-										</tr>
-									</thead>
-										<tbody>
-											<?php $methods = count_viewer_spin_methods($pdo, $viewer);
-											$m_max = $methods[0]['count(*)']
-											?>
-											<?php foreach($methods as $method):?>
-												<tr>
-													<th scope="row"> <?php echo $method['selection_method']; ?> </th>
-													<td style="--size:<?php echo round($method['count(*)']/$m_max,2); ?>;w"><span class="data data_padding"><?php echo $method['count(*)']; ?></span></td>
-												</tr>
-											<?php endforeach;?>
-										</tbody>
-								</table>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Last Seen:</div>
+								<div class="col"><?php echo substr($viewer_attendance[count($viewer_attendance)-1],0,10); ?></div>
 							</div>
-
-
-						</ul>
-						<hr >
-						<strong>Spun People Pie: </strong>
-						<canvas id="spinnychart" width="250" height="250" style="position:relative; !important"></canvas>
-						<script>
-						var ctx = document.getElementById('spinnychart').getContext('2d');
-						var myChart = new Chart(ctx, {
-							type: 'pie',
-							data: {
-								labels: ['<?php echo implode("','", $the_peoples); ?>'],
-									datasets: [{
-										data: [<?php echo implode(',', $the_counts); ?>],
-										backgroundColor: ['#<?php echo implode("','#", $the_colors); ?>'],
-										hoverOffset: 10
-									}]
-							},
-							options: {
-								layout: {
-									padding: {
-										left: 30,
-										right: 30,
-										top: 0
-									}
-								},
-								plugins: {
-									legend: {
-										display: true
-									}
-								}
-							}
-						});
-						</script>
-
-						<?php
-
-						$stats = count_viewer_services($viewer);
-
-						$format = Array();
-						$count = Array();
-						$color = Array();
-						foreach($stats as $key => $value){
-							$format[] = $key;
-							$count[] = $value;
-							$color[] = get_service_color_v3($key);
-						}
-
-						if(!empty($format)): ?>
-						<hr >
-							<strong>Winning Services: </strong>
-							<canvas id="myChart<?php echo $viewer;?>" width="250" height="250" style="position:relative; !important"></canvas>
-							<script>
-							var ctx = document.getElementById('myChart<?php echo $viewer;?>').getContext('2d');
-							var myChart = new Chart(ctx, {
-									type: 'doughnut',
-									data: {
-										labels: ['<?php echo implode("','", $format); ?>'],
-											datasets: [{
-												data: [<?php echo implode(',', $count); ?>],
-												backgroundColor: ['<?php echo implode("','", $color); ?>'],
-												hoverOffset: 10
-											}]
-									},
-									options: {
-										layout: {
-											padding: {
-												left: 30,
-												right: 30,
-												top: 10
-											}
-										},
-										plugins: {
-											legend: {
-												display: false
-											}
-										}
-									}
-							});
-							</script>
-
-						<?php endif; ?>
-					</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 
 
-				<div class="col-12 mb-4">
-					<div class="card">
-						<div class="card-header bold text-white" style="background-color:#<?php echo getMoviegoerColorById($viewer);?>;" >
-							<h3>Unwatched Picks</h3>
-						</div>
-						<div class="card-body">
-							<?php
+			<div class="col mb-3">
+				<div class="card">
+					<div class="card-header h3">
+						Picks
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Total:</div>
+								<div class="col"><?php echo $viewer_picks['total_films'];?></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Unique:</div>
+								<div class="col"><?php echo $viewer_picks['unique_films'];?></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">% Unique:</div>
+								<div class="col">
+									<?php echo round(($viewer_picks['unique_films']/$viewer_picks['total_films'])*100,2);?>%
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Average Year:</div>
+								<div class="col">2003</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
 
-							$watchedFilmList = listWatchedMovies();
-							$allUsersPicks = listMyTotalPicksReal($viewer);
-							$allUserPicks2 = Array();
-							foreach($allUsersPicks as $aPick){
-								$allUserPicks2[] = $aPick['filmID'];
-							}
-							//$allUserPicks2 = array_unique($allUserPicks2);
-							$allUserPicks3 = array_count_values($allUserPicks2);
-							arsort($allUserPicks3);
 
-							?>
+			<div class="col mb-3">
+				<div class="card">
+					<div class="card-header h3">
+						Wins
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Total:</div>
+								<div class="col"><?php echo $stats['wins']; ?></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">% / Total Events:</div>
+								<div class="col">
+									<?php echo round(($stats['wins']/$count)*100,2); ?>%
+								</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">% / Attendance:</div>
+								<div class="col">
+									<?php echo round(($stats['wins']/$viewer_data[$person]['attendance'])*100,2); ?>%
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
 
 
-								<table id="movies" class="table table-striped">
-									<thead>
-										<tr>
-											<td><strong>Movie Title</strong></td>
-											<td><strong>Times on Wheel</strong></td>
-										</tr>
-									</thead>
-								<?php
-								foreach($allUserPicks3 as $key => $value){
-									if(!in_array($key, $watchedFilmList)){
-									 	echo '<tr><td>'.get_movie_by_id($pdo,$key).'</td> <td>'.$value.'</td></tr>';
-									}
-								}
+			<div class="col mb-3">
+				<div class="card">
+					<div class="card-header h3">
+						Streaks
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Longest Win:</div>
+								<div class="col">	</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Longest Win with Viewer Choice:</div>
+								<div class="col"></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Longest Win when Attending:</div>
+								<div class="col">	</div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Longest Lose:</div>
+								<div class="col"></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Longest Lose with Viewer Choice:</div>
+								<div class="col"></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Longest Lose when Attending:</div>
+								<div class="col"></div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
 
-								?>
-							</table>
 
-						</div>
+			<div class="col mb-3">
+				<div class="card">
+										<div class="card-header h3">
+						Stats
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Scribe:</div>
+								<div class="col"><?php echo $stats['scribe']; ?></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">All Picks:</div>
+								<div class="col"><?php //echo $stats['wins']; ?></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Total Spins:</div>
+								<div class="col"><?php echo $stats['spins']; ?></div>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col fw-bold">Error Spins:</div>
+								<div class="col"><?php //echo $stats['wins']; ?></div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<div class="col-12 col-md-6 col-lg-4">
+		<div class="row row-cols-1">
+
+
+			<div class="col mb-3">
+				<div class="card">
+					<div class="card-header h3">
+						Spun Numbers
+					</div>
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+
+							<div class="chart">
+								<div id="spunNumbers" style="width:100%;height:200px;"></div>
+                <script type="text/javascript">
+                  // Initialize the echarts instance based on the prepared dom
+                  var myChart = echarts.init(document.getElementById('spunNumbers'));
+
+                  // Specify the configuration items and data for the chart
+                  var option = {
+                    grid: {
+                    top: 20,    // Distance from the top
+                    bottom: 20, // Distance from the bottom
+                    left: 20,   // Distance from the left
+                    right: 20   // Distance from the right
+                },
+                    color: ["#<?php echo $viewer_data[$person]['color'];?>"],
+                    title: {
+                      text: ''
+                    },
+                    tooltip: {},
+
+                    xAxis: {
+                      data: ['<?php $keys = array_keys($spinner_stats['numbers']);
+                      echo implode("','",$keys); ?>'],
+                      axisLabel: {
+                        interval: 0
+                      }
+                    },
+                    yAxis: {},
+                    series: [
+                      {
+                        name: 'selection method',
+                        type: 'bar',
+                        data: [<?php echo implode(",",$spinner_stats['numbers']); ?>]
+                      }
+                    ]
+                  };
+
+            // Display the chart using the configuration items and data just specified.
+            myChart.setOption(option);
+          </script>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+			<div class="col mb-3">
+				<div class="card">
+					<div class="card-header h3">
+						Spun People
+					</div>
+          <div id="spunCast" style="width:100%;height:400px;"></div>
+          <script type="text/javascript">
+            // Initialize the echarts instance based on the prepared dom
+            var myChart2 = echarts.init(document.getElementById('spunCast'));
+
+            // Specify the configuration items and data for the chart
+            var option2 = {
+              grid: {
+              top: 20,    // Distance from the top
+              bottom: 20, // Distance from the bottom
+              left: 20,   // Distance from the left
+              right: 20   // Distance from the right
+            },
+            tooltip: {
+              trigger: 'item'
+              },
+              legend: {
+              top: '5%',
+              left: 'center'
+              },
+              series: [
+              {
+                name: 'Spun People',
+                type: 'pie',
+                radius: ['30%', '75%'],
+                avoidLabelOverlap: true,
+                padAngle: 1,
+                itemStyle: {
+                  borderRadius: 8
+                },
+                label: {
+                  show: false,
+                  position: 'center'
+                },
+                emphasis: {
+                  label: {
+                    show: true,
+                    fontSize: 20,
+                    fontWeight: 'bold'
+                  }
+                },
+                labelLine: {
+                  show: false
+                },
+                data: [
+                  <?php foreach($spinner_stats['people'] as $key => $value):?>
+                  { value: <?php echo $value;?>, name: '<?php echo $viewer_data[$key]['name'];?>', itemStyle: { color: '#<?php echo $viewer_data[$key]['color'];?>'} },
+                  <?php endforeach; ?>
+                ]
+              }
+              ]
+            };
+
+      // Display the chart using the configuration items and data just specified.
+      myChart2.setOption(option2);
+    </script>
+				</div>
+			</div>
+
+
+			<div class="col mb-3">
+				<div class="card">
+					<div class="card-header h3">
+						Spun Methods
+					</div>
+          <div id="spinMethods"  style="width:100%; height:200px;"></div>
+          <script type="text/javascript">
+            // Initialize the echarts instance based on the prepared dom
+            var myChart3 = echarts.init(document.getElementById('spinMethods'));
+
+            // Specify the configuration items and data for the chart
+            var option3 = {
+              grid: {
+              top: 30,    // Distance from the top
+              bottom: 30, // Distance from the bottom
+              left: '26%',   // Distance from the left
+              right: 25   // Distance from the right
+          },
+              color: ["#<?php echo $viewer_data[$person]['color'];?>"],
+              title: {
+                text: ''
+              },
+              tooltip: {},
+
+              yAxis: {
+                data: ['<?php $keys = array_keys($spinner_stats['methods']);
+                echo implode("','",$keys); ?>'],
+                axisLabel: {
+                  interval: 0
+                }
+              },
+              xAxis: {},
+              series: [
+                {
+                  name: 'selection method',
+                  type: 'bar',
+                  data: [<?php echo implode(",",$spinner_stats['methods']); ?>],
+                  barWidth: '80%',
+                  barCategoryGap: '5%',
+                }
+              ]
+            };
+
+      // Display the chart using the configuration items and data just specified.
+      myChart3.setOption(option3);
+    </script>
+				</div>
+			</div>
+
+
+			<div class="col mb-3">
+				<div class="card">
+					<div class="card-header h3">
+						Winning Services
+					</div>
+          <div id="winningService"  style="width:100%; height:300px;"></div>
+          <script type="text/javascript">
+            // Initialize the echarts instance based on the prepared dom
+            var myChart4 = echarts.init(document.getElementById('winningService'));
+
+            // Specify the configuration items and data for the chart
+            var option4 = {
+              grid: {
+              top: 30,    // Distance from the top
+              bottom: 60, // Distance from the bottom
+              left: 30,   // Distance from the left
+              right: 20   // Distance from the right
+          },
+              title: {
+                text: ''
+              },
+              tooltip: {},
+
+              xAxis: {
+                data: ['<?php $keys = array_keys($spinner_stats['services']);
+                echo implode("','",$keys); ?>'],
+                axisLabel: {
+                  interval: 0,
+                  rotate: 50,
+                }
+              },
+              yAxis: {},
+              series: [
+                {
+                  name: 'winning service',
+                  type: 'bar',
+                  data: [
+                    <?php foreach($spinner_stats['services'] as $key => $value):?>
+                    { value: <?php echo $value;?>, name: '<?php echo $key;?>', itemStyle: { color: '<?php echo $service_colors[$key];?>'} },
+                    <?php endforeach; ?>
+                  ],
+                  barWidth: '80%',
+                  barCategoryGap: '5%',
+                }
+              ]
+            };
+
+          // Display the chart using the configuration items and data just specified.
+          myChart4.setOption(option4);
+          </script>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-12 col-lg-4">
+		<div class="row row-cols-1">
+
+
+			<div class="col mb-3">
+				<div class="card">
+					<div class="card-header h3">
+						Unwatched Picks
+					</div>
+					<div class="card-body">
+
+
+						<table id="movies" class="table table-striped">
+							<thead>
+								<tr>
+									<td><strong>Movie Title</strong></td>
+									<td><strong>Times on Wheel</strong></td>
+								</tr>
+							</thead>
+							<tbody>
+                <?php foreach($unwatched_films as $film):?>
+                  <?php if($film['wins'] == 0):?>
+                  <tr>
+  									<td><?php echo $film['name']; ?></td>
+  									<td><?php echo $film['pick_count']; ?></td>
+  								</tr>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+							</tbody>
+						</table>
 					</div>
 				</div>
+			</div>
 
 
 		</div>
 	</div>
 </div>
 
-<script>
-$(document).ready(function() {
-	$('#movies').DataTable(
-		{
-			"pageLength": 100,
-			"lengthMenu": [ [50, 100, 200, -1], [50, 100, 200, "All"] ],
-			"order": [[ 1, "desc" ]]
-		}
-	);
-} );
+  </div>
+  <script>
+  new DataTable('#movies', {
+    lengthMenu:[
+      [25, 50, 100, -1],
+      [25, 50, 100, 'All']
+    ],
+    order: [
+      [1, 'desc']
+    ],
+    "bLengthChange": false,
+  });
 </script>
-
-
-<?php template('footer');?>
+<?php include('template/footer.php');?>

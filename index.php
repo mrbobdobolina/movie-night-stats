@@ -1,220 +1,127 @@
-<?php
+<?php include('common.php');?>
+<?php include('template/header.php');?>
+  <?php
+  //reorder_event_numbers($pdo);
+  $total = get_event_count($pdo);
+  // Check if the GET variable exists
+  if (isset($_GET['sd'])) {
+      // Sanitize the value (for example, using filter_var for a string)
+      $showing_number= $_GET['sd'];
+  } else {
+      // Set to null if the variable doesn't exist
+      $showing_number = $total;
+  }
+  $showing_data = get_raw_showing_data($pdo, $showing_number);
+  $relevant_films = get_film_array($pdo, $showing_data);
+  $cast_list = get_cast_list($pdo);
+  ?>
 
-require_once('common.php');
+  <body>
 
-template('header');
+<main>
 
-$events = getListOfEvents("DESC");
-$count_events = count($events);
-$numbers = $numberTypes[rand(0,3)];
+  <?php include('template/nav.php');?>
 
-?>
-<script>
-	var nanobar = new Nanobar();
-	nanobar.go(5);
-</script>
-<div class="album py-5 bg-light">
-	<div class="container">
-		<?php $minutes = calculateTotalWatchtime(); ?>
-		<p class="display-6 text-center">"I'm not a nerd, you're a nerd."</p>
-		<p class="text-center mb-5">Over <?php echo number_format($minutes); ?> minutes of "entertainment." (Or <?php echo round(($minutes/60), 2);?> hours.) (Or <?php echo round(($minutes/60)/24, 2);?> days.)</p>
+  <div class="container">
+    <div class="row gx-5 justify-content-center">
+        <div class="col-lg-11 col-xl-10 col-xxl-9">
+            <!-- Project Card 1-->
+            <div class="card shadow-lg rounded-4 border-0 mb-5">
+              <div class="card-header pt-3 text-light rounded-top-4" style="background-color: #<?php echo $cast_list[$showing_data['winning_moviegoer']]['color']; ?>">
+                <h2 class="fw-bolder text-center">
+                  Event <?php
+                  echo $showing_data["event_number"]; ?>
+                </h2>
+                <h4 class="fw-bolder text-center">
+                  <?php
+                  $date = new DateTime($showing_data["date"]);
+                  echo $date->format("F j, Y"); ?>
+                </h4>
+              </div>
+                <div class="card-body p-0">
+                    <div class="d-flex align-items-center">
+                        <div class="py-5 ps-3 pe-2 col-md-7">
 
+                              <table class="table table-hover">
+                                <tbody>
+                                  <?php for($i=1; $i<=12; $i++):?>
+                                  <tr class="<?php if($i == $showing_data["winning_wedge"]):?>fw-bold<?php endif;?>"
+                                    <?php if($i == $showing_data["winning_wedge"]){
+                                      echo 'style="--bs-table-bg:#'.$cast_list[$showing_data['winning_moviegoer']]['color'].'; --bs-table-color:#fff"';}?> >
+                                    <td class="col-1 text-center">
+                                    <?php if($i == $showing_data["winning_wedge"]):?>
+                                      <i class="fa-solid fa-trophy pt-1"></i>
+                                    <?php endif;?>
+                                    </td>
+                                    <td class="col-1 text-center"><?php echo $i; ?></td>
+                                    <?php if($showing_data['moviegoer_'.$i]): ?>
+                                      <td ><a style="color: inherit !important;" href="viewer.php?v=<?php echo $showing_data['moviegoer_'.$i]; ?>"><?php echo $cast_list[$showing_data['moviegoer_'.$i]]['name']; ?></a></td>
+                                    <?php else: ?>
+                                      <td class=""></td>
+                                    <?php endif; ?>
+                                    <?php if($showing_data['wheel_'.$i]): ?>
+                                      <td class=""><a style="color: inherit !important;" href="movie.php?m=<?php echo $showing_data['wheel_'.$i]; ?>"><?php echo $relevant_films[$showing_data['wheel_'.$i]]['name']; ?></a></td>
+                                    <?php else: ?>
+                                      <td class=""></td>
+                                    <?php endif; ?>
 
+                                  </tr>
+                                  <?php endfor; ?>
 
-		<div class="row g-3  mb-3">
-			<?php $counter_1 = 0; ?>
-			<?php foreach($events as $event): ?>
-				<?php
-				$eventDate = new DateTime($event['date']);
-				$winning_wedge = $event['winning_wedge'];
-				$winning_moviegoer = $event['moviegoer_'.$winning_wedge];
-				$counter_1++;
-				$total_events = count($events);
-				?>
-				<?php if(count($events) == $count_events):
-					?>
-					<script>nanobar.go(<?php echo floor(($counter_1/$total_events)*100)-1;?>);</script>
-					<div class=" col-lg-2">
-						<button id="btn-expand-all" class="btn btn-sm btn-outline-primary mb-3 col-8" onclick="$('.collapse').collapse('show'); $('#btn-expand-all').hide(); $('#btn-collapse-all').show();">
-							<i class="fa-solid fa-angles-down"></i> Expand ALL
-						</button>
-						<button id="btn-collapse-all" class="btn btn-sm btn-outline-primary mb-3 col-8" onclick="$('.collapse').collapse('hide'); $('#btn-expand-all').show(); $('#btn-collapse-all').hide();" style="display:none">
-							<i class="fa-solid fa-angles-up"></i> Collapse ALL
-						</button>
+                                </tbody>
+                              </table>
+                        </div>
+                        <div class="col-md-5 pe-3">
+                          <img class="img-fluid w-100" src="<?php echo $relevant_films[$showing_data["winning_film"]]['poster_url'];?>" alt="...">
+                        </div>
 
-						<a href="event_table.php" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-table"></i> Table View</a>
-						<a href="event_rows.php" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-images"></i> Poster View</a>
-						<a href="event_posters.php" class="btn btn-sm btn-outline-dark mb-3 col-8"><i class="fa-solid fa-image-portrait"></i> Winning Poster</a>
-					</div>
+                    </div>
+                    <table class="table p-3 text-center">
+                      <thead>
+                        <tr>
+                          <td><strong>Spinner</strong></td>
+                          <td><strong>Selection Method</strong></td>
+                          <td><strong>Format</strong></td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><?php if($showing_data['spinner'] != 0) {
+                            echo $cast_list[$showing_data['spinner']]['name'];
+                          }?></td>
+                          <td><?php echo $showing_data['selection_method'];?></td>
+                          <td><?php echo $showing_data['format'];?></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+                <div class="container w-100 mb-3">
+                  <div class="btn-group w-100" role="group" aria-label="Basic example">
+                    <?php if($showing_data['event_number'] != 1):?>
+                    <a href="?sd=<?php echo $showing_data['event_number']-1; ?>" class="btn btn-outline-secondary w-50"><i class="fa-solid fa-arrow-left"></i> Previous Showing</a>
+                    <?php endif; ?>
+                    <?php if($showing_data['event_number'] != $total):?>
+                    <a href="?sd=<?php echo $showing_data['event_number']+1; ?>" class="btn btn-outline-secondary w-50">Next Showing <i class="fa-solid fa-arrow-right"></i></a>
+                    <?php endif; ?>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center gx-5">
+          <a href="view-cards.php" class="col-3 m-3 btn btn-danger">Card View</a>
+      <!--    <a href="view-posters.php" class="col-3 m-3 btn btn-danger">Poster View</a>
+          <a href="view-list.php" class="col-3 m-3 btn btn-danger">List View</a> -->
+        </div>
+        <hr />
+        <div class="row justify-content-center mt-3">
+          <div class="col-6">
+            <h3 class="text-center pb-3 ">"I'm Not a Nerd, You're a Nerd"</h2>
+              <p class="">Movie Night Stats is a website<sup>1</sup> that chronicles "movie night" for a group of friends who enjoy watching movies together. It started out as a fun weekly get together before turning into a multi-year data gathering project and coding project before fizziling out due to busy schedules before hopefuly restarting someday. The data we track is more related to the event than it is to the actual film, making this content completely worthless if you are looking for a review, but mildly more valuable if you're looking into random numbers.</p>
+              <p class="">[1] Citation Needed.</p>
+            </div>
+        </div>
+    </div>
 
+  </div>
 
-					<div class="card col-lg-8 p-0" >
-						<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
-							<h3>Event <?php echo displayNumbers($count_events--, $numbers);?></h3>
-							<small><em><?php echo $eventDate->format('l, F j, Y'); ?></em></small>
-						</div>
-					  <div class="row g-0">
-							<div class="col-md-5">
-								<div class="card-body text-center justify-content-center">
-									<img src="<?php echo get_movie_poster($pdo, $event['winning_film']); ?>" class="img-fluid poster" alt="winning movie poster">
-								</div>
-							</div>
-					    <div class="col-md-7">
-					      <div class="card-body">
-									<table class="table homepage">
-										<tbody>
-											<?php
-											$movie_freshness = Array();
-											$movie_years = Array();
-											for($i = 1; $i <= 12; $i++):
-											?>
-												<?php $movie_years[] = get_movie_year($pdo,$event['wheel_'.$i]); ?>
-												<?php if($event['winning_wedge'] == $i): ?>
-													<tr class="bold text-white homepage" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
-												<?php else: ?>
-													<tr class="homepage">
-												<?php endif; ?>
-													<td class="number homepage"><?php echo $i; ?></td>
-													<td class="viewer-name text-center homepage" ><?php echo getMoviegoerById($event['moviegoer_'.$i]); ?></td>
-													<td class="movie-title homepage"><?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?></td>
-													<?php if($event['wheel_'.$i] != 0):
-													?>
-														<td class="homepage"><?php $movie_freshness[] = get_movie_avg_rating($pdo, $event['wheel_'.$i]);?></td>
-													<?php else: ?>
-														<td class="homepage"></td>
-													<?php endif; ?>
-												</tr>
-											<?php endfor;?>
-										</tbody>
-									</table>
-								</div>
-							</div>
-
-								<p class="text-center">
-									<a data-bs-toggle="collapse" href="#collapseExample_<?php echo $count_events; ?>" aria-expanded="false" aria-controls="collapseExample_<?php echo $count_events; ?>">
-										More Details...
-									</a>
-								</p>
-
-								<div class="collapse" id="collapseExample_<?php echo $count_events; ?>">
-									<div class="row justify-content-center">
-									<div class="card col-6 m-3 p-3">
-									<div class="card-body ">
-										<?php
-										$movie_years = array_filter($movie_years);
-										$attendees = explode(",", $event['attendees']);
-										$viewers = Array();
-										foreach($attendees as $person){
-											$viewers[] = getMoviegoerById($person);
-										}
-										?>
-										<ul>
-											<li><strong>Attendees:</strong> <?php echo implode(", ", $viewers);?>
-											<li><strong>Scribe:</strong> <?php echo getViewerName($event['scribe']); ?></li>
-											<li><strong>Spinner:</strong> <?php echo getViewerName($event['spinner']); ?></li>
-											<li><strong>Bad Spin #s:</strong> <?php echo $event['error_spin']; ?></li>
-											<li><strong>Theme/Comment:</strong> <?php echo $event['theme']; ?></li>
-											<li><strong>Movie Format:</strong> <?php echo $event['format']; ?></li>
-											<li><strong>Selection Tool:</strong> <?php echo $event['selection_method']; ?></li>
-											<li><strong>Runtime:</strong> <?php echo $event['runtime']; ?> minutes</li>
-											<li><strong>MPAA:</strong> <?php echo get_MPAA($pdo, $event['winning_film']); ?></li>
-											<li><strong>Collective Movie Score:</strong> <?php echo get_freshness($movie_freshness); ?>%</li>
-											<li><strong>Winning Movie Score:</strong> <?php echo get_movie_avg_rating($pdo, $event['winning_film']); ?></li>
-											<li><strong>Average Movie Year:</strong> <?php echo round(array_sum($movie_years)/count($movie_years)); ?></li>
-											<li><strong>Winning Movie Year:</strong> <?php echo get_movie_year($pdo,$event['winning_film']);?></li>
-										</ul>
-									</div>
-								</div>
-
-							</div>
-
-					      </div>
-					    </div>
-						</div>
-						<div class="row g-3">
-				<?php else:?>
-
-				<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-lx-4 col-xxl-4">
-					<div class="card">
-						<div class="card-header pt-2 pb-1 text-center text-white lead" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
-							<h3>Event <?php echo displayNumbers($count_events--, $numbers);?></h3>
-							<small><em><?php echo $eventDate->format('l, F j, Y'); ?></em></small>
-						</div>
-
-						<div class="card-body">
-							<table class="table homepage">
-								<tbody>
-									<?php
-									$movie_freshness = Array();
-									$movie_years = Array();
-									for($i = 1; $i <= 12; $i++):
-									?>
-										<?php $movie_years[] = get_movie_year($pdo,$event['wheel_'.$i]); ?>
-										<?php if($event['winning_wedge'] == $i): ?>
-										<tr class="bold text-white homepage" style="background-color:#<?php echo getMoviegoerColorById($winning_moviegoer); ?>">
-											<?php else: ?>
-												<tr class="homepage">
-											<?php endif; ?>
-											<td class="number homepage"><?php echo $i; ?></td>
-											<td class="viewer-name text-center homepage" ><?php echo getMoviegoerById($event['moviegoer_'.$i]); ?></td>
-											<td class="movie-title homepage"><?php echo get_movie_by_id($pdo,$event['wheel_'.$i]); ?></td>
-											<?php if($event['wheel_'.$i] != 0):
-											?>
-												<td class="homepage"><?php $movie_freshness[] = get_movie_avg_rating($pdo, $event['wheel_'.$i]);?></td>
-											<?php else: ?>
-												<td class="homepage"></td>
-											<?php endif; ?>
-										</tr>
-
-									<?php endfor;?>
-								</tbody>
-							</table>
-
-							<p class="text-center">
-								<a data-bs-toggle="collapse" href="#collapseExample_<?php echo $count_events; ?>" aria-expanded="false" aria-controls="collapseExample_<?php echo $count_events; ?>">
-									More Details...
-								</a>
-							</p>
-
-							<div class="collapse" id="collapseExample_<?php echo $count_events; ?>">
-								<div class="card card-body">
-									<?php
-									$movie_years = array_filter($movie_years);
-									$attendees = explode(",", $event['attendees']);
-									$viewers = Array();
-									foreach($attendees as $person){
-										$viewers[] = getMoviegoerById($person);
-									}
-									?>
-									<ul>
-										<li><strong>Attendees:</strong> <?php echo implode(", ", $viewers);?>
-										<li><strong>Scribe:</strong> <?php echo getViewerName($event['scribe']); ?></li>
-										<li><strong>Spinner:</strong> <?php echo getViewerName($event['spinner']); ?></li>
-										<li><strong>Bad Spin #s:</strong> <?php echo $event['error_spin']; ?></li>
-										<li><strong>Theme/Comment:</strong> <?php echo $event['theme']; ?></li>
-										<li><strong>Movie Format:</strong> <?php echo $event['format']; ?></li>
-										<li><strong>Selection Tool:</strong> <?php echo $event['selection_method']; ?></li>
-										<li><strong>Runtime:</strong> <?php echo $event['runtime']; ?> minutes</li>
-										<li><strong>MPAA:</strong> <?php echo get_MPAA($pdo,$event['winning_film']); ?></li>
-										<li><strong>Collective Movie Score:</strong> <?php echo get_freshness($movie_freshness); ?>%</li>
-										<li><strong>Winning Movie Score:</strong> <?php echo get_movie_avg_rating($pdo,$event['winning_film']); ?></li>
-										<li><strong>Average Movie Year:</strong> <?php echo round(array_sum($movie_years)/count($movie_years)); ?></li>
-										<li><strong>Winning Movie Year:</strong> <?php echo get_movie_year($pdo,$event['winning_film']);?></li>
-									</ul>
-								</div>
-							</div>
-
-
-
-						</div>
-					</div>
-				</div>
-				<?php endif;?>
-			<?php endforeach;?>
-
-			<script>nanobar.go(100);</script>
-		</div>
-	</div>
-</div>
-
-<?php template('footer'); ?>
+<?php include('template/footer.php');?>

@@ -1,29 +1,47 @@
 <header>
-	<div class="bg-red shadow-sm ">
-		<div class="container d-flex header-image text-center" style="height:233px;">
-			<a href="index.php">
-				<img src="images/MovieNightStats_v02B_Rectangle_Transparent.png" class="img-fluid">
-			</a>
-		</div>
-		<div class="container d-flex flex-wrap justify-content-between">
-			<a href="index.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-calendar-check"></i> Events</a>
-			<a href="attendance.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-users"></i> Attendance</a>
-			<a href="wheel.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-arrows-spin"></i> Spins</a>
-			<a href="movies.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-film"></i> Movies</a>
-			<a href="services.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-projector"></i> Services</a>
-			<a href="viewers.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-face-grin-stars"></i> Viewers</a>
-			<a href="years.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-calendar-days"></i> Years</a>
-		</div>
-		<?php
-		$page_array = Array('event_table.php', 'event_rows.php', 'event_posters.php');
-		if(in_array(basename($_SERVER['PHP_SELF']),$page_array)):?>
-			<div class="container d-flex flex-wrap justify-content-start">
-				<span class="nav-link text-white fw-bold">View Options:</span>
-				<a href="index.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-cards-blank"></i> Normal View</a>
-				<a href="event_table.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-table"></i> Table View</a>
-				<a href="event_rows.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-images"></i> Poster View</a>
-				<a href="event_posters.php" class="nav-link text-white fw-bold"><i class="fa-solid fa-image-portrait"></i> Winning Posters</a>
+	<div class="px-3 py-2 text-bg-dark shadow-lg red-back mb-5">
+		<div class="container">
+			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center">
+				<img class="d-block mx-auto" src="images/MovieNightStats_v02B_Rectangle_Transparent.png" width="400px" alt="Movie Night Stats Logo">
+				<ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+					<li>
+						<a href="index.php" class="nav-link text-white">
+							<i class="fa-light fa-projector d-block mx-auto text-center h4 mb-1"></i>
+							The Showings
+						</a>
+					</li>
+					<li>
+						<a href="movies.php" class="nav-link text-white">
+							<i class="fa-light fa-film d-block mx-auto text-center h4 mb-1"></i>
+							The Films
+						</a>
+					</li>
+					<li>
+						<a href="spins.php" class="nav-link text-white">
+							<i class="fa-light fa-arrows-spin d-block mx-auto text-center h4 mb-1"></i>
+							The Spins
+						</a>
+					</li>
+					<li>
+						<a href="services.php" class="nav-link text-white">
+							<i class="fa-light fa-diagram-project d-block mx-auto text-center h4 mb-1"></i>
+							The Services
+						</a>
+					</li>
+					<li>
+						<a href="viewers.php" class="nav-link text-white">
+							<i class="fa-light fa-users d-block mx-auto text-center h4 mb-1"></i>
+							The Cast
+						</a>
+					</li>
+					<li>
+						<a href="years.php" class="nav-link text-white">
+							<i class="fa-light fa-calendars d-block mx-auto text-center h4 mb-1"></i>
+							The Years
+						</a>
+					</li>
+				</ul>
 			</div>
-		<?php endif; ?>
+		</div>
 	</div>
 </header>

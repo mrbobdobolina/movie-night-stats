@@ -1,530 +1,432 @@
-<?php
+<?php include('common.php');?>
+<?php include('template/header.php');?>
+<script src="assets/echarts-5.6.0/echarts.min.js"></script>
+  <?php
+  $year_data_1 = get_year_data($pdo);
+  $week_data = get_day_of_week_summary($pdo);
+  $attend = get_yearly_attend($pdo);
+  $yearly_formats = get_yearly_format($pdo);
+  $cast = get_cast_list($pdo);
+  ?>
 
-require_once('common.php');
+  <body>
 
-template('header');
+<main>
 
-?>
+  <?php include('template/nav.php');?>
+  <?php //print_r($cast); ?>
 
+  <?php
+  $years = [];
+  $count = [];
+  $runtime = [];
+  foreach($year_data_1 as $year){
+    $years[] = $year['year'];
+    $count[] = $year['event_count'];
+    $runtime[] = $year['total_runtime'];
+  }
+  ?>
 
-<div class="album py-5 bg-light">
-	<div class="container">
+  <div class="container">
+    <div class="row gx-3 justify-content-center">
+        <div class="col-lg-4 col-xl-4 col-xxl-4">
+            <div class="card shadow-lg rounded-4 border-0 mb-2">
+              <div class="card-header pt-3 rounded-top-4">
+                <h5 class="">Showings by Year </h5>
+              </div>
+              <div class="card-body p-0">
+                <div id="spy" style="width:100%;height:200px;"></div>
+                <script type="text/javascript">
+                  // Initialize the echarts instance based on the prepared dom
+                  var spyChart = echarts.init(document.getElementById('spy'));
 
-		<p class="display-6 text-center mb-5">Our long and storied history.</p>
-		<p class="text-center mb-5"></p>
-		<?php
+                  // Specify the configuration items and data for the chart
+                  var spyoption = {
+                    grid: {
+                    top: "10%",    // Distance from the top
+                    bottom: "15%", // Distance from the bottom
+                    left: "10%",   // Distance from the left
+                    right: "10%"   // Distance from the right
+                },
+                    color: [ "#c1232b", "#27727b", "#fcce10", "#e87c25", "#9bca63", "#60c0dd"
+                  ],
+                    title: {
+                      text: ''
+                    },
+                    tooltip: {},
 
-		$yearly_events = Array();
-		$yearly_time = Array();
-		$yearly_attendance = Array();
-		$current_year = date('Y');
-		for($y = 2019; $y <= $current_year; $y++){
-			if(count_yearly_events($y) > 0){
-				$yearly_events[$y] = count_yearly_events($y);
-				$yearly_time[$y] = calculateYearlyWatchtime($y);
-				$yearly_attendance[$y] = calculate_attendance($y);
-				$year_list[] = $y;
-			}
-		}
-		$max_events = max($yearly_events);
-		$max_time = max($yearly_time);
-		$max_attendance = max($yearly_attendance);
-		arsort($year_list);
-		?>
+                    xAxis: {
+                      data: ['<?php echo implode("', '", $years); ?>'],
+                      axisLabel: {
+                        interval: 0
+                      }
+                    },
+                    yAxis: {},
+                    series: [
+                      {
+                        name: '',
+                        type: 'bar',
+                        data: [<?php echo implode(", ", $count); ?>],
+                        colorBy: 'data',
+                        barCategoryGap: '5%'
+                      }
+                    ]
+                  };
 
-		<!-- top row of charts -->
-		<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3">
-			<div class="col">
-				<div class="card ">
-					<div class="card-body">
-						<p>Movie events held by year.</p>
-						<table id="column-years" class="charts-css column show-labels show-data">
-							<thead>
-								<tr>
-									<th scope="col">Years</th>
-									<th scope="col">Movies</th>
-								</tr>
-							</thead>
-								<tbody style="height: 250px;">
-									<?php foreach($yearly_events as $key => $value):?>
-									<tr>
-										<th scope="row"><?php echo $key; ?> </th>
-										<td style="--size:<?php echo round($value/$max_events,2); ?>;"><span class="data"><?php echo $value; ?></span></td>
-									</tr>
-								<?php endforeach;?>
-								</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+            // Display the chart using the configuration items and data just specified.
+            spyChart.setOption(spyoption);
+          </script>
+              </div>
+            </div>
+          </div>
 
-			<div class="col">
-				<div class="card ">
-					<div class="card-body">
-						<p>Minutes watched by year.</p>
-						<table id="column-years" class="charts-css column show-labels show-data">
-							<thead>
-								<tr>
-									<th scope="col">Years</th>
-									<th scope="col">Minutes</th>
-								</tr>
-							</thead>
-								<tbody style="height: 250px;">
-									<?php foreach($yearly_time as $key => $value):?>
-									<tr>
-										<th scope="row"><?php echo $key; ?> </th>
-										<td style="--size:<?php echo round($value/$max_time,2); ?>;"><span class="data"><?php echo $value; ?></span></td>
-									</tr>
-								<?php endforeach;?>
-								</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+          <div class="col-lg-4 col-xl-4 col-xxl-4">
+            <div class="card shadow-lg rounded-4 border-0 mb-5">
+              <div class="card-header pt-3 rounded-top-4">
+                <h5 class="">Minutes Watched by Year </h5>
+              </div>
+              <div class="card-body p-0">
+                <div id="rt" style="width:100%;height:200px;"></div>
+                <script type="text/javascript">
+                  // Initialize the echarts instance based on the prepared dom
+                  var rtChart = echarts.init(document.getElementById('rt'));
 
-			<div class="col">
-				<div class="card ">
-					<div class="card-body">
-						<p>Attendance by year.</p>
-						<table id="column-years" class="charts-css column show-labels show-data">
-							<thead>
-								<tr>
-									<th scope="col">Years</th>
-									<th scope="col">Minutes</th>
-								</tr>
-							</thead>
-								<tbody style="height: 250px;">
-									<?php foreach($yearly_attendance as $key => $value):?>
-									<tr>
-										<th scope="row"><?php echo $key; ?> </th>
-										<td style="--size:<?php echo round($value/$max_attendance,2); ?>;"><span class="data"><?php echo $value; ?></span></td>
-									</tr>
-								<?php endforeach;?>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
+                  // Specify the configuration items and data for the chart
+                  var rtoption = {
+                    grid: {
+                    top: "10%",    // Distance from the top
+                    bottom: "15%", // Distance from the bottom
+                    left: "10%",   // Distance from the left
+                    right: "10%"   // Distance from the right
+                },
+                    color: [ "#c1232b", "#27727b", "#fcce10", "#e87c25", "#9bca63", "#60c0dd"
+                  ],
+                    title: {
+                      text: ''
+                    },
+                    tooltip: {},
 
+                    xAxis: {
+                      data: ['<?php echo implode("', '", $years); ?>'],
+                      axisLabel: {
+                        interval: 0
+                      }
+                    },
+                    yAxis: {},
+                    series: [
+                      {
+                        name: '',
+                        type: 'bar',
+                        data: [<?php echo implode(", ", $runtime); ?>],
+                        colorBy: 'data',
+                        barCategoryGap: '5%'
+                      }
+                    ]
+                  };
 
-		<?php //for($ii = $current_year; $ii >= 2019; $ii--):?>
-		<?php foreach($year_list as $ii): ?>
-			<div class="card p-2 mt-5 mb-3">
-				<p class="display-6 text-center mt-5 mb-2"> <?php echo $ii; ?> Stats</p>
-				<div class="row row-cols-1 row-cols-md-2 row-cols-md-2 row-cols-xl-3 g-3 justify-content-center">
+            // Display the chart using the configuration items and data just specified.
+            rtChart.setOption(rtoption);
+          </script>
+              </div>
+            </div>
+          </div>
 
-					<div class="col align-self-center">
-						<?php
-						$biggest_winner = biggest_winner($ii);
-						$winners = count($biggest_winner['top_winners']);
-						if($winners > 1){
-							//more than one person one! It's a tie!
-							$people = Array();
-							foreach($biggest_winner['top_winners'] as $person){
-								$people[] = getMoviegoerById($person);
-							}
-							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest_winner['count']." wins!";
-							$color = getMoviegoerColorById($biggest_winner['top_winners'][0]);
-						}
-						elseif($winners == 1) {
-							$message = getMoviegoerById($biggest_winner['top_winners'][0]) ." with ". $biggest_winner['count']." wins!";
-							$color = getMoviegoerColorById($biggest_winner['top_winners'][0]);
-						}
-						else {
-							$message = "(no wins yet)";
-							$color = "999999";
-						}
-						?>
-						<!-- card with information -->
-						<div class="card " style="background-color:#<?php echo $color; ?>; height:175px;">
-							<div class="card-body text-white">
-								<p class="bold">Most Wins:</p>
-								<div>
-									<p class="text-center message" id="wins_<?php echo $ii; ?>">
-										<?php echo $message;?>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script>
-					    fitty('#wins_<?php echo $ii; ?>');
-					</script>
+          <div class="col-lg-4 col-xl-4 col-xxl-4">
+            <div class="card shadow-lg rounded-4 border-0 mb-5">
+              <div class="card-header pt-3 rounded-top-4">
+                <h5 class="">Attendance by Year </h5>
+              </div>
+              <div class="card-body p-0">
+                <div id="at" style="width:100%;height:200px;"></div>
+                <script type="text/javascript">
+                  // Initialize the echarts instance based on the prepared dom
+                  var atChart = echarts.init(document.getElementById('at'));
 
+                  // Specify the configuration items and data for the chart
+                  var atoption = {
+                    grid: {
+                    top: "10%",    // Distance from the top
+                    bottom: "15%", // Distance from the bottom
+                    left: "10%",   // Distance from the left
+                    right: "10%"   // Distance from the right
+                },
+                    color: [ "#c1232b", "#27727b", "#fcce10", "#e87c25", "#9bca63", "#60c0dd"
+                  ],
+                    title: {
+                      text: ''
+                    },
+                    tooltip: {},
 
-					<div class="col align-self-center">
-						<?php
-						$biggest_spinner = biggest_spinner($ii);
-						$winners = count($biggest_spinner['top_spinner']);
-						if($winners > 1){
-							//more than one person one! It's a tie!
-							$people = Array();
-							foreach($biggest_spinner['top_spinner'] as $person){
-								$people[] = getMoviegoerById($person);
-							}
-							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest_spinner['count']." spins!";
-							$color = getMoviegoerColorById($biggest_spinner['top_spinner'][0]);
-						}
-						elseif($winners == 1) {
-							$message = getMoviegoerById($biggest_spinner['top_spinner'][0]) ." with ". $biggest_spinner['count']." spins!";
-							$color = getMoviegoerColorById($biggest_spinner['top_spinner'][0]);
-						}
-						else {
-							$message = "(no spins yet)";
-							$color = "999999";
-						}
-						?>
-						<div class="card " style="background-color:#<?php echo $color; ?>; height:175px;">
-							<div class="card-body text-white">
-								<p class="bold">Most Spins:</p>
-								<div>
-									<p class="text-center" id="spins_<?php echo $ii; ?>">
-										<?php echo $message;?>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script>
-					    fitty('#spins_<?php echo $ii; ?>');
-					</script>
+                    xAxis: {
+                      data: ['<?php echo implode("', '", $years); ?>'],
+                      axisLabel: {
+                        interval: 0
+                      }
+                    },
+                    yAxis: {},
+                    series: [
+                      {
+                        name: '',
+                        type: 'bar',
+                        data: [<?php echo implode(", ", $attend); ?>],
+                        colorBy: 'data',
+                        barCategoryGap: '5%'
+                      }
+                    ]
+                  };
 
+            // Display the chart using the configuration items and data just specified.
+            atChart.setOption(atoption);
+          </script>
+              </div>
+            </div>
+          </div>
 
-					<div class="col align-self-center">
-						<?php
-						$biggest = highest_attendance($ii);
-						$winners = count($biggest['top']);
-						if($winners > 1){
-							//more than one person one! It's a tie!
-							$people = Array();
-							foreach($biggest['top'] as $person){
-								$people[] = getMoviegoerById($person);
-							}
-							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." events!";
-							$color = getMoviegoerColorById($biggest['top'][0]);
-						}
-						elseif($winners == 1) {
-							$message = getMoviegoerById($biggest['top'][0]) ." with ". $biggest['count']." events!";
-							$color = getMoviegoerColorById($biggest['top'][0]);
-						}
-						else {
-							$message = "(no events yet)";
-							$color = "999999";
-						}
-						?>
-						<div class="card " style="background-color:#<?php echo $color; ?>; height:175px;">
-							<div class="card-body text-white ">
-								<p class="bold">Top Attendance:</p>
-								<div>
-									<p class="text-center" id="attend_<?php echo $ii; ?>">
-										<?php echo $message;?>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script>
-					    fitty('#attend_<?php echo $ii; ?>');
-					</script>
+        </div>
 
-					<div class="col align-self-center">
-						<?php
-						$biggest = biggest_blank($ii, 'selection_method');
-						$winners = count($biggest['top']);
-						if($winners > 1){
-							//more than one person one! It's a tie!
-							$people = Array();
-							foreach($biggest['top'] as $person){
-								$people[] = $person;
-							}
-							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." events!";
-						}
-						elseif($winners == 1) {
-							$message = $biggest['top'][0] ." with ". $biggest['count']." events!";
-						}
-						else {
-							$message = "(no events yet)";
-						}
-						?>
-						<div class="card " style="height:175px;">
-							<div class="card-body">
-								<p class="bold">Top Selection Method:</p>
-								<div>
-									<p class="text-center" id="selection_<?php echo $ii; ?>">
-										<?php echo $message;?>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script>
-					    fitty('#selection_<?php echo $ii; ?>');
-					</script>
+        <div class="row gx-3 justify-content-center">
+          <div class="col-lg-12 col-xl-12 col-xxl-12">
+            <div class="card shadow-lg rounded-4 border-0 mb-3">
+              <div class="card-header pt-3 rounded-top-4">
+                <h5 class="">Events by Day of Week</h5>
+              </div>
+              <div class="card-body p-0">
+                <div id="wkd" style="width:100%;height:200px;"></div>
+                <script type="text/javascript">
+                  // Initialize the echarts instance based on the prepared dom
+                  var wkdChart = echarts.init(document.getElementById('wkd'));
 
-					<div class="col align-self-center">
-						<?php
-						$biggest = biggest_blank($ii, 'winning_wedge', TRUE);
-						$winners = count($biggest['top']);
-						if($winners > 1){
-							//more than one person one! It's a tie!
-							$people = Array();
-							foreach($biggest['top'] as $person){
-								$people[] = $person;
-							}
-							$message = "It's a ".$winners."-way tie between #s ".implode(' and ', $people)." with ". $biggest['count']." events!";
-						}
-						elseif($winners == 1) {
-							$message = "#".$biggest['top'][0] ." with ". $biggest['count']." events!";
-						}
-						else {
-							$message = "(no events yet)";
-						}
-						?>
-						<div class="card align-self-center" style="height:175px;">
-							<div class="card-body">
-								<p class="bold">Most Spun Number:</p>
-								<div>
-									<p class="text-center" id="number_<?php echo $ii; ?>">
-										<?php echo $message;?>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script>
-					    fitty('#number_<?php echo $ii; ?>');
-					</script>
+                  // Specify the configuration items and data for the chart
+                  var wkdoption = {
+                    grid: {
+                    top: "10%",    // Distance from the top
+                    bottom: "15%", // Distance from the bottom
+                    left: "5%",   // Distance from the left
+                    right: "5%"   // Distance from the right
+                },
+                    color: [ "#c1232b", "#27727b", "#fcce10", "#e87c25", "#9bca63", "#60c0dd"
+                  ],
+                    title: {
+                      text: ''
+                    },
+                    tooltip: {},
 
-					<div class="col align-self-center">
-						<?php
-						$biggest = biggest_blank($ii, 'format');
-						$winners = count($biggest['top']);
-						if($winners > 1){
-							//more than one person one! It's a tie!
-							$people = Array();
-							foreach($biggest['top'] as $person){
-								$people[] = $person;
-							}
-							$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." events!";
-							$color = get_service_color_v3($biggest['top'][0]);
-						}
-						elseif($winners == 1) {
-							$message = $biggest['top'][0] ." with ". $biggest['count']." events!";
-							$color = get_service_color_v3($biggest['top'][0]);
-						}
-						else {
-							$message = "(no events yet)";
-							$color = "999999";
-						}
-						?>
-						<div class="card " style="background-color:<?php echo $color; ?>; height:175px;">
-							<div class="card-body text-white">
-								<p class="bold">Top Service:</p>
-								<div>
-									<p class="text-center" id="service_<?php echo $ii; ?>">
-										<?php echo $message;?>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script>
-					    fitty('#service_<?php echo $ii; ?>');
-					</script>
+                    xAxis: {
+                      data: ['<?php $day_names = array_keys($week_data);
+                      echo implode("', '", $day_names); ?>'],
+                      axisLabel: {
+                        interval: 0
+                      }
+                    },
+                    yAxis: {},
+                    series: [
+                      {
+                        name: '',
+                        type: 'bar',
+                        data: [<?php echo implode(", ", $week_data); ?>],
+                        colorBy: 'data',
+                        barCategoryGap: '5%'
+                      }
+                    ]
+                  };
 
-					<div class="col align-self-center">
-						<?php
-						$biggest = most_requested_film($ii);
-						$winners = count($biggest['top']);
-						if($winners > 1){
-							//more than one person one! It's a tie!
-							if($winners != 12){
-								$people = Array();
-								foreach($biggest['top'] as $person){
-									$people[] = get_movie_by_id($pdo,$person);
-								}
-								$message = "It's a ".$winners."-way tie between ".implode(' and ', $people)." with ". $biggest['count']." requests!";
-							} else {
-								$message = "(All the films are tied.)";//probably only one movie night for this year
-							}
-						} elseif($winners == 1) {
-							$message = get_movie_by_id($pdo,$biggest['top'][0]) ." with ". $biggest['count']." requests!";
-						} else {
-							$message = "(no requests yet)";
-						}
-						?>
-						<div class="card align-self-center" style="height:175px; overflow:hidden;">
-							<div class="card-body" >
-								<p class="bold">Most Requested Films:</p>
-								<div>
-									<p class="text-center" id="requested_<?php echo $ii; ?>">
-										<?php echo $message;?>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script>
-					    fitty('#requested_<?php echo $ii; ?>');
-					</script>
+            // Display the chart using the configuration items and data just specified.
+            wkdChart.setOption(wkdoption);
+          </script>
+              </div>
+            </div>
+          </div>
+        </div>
 
-					<div class="col align-self-center">
-						<?php
-						$won_films = find_best_or_worst_watched_film_with_year_option($best_or_worst = "best", $year = $ii);
-						unset($winners);
-						$top_rating = $won_films[0]['avg_rating'];
-						foreach($won_films as $aFilm ){
-							if($aFilm['avg_rating'] == $top_rating){
-								$winners[] = $aFilm;
-							} else {
-								break;
-							}
-						}
+    </div>
+    <?php
+    $yearly_counts['winner'] = get_yearly_category_counts($pdo, 'winning_moviegoer');
+    $yearly_counts['spinner'] = get_yearly_category_counts($pdo, 'spinner');
+    $yearly_counts['wedge'] = get_yearly_category_counts($pdo, 'winning_wedge');
+    $yearly_counts['selection'] = get_yearly_category_counts($pdo, 'selection_method');
+    $yearly_counts['format'] = get_yearly_category_counts($pdo, 'format');
+    ?>
 
-						unset($names);
-						$names = Array();
-						foreach($winners as $film){
-							if(!in_array($film['name'], $names)){
-								$names[] = $film['name'];
-							}
-						}
+    <div class="container mt-5">
+      <div class="row gx-3 justify-content-center">
+        <?php foreach(array_reverse($yearly_formats, true) as $key => $value):?>
 
-						$count_winners = count($names);
-						if($count_winners > 1){
-							//more than one person one! It's a tie!
-							$people = Array();
+          <div class="card p-0 mt-4">
+            <div class="card-header pt-3 text-center text-bg-dark">
+              <h2><?php echo $key; ?> Stats</h2>
+            </div>
+            <div class="card-body">
+              <div class="row gx-2 gy-2 justify-content-center">
+                <?php $coming_soon = Array('winner' => 'Most Wins', 'spinner' => 'Most Spins',  'selection' => 'Top Selection Method', 'wedge' => 'Most Spun Number', 'format' => 'Top Service');
 
-							$message = "It's a ".$count_winners."-way tie between ".implode(' and ', $names)." with ". round($top_rating,2)."% average rating!";
-						}
-						elseif($count_winners == 1) {
-							$message = $winners[0]['name'] ." with ". round($top_rating,1)."% average rating!";
-						}
-						else {
-							$message = "(no films yet)";
-						}
+                $movie_data = get_movie_data_for_years($pdo, $key);
+                //print_r($movie_data);
+                $rankings = [];
+                $movie_names = [];
+                foreach($movie_data as $film){
+                  $movie_names[$film['id']] = $film['name'];
+                  $avg = calculate_average([$film['tomatometer'],$film['rt_audience'],$film['imdb']]);
+                  if($avg != 0){
+                    $rankings[$film['id']] = $avg;
+                  }
+                }
+                $top_film_score = max($rankings);
+                $top_film = array_search($top_film_score, $rankings);
+                $bottom_film_score = min($rankings);
+                $bottom_film = array_search($bottom_film_score, $rankings);
+                 ?>
+              <?php foreach($coming_soon as $query => $name):?>
+                <div class="col-4">
+                  <div class="card">
+                    <div class="card-header">
+                      <h5 class="pt-2"><?php echo $name;?></h5>
 
-						?>
-						<div class="card align-self-center" style="height:175px;">
-							<div class="card-body" >
-								<p class="bold">Highest Rated Watched Film:</p>
-								<div>
-									<p class="text-center" id="ratehi_<?php echo $ii; ?>">
-										<?php echo $message;?>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script>
-					    fitty('#ratehi_<?php echo $ii; ?>');
-					</script>
+                    </div>
+                    <div class="card-body">
+                      <?php
 
+                      if (array_key_first($yearly_counts[$query][$key]) === 0) {
+                          unset($yearly_counts[$query][$key][0]);
+                      }
+                      //print_r($yearly_counts[$query][$key]);
+                      $max_value = max($yearly_counts[$query][$key]);
+                      $winners = array_keys($yearly_counts[$query][$key], $max_value);
 
-					<div class="col align-self-center">
-						<?php
+                      if($max_value > 1){
+                        $win_text = "wins";
+                      } else {
+                        $win_text = "win";
+                      }
+                      if($query == 'winner' OR $query == 'spinner'){
+                        if(count($winners) > 1){
+                          echo "It's a ".count($winners)."-tie between ".implode(" and ",array_map(fn($id) => $cast[$id]['name'] ?? $id, $winners)). ' with '.$max_value.' '.  $win_text.'!';
+                        } else {
+                          echo $cast[$winners[0]]['name'].' with '.$max_value.' '.  $win_text.'!';
+                        }
+                      } elseif($query == "format" OR $query == 'wedge' OR $query == 'selection') {
+                        if(count($winners) > 1){
+                          echo "It's a ".count($winners)."-tie between ".implode(" and ",$winners). ' with '.$max_value.' '.  $win_text.'!';
+                        } else {
+                          echo $winners[0].' with '.$max_value.' '.  $win_text.'!';
+                        }
+                      }
+                      //print_r($winners);
+                      ?>
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach; ?>
+              <div class="col-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="pt-2">Top Rated Film</h5>
 
-						$won_films = find_best_or_worst_watched_film_with_year_option($best_or_worst = "worst", $year = $ii);
-						unset($winners);
-						$top_rating = $won_films[0]['avg_rating'];
-						foreach($won_films as $aFilm ){
-							if($aFilm['avg_rating'] == $top_rating){
-								$winners[] = $aFilm;
-							} else {
-								break;
-							}
-						}
+                  </div>
+                  <div class="card-body">
+                    <?php echo $movie_names[$top_film];?> -
+                    <?php echo $top_film_score;?>%
+                  </div>
+                </div>
+              </div>
 
-						unset($names);
-						$names = Array();
-						foreach($winners as $film){
-							if(!in_array($film['name'], $names)){
-								$names[] = $film['name'];
-							}
-						}
+              <div class="col-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="pt-2">Worst Rated Film</h5>
 
-						$count_winners = count($names);
-						if($count_winners > 1){
-							//more than one person one! It's a tie!
-							$people = Array();
-							$message = "It's a ".$count_winners."-way tie between ".implode(' and ', $names)." with ". round($top_rating,2)."% average rating!";
-						}
-						elseif($count_winners == 1) {
-							$message = $winners[0]['name'] ." with ". round($top_rating,1)."% average rating!";
-						}
-						else {
-							$message = "(no films yet)";
-						}
+                  </div>
+                  <div class="card-body">
+                    <?php echo $movie_names[$bottom_film];?> -
+                    <?php echo $bottom_film_score;?>%
+                  </div>
+                </div>
+              </div>
 
-						?>
-						<div class="card align-self-center" style="height:175px;">
-							<div class="card-body" >
-								<p class="bold">Worst Rated Watched Film:</p>
-								<div>
-									<p class="text-center" id="ratelo_<?php echo $ii; ?>">
-										<?php echo $message;?>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script>
-					    fitty('#ratelo_<?php echo $ii; ?>');
-					</script>
+              <?php $requests = count_showings($pdo, $key);
+              //print_r($requests);
+              $top_request = max($requests);
+              $top_request_key = array_search($top_request, $requests);
 
-					<?php
+              if($top_request > 1){
+                $wins = "times";
+              } else {
+                $wins = "time";
+              }
+              //print_r($requests); ?>
+              <div class="col-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h5 class="pt-2">Most Requested Film</h5>
 
-					unset($format_m);
-					unset($count_m);
-					unset($color_m);
+                  </div>
+                  <div class="card-body">
+                    <?php echo get_film_name($pdo, $top_request_key);?> was requested <?php echo $top_request; ?> <?php echo $wins; ?>.
+                  </div>
+                </div>
+              </div>
 
-					$colors = get_service_color_v3();
+              </div>
 
-					$minutes_watched = count_minutes_per_service($ii);
-					//print_r($minutes_watched);
-					foreach($minutes_watched as $item){
-						$format_m[] = $item['format'];
-						$count_m[] = $item['SUM(`runtime`)'];
+              <div class="card mt-3">
+                <?php $yearly_minutes_watched = yearly_minutes_watched($pdo, $key);
+                $service_colors =  get_service_colors($pdo);
+                $data_string = [];
+                foreach($yearly_minutes_watched as $k => $v){
+                  $data_string[] = "{ value: $v, itemStyle: { color: '$service_colors[$k]'} }";
+                }
+                //print_r($yearly_minutes_watched); ?>
+                  <div class="card-header pt-2">
+                    <h5 class="pt-2">Minutes Watched Per Service in <?php echo $key; ?></h5>
+                  </div>
+                  <div class="card-body">
+                    <div id="ymw<?php echo $key; ?>" style="width:100%;height:400px;"></div>
+                    <script type="text/javascript">
+                      // Initialize the echarts instance based on the prepared dom
+                      var ymw<?php echo $key; ?>Chart = echarts.init(document.getElementById('ymw<?php echo $key; ?>'));
 
-						$color_m[] = $colors[$item['format']];
+                      // Specify the configuration items and data for the chart
+                      var ymw<?php echo $key; ?>option = {
+                        grid: {
+                        top: "10%",    // Distance from the top
+                        bottom: "15%", // Distance from the bottom
+                        left: "5%",   // Distance from the left
+                        right: "5%"   // Distance from the right
+                    },
 
-					}
+                        title: {
+                          text: ''
+                        },
+                        tooltip: {},
 
-					?>
-					<canvas id="myTimeChart<?php echo $ii;?>" width="400" height="150" style="position:relative; !important"></canvas>
+                        xAxis: {
+                          data: ['<?php $names = array_keys($yearly_minutes_watched);
+                          echo implode("', '", $names); ?>'],
+                          axisLabel: {
+                            interval: 0
+                          }
+                        },
+                        yAxis: {},
+                        series: [
+                          {
+                            name: '',
+                            type: 'bar',
+                            data: [<?php echo implode(", ", $data_string); ?>],
+                            colorBy: 'data',
+                            barCategoryGap: '5%'
+                          }
+                        ]
+                      };
 
-					<script>
-					var ctx = document.getElementById('myTimeChart<?php echo $ii;?>').getContext('2d');
-					var myChart = new Chart(ctx, {
-						type: 'bar',
-						data: {
-							labels: ['<?php echo implode("','", $format_m); ?>'],
-							datasets: [{
-								label: 'Minutes Watched on Each Service',
-								data: [<?php echo implode(',', $count_m); ?>],
-								backgroundColor: [
-									'<?php echo implode("','", $color_m); ?>'
-								]
-							}]
-						},
-						options: {
-							scales: {
-								y: {
-									beginAtZero: true
-								}
-							}
-						}
-					});
-					</script>
+                // Display the chart using the configuration items and data just specified.
+                ymw<?php echo $key; ?>Chart.setOption(ymw<?php echo $key; ?>option);
+              </script>
+                  </div>
+                </div>
 
-				</div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+    </div>
 
-			</div>
-		<?php endforeach;?>
-
-	</div>
-</div>
-
-
-
-<?php template('footer');?>
+<?php include('template/footer.php');?>
